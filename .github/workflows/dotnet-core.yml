@@ -24,7 +24,7 @@ jobs:
     - name: Test
       run: dotnet test --no-restore --verbosity normal
     - name: Publish  
-     uses: brandedoutcast/publish-nuget@v2.5.2  
-     with:   
-      PROJECT_FILE_PATH: Tessin.Bladerunner/Tessin.Bladerunner.csproj
-      NUGET_KEY: ${{secrets.NUGET_API_KEY}} 
+      uses: brandedoutcast/publish-nuget@v2.5.2  
+      with:   
+       PROJECT_FILE_PATH: Tessin.Bladerunner/Tessin.Bladerunner.csproj
+       NUGET_KEY: ${{secrets.NUGET_API_KEY}} 
