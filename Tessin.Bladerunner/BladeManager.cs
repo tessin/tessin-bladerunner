@@ -29,7 +29,7 @@ namespace Tessin.Bladerunner
                 _stack.Pop();
             }
         }
-	
+
         internal void Render()
         {
             var blades = _stack.Select(e => e.Render()).Reverse().ToList();
@@ -39,6 +39,13 @@ namespace Tessin.Bladerunner
         object ToDump()
         {
             return _dc;
+        }
+
+        public void Refresh()
+        {
+            var blade = _stack.Peek();
+            blade.Render(true);
+            Render();
         }
     }
 }

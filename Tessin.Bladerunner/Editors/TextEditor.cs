@@ -28,9 +28,9 @@ namespace Tessin.Bladerunner.Editors
             );
         }
 
-        public void Save(T obj)
+        public void Save(T obj, FieldInfo fieldInfo)
         {
-            
+            fieldInfo.SetValue(obj, _textBox.Text);
         }
     }
 }

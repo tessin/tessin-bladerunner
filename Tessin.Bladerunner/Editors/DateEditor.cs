@@ -39,9 +39,12 @@ namespace Tessin.Bladerunner.Editors
             );
         }
 
-        public void Save(T obj)
+        public void Save(T obj, FieldInfo fieldInfo)
         {
-            throw new System.NotImplementedException();
+            fieldInfo.SetValue(obj,
+                fieldInfo.FieldType == typeof(DateTimeOffset)
+                    ? DateTimeOffset.Parse(_textBox.Text)
+                    : DateTime.Parse(_textBox.Text));
         }
     }
 }

@@ -24,9 +24,8 @@ namespace Tessin.Bladerunner.Editors
         {
             object value = fieldInfo.GetValue(obj);
 
-            var labelText = _options.Where(e => e.Value == value).Select(e => e.Label).FirstOrDefault();
+            var labelText = _options.Where(e => e.Value.Equals(value)).Select(e => e.Label).FirstOrDefault();
 
-            //todo: why not selected?
             _dataListBox = new DataListBox(_options.Select(e => e.Label))
             {
                 Text = labelText
@@ -40,9 +39,9 @@ namespace Tessin.Bladerunner.Editors
             );
         }
 
-        public void Save(T obj)
+        public void Save(T obj, FieldInfo fieldInfo)
         {
-            
+            fieldInfo.SetValue(obj, _options.Where(e => e.Label == _dataListBox.Text).Select(e => e.Value).FirstOrDefault());
         }
         
     }
