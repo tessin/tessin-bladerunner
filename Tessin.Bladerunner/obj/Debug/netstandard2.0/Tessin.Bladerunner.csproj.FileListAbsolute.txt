@@ -1,0 +1,7 @@
+C:\Repos\Tessin.Bladerunner\Tessin.Bladerunner\obj\Debug\netstandard2.0\Tessin.Bladerunner.AssemblyInfoInputs.cache
+C:\Repos\Tessin.Bladerunner\Tessin.Bladerunner\obj\Debug\netstandard2.0\Tessin.Bladerunner.AssemblyInfo.cs
+C:\Repos\Tessin.Bladerunner\Tessin.Bladerunner\bin\Debug\netstandard2.0\Tessin.Bladerunner.deps.json
+C:\Repos\Tessin.Bladerunner\Tessin.Bladerunner\bin\Debug\netstandard2.0\Tessin.Bladerunner.dll
+C:\Repos\Tessin.Bladerunner\Tessin.Bladerunner\bin\Debug\netstandard2.0\Tessin.Bladerunner.pdb
+C:\Repos\Tessin.Bladerunner\Tessin.Bladerunner\obj\Debug\netstandard2.0\Tessin.Bladerunner.dll
+C:\Repos\Tessin.Bladerunner\Tessin.Bladerunner\obj\Debug\netstandard2.0\Tessin.Bladerunner.pdb
