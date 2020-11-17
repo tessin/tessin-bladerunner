@@ -31,10 +31,18 @@ namespace Tessin.Bladerunner.Editors
 
             var editors = _mapper.Map(fields).ToList();
 
-            rendered.AddRange(fields.Zip(editors, (field, editor) =>  (field, editor))
-                .Select(e => e.editor.Render(_obj, e.field)).Where(e => e!=null));
+            var zipped = fields.Zip(editors, (field, editor) => (field, editor)).ToList();
+
+            rendered.AddRange(zipped.Select(e => e.editor.Render(_obj, e.field)).Where(e => e!=null));
             
-            rendered.Add(new Button("Save"));
+            rendered.Add(new Button("Save", (_) =>
+            {
+                foreach (var valueTuple in zipped)
+                {
+                    valueTuple.editor.Save(_obj, valueTuple.field);
+                }
+                _save?.Invoke(_obj);
+            }));
 
             return LINQPad.Util.VerticalRun(rendered);
         }

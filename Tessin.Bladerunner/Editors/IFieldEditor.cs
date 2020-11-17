@@ -7,7 +7,7 @@ namespace Tessin.Bladerunner.Editors
 
         object Render(T obj, FieldInfo fieldInfo);
 
-        void Save(T obj);
+        void Save(T obj, FieldInfo fieldInfo);
 
     }
 }

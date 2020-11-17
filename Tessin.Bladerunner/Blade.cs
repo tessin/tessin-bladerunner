@@ -1,4 +1,5 @@
-﻿using LINQPad.Controls;
+﻿using System.ComponentModel;
+using LINQPad.Controls;
 
 namespace Tessin.Bladerunner
 {
@@ -19,9 +20,9 @@ namespace Tessin.Bladerunner
             Renderer = renderer;
         }
 	
-        public object Render()
+        public object Render(bool refresh = false)
         {
-            if (_rendered == null)
+            if (_rendered == null || refresh)
             {
                 _rendered = LINQPad.Util.VerticalRun(
                     new Hyperlink("Close", (_) => {
@@ -30,7 +31,7 @@ namespace Tessin.Bladerunner
                     }),
                     Renderer.Render(this)
                 );
-            }
+            }  
             return _rendered;
         }
 
@@ -38,6 +39,18 @@ namespace Tessin.Bladerunner
         {
             Manager.PopTo(this.Index);
             Manager.PushBlade(renderer);
+        }
+
+        public void PopToPreviousAndRefresh()
+        {
+            Manager.PopTo(this.Index-1);
+            Manager.Refresh();
+        }
+
+        public void Refresh()
+        {
+            this.Render(true);
+            this.Manager.Render();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Tessin.Bladerunner.Editors
             return null;
         }
 
-        public void Save(T obj)
+        public void Save(T obj, FieldInfo fieldInfo)
         {
             //ignore
         }
