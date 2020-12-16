@@ -39,21 +39,25 @@ namespace Tessin.Bladerunner.Editors
                 {
                     yield return factory.Literal();
                 }
+                else if (field.FieldType == typeof(bool) || field.FieldType == typeof(bool?))
+                {
+                    yield return factory.Bool();
+                }
                 else if (field.FieldType == typeof(string))
                 {
                     yield return factory.Text();
                 }
-                else if (field.FieldType == typeof(decimal))
+                else if (field.FieldType.IsNumeric())
                 {
-                    yield return factory.Decimal();
+                    yield return factory.Number();
                 }
-                else if (field.FieldType == typeof(DateTime) || field.FieldType == typeof(DateTimeOffset))
+                else if (field.FieldType.IsDate())
                 {
                     yield return factory.Date();
                 }
                 else
                 {
-                    yield return factory.Hidden();
+                    yield return factory.Literal();
                 }
             }
         }

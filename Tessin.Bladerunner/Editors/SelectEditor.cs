@@ -8,14 +8,14 @@ using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors
 {
-    public class DataListEditor<T> : IFieldEditor<T>
+    public class SelectEditor<T> : IFieldEditor<T>
     {
 
-        private DataListBox _dataListBox;
+        private SelectBox _selectBox;
 
         private readonly Option[] _options;
 
-        public DataListEditor(Option[] options)
+        public SelectEditor(Option[] options)
         {
             _options = options;
         }
@@ -24,24 +24,24 @@ namespace Tessin.Bladerunner.Editors
         {
             object value = fieldInfo.GetValue(obj);
 
-            var labelText = _options.Where(e => e.Value.Equals(value)).Select(e => e.Label).FirstOrDefault();
+            var selectedOption = _options.Where(e => e.Value.Equals(value)).Select(e => e.Label).FirstOrDefault();
 
-            _dataListBox = new DataListBox(_options.Select(e => e.Label))
+            _selectBox = new SelectBox(_options.Select(e => e.Label).ToArray())
             {
-                Text = labelText
+                SelectedOption = selectedOption
             };
 
             var label = new FieldLabel(fieldInfo.Name);
 
             return Util.VerticalRun(
                 label,
-                _dataListBox
+                _selectBox
             );
         }
 
         public void Save(T obj, FieldInfo fieldInfo)
         {
-            fieldInfo.SetValue(obj, _options.Where(e => e.Label == _dataListBox.Text).Select(e => e.Value).FirstOrDefault());
+            fieldInfo.SetValue(obj, _options[_selectBox.SelectedIndex].Value);
         }
 
         public bool Validate(T obj, FieldInfo fieldInfo)

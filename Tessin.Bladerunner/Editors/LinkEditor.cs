@@ -49,5 +49,10 @@ namespace Tessin.Bladerunner.Editors
         {
             //ignore
         }
+
+        public bool Validate(T obj, FieldInfo fieldInfo)
+        {
+            return true;
+        }
     }
 }

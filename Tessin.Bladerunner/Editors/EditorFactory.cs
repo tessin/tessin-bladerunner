@@ -6,9 +6,9 @@ namespace Tessin.Bladerunner.Editors
     public class EditorFactory<T>
     {
         
-        public IFieldEditor<T> Text()
+        public IFieldEditor<T> Text(bool isMultiLine = false)
         {
-            return new TextEditor<T>();
+            return new TextEditor<T>(isMultiLine);
         }
 
         public IFieldEditor<T> Literal()
@@ -21,14 +21,19 @@ namespace Tessin.Bladerunner.Editors
             return new DateEditor<T>();
         }
 
+        public IFieldEditor<T> Bool()
+        {
+            return new BoolEditor<T>();
+        }
+
         public IFieldEditor<T> Hidden()
         {
             return new HiddenEditor<T>();
         }
 
-        public IFieldEditor<T> Decimal()
+        public IFieldEditor<T> Number()
         {
-            return new DecimalEditor<T>();
+            return new NumberEditor<T>();
         }
 
         public IFieldEditor<T> Link(Func<T,string> func, Action<T> onAction = null)
@@ -36,9 +41,14 @@ namespace Tessin.Bladerunner.Editors
             return new LinkEditor<T>(func, onAction);
         }
 
-        public IFieldEditor<T> DataList(IEnumerable<Option> options)
+        public IFieldEditor<T> DataList(Option[] options)
         {
             return new DataListEditor<T>(options);
+        }
+
+        public IFieldEditor<T> Select(Option[] options)
+        {
+            return new SelectEditor<T>(options);
         }
 
     }

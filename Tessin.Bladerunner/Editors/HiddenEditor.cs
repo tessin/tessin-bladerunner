@@ -11,7 +11,12 @@ namespace Tessin.Bladerunner.Editors
 
         public void Save(T obj, FieldInfo fieldInfo)
         {
-            //ignore
+            // ignore
+        }
+
+        public bool Validate(T obj, FieldInfo fieldInfo)
+        {
+            return true;
         }
     }
 }

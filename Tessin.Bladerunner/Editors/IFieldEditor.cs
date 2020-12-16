@@ -9,5 +9,7 @@ namespace Tessin.Bladerunner.Editors
 
         void Save(T obj, FieldInfo fieldInfo);
 
+        bool Validate(T obj, FieldInfo fieldInfo);
+
     }
 }

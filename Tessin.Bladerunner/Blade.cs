@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using LINQPad.Controls;
 
 namespace Tessin.Bladerunner
@@ -24,13 +25,21 @@ namespace Tessin.Bladerunner
         {
             if (_rendered == null || refresh)
             {
-                _rendered = LINQPad.Util.VerticalRun(
-                    new Hyperlink("Close", (_) => {
-                        Manager.PopTo(Index-1);
-                        Manager.Render();
-                    }),
-                    Renderer.Render(this)
-                );
+                try
+                {
+                    _rendered = LINQPad.Util.VerticalRun(
+                        new Hyperlink("Close", (_) => {
+                            Manager.PopTo(Index-1);
+                            Manager.Render();
+                        }),
+                        Renderer.Render(this)
+                    );
+                }
+                catch (Exception e)
+                {
+                    return e;
+                }
+               
             }  
             return _rendered;
         }

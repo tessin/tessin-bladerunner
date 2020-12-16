@@ -37,6 +37,8 @@ namespace Tessin.Bladerunner.Editors
             
             rendered.Add(new Button("Save", (_) =>
             {
+                bool valid = zipped.Aggregate(true, (current, valueTuple) => current & valueTuple.editor.Validate(_obj, valueTuple.field));
+                if (!valid) return;
                 foreach (var valueTuple in zipped)
                 {
                     valueTuple.editor.Save(_obj, valueTuple.field);

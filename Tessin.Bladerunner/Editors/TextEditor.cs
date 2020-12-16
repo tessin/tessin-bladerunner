@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mime;
 using System.Reflection;
 using LINQPad;
 using LINQPad.Controls;
@@ -8,17 +9,27 @@ namespace Tessin.Bladerunner.Editors
 {
     public class TextEditor<T> : IFieldEditor<T>
     {
-        private TextBox _textBox;
+        private Control _textBox;
 
-        public TextEditor()
+        private readonly bool _isMultiLine;
+
+        public TextEditor(bool isMultiLine = false)
         {
+            _isMultiLine = isMultiLine;
         }
 
         public object Render(T obj, FieldInfo fieldInfo)
         {
             var value = Convert.ToString(fieldInfo.GetValue(obj));
 
-            _textBox = new TextBox(value);
+            if (_isMultiLine)
+            {
+                _textBox = new TextArea(value, columns: 40);
+            }
+            else
+            {
+                _textBox = new TextBox(value);
+            }
 
             var label = new FieldLabel(fieldInfo.Name);
 
@@ -30,7 +41,12 @@ namespace Tessin.Bladerunner.Editors
 
         public void Save(T obj, FieldInfo fieldInfo)
         {
-            fieldInfo.SetValue(obj, _textBox.Text);
+            fieldInfo.SetValue(obj, _textBox.GetType().GetProperty("Text").GetValue(_textBox));
+        }
+
+        public bool Validate(T obj, FieldInfo fieldInfo)
+        {
+            return true;
         }
     }
 }
