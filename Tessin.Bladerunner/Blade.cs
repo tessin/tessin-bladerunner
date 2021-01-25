@@ -50,7 +50,12 @@ namespace Tessin.Bladerunner
             Manager.PushBlade(renderer);
         }
 
-        public void PopToPreviousAndRefresh()
+        public void PopTo()
+        {
+            Manager.PopTo(this.Index - 1);
+        }
+
+        public void PopToAndRefresh()
         {
             Manager.PopTo(this.Index-1);
             Manager.Refresh();
