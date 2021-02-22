@@ -11,40 +11,53 @@ namespace Tessin.Bladerunner.Editors
     {
         private Control _textBox;
 
-        private readonly bool _isMultiLine;
+        private readonly bool _multiLine;
 
-        public TextEditor(bool isMultiLine = false)
+        private readonly bool _fixedFont;
+
+        public TextEditor(bool multiLine = false, bool fixedFont = false)
         {
-            _isMultiLine = isMultiLine;
+            _multiLine = multiLine;
+            _fixedFont = fixedFont;
         }
 
-        public object Render(T obj, FieldInfo fieldInfo)
+        public object Render(T obj, Field<T> fieldInfo, Action preview)
         {
             var value = Convert.ToString(fieldInfo.GetValue(obj));
 
-            if (_isMultiLine)
+            if (_multiLine)
             {
-                _textBox = new TextArea(value, columns: 40);
+                _textBox = new TextArea(value);
+                _textBox.HtmlElement.SetAttribute("class", "entity-editor-textarea");
+
+                ((TextArea) _textBox).TextInput += (sender, args) => preview();
             }
             else
             {
                 _textBox = new TextBox(value);
+
+                ((TextBox)_textBox).TextInput += (sender, args) => preview();
             }
 
-            var label = new FieldLabel(fieldInfo.Name);
+            if (_fixedFont)
+            {
+                _textBox.HtmlElement.SetAttribute("class", "fixed-font");
+            }
 
-            return Util.VerticalRun(
+            var label = new FieldLabel(fieldInfo.Label);
+
+            return LINQPad.Util.VerticalRun(
                 label,
                 _textBox
             );
         }
 
-        public void Save(T obj, FieldInfo fieldInfo)
+        public void Save(T obj, Field<T> fieldInfo)
         {
             fieldInfo.SetValue(obj, _textBox.GetType().GetProperty("Text").GetValue(_textBox));
         }
 
-        public bool Validate(T obj, FieldInfo fieldInfo)
+        public bool Validate(T obj, Field<T> fieldInfo)
         {
             return true;
         }

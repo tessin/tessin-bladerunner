@@ -14,22 +14,24 @@ namespace Tessin.Bladerunner.Editors
         {
         }
 
-        public object Render(T obj, FieldInfo fieldInfo)
+        public object Render(T obj, Field<T> fieldInfo, Action preview)
         {
             _textBox = new TextBox(fieldInfo.GetValue(obj)?.ToString()??"") {Width = "90px"};
 
-            var label = new FieldLabel(fieldInfo.Name);
+            _textBox.TextInput += (sender, args) => preview();
 
-            return Util.VerticalRun(
+            var label = new FieldLabel(fieldInfo.Label);
+
+            return LINQPad.Util.VerticalRun(
                 label,
                 _textBox
             );
         }
 
-        public void Save(T obj, FieldInfo fieldInfo)
+        public void Save(T obj, Field<T> fieldInfo)
         {
-            var type = fieldInfo.FieldType;
-            if (Nullable.GetUnderlyingType(fieldInfo.FieldType) is Type t)
+            var type = fieldInfo.Type;
+            if (Nullable.GetUnderlyingType(fieldInfo.Type) is Type t)
             {
                 if (string.IsNullOrEmpty(_textBox.Text))
                 {
@@ -41,9 +43,9 @@ namespace Tessin.Bladerunner.Editors
             fieldInfo.SetValue(obj, Convert.ChangeType(double.Parse(_textBox.Text), type));
         }
 
-        public bool Validate(T obj, FieldInfo fieldInfo)
+        public bool Validate(T obj, Field<T> fieldInfo)
         {
-            if (!fieldInfo.FieldType.IsNullable() && string.IsNullOrEmpty(_textBox.Text) || !string.IsNullOrEmpty(_textBox.Text) && !double.TryParse(_textBox.Text, out double _))
+            if (!fieldInfo.Type.IsNullable() && string.IsNullOrEmpty(_textBox.Text) || !string.IsNullOrEmpty(_textBox.Text) && !double.TryParse(_textBox.Text, out double _))
             {
                 _textBox.Styles["border-color"] = "tomato";
                 return false;

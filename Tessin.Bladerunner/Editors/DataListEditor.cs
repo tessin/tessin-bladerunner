@@ -13,38 +13,40 @@ namespace Tessin.Bladerunner.Editors
 
         private DataListBox _dataListBox;
 
-        private readonly Option[] _options;
+        private readonly string[] _options;
 
-        public DataListEditor(Option[] options)
+        public DataListEditor(string[] options)
         {
             _options = options;
         }
 
-        public object Render(T obj, FieldInfo fieldInfo)
+        public object Render(T obj, Field<T> field, Action preview)
         {
-            object value = fieldInfo.GetValue(obj);
+            object value = field.GetValue(obj);
 
-            var labelText = _options.Where(e => e.Value.Equals(value)).Select(e => e.Label).FirstOrDefault();
+            var labelText = value?.ToString() ?? "";
 
-            _dataListBox = new DataListBox(_options.Select(e => e.Label))
+            _dataListBox = new DataListBox(_options)
             {
                 Text = labelText
             };
 
-            var label = new FieldLabel(fieldInfo.Name);
+            _dataListBox.TextInput += (sender, args) => preview();
 
-            return Util.VerticalRun(
+            var label = new FieldLabel(field.Label);
+
+            return LINQPad.Util.VerticalRun(
                 label,
                 _dataListBox
             );
         }
 
-        public void Save(T obj, FieldInfo fieldInfo)
+        public void Save(T obj, Field<T> field)
         {
-            fieldInfo.SetValue(obj, _options.Where(e => e.Label == _dataListBox.Text).Select(e => e.Value).FirstOrDefault());
+            field.SetValue(obj, _dataListBox.Text);
         }
 
-        public bool Validate(T obj, FieldInfo fieldInfo)
+        public bool Validate(T obj, Field<T> field)
         {
             return true;
         }

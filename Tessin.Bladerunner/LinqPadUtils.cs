@@ -2,13 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using LINQPad.Controls;
 
 namespace Tessin.Bladerunner
 {
     public static class LinqPadUtils
     {
+        private static object _VerticalRun(bool withGaps, IEnumerable<object> elements)
+        {
+            if (!withGaps)
+            {
+                return LINQPad.Util.VerticalRun(elements);
+            }
+            return LINQPad.Util.VerticalRun(elements.Select(e => LINQPad.Util.WithStyle(e, "margin-bottom:0.4em;display:block;")));
+        }
+
+        public static object VerticalRun(bool withGaps, IEnumerable<object> elements)
+        {
+            return _VerticalRun(withGaps, elements);
+        }
+
+        public static object VerticalRun(bool withGaps, params object[] elements)
+        {
+            return _VerticalRun(withGaps, elements);
+        }
+
         public static object DumpMatrix<T, T1, T2>(IQueryable<T> raw, Expression<Func<T, T1>> verticalExpr, Expression<Func<T, T2>> horizontalExpr, Func<IEnumerable<T>, object> cellRenderer) where T1 : IComparable where T2 : IComparable
         {
             var verticalKeys = raw.GroupBy(verticalExpr).Select(e => e.Key).Distinct().ToList();

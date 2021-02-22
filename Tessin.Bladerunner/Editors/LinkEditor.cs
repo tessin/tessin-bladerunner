@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using LINQPad;
+
 using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
 
@@ -11,46 +11,58 @@ namespace Tessin.Bladerunner.Editors
 
         private Action<T> _onClick;
 
-        private readonly Func<T, string> _fetchValue;
-
-        public LinkEditor(Func<T, string> fetchValue, Action<T> onClick)
-        {
-            _onClick = onClick;
-            _fetchValue = fetchValue;
-        }
-
-        public LinkEditor(Func<T, string> fetchValue)
-        {
-            _fetchValue = fetchValue;
-        }
+        private readonly Func<T, string> _fetchUrl;
 
         public LinkEditor(Action<T> onClick)
         {
             _onClick = onClick;
         }
 
-        public object Render(T obj, FieldInfo fieldInfo)
+        public LinkEditor(Func<T, string> fetchUrl)
         {
-            var fieldLabel = new FieldLabel(fieldInfo.Name);
+            _fetchUrl = fetchUrl;
+        }
 
-            var value = _fetchValue(obj);
+        public LinkEditor()
+        {
+        }
 
-            var link = _onClick == null
-                ? new Label(value) as Control
-                : new Hyperlink(value, (_) => _onClick(obj)) as Control;
+        public object Render(T obj, Field<T> fieldInfo, Action preview)
+        {
+            var fieldLabel = new FieldLabel(fieldInfo.Label);
 
-            return Util.VerticalRun(
+            var label = Convert.ToString(fieldInfo.GetValue(obj));
+
+            Control link;
+
+            if (_fetchUrl != null)
+            {
+                var url = _fetchUrl(obj);
+                link = new Hyperlink(label, url);
+            }
+            else if(_onClick != null)
+            {
+                link = new Hyperlink(label, (_) => _onClick(obj));
+            }
+            else
+            {
+                link = new Hyperlink(label, label);
+            }
+
+            link.HtmlElement.SetAttribute("class", "entity-editor-link");
+
+            return LINQPad.Util.VerticalRun(
                 fieldLabel,
                 link
             );
         }
 
-        public void Save(T obj, FieldInfo fieldInfo)
+        public void Save(T obj, Field<T> fieldInfo)
         {
             //ignore
         }
 
-        public bool Validate(T obj, FieldInfo fieldInfo)
+        public bool Validate(T obj, Field<T> fieldInfo)
         {
             return true;
         }

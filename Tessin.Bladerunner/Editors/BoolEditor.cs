@@ -13,23 +13,25 @@ namespace Tessin.Bladerunner.Editors
         {
         }
 
-        public object Render(T obj, FieldInfo fieldInfo)
+        public object Render(T obj, Field<T> field, Action preview)
         {
-            var value = Convert.ToBoolean(fieldInfo.GetValue(obj));
+            var value = Convert.ToBoolean(field.GetValue(obj));
 
-            _checkBox = new CheckBox(fieldInfo.Name, value);
+            _checkBox = new CheckBox(field.Label, value);
 
-            return Util.VerticalRun(
+            _checkBox.Click += (sender, args) => preview();
+
+            return LINQPad.Util.VerticalRun(
                 _checkBox
             );
         }
 
-        public void Save(T obj, FieldInfo fieldInfo)
+        public void Save(T obj, Field<T> field)
         {
-            fieldInfo.SetValue(obj, _checkBox.Checked);
+            field.SetValue(obj, _checkBox.Checked);
         }
 
-        public bool Validate(T obj, FieldInfo fieldInfo)
+        public bool Validate(T obj, Field<T> field)
         {
             return true;
         }

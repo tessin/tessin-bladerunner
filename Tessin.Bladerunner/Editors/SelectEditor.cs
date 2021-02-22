@@ -20,7 +20,7 @@ namespace Tessin.Bladerunner.Editors
             _options = options;
         }
 
-        public object Render(T obj, FieldInfo fieldInfo)
+        public object Render(T obj, Field<T> fieldInfo, Action preview)
         {
             object value = fieldInfo.GetValue(obj);
 
@@ -31,20 +31,24 @@ namespace Tessin.Bladerunner.Editors
                 SelectedOption = selectedOption
             };
 
-            var label = new FieldLabel(fieldInfo.Name);
+            _selectBox.SelectionChanged += (sender, args) => preview();
 
-            return Util.VerticalRun(
+            _selectBox.HtmlElement.SetAttribute("class", "entity-editor-select");
+
+            var label = new FieldLabel(fieldInfo.Label);
+
+            return LINQPad.Util.VerticalRun(
                 label,
                 _selectBox
             );
         }
 
-        public void Save(T obj, FieldInfo fieldInfo)
+        public void Save(T obj, Field<T> fieldInfo)
         {
             fieldInfo.SetValue(obj, _options[_selectBox.SelectedIndex].Value);
         }
 
-        public bool Validate(T obj, FieldInfo fieldInfo)
+        public bool Validate(T obj, Field<T> fieldInfo)
         {
             return true;
         }

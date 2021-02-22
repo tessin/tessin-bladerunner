@@ -1,83 +1,206 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
+using LINQPad;
 using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Editors
 {
-    public class EntityEditor<T>
+
+    public static class EntityEditorHelper
     {
-        private Action<T> _save;
+        public static EntityEditor<T> Create<T>(T obj, Action<T> save, Action<T> preview = null) where T : new()
+        {
+            return new EntityEditor<T>(obj, save, preview);
+        }
+    }
+
+    public class EntityEditor<T> where T : new()
+    {
+
+        private Dictionary<string, Field<T>> _fields; 
+
+        private readonly Action<T> _save;
+
+        private readonly Action<T> _preview;
 
         private T _obj;
 
-        private readonly FieldEditorMapper<T> _mapper;
-	
-        public EntityEditor(T obj, Action<T> save)
+        private readonly EditorFactory<T> _factory;
+
+        public EntityEditor(T obj, Action<T> save, Action<T> preview = null)
         {
             _save = save;
+            _preview = preview;
             _obj = obj;
-            _mapper = new FieldEditorMapper<T>();
+            _factory = new EditorFactory<T>();
+            Scaffold();
         }
-	
+
+        private void Scaffold()
+        {
+            _fields = new Dictionary<string, Field<T>>();
+
+            var type = _obj.GetType();
+
+            var fields = type
+                .GetFields()
+                .Select(e => new {e.Name, Type = e.FieldType, FieldInfo = e, PropertyInfo = (PropertyInfo)null})
+                .Union(
+                    type
+                        .GetProperties()
+                        .Select(e => new {e.Name, Type = e.PropertyType, FieldInfo = (FieldInfo)null, PropertyInfo = e }
+                        )
+                )
+                .OrderBy(e => e.Name)
+                .ToList();
+
+            int order = fields.Count();
+            foreach (var field in fields)
+            {
+                _fields[field.Name] =
+                    new Field<T>(field.Name, field.Name, order++, ScaffoldEditor(field.Name, field.Type), field.FieldInfo, field.PropertyInfo);
+            }
+        }
+
+        private IFieldEditor<T> ScaffoldEditor(string name, Type type)
+        {
+            if (name.EndsWith("Id") && (type == typeof(Guid) || type == typeof(int) || type == typeof(string)))
+            {
+                return _factory.Literal();
+            }
+
+            if (type == typeof(bool) || type == typeof(bool?))
+            {
+                return _factory.Bool();
+            }
+
+            if (type == typeof(string))
+            {
+                return _factory.Text();
+            }
+
+            if (type.IsNumeric())
+            {
+                return _factory.Number();
+            }
+
+            if (type.IsDate())
+            {
+                return _factory.Date();
+            }
+
+            return null;
+        }
+
         public object Render()
         {
             var rendered = new List<object>();
-            
-            var type = _obj.GetType();
 
-            var fields = type.GetFields();
+            var fields = _fields.Values.Where(e => e.Editor != null).ToList();
 
-            var editors = _mapper.Map(fields).ToList();
+            void Preview()
+            {
+                if (_preview == null) return;
+                var pObj = new T();
+                foreach (var field in fields)
+                {
+                    field.Editor.Save(pObj, field);
+                }
+                _preview(pObj);
+            }
 
-            var zipped = fields.Zip(editors, (field, editor) => (field, editor)).ToList();
+            rendered.Add(
+                Util.HorizontalRun(
+                    true,
+                    fields
+                    .GroupBy(e => e.Column)
+                    .OrderBy(e => e.Key)
+                    .Select(e => Util.VerticalRun(e.OrderBy(f => f.Order).Select(f => f.Editor.Render(_obj, f, Preview)))))
+            );
 
-            rendered.AddRange(zipped.Select(e => e.editor.Render(_obj, e.field)).Where(e => e!=null));
-            
             rendered.Add(new Button("Save", (_) =>
             {
-                bool valid = zipped.Aggregate(true, (current, valueTuple) => current & valueTuple.editor.Validate(_obj, valueTuple.field));
-                if (!valid) return;
-                foreach (var valueTuple in zipped)
+                if (fields.Select(e => e.Editor.Validate(_obj, e)).All(e => e))
                 {
-                    valueTuple.editor.Save(_obj, valueTuple.field);
+                    foreach (var field in fields)
+                    {
+                        field.Editor.Save(_obj, field);
+                    }
+                    _save?.Invoke(_obj);
                 }
-                _save?.Invoke(_obj);
             }));
 
             return LINQPad.Util.VerticalRun(rendered);
         }
 
-        public EntityEditor<T> EditorFor(Expression<Func<T,object>> field, Func<EditorFactory<T>,IFieldEditor<T>> editor)
+        public EntityEditor<T> Editor(Expression<Func<T, object>> field, Func<EditorFactory<T>, IFieldEditor<T>> editor)
         {
-            var factory = new EditorFactory<T>();
-            var name = GetNameFromMemberExpression(field.Body);
-            _mapper.FieldMappings[name] = editor(factory);
+            var hint = GetRenderingHint(field);
+            hint.Editor = editor(_factory);
             return this;
         }
 
-        public EntityEditor<T> EditorFor<TU>(IFieldEditor<T> editor)
+        public EntityEditor<T> Editor<TU>(Func<EditorFactory<T>, IFieldEditor<T>> editor)
         {
-            _mapper.TypeMappings[typeof(TU)] = editor;
+            foreach (var hint in _fields.Values.Where(e => e.Type is TU))
+            {
+                hint.Editor = editor(_factory);
+            }
             return this;
         }
 
-        public EntityEditor<T> LabelFor(Expression<Func<T, object>> field, string label)
+        public EntityEditor<T> Description(Expression<Func<T, object>> field, string description)
         {
+            var hint = GetRenderingHint(field);
+            hint.Description = description;
             return this;
         }
 
-        public EntityEditor<T> Order(IEnumerable<Expression<Func<T, object>>> order)
+        public EntityEditor<T> Label(Expression<Func<T, object>> field, string label)
         {
+            var hint = GetRenderingHint(field);
+            hint.Label = label;
             return this;
+        }
+
+        private EntityEditor<T> _Place(int col, params Expression<Func<T, object>>[] fields)
+        {
+            int order = 0;
+            foreach (var expr in fields)
+            {
+                var hint = GetRenderingHint(expr);
+                hint.Order = order++;
+                hint.Column = col;
+            }
+            return this;
+        }
+
+
+        public EntityEditor<T> Place(int col, params Expression<Func<T, object>>[] fields)
+        {
+            return _Place(col, fields);
+        }
+
+        public EntityEditor<T> Place(params Expression<Func<T, object>>[] fields)
+        {
+            return _Place(1, fields);
         }
 
         public EntityEditor<T> Remove(Expression<Func<T,object>> field)
         {
-            var name = GetNameFromMemberExpression(field.Body);
-            _mapper.Remove.Add(name);
+            var hint = GetRenderingHint(field);
+            hint.Editor = null;
             return this;
+        }
+
+        private Field<T> GetRenderingHint(Expression<Func<T, object>> field)
+        {
+            var name = GetNameFromMemberExpression(field.Body);
+            return _fields[name];
         }
 
         private static string GetNameFromMemberExpression(Expression expression)
@@ -95,5 +218,6 @@ namespace Tessin.Bladerunner.Editors
                 throw new ArgumentException("Invalid expression.");
             }
         }
+
     }
 }

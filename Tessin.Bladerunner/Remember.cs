@@ -40,7 +40,7 @@ namespace Tessin.Bladerunner
                 {
                     dataListBox.Text = previous;
                 }
-                control.LostFocus += (_, __) =>
+                dataListBox.TextInput += (_, __) =>
                 {
                     LINQPad.Util.SaveString(key, dataListBox.Text);
                 };

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -212,6 +213,44 @@ namespace Tessin.Bladerunner
                 throw new ArgumentException(nameof(input));
             return input.First().ToString().ToUpper() + String.Join("", input.Skip(1));
         }
+
+        public static List<string> SplitLines(this string input)
+        {
+            if(input == null) return new List<string>();
+            return input.Split(new[] { "\n", "\r" }, StringSplitOptions.None)
+                .Select(e => e.Trim())
+                .Where(e => !string.IsNullOrEmpty(e))
+                .Where(e => !e.StartsWith("#"))
+                .ToList();
+        }
+
+        public static IEnumerable<IEnumerable<T>> Chunks<T>(this IEnumerable<T> source, int chunkSize)
+        {
+            return source
+                .Select((x, i) => new { Index = i, Value = x })
+                .GroupBy(x => x.Index / chunkSize)
+                .Select(x => x.Select(v => v.Value).ToList())
+                .ToList();
+        }
+
+        public static T ArgsParser<T>(string[] args) where T : new()
+        {
+            T result = new T();
+            var type = typeof(T);
+            var props = type.GetFields();
+            foreach (var chunk in args.Chunks(2))
+            {
+                if (chunk.Count() != 2) throw new ArgumentException("Invalid number of argument values.");
+                var prop = props.SingleOrDefault(e => e.Name.Equals(chunk.ElementAt(0)));
+                if (prop == null) throw new ArgumentException($"Invalid argument name '{chunk.ElementAt(0)}'.");
+                string value = chunk.ElementAt(1);
+                var converter = TypeDescriptor.GetConverter(prop.FieldType);
+                object parsedValue = converter.ConvertFromInvariantString(value);
+                prop.SetValue(result, parsedValue);
+            }
+            return result;
+        }
+
 
     }
 }

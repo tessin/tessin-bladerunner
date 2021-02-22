@@ -1,51 +1,69 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using LINQPad;
+using LINQPad.Controls;
 
 namespace Tessin.Bladerunner
 {
     public class BladeManager
     {
-        readonly Stack<Blade> _stack;
+        private readonly Stack<Blade> _stack;
 
-        readonly DumpContainer _dc;
-	
-        public BladeManager()
+        private readonly DumpContainer[] _panels;
+
+        private readonly int _maxDepth;
+
+        public BladeManager(int maxDepth = 10)
         {
+            _maxDepth = maxDepth;
             _stack = new Stack<Blade>();
-            _dc = new DumpContainer();
+            _panels = Enumerable.Range(0, _maxDepth).Select((e, i) => new DumpContainer()).ToArray();
+
+            Styles.Setup();
         }
 	
-        public void PushBlade(IBladeRenderer renderer)
+        public void PushBlade(IBladeRenderer renderer, string title = "")
         {
-            _stack.Push(new Blade(this, renderer, _stack.Count()));
-            Render();
+            var blade = new Blade(this, renderer, _stack.Count(), _panels[_stack.Count()], title);
+            _stack.Push(blade);
+            blade.Refresh();
         }
 	
-        public void PopTo(int index)
+        public void PopTo(int index, bool refresh)
         {
             while(_stack.Count()-1 > index)
             {
-                _stack.Pop();
+                var blade =_stack.Pop();
+                blade.Clear();
+            }
+            if (refresh)
+            {
+                _stack.Peek().Refresh();
             }
         }
 
-        internal void Render()
-        {
-            var blades = _stack.Select(e => e.Render()).Reverse().ToList();
-            _dc.Content = LINQPad.Util.HorizontalRun(true, blades);
-        }
-	
         object ToDump()
         {
-            return _dc;
+            return BladeWrapper(_panels.Select(Blade).ToArray());
         }
 
-        public void Refresh()
+        object BladeWrapper(params Control[] blades)
         {
-            var blade = _stack.Peek();
-            blade.Render(true);
-            Render();
+            var div = new Div(blades);
+            div.HtmlElement.SetAttribute("class", "blade-wrapper");
+            return div;
         }
+
+        Control Blade(DumpContainer dc)
+        {
+            var innerDiv = new Div(dc);
+            innerDiv.HtmlElement.SetAttribute("class", "blade-container");
+
+            var outerDiv = new Div(innerDiv);
+            outerDiv.HtmlElement.SetAttribute("class", "blade");
+
+            return outerDiv;
+        }
+
     }
 }

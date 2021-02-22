@@ -11,26 +11,28 @@ namespace Tessin.Bladerunner.Editors
     public class LiteralEditor<T> : IFieldEditor<T>
     {
 
-        public object Render(T obj, FieldInfo fieldInfo)
+        public object Render(T obj, Field<T> fieldInfo, Action preview)
         {
             var value = Convert.ToString(fieldInfo.GetValue(obj));
 
-            var valueLabel = new Label(value);
+            var valueLabel = new Label(value ?? "null");
 
-            var fieldLabel = new FieldLabel(fieldInfo.Name);
+            valueLabel.HtmlElement.SetAttribute("class", "entity-editor-literal");
 
-            return Util.VerticalRun(
+            var fieldLabel = new FieldLabel(fieldInfo.Label);
+
+            return LINQPad.Util.VerticalRun(
                 fieldLabel,
                 valueLabel
             );
         }
 
-        public void Save(T obj, FieldInfo fieldInfo)
+        public void Save(T obj, Field<T> fieldInfo)
         {
             //ignore
         }
 
-        public bool Validate(T obj, FieldInfo fieldInfo)
+        public bool Validate(T obj, Field<T> fieldInfo)
         {
             return true;
         }
