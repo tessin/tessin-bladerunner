@@ -10,9 +10,7 @@ namespace Tessin.Bladerunner.Editors
     public class TextEditor<T> : IFieldEditor<T>
     {
         private Control _textBox;
-
         private readonly bool _multiLine;
-
         private readonly bool _fixedFont;
 
         public TextEditor(bool multiLine = false, bool fixedFont = false)
@@ -29,13 +27,11 @@ namespace Tessin.Bladerunner.Editors
             {
                 _textBox = new TextArea(value);
                 _textBox.HtmlElement.SetAttribute("class", "entity-editor-textarea");
-
                 ((TextArea) _textBox).TextInput += (sender, args) => preview();
             }
             else
             {
                 _textBox = new TextBox(value);
-
                 ((TextBox)_textBox).TextInput += (sender, args) => preview();
             }
 
@@ -44,11 +40,10 @@ namespace Tessin.Bladerunner.Editors
                 _textBox.HtmlElement.SetAttribute("class", "fixed-font");
             }
 
-            var label = new FieldLabel(fieldInfo.Label);
+            var label = new Field(fieldInfo.Label, _textBox, fieldInfo.Description, fieldInfo.Helper);
 
             return LINQPad.Util.VerticalRun(
-                label,
-                _textBox
+                label
             );
         }
 

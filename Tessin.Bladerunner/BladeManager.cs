@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using LINQPad;
 using LINQPad.Controls;
@@ -13,13 +15,17 @@ namespace Tessin.Bladerunner
 
         private readonly int _maxDepth;
 
-        public BladeManager(int maxDepth = 10)
+        public bool ShowDebugButton { get; }
+
+        private Div _divBladeManager;
+
+
+        public BladeManager(int maxDepth = 10, bool showDebugButton = false)
         {
             _maxDepth = maxDepth;
+            ShowDebugButton = showDebugButton;
             _stack = new Stack<Blade>();
             _panels = Enumerable.Range(0, _maxDepth).Select((e, i) => new DumpContainer()).ToArray();
-
-            Styles.Setup();
         }
 	
         public void PushBlade(IBladeRenderer renderer, string title = "")
@@ -51,7 +57,8 @@ namespace Tessin.Bladerunner
         {
             var div = new Div(blades);
             div.HtmlElement.SetAttribute("class", "blade-wrapper");
-            return div;
+            _divBladeManager = new Div(Styles.Generate(), div);
+            return _divBladeManager;
         }
 
         Control Blade(DumpContainer dc)
@@ -63,6 +70,13 @@ namespace Tessin.Bladerunner
             outerDiv.HtmlElement.SetAttribute("class", "blade");
 
             return outerDiv;
+        }
+
+        public void DebugHtml()
+        {
+            var tempPath = Path.GetTempFileName()+".html";
+            File.WriteAllText(tempPath, _divBladeManager.HtmlElement.InnerHtml);
+            Process.Start(tempPath);
         }
 
     }

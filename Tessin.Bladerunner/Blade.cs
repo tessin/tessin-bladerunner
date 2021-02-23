@@ -41,6 +41,14 @@ namespace Tessin.Bladerunner
                     })
                 };
 
+                if (Index == 0 && Manager.ShowDebugButton)
+                {
+                    buttons.Add(new IconButton(Icons.Duck, (_) =>
+                    {
+                        Manager.DebugHtml();
+                    }));
+                }
+
                 if (Index != 0)
                 {
                     buttons.Add(new IconButton(Icons.Close, (_) =>

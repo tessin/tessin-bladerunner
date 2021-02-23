@@ -139,7 +139,7 @@ namespace Tessin.Bladerunner.Editors
 
         public EntityEditor<T> Editor(Expression<Func<T, object>> field, Func<EditorFactory<T>, IFieldEditor<T>> editor)
         {
-            var hint = GetRenderingHint(field);
+            var hint = GetField(field);
             hint.Editor = editor(_factory);
             return this;
         }
@@ -155,14 +155,14 @@ namespace Tessin.Bladerunner.Editors
 
         public EntityEditor<T> Description(Expression<Func<T, object>> field, string description)
         {
-            var hint = GetRenderingHint(field);
+            var hint = GetField(field);
             hint.Description = description;
             return this;
         }
 
         public EntityEditor<T> Label(Expression<Func<T, object>> field, string label)
         {
-            var hint = GetRenderingHint(field);
+            var hint = GetField(field);
             hint.Label = label;
             return this;
         }
@@ -172,7 +172,7 @@ namespace Tessin.Bladerunner.Editors
             int order = 0;
             foreach (var expr in fields)
             {
-                var hint = GetRenderingHint(expr);
+                var hint = GetField(expr);
                 hint.Order = order++;
                 hint.Column = col;
             }
@@ -192,12 +192,19 @@ namespace Tessin.Bladerunner.Editors
 
         public EntityEditor<T> Remove(Expression<Func<T,object>> field)
         {
-            var hint = GetRenderingHint(field);
+            var hint = GetField(field);
             hint.Editor = null;
             return this;
         }
 
-        private Field<T> GetRenderingHint(Expression<Func<T, object>> field)
+        public EntityEditor<T> Helper(Expression<Func<T, object>> field, Func<Control, object> helper)
+        {
+            var hint = GetField(field);
+            hint.Helper = helper;
+            return this;
+        }
+
+        private Field<T> GetField(Expression<Func<T, object>> field)
         {
             var name = GetNameFromMemberExpression(field.Body);
             return _fields[name];

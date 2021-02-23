@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Editors
 {
@@ -15,6 +16,8 @@ namespace Tessin.Bladerunner.Editors
             PropertyInfo = propertyInfo;
             Column = 1;
         }
+
+        public Func<Control, object> Helper { get; set; }
 
         public string Name { get; set; }
 
