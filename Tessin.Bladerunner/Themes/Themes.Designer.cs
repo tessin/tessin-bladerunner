@@ -62,34 +62,46 @@ namespace Tessin.Bladerunner.Themes {
         
         /// <summary>
         ///   Looks up a localized string similar to body {
-        ///    margin: 0em;
-        ///    padding: 0em;
-        ///    height: 100%;
-        ///    min-height: 100%;
-        ///    font-family: &quot;Roboto&quot;, sans-serif;
-        ///    font-size: 12px;
-        ///    line-height: 1.5;
-        ///    color: #000000;
-        ///    -webkit-print-color-adjust: exact;
+        ///  margin: 0em;
+        ///  padding: 0em;
+        ///  height: 100%;
+        ///  min-height: 100%;
+        ///  font-family: &quot;Roboto&quot;, sans-serif;
+        ///  font-size: 12px;
+        ///  line-height: 1.5;
+        ///  color: #000;
+        ///  -webkit-print-color-adjust: exact;
+        ///}
+        ///
+        ///h1, h2, h3 {
+        ///  font-weight: 400;
+        ///}
+        ///
+        ///a {
+        ///  color: #1158aa;
+        ///}
+        ///
+        ///p, pre {
+        ///  margin: 0;
+        ///  padding: 0;
         ///}
         ///
         ///table {
-        ///    border-collapse: collapse;
-        ///    border: 2px solid #17b;
-        ///    margin: 0.3em 0.2em;
-        ///    border: 0px;
-        ///    maring: 0px;
+        ///  border-collapse: collapse;
+        ///  margin: 0.3em 0.2em;
+        ///  border: 0px;
         ///}
         ///
-        ///td.typeheader {
-        ///    background-color: rgb(17, 88, 170);
+        ///table.limit {
+        ///  border-bottom-color: #c31;
         ///}
         ///
-        ///a.typeheader {
-        ///    background-color: rgb(17, 88, 170);
+        ///table.expandable {
+        ///  border-bottom-style: dashed;
         ///}
         ///
-        ///span.typegly [rest of string was truncated]&quot;;.
+        ///table.error {
+        ///  border-bottom- [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Default {
             get {

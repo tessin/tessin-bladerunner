@@ -21,9 +21,7 @@ namespace Tessin.Bladerunner.Editors
 
             _checkBox.Click += (sender, args) => preview();
 
-            return LINQPad.Util.VerticalRun(
-                _checkBox
-            );
+            return _checkBox;
         }
 
         public void Save(T obj, Field<T> field)
@@ -36,5 +34,9 @@ namespace Tessin.Bladerunner.Editors
             return true;
         }
 
+        public void SetVisibility(bool value)
+        {
+            _checkBox.SetVisibility(value);
+        }
     }
 }

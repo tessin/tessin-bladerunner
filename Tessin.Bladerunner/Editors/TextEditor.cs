@@ -9,6 +9,7 @@ namespace Tessin.Bladerunner.Editors
 {
     public class TextEditor<T> : IFieldEditor<T>
     {
+        private Field _field;
         private Control _textBox;
         private readonly bool _multiLine;
         private readonly bool _fixedFont;
@@ -19,20 +20,20 @@ namespace Tessin.Bladerunner.Editors
             _fixedFont = fixedFont;
         }
 
-        public object Render(T obj, Field<T> fieldInfo, Action preview)
+        public object Render(T obj, Field<T> fieldInfo, Action updated)
         {
             var value = Convert.ToString(fieldInfo.GetValue(obj));
 
             if (_multiLine)
             {
                 _textBox = new TextArea(value);
-                _textBox.HtmlElement.SetAttribute("class", "entity-editor-textarea");
-                ((TextArea) _textBox).TextInput += (sender, args) => preview();
+                _textBox.SetClass("entity-editor-textarea");
+                ((TextArea) _textBox).TextInput += (sender, args) => updated();
             }
             else
             {
                 _textBox = new TextBox(value);
-                ((TextBox)_textBox).TextInput += (sender, args) => preview();
+                ((TextBox)_textBox).TextInput += (sender, args) => updated();
             }
 
             if (_fixedFont)
@@ -40,11 +41,7 @@ namespace Tessin.Bladerunner.Editors
                 _textBox.HtmlElement.SetAttribute("class", "fixed-font");
             }
 
-            var label = new Field(fieldInfo.Label, _textBox, fieldInfo.Description, fieldInfo.Helper);
-
-            return LINQPad.Util.VerticalRun(
-                label
-            );
+            return _field = new Field(fieldInfo.Label, _textBox, fieldInfo.Description, fieldInfo.Helper);
         }
 
         public void Save(T obj, Field<T> fieldInfo)
@@ -55,6 +52,11 @@ namespace Tessin.Bladerunner.Editors
         public bool Validate(T obj, Field<T> fieldInfo)
         {
             return true;
+        }
+
+        public void SetVisibility(bool value)
+        {
+            _field.SetVisibility(value);
         }
     }
 }

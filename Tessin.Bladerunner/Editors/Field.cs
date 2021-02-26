@@ -1,23 +1,33 @@
 ﻿using System;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Editors
 {
     public class Field<T>
     {
-        public Field(string name, string label, int order, IFieldEditor<T> editor, FieldInfo fieldInfo = null, PropertyInfo propertyInfo = null)
+        public Field(
+            string name, 
+            string label, 
+            int order, 
+            IFieldEditor<T> editor, 
+            FieldInfo fieldInfo = null, 
+            PropertyInfo propertyInfo = null)
         {
             Name = name;
-            Label = label;
+            Label = Regex.Replace(label, "(\\B[A-Z])", " $1");
             Order = order;
             Editor = editor;
             FieldInfo = fieldInfo;
             PropertyInfo = propertyInfo;
             Column = 1;
+            ShowIf = (_) => true;
         }
 
         public Func<Control, object> Helper { get; set; }
+
+        public Func<T, bool> ShowIf { get; set; }
 
         public string Name { get; set; }
 

@@ -8,6 +8,7 @@ namespace Tessin.Bladerunner.Editors
 {
     public class LinkEditor<T> : IFieldEditor<T>
     {
+        private Field _field;
 
         private Action<T> _onClick;
 
@@ -29,8 +30,6 @@ namespace Tessin.Bladerunner.Editors
 
         public object Render(T obj, Field<T> fieldInfo, Action preview)
         {
-            var fieldLabel = new FieldLabel(fieldInfo.Label);
-
             var label = Convert.ToString(fieldInfo.GetValue(obj));
 
             Control link;
@@ -51,10 +50,7 @@ namespace Tessin.Bladerunner.Editors
 
             link.HtmlElement.SetAttribute("class", "entity-editor-link");
 
-            return LINQPad.Util.VerticalRun(
-                fieldLabel,
-                link
-            );
+            return new Field(fieldInfo.Label, link, fieldInfo.Description, fieldInfo.Helper);
         }
 
         public void Save(T obj, Field<T> fieldInfo)
@@ -65,6 +61,11 @@ namespace Tessin.Bladerunner.Editors
         public bool Validate(T obj, Field<T> fieldInfo)
         {
             return true;
+        }
+
+        public void SetVisibility(bool value)
+        {
+            _field.SetVisibility(value);
         }
     }
 }

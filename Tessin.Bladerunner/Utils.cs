@@ -251,6 +251,16 @@ namespace Tessin.Bladerunner
             return result;
         }
 
+        public static int? NullIfZero(this int input)
+        {
+            if (input == 0) return null;
+            return input;
+        }
 
+        public static string NullIfEmpty(this string input)
+        {
+            if (input == "") return null;
+            return input;
+        }
     }
 }

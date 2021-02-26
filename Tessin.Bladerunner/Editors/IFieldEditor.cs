@@ -12,5 +12,7 @@ namespace Tessin.Bladerunner.Editors
 
         bool Validate(T obj, Field<T> instruction);
 
+        void SetVisibility(bool value);
+
     }
 }

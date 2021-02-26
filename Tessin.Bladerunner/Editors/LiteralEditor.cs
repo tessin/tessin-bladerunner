@@ -10,6 +10,7 @@ namespace Tessin.Bladerunner.Editors
 {
     public class LiteralEditor<T> : IFieldEditor<T>
     {
+        private Field _field;
 
         public object Render(T obj, Field<T> fieldInfo, Action preview)
         {
@@ -19,12 +20,7 @@ namespace Tessin.Bladerunner.Editors
 
             valueLabel.HtmlElement.SetAttribute("class", "entity-editor-literal");
 
-            var fieldLabel = new FieldLabel(fieldInfo.Label);
-
-            return LINQPad.Util.VerticalRun(
-                fieldLabel,
-                valueLabel
-            );
+            return _field = new Field(fieldInfo.Label, valueLabel, fieldInfo.Description, fieldInfo.Helper);
         }
 
         public void Save(T obj, Field<T> fieldInfo)
@@ -32,9 +28,14 @@ namespace Tessin.Bladerunner.Editors
             //ignore
         }
 
-        public bool Validate(T obj, Field<T> fieldInfo)
+        public bool Validate(T obj, Field<T> instruction)
         {
             return true;
+        }
+
+        public void SetVisibility(bool value)
+        {
+            _field.SetVisibility(value);
         }
     }
 }

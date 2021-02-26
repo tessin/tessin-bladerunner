@@ -20,7 +20,6 @@ namespace Tessin.Bladerunner.Editors
 
     public class EntityEditor<T> where T : new()
     {
-
         private Dictionary<string, Field<T>> _fields; 
 
         private readonly Action<T> _save;
@@ -102,25 +101,19 @@ namespace Tessin.Bladerunner.Editors
 
             var fields = _fields.Values.Where(e => e.Editor != null).ToList();
 
-            void Preview()
+            void Updated()
             {
-                if (_preview == null) return;
                 var pObj = new T();
                 foreach (var field in fields)
                 {
                     field.Editor.Save(pObj, field);
                 }
-                _preview(pObj);
+                foreach (var field in fields)
+                {
+                    field.Editor.SetVisibility(field.ShowIf(pObj));
+                }
+                _preview?.Invoke(pObj);
             }
-
-            rendered.Add(
-                Util.HorizontalRun(
-                    true,
-                    fields
-                    .GroupBy(e => e.Column)
-                    .OrderBy(e => e.Key)
-                    .Select(e => Util.VerticalRun(e.OrderBy(f => f.Order).Select(f => f.Editor.Render(_obj, f, Preview)))))
-            );
 
             rendered.Add(new Button("Save", (_) =>
             {
@@ -133,6 +126,17 @@ namespace Tessin.Bladerunner.Editors
                     _save?.Invoke(_obj);
                 }
             }));
+
+            rendered.Add(
+                Util.HorizontalRun(
+                    true,
+                    fields
+                    .GroupBy(e => e.Column)
+                    .OrderBy(e => e.Key)
+                    .Select(e => Util.VerticalRun(e.OrderBy(f => f.Order).Select(f => f.Editor.Render(_obj, f, Updated)))))
+            );
+
+            Updated();
 
             return LINQPad.Util.VerticalRun(rendered);
         }
@@ -201,6 +205,13 @@ namespace Tessin.Bladerunner.Editors
         {
             var hint = GetField(field);
             hint.Helper = helper;
+            return this;
+        }
+
+        public EntityEditor<T> ShowIf(Expression<Func<T, object>> field, Func<T, bool> predicate)
+        {
+            var hint = GetField(field);
+            hint.ShowIf = predicate;
             return this;
         }
 

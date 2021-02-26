@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Reflection;
-using LINQPad;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
 
@@ -8,6 +6,7 @@ namespace Tessin.Bladerunner.Editors
 {
     public class NumberEditor<T> : IFieldEditor<T>
     {
+        private Field _field;
         private TextBox _textBox;
 
         public NumberEditor()
@@ -16,16 +15,11 @@ namespace Tessin.Bladerunner.Editors
 
         public object Render(T obj, Field<T> fieldInfo, Action preview)
         {
-            _textBox = new TextBox(fieldInfo.GetValue(obj)?.ToString()??"") {Width = "90px"};
+            _textBox = new TextBox(fieldInfo.GetValue(obj)?.ToString()??"") { };
 
             _textBox.TextInput += (sender, args) => preview();
 
-            var label = new FieldLabel(fieldInfo.Label);
-
-            return LINQPad.Util.VerticalRun(
-                label,
-                _textBox
-            );
+            return _field = new Field(fieldInfo.Label, _textBox, fieldInfo.Description, fieldInfo.Helper);
         }
 
         public void Save(T obj, Field<T> fieldInfo)
@@ -51,6 +45,11 @@ namespace Tessin.Bladerunner.Editors
                 return false;
             }
             return true;
+        }
+
+        public void SetVisibility(bool value)
+        {
+            _field.SetVisibility(value);
         }
     }
 }

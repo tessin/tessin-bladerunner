@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using System.Security.Authentication.ExtendedProtection;
 using LINQPad;
 using LINQPad.Controls;
 
@@ -13,19 +15,25 @@ namespace Tessin.Bladerunner
 
         private readonly DumpContainer[] _panels;
 
+        private readonly StyleManager _styleManager;
+
         private readonly int _maxDepth;
+        private readonly string _cssPath;
+        private readonly bool _cssHotReloading;
 
         public bool ShowDebugButton { get; }
 
         private Div _divBladeManager;
 
-
-        public BladeManager(int maxDepth = 10, bool showDebugButton = false)
+        public BladeManager(int maxDepth = 10, bool showDebugButton = false, string cssPath = null, bool cssHotReloading = false)
         {
             _maxDepth = maxDepth;
+            _cssPath = cssPath;
+            _cssHotReloading = cssHotReloading;
             ShowDebugButton = showDebugButton;
             _stack = new Stack<Blade>();
             _panels = Enumerable.Range(0, _maxDepth).Select((e, i) => new DumpContainer()).ToArray();
+            _styleManager = new StyleManager();
         }
 	
         public void PushBlade(IBladeRenderer renderer, string title = "")
@@ -57,7 +65,7 @@ namespace Tessin.Bladerunner
         {
             var div = new Div(blades);
             div.HtmlElement.SetAttribute("class", "blade-wrapper");
-            _divBladeManager = new Div(Styles.Generate(), div);
+            _divBladeManager = new Div(_styleManager.Init(_cssPath, _cssHotReloading), div);
             return _divBladeManager;
         }
 

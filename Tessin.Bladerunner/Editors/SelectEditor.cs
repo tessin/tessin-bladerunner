@@ -10,8 +10,8 @@ namespace Tessin.Bladerunner.Editors
 {
     public class SelectEditor<T> : IFieldEditor<T>
     {
-
         private SelectBox _selectBox;
+        private Field _field;
 
         private readonly Option[] _options;
 
@@ -35,12 +35,7 @@ namespace Tessin.Bladerunner.Editors
 
             _selectBox.HtmlElement.SetAttribute("class", "entity-editor-select");
 
-            var label = new FieldLabel(fieldInfo.Label);
-
-            return LINQPad.Util.VerticalRun(
-                label,
-                _selectBox
-            );
+            return _field = new Field(fieldInfo.Label, _selectBox, fieldInfo.Description, fieldInfo.Helper);
         }
 
         public void Save(T obj, Field<T> fieldInfo)
@@ -51,6 +46,11 @@ namespace Tessin.Bladerunner.Editors
         public bool Validate(T obj, Field<T> fieldInfo)
         {
             return true;
+        }
+
+        public void SetVisibility(bool value)
+        {
+            _field.SetVisibility(value);
         }
     }
 }

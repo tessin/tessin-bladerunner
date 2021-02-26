@@ -19,5 +19,10 @@ namespace Tessin.Bladerunner.Editors
         {
             return true;
         }
+
+        public void SetVisibility(bool value)
+        {
+            // ignore
+        }
     }
 }

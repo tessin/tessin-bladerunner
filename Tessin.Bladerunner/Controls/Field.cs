@@ -11,6 +11,7 @@ namespace Tessin.Bladerunner.Controls
         public Field(string label, Control input, string description, Func<Control,object> helper = null)
         {
             var dcHelper = new DumpContainer();
+
             var divHeader = new Div(new Span(label), dcHelper);
             divHeader.SetClass("field--header");
 

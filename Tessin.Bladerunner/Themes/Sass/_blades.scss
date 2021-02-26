@@ -1,0 +1,102 @@
+.blade-wrapper {
+    display: flex;
+    height: 100vh;
+}
+
+.blade {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
+    min-width: 250px;
+    min-height: 0;
+    height: 100vh;
+}
+
+.blade-container {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    position: relative;
+    padding-top: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+.blade-panel {
+    height: 100vh;
+    width: 100%;
+}
+
+.blade-header {
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    border-bottom: 1px solid #ccc;
+    background-color: $primary-header;
+    z-index: 100;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.blade-header > h1 {
+    margin: 0;
+    padding: 0px 10px;
+    font-size: 1.1em;
+    font-weight: normal;
+    line-height: 40px;
+    overflow: hidden;
+}
+
+.blade-header > aside {
+    margin-right: 10px;
+    margin-top: 8px;
+    display: flex;
+}
+
+.blade-content {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 50px;
+}
+
+.blade:nth-child(even) .blade-panel {
+    background-color: #ffffff;
+}
+
+.blade:nth-child(odd) .blade-panel {
+    background-color: #f8f8f8;
+}
+
+.menu-blade-group-header {
+    padding-left: 10px;
+    margin: 0px;
+    margin-left: -10px;
+    width: 100%;
+    height: 40px;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.menu-blade-group-header SPAN {
+    font-size: 1.2em;
+    font-weight: 400;
+    color: $primary-cta;
+    border-bottom: 2px solid $primary-cta;
+}
+
+.blade-content H1 
+{
+    margin-block-start: 0;
+    margin:0;
+    padding:0;
+    font-size: 16px;
+    font-weight: $font-weight-bold;
+}

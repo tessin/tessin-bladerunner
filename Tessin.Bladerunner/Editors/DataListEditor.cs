@@ -10,8 +10,8 @@ namespace Tessin.Bladerunner.Editors
 {
     public class DataListEditor<T> : IFieldEditor<T>
     {
-
         private DataListBox _dataListBox;
+        private Field _field;
 
         private readonly string[] _options;
 
@@ -33,12 +33,7 @@ namespace Tessin.Bladerunner.Editors
 
             _dataListBox.TextInput += (sender, args) => preview();
 
-            var label = new FieldLabel(field.Label);
-
-            return LINQPad.Util.VerticalRun(
-                label,
-                _dataListBox
-            );
+            return _field = new Field(field.Label, _dataListBox, field.Description, field.Helper);
         }
 
         public void Save(T obj, Field<T> field)
@@ -49,6 +44,11 @@ namespace Tessin.Bladerunner.Editors
         public bool Validate(T obj, Field<T> field)
         {
             return true;
+        }
+
+        public void SetVisibility(bool value)
+        {
+            _field.SetVisibility(value);
         }
     }
 }

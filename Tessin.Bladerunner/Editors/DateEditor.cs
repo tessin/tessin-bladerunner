@@ -8,6 +8,7 @@ namespace Tessin.Bladerunner.Editors
     public class DateEditor<T> : IFieldEditor<T>
     {
         private TextBox _textBox;
+        private Field _field;
 
         public DateEditor()
         {
@@ -36,16 +37,12 @@ namespace Tessin.Bladerunner.Editors
                 throw new ArgumentException("Not a DateTime or DateTimeOffset.");
             }
 
-            _textBox = new TextBox(value?.ToString("yyyy-MM-dd") ?? "") {Width = "90px"};
+            _textBox = new TextBox(value?.ToString("yyyy-MM-dd") ?? "") { };
+            _textBox.HtmlElement.SetAttribute("placeholder", "YYYY-MM-DD");
 
             _textBox.TextInput += (sender, args) => preview();
 
-            var label = new FieldLabel(field.Label);
-
-            return LINQPad.Util.VerticalRun(
-                label,
-                _textBox
-            );
+            return _field = new Field(field.Label, _textBox, field.Description, field.Helper);
         }
 
         public void Save(T obj, Field<T> field)
@@ -77,5 +74,9 @@ namespace Tessin.Bladerunner.Editors
             return true;
         }
 
+        public void SetVisibility(bool value)
+        {
+            _field.SetVisibility(value);
+        }
     }
 }

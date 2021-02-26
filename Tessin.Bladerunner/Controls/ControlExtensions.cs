@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using LINQPad;
 using LINQPad.Controls;
 
 namespace Tessin.Bladerunner
@@ -10,6 +11,16 @@ namespace Tessin.Bladerunner
         public static void SetClass(this Control control, string @class)
         {
             control.HtmlElement.SetAttribute("class", @class);
+        }
+
+        public static void SetVisibility(this Control control, bool value)
+        {
+            control.HtmlElement.SetAttribute("style", "visibility:" + (value ? "visible" : "hidden"));
+        }
+
+        public static void SetVisibility(this DumpContainer control, bool value)
+        {
+            control.Style = "visibility:" + (value ? "visible" : "hidden");
         }
 
         public static void OnUpdate(this Control control, Action onUpdate)

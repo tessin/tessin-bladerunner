@@ -1,0 +1,39 @@
+.entity-editor-link {
+    display: block;
+    width: 30em;
+    overflow: hidden;
+}
+
+.entity-editor-textarea {
+    width: 30em;
+}
+
+.entity-editor-select {
+    width: 30em;
+}
+
+.field {
+    margin-bottom:10px;
+}
+
+.field > input[type="checkbox"]
+{
+    margin-top:2px;
+    margin-bottom: 2px
+}
+
+.field--header {
+    display:flex;
+    justify-content: space-between;
+
+    SPAN {
+        font-size: 12px;
+        font-weight: bold;
+        
+    }
+
+    DIV {
+        
+    }
+
+}

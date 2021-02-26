@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using LINQPad;
 using LINQPad.Controls;
 
@@ -14,7 +15,7 @@ namespace Tessin.Bladerunner.Controls
             Action<Button> onClick, 
             string svgIcon = null,
             string tooltip = null,
-            string pill = null,
+            Task<object> pillTask = null,
             IconButton[] actions = null)
         {
             List<Control> children = new List<Control>();
@@ -28,7 +29,22 @@ namespace Tessin.Bladerunner.Controls
             children.Add(button);
 
             var pillContainer = new DumpContainer();
-            //pillContainer.SetClass("menu-button--pill");
+            children.Add(pillContainer);
+
+            pillTask?.ContinueWith(e =>
+            {
+                if (e.Result != null)
+                {
+                    var span = new Span(e.Result.ToString());
+                    span.SetClass("menu-button--pill");
+                    pillContainer.Content = span;
+                }
+                else
+                {
+                    pillContainer.Content = "";
+                }
+                
+            }).ConfigureAwait(false);
 
             if (actions != null)
             {
