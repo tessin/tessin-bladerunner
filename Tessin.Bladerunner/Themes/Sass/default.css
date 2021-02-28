@@ -66,6 +66,23 @@ th.member {
   padding: 0.1em 0.2em 0.1em 0.2em;
 }
 
+td.typeheader {
+  color: white;
+  background-color: transparent;
+  padding: 0 0.2em 0.15em 0.1em;
+  opacity: 0.5;
+  border: 1px transparent solid;
+  padding: 2px;
+}
+
+td.typeheader:hover {
+  opacity: 1;
+}
+
+td.typeheader {
+  display: none;
+}
+
 td.n {
   text-align: right;
 }
@@ -472,8 +489,12 @@ a.graphcolumn {
   width: 30em;
 }
 
+.entity-editor-bool {
+  margin-top: 10px;
+}
+
 .field {
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .field > input[type="checkbox"] {

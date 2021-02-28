@@ -15,12 +15,12 @@ namespace Tessin.Bladerunner
 
         public static void SetVisibility(this Control control, bool value)
         {
-            control.HtmlElement.SetAttribute("style", "visibility:" + (value ? "visible" : "hidden"));
+            control.HtmlElement.SetAttribute("style", "display:" + (value ? "block" : "none"));
         }
 
         public static void SetVisibility(this DumpContainer control, bool value)
         {
-            control.Style = "visibility:" + (value ? "visible" : "hidden");
+            control.Style = "display:" + (value ? "block" : "none");
         }
 
         public static void OnUpdate(this Control control, Action onUpdate)

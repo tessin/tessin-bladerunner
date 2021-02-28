@@ -101,6 +101,12 @@ namespace Tessin.Bladerunner.Editors
 
             var fields = _fields.Values.Where(e => e.Editor != null).ToList();
 
+            var fieldsRendered = fields
+                .GroupBy(e => e.Column)
+                .OrderBy(e => e.Key)
+                .Select(e => Util.VerticalRun(e.OrderBy(f => f.Order).Select(f => f.Editor.Render(_obj, f, Updated)).ToList()))
+                .ToList();
+
             void Updated()
             {
                 var pObj = new T();
@@ -130,10 +136,8 @@ namespace Tessin.Bladerunner.Editors
             rendered.Add(
                 Util.HorizontalRun(
                     true,
-                    fields
-                    .GroupBy(e => e.Column)
-                    .OrderBy(e => e.Key)
-                    .Select(e => Util.VerticalRun(e.OrderBy(f => f.Order).Select(f => f.Editor.Render(_obj, f, Updated)))))
+                    fieldsRendered
+                )
             );
 
             Updated();
