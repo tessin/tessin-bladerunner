@@ -8,9 +8,7 @@ namespace Tessin.Bladerunner.Editors
 {
     public class LinkEditor<T> : IFieldEditor<T>
     {
-        private Field _field;
-
-        private Action<T> _onClick;
+        private readonly Action<T> _onClick;
 
         private readonly Func<T, string> _fetchUrl;
 
@@ -65,7 +63,7 @@ namespace Tessin.Bladerunner.Editors
 
         public void SetVisibility(bool value)
         {
-            _field.SetVisibility(value);
+            //todo
         }
     }
 }

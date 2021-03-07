@@ -53,6 +53,13 @@ namespace Tessin.Bladerunner
                         _Refresh();
                     };
                 }
+                if (control is SelectBox selectBox)
+                {
+                    selectBox.SelectionChanged += (_, __) =>
+                    {
+                        _Refresh();
+                    };
+                }
             }
             _Refresh();
         }
