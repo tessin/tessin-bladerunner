@@ -10,7 +10,7 @@ namespace Tessin.Bladerunner.Blades
 {
     public class MenuBlade : IBladeRenderer
     {
-        private DirectoryNode _rootNode;
+        private readonly DirectoryNode _rootNode;
 
         public MenuBlade(DirectoryNode rootNode)
         {
@@ -19,14 +19,14 @@ namespace Tessin.Bladerunner.Blades
 
         public object Render(Blade blade)
         {
-            return Util.VerticalRun(_rootNode.Children.Select(e => e.Render(blade)));
+            return new Menu(_rootNode.Children.Select(e => e.Render(blade)).ToArray());
         }
     }
 }
 
 public interface IMenuBladeNode
 {
-    object Render(Blade blade);
+    Control Render(Blade blade);
 }
 
 public class ActionNode : IMenuBladeNode
@@ -42,7 +42,7 @@ public class ActionNode : IMenuBladeNode
         _svgIcon = svgIcon;
     }
 
-    public object Render(Blade blade)
+    public Control Render(Blade blade)
     {
         return new MenuButton(_label, (_) =>
         {
@@ -66,7 +66,7 @@ public class ScriptNode : IMenuBladeNode
         _svgIcon = svgIcon;
     }
 
-    public object Render(Blade blade)
+    public Control Render(Blade blade)
     {
         return new MenuButton(_label, (_) =>
         {
@@ -88,7 +88,7 @@ public class UrlNode : IMenuBladeNode
         _svgIcon = svgIcon;
     }
 
-    public object Render(Blade blade)
+    public Control Render(Blade blade)
     {
         return new MenuButton(_label, (_) =>
         {
@@ -108,7 +108,7 @@ public class DirectoryNode : IMenuBladeNode
         Children = children;
     }
 
-    public object Render(Blade blade)
+    public Control Render(Blade blade)
     {
         return new MenuButton(_label, (_) =>
         {
@@ -128,13 +128,13 @@ public class GroupNode : IMenuBladeNode
         _children = children;
     }
 
-    public object Render(Blade blade)
+    public Control Render(Blade blade)
     {
         var header = new Div(new Span(_label));
         header.HtmlElement.SetAttribute("class", "menu-blade-group-header");
 
-        return Util.VerticalRun(
-            new object[] { header }.Union(_children.Select(e => e.Render(blade)))
+        return new Div(
+            new Control[] { header }.Union(_children.Select(e => e.Render(blade)))
         );
     }
 }

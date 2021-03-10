@@ -20,7 +20,7 @@ namespace Tessin.Bladerunner.Editors
 
     public class EntityEditor<T> where T : new()
     {
-        private Dictionary<string, Field<T>> _fields; 
+        private Dictionary<string, EditorField<T>> _fields;
 
         private readonly Action<T> _save;
 
@@ -41,17 +41,17 @@ namespace Tessin.Bladerunner.Editors
 
         private void Scaffold()
         {
-            _fields = new Dictionary<string, Field<T>>();
+            _fields = new Dictionary<string, EditorField<T>>();
 
             var type = _obj.GetType();
 
             var fields = type
                 .GetFields()
-                .Select(e => new {e.Name, Type = e.FieldType, FieldInfo = e, PropertyInfo = (PropertyInfo)null})
+                .Select(e => new {e.Name, Type = e.FieldType, FieldInfo = e, PropertyInfo = (PropertyInfo) null})
                 .Union(
                     type
                         .GetProperties()
-                        .Select(e => new {e.Name, Type = e.PropertyType, FieldInfo = (FieldInfo)null, PropertyInfo = e }
+                        .Select(e => new {e.Name, Type = e.PropertyType, FieldInfo = (FieldInfo) null, PropertyInfo = e}
                         )
                 )
                 .OrderBy(e => e.Name)
@@ -61,7 +61,8 @@ namespace Tessin.Bladerunner.Editors
             foreach (var field in fields)
             {
                 _fields[field.Name] =
-                    new Field<T>(field.Name, field.Name, order++, ScaffoldEditor(field.Name, field.Type), field.FieldInfo, field.PropertyInfo);
+                    new EditorField<T>(field.Name, field.Name, order++, ScaffoldEditor(field.Name, field.Type),
+                        field.FieldInfo, field.PropertyInfo);
             }
         }
 
@@ -99,12 +100,13 @@ namespace Tessin.Bladerunner.Editors
         {
             var rendered = new List<object>();
 
-            var fields = _fields.Values.Where(e => e.Editor != null).ToList();
+            var fields = _fields.Values.Where(e => !e.Removed && e.Editor != null).ToList();
 
             var fieldsRendered = fields
                 .GroupBy(e => e.Column)
                 .OrderBy(e => e.Key)
-                .Select(e => Util.VerticalRun(e.OrderBy(f => f.Order).Select(f => f.Editor.Render(_obj, f, Updated)).ToList()))
+                .Select(e =>
+                    Util.VerticalRun(e.OrderBy(f => f.Order).Select(f => f.Editor.Render(_obj, f, Updated)).ToList()))
                 .ToList();
 
             void Updated()
@@ -114,10 +116,12 @@ namespace Tessin.Bladerunner.Editors
                 {
                     field.Editor.Save(pObj, field);
                 }
+
                 foreach (var field in fields)
                 {
                     field.Editor.SetVisibility(field.ShowIf(pObj));
                 }
+
                 _preview?.Invoke(pObj);
             }
 
@@ -129,6 +133,7 @@ namespace Tessin.Bladerunner.Editors
                     {
                         field.Editor.Save(_obj, field);
                     }
+
                     _save?.Invoke(_obj);
                 }
             }));
@@ -158,6 +163,7 @@ namespace Tessin.Bladerunner.Editors
             {
                 hint.Editor = editor(_factory);
             }
+
             return this;
         }
 
@@ -181,9 +187,11 @@ namespace Tessin.Bladerunner.Editors
             foreach (var expr in fields)
             {
                 var hint = GetField(expr);
+                hint.Removed = false;
                 hint.Order = order++;
                 hint.Column = col;
             }
+
             return this;
         }
 
@@ -198,10 +206,26 @@ namespace Tessin.Bladerunner.Editors
             return _Place(1, fields);
         }
 
-        public EntityEditor<T> Remove(Expression<Func<T,object>> field)
+        public EntityEditor<T> Remove(Expression<Func<T, object>> field)
         {
             var hint = GetField(field);
-            hint.Editor = null;
+            hint.Removed = true;
+            return this;
+        }
+
+        public EntityEditor<T> Add(Expression<Func<T, object>> field)
+        {
+            var hint = GetField(field);
+            hint.Removed = false;
+            return this;
+        }
+
+        public EntityEditor<T> Clear()
+        {
+            foreach (var field in _fields.Values)
+            {
+                field.Removed = true;
+            }
             return this;
         }
 
@@ -219,7 +243,7 @@ namespace Tessin.Bladerunner.Editors
             return this;
         }
 
-        private Field<T> GetField(Expression<Func<T, object>> field)
+        private EditorField<T> GetField(Expression<Func<T, object>> field)
         {
             var name = GetNameFromMemberExpression(field.Body);
             return _fields[name];
@@ -237,6 +261,7 @@ namespace Tessin.Bladerunner.Editors
                         expression = unaryExpression.Operand;
                         continue;
                 }
+
                 throw new ArgumentException("Invalid expression.");
             }
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using LINQPad;
 using LINQPad.Controls;
@@ -15,11 +14,12 @@ namespace Tessin.Bladerunner.Controls
             Action<Button> onClick, 
             string svgIcon = null,
             string tooltip = null,
+            object pill = null,
             Task<object> pillTask = null,
             IconButton[] actions = null)
         {
             List<Control> children = new List<Control>();
-            
+
             var button = new Button(null, onClick);
             if (tooltip != null)
             {
@@ -28,38 +28,58 @@ namespace Tessin.Bladerunner.Controls
             button.HtmlElement.InnerHtml = $@"{svgIcon}<span>{label}</span>";
             children.Add(button);
 
-            var pillContainer = new DumpContainer();
-            children.Add(pillContainer);
+            Control pillContainer = null;
 
-            pillTask?.ContinueWith(e =>
+            if (pillTask != null || pill != null)
             {
-                if (e.Result != null)
+                var _pillContainer = new DumpContainer();
+                pillContainer = _pillContainer.ToControl();
+                children.Add(pillContainer);
+
+                if (pillTask != null)
+                { 
+                    pillTask?.ContinueWith(e =>
+                    {
+                        if (e.Result != null)
+                        {
+                            var span = new Span(e.Result.ToString());
+                            span.SetClass("menu-button--pill");
+                            _pillContainer.Content = span;
+                        }
+                        else
+                        {
+                            _pillContainer.Content = "";
+                        }
+                    }).ConfigureAwait(false);
+                }
+                else 
                 {
-                    var span = new Span(e.Result.ToString());
+                    var span = new Span(pill.ToString());
                     span.SetClass("menu-button--pill");
-                    pillContainer.Content = span;
+                    _pillContainer.Content = span;
                 }
-                else
-                {
-                    pillContainer.Content = "";
-                }
-                
-            }).ConfigureAwait(false);
+            }
+
+            Div divActions = null;
 
             if (actions != null)
             {
-                var divActions = new Div(
+                divActions = new Div(
                     actions.Cast<Control>()
                 );
                 divActions.SetClass("menu-button--actions");
 
-                JavascriptHelpers.ShowOnMouseOver(button, divActions, pillContainer);
                 children.Add(divActions);
             }
 
             var divContainer = new Div(children);
             divContainer.SetClass("menu-button");
 
+            if (actions != null)
+            { 
+                JavascriptHelpers.ShowOnMouseOver(divContainer, divActions, pillContainer);
+            }
+            
             this.Content = new Div(divContainer);
         }
     }

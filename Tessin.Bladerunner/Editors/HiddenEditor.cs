@@ -5,17 +5,17 @@ namespace Tessin.Bladerunner.Editors
 {
     public class HiddenEditor<T> : IFieldEditor<T>
     {
-        public object Render(T obj, Field<T> fieldInfo, Action preview)
+        public object Render(T obj, EditorField<T> editorFieldInfo, Action preview)
         {
             return null;
         }
 
-        public void Save(T obj, Field<T> fieldInfo)
+        public void Save(T obj, EditorField<T> editorFieldInfo)
         {
             // ignore
         }
 
-        public bool Validate(T obj, Field<T> fieldInfo)
+        public bool Validate(T obj, EditorField<T> editorFieldInfo)
         {
             return true;
         }

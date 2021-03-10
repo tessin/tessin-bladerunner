@@ -5,7 +5,9 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace Tessin.Bladerunner
@@ -236,6 +238,7 @@ namespace Tessin.Bladerunner
         public static T ArgsParser<T>(string[] args) where T : new()
         {
             T result = new T();
+            if (args == null || args.Length == 0) return result;
             var type = typeof(T);
             var props = type.GetFields();
             foreach (var chunk in args.Chunks(2))
@@ -261,6 +264,11 @@ namespace Tessin.Bladerunner
         {
             if (input == "") return null;
             return input;
+        }
+
+        public static Task<object> CreateTask<T>(Func<T, object> meat) where T : new()
+        {
+            return Task.Run<object>(async () => await Task.FromResult(meat(new T())));
         }
     }
 }

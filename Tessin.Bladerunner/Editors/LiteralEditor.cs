@@ -12,23 +12,23 @@ namespace Tessin.Bladerunner.Editors
     {
         private Field _field;
 
-        public object Render(T obj, Field<T> fieldInfo, Action preview)
+        public object Render(T obj, EditorField<T> editorFieldInfo, Action preview)
         {
-            var value = Convert.ToString(fieldInfo.GetValue(obj));
+            var value = Convert.ToString(editorFieldInfo.GetValue(obj));
 
             var valueLabel = new Label(value ?? "null");
 
             valueLabel.HtmlElement.SetAttribute("class", "entity-editor-literal");
 
-            return _field = new Field(fieldInfo.Label, valueLabel, fieldInfo.Description, fieldInfo.Helper);
+            return _field = new Field(editorFieldInfo.Label, valueLabel, editorFieldInfo.Description, editorFieldInfo.Helper);
         }
 
-        public void Save(T obj, Field<T> fieldInfo)
+        public void Save(T obj, EditorField<T> editorFieldInfo)
         {
             //ignore
         }
 
-        public bool Validate(T obj, Field<T> instruction)
+        public bool Validate(T obj, EditorField<T> instruction)
         {
             return true;
         }

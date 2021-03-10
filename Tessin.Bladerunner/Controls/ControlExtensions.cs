@@ -23,6 +23,26 @@ namespace Tessin.Bladerunner
             control.Style = "display:" + (value ? "block" : "none");
         }
 
+        public static void ClearStyles(this Table table)
+        {
+            foreach (var style in table.Styles)
+            {
+                table.Styles[style.Key] = null;
+            }
+            foreach (var style in table.CellStyles)
+            {
+                table.CellStyles[style.Key] = null;
+            }
+            foreach (var style in table.HeaderStyles)
+            {
+                table.HeaderStyles[style.Key] = null;
+            }
+            foreach (var style in table.RowStyles)
+            {
+                table.RowStyles[style.Key] = null;
+            }
+        }
+
         public static void OnUpdate(this Control control, Action onUpdate)
         {
             if (control is TextBox textBox)

@@ -2,8 +2,6 @@
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Security.Authentication.ExtendedProtection;
 using LINQPad;
 using LINQPad.Controls;
 
@@ -34,6 +32,7 @@ namespace Tessin.Bladerunner
             _stack = new Stack<Blade>();
             _panels = Enumerable.Range(0, _maxDepth).Select((e, i) => new DumpContainer()).ToArray();
             _styleManager = new StyleManager();
+            Util.KeepRunning();
         }
 	
         public void PushBlade(IBladeRenderer renderer, string title = "")

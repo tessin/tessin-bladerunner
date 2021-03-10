@@ -7,3 +7,10 @@
     border: 1px solid $primary-cta;
     padding-left:10px;
 }
+
+.search-box:-ms-input-placeholder {
+    color: #ccc !important;
+    font-weight: 400 !important;
+    font-size: 13px;
+    font-family: $font-family;
+}

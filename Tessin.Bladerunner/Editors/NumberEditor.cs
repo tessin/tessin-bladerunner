@@ -13,33 +13,33 @@ namespace Tessin.Bladerunner.Editors
         {
         }
 
-        public object Render(T obj, Field<T> fieldInfo, Action preview)
+        public object Render(T obj, EditorField<T> editorFieldInfo, Action preview)
         {
-            _textBox = new TextBox(fieldInfo.GetValue(obj)?.ToString()??"") { };
+            _textBox = new TextBox(editorFieldInfo.GetValue(obj)?.ToString()??"") { };
 
             _textBox.TextInput += (sender, args) => preview();
 
-            return _field = new Field(fieldInfo.Label, _textBox, fieldInfo.Description, fieldInfo.Helper);
+            return _field = new Field(editorFieldInfo.Label, _textBox, editorFieldInfo.Description, editorFieldInfo.Helper);
         }
 
-        public void Save(T obj, Field<T> fieldInfo)
+        public void Save(T obj, EditorField<T> editorFieldInfo)
         {
-            var type = fieldInfo.Type;
-            if (Nullable.GetUnderlyingType(fieldInfo.Type) is Type t)
+            var type = editorFieldInfo.Type;
+            if (Nullable.GetUnderlyingType(editorFieldInfo.Type) is Type t)
             {
                 if (string.IsNullOrEmpty(_textBox.Text))
                 {
-                    fieldInfo.SetValue(obj, null);
+                    editorFieldInfo.SetValue(obj, null);
                     return;
                 }
                 type = t;
             }
-            fieldInfo.SetValue(obj, Convert.ChangeType(double.Parse(_textBox.Text), type));
+            editorFieldInfo.SetValue(obj, Convert.ChangeType(double.Parse(_textBox.Text), type));
         }
 
-        public bool Validate(T obj, Field<T> fieldInfo)
+        public bool Validate(T obj, EditorField<T> editorFieldInfo)
         {
-            if (!fieldInfo.Type.IsNullable() && string.IsNullOrEmpty(_textBox.Text) || !string.IsNullOrEmpty(_textBox.Text) && !double.TryParse(_textBox.Text, out double _))
+            if (!editorFieldInfo.Type.IsNullable() && string.IsNullOrEmpty(_textBox.Text) || !string.IsNullOrEmpty(_textBox.Text) && !double.TryParse(_textBox.Text, out double _))
             {
                 _textBox.Styles["border-color"] = "tomato";
                 return false;

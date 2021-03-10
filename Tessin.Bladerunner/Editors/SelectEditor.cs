@@ -20,9 +20,9 @@ namespace Tessin.Bladerunner.Editors
             _options = options;
         }
 
-        public object Render(T obj, Field<T> fieldInfo, Action preview)
+        public object Render(T obj, EditorField<T> editorFieldInfo, Action preview)
         {
-            object value = fieldInfo.GetValue(obj);
+            object value = editorFieldInfo.GetValue(obj);
 
             var selectedOption = _options.Where(e => e.Value.Equals(value)).Select(e => e.Label).FirstOrDefault();
 
@@ -35,15 +35,15 @@ namespace Tessin.Bladerunner.Editors
 
             _selectBox.HtmlElement.SetAttribute("class", "entity-editor-select");
 
-            return _field = new Field(fieldInfo.Label, _selectBox, fieldInfo.Description, fieldInfo.Helper);
+            return _field = new Field(editorFieldInfo.Label, _selectBox, editorFieldInfo.Description, editorFieldInfo.Helper);
         }
 
-        public void Save(T obj, Field<T> fieldInfo)
+        public void Save(T obj, EditorField<T> editorFieldInfo)
         {
-            fieldInfo.SetValue(obj, _options[_selectBox.SelectedIndex].Value);
+            editorFieldInfo.SetValue(obj, _options[_selectBox.SelectedIndex].Value);
         }
 
-        public bool Validate(T obj, Field<T> fieldInfo)
+        public bool Validate(T obj, EditorField<T> editorFieldInfo)
         {
             return true;
         }

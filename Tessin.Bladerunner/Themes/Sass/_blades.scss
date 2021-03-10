@@ -1,6 +1,7 @@
 .blade-wrapper {
     display: flex;
     height: 100vh;
+    overflow-y: hidden;
 }
 
 .blade {
@@ -21,11 +22,13 @@
     padding-top: 0px;
     height: 100%;
     width: 100%;
+    
 }
 
 .blade-panel {
     height: 100vh;
     width: 100%;
+    overflow-y: auto;
 }
 
 .blade-header {
@@ -57,9 +60,7 @@
 }
 
 .blade-content {
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
+    width:100%;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 50px;
@@ -71,6 +72,15 @@
 
 .blade:nth-child(odd) .blade-panel {
     background-color: #f8f8f8;
+}
+
+.blade-content H1 
+{
+    margin-block-start: 0;
+    margin:0;
+    padding:0;
+    font-size: 16px;
+    font-weight: $font-weight-bold;
 }
 
 .menu-blade-group-header {

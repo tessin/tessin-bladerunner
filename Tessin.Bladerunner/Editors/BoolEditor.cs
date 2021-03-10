@@ -14,12 +14,12 @@ namespace Tessin.Bladerunner.Editors
         {
         }
 
-        public object Render(T obj, Field<T> field, Action preview)
+        public object Render(T obj, EditorField<T> editorField, Action preview)
         {
 
-            var value = Convert.ToBoolean(field.GetValue(obj));
+            var value = Convert.ToBoolean(editorField.GetValue(obj));
 
-            _checkBox = new CheckBox(field.Label, value);
+            _checkBox = new CheckBox(editorField.Label, value);
 
             _checkBox.Click += (sender, args) => preview();
 
@@ -31,12 +31,12 @@ namespace Tessin.Bladerunner.Editors
             return _wrapper;
         }
 
-        public void Save(T obj, Field<T> field)
+        public void Save(T obj, EditorField<T> editorField)
         {
-            field.SetValue(obj, _checkBox.Checked);
+            editorField.SetValue(obj, _checkBox.Checked);
         }
 
-        public bool Validate(T obj, Field<T> field)
+        public bool Validate(T obj, EditorField<T> editorField)
         {
             return true;
         }

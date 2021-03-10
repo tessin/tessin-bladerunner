@@ -180,7 +180,6 @@ td.columntotal {
   background-color: #eee;
   font-weight: 400;
   color: #17b;
-  font-size: .9em;
   text-align: right;
 }
 
@@ -356,6 +355,7 @@ a.graphcolumn {
   display: -ms-flexbox;
   display: flex;
   height: 100vh;
+  overflow-y: hidden;
 }
 
 .blade {
@@ -387,6 +387,7 @@ a.graphcolumn {
 .blade-panel {
   height: 100vh;
   width: 100%;
+  overflow-y: auto;
 }
 
 .blade-header {
@@ -426,8 +427,6 @@ a.graphcolumn {
 
 .blade-content {
   width: 100%;
-  height: 100%;
-  overflow-y: auto;
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 50px;
@@ -439,6 +438,15 @@ a.graphcolumn {
 
 .blade:nth-child(odd) .blade-panel {
   background-color: #f8f8f8;
+}
+
+.blade-content H1 {
+  -webkit-margin-before: 0;
+          margin-block-start: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 .menu-blade-group-header {
@@ -516,12 +524,18 @@ a.graphcolumn {
   font-weight: bold;
 }
 
+.menu {
+  margin-top: -10px;
+}
+
 .menu-button {
   padding: 0px;
   margin: 0px;
   margin-left: -10px;
-  min-width: 250px;
+  width: 100%;
+  min-width: 200px;
   height: 40px;
+  border: 0px;
   border-bottom: 1px solid #ccc;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -529,6 +543,7 @@ a.graphcolumn {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  background-color: transparent;
   -webkit-box-pack: left;
       -ms-flex-pack: left;
           justify-content: left;
@@ -552,29 +567,18 @@ a.graphcolumn {
           justify-content: left;
 }
 
-.menu-button--actions {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: left;
-      -ms-flex-pack: left;
-          justify-content: left;
-}
-
-.menu-button button:hover {
+.menu-button:hover {
   background-color: #dddddd;
 }
 
 .menu-button > button > svg {
   margin-left: 5px;
+  margin-right: -5px;
   opacity: 0.5;
 }
 
 .menu-button > button > span {
-  margin-left: 15px;
+  margin-left: 10px;
   font-size: 1em;
   font-family: "Roboto";
 }
@@ -587,6 +591,19 @@ a.graphcolumn {
   margin-right: 5px;
 }
 
+.menu-button--actions {
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-right: 5px;
+}
+
 .icon-button {
   background: transparent;
   padding: 0;
@@ -596,6 +613,7 @@ a.graphcolumn {
   height: 24px;
   opacity: 0.5;
   cursor: pointer;
+  display: block;
 }
 
 .icon-button:hover {
@@ -617,5 +635,12 @@ a.graphcolumn {
   border-radius: 10px;
   border: 1px solid #1158aa;
   padding-left: 10px;
+}
+
+.search-box:-ms-input-placeholder {
+  color: #ccc !important;
+  font-weight: 400 !important;
+  font-size: 13px;
+  font-family: "Roboto", sans-serif;
 }
 /*# sourceMappingURL=default.css.map */

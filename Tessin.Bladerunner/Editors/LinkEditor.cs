@@ -26,9 +26,9 @@ namespace Tessin.Bladerunner.Editors
         {
         }
 
-        public object Render(T obj, Field<T> fieldInfo, Action preview)
+        public object Render(T obj, EditorField<T> editorFieldInfo, Action preview)
         {
-            var label = Convert.ToString(fieldInfo.GetValue(obj));
+            var label = Convert.ToString(editorFieldInfo.GetValue(obj));
 
             Control link;
 
@@ -48,15 +48,15 @@ namespace Tessin.Bladerunner.Editors
 
             link.HtmlElement.SetAttribute("class", "entity-editor-link");
 
-            return new Field(fieldInfo.Label, link, fieldInfo.Description, fieldInfo.Helper);
+            return new Field(editorFieldInfo.Label, link, editorFieldInfo.Description, editorFieldInfo.Helper);
         }
 
-        public void Save(T obj, Field<T> fieldInfo)
+        public void Save(T obj, EditorField<T> editorFieldInfo)
         {
             //ignore
         }
 
-        public bool Validate(T obj, Field<T> fieldInfo)
+        public bool Validate(T obj, EditorField<T> editorFieldInfo)
         {
             return true;
         }

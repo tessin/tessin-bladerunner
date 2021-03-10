@@ -20,9 +20,9 @@ namespace Tessin.Bladerunner.Editors
             _options = options;
         }
 
-        public object Render(T obj, Field<T> field, Action preview)
+        public object Render(T obj, EditorField<T> editorField, Action preview)
         {
-            object value = field.GetValue(obj);
+            object value = editorField.GetValue(obj);
 
             var labelText = value?.ToString() ?? "";
 
@@ -33,15 +33,15 @@ namespace Tessin.Bladerunner.Editors
 
             _dataListBox.TextInput += (sender, args) => preview();
 
-            return _field = new Field(field.Label, _dataListBox, field.Description, field.Helper);
+            return _field = new Field(editorField.Label, _dataListBox, editorField.Description, editorField.Helper);
         }
 
-        public void Save(T obj, Field<T> field)
+        public void Save(T obj, EditorField<T> editorField)
         {
-            field.SetValue(obj, _dataListBox.Text);
+            editorField.SetValue(obj, _dataListBox.Text);
         }
 
-        public bool Validate(T obj, Field<T> field)
+        public bool Validate(T obj, EditorField<T> editorField)
         {
             return true;
         }

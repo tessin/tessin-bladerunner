@@ -5,9 +5,9 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Editors
 {
-    public class Field<T>
+    public class EditorField<T>
     {
-        public Field(
+        public EditorField(
             string name, 
             string label, 
             int order, 
@@ -67,5 +67,7 @@ namespace Tessin.Bladerunner.Editors
         public string Description { get; set; }
 
         public IFieldEditor<T> Editor { get; set; }
+
+        public bool Removed { get; set; }
     }
 }

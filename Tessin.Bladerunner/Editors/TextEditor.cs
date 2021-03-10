@@ -20,9 +20,9 @@ namespace Tessin.Bladerunner.Editors
             _fixedFont = fixedFont;
         }
 
-        public object Render(T obj, Field<T> fieldInfo, Action updated)
+        public object Render(T obj, EditorField<T> editorFieldInfo, Action updated)
         {
-            var value = Convert.ToString(fieldInfo.GetValue(obj));
+            var value = Convert.ToString(editorFieldInfo.GetValue(obj));
 
             if (_multiLine)
             {
@@ -41,15 +41,15 @@ namespace Tessin.Bladerunner.Editors
                 _textBox.HtmlElement.SetAttribute("class", "fixed-font");
             }
 
-            return _field = new Field(fieldInfo.Label, _textBox, fieldInfo.Description, fieldInfo.Helper);
+            return _field = new Field(editorFieldInfo.Label, _textBox, editorFieldInfo.Description, editorFieldInfo.Helper);
         }
 
-        public void Save(T obj, Field<T> fieldInfo)
+        public void Save(T obj, EditorField<T> editorFieldInfo)
         {
-            fieldInfo.SetValue(obj, _textBox.GetType().GetProperty("Text").GetValue(_textBox));
+            editorFieldInfo.SetValue(obj, _textBox.GetType().GetProperty("Text").GetValue(_textBox));
         }
 
-        public bool Validate(T obj, Field<T> fieldInfo)
+        public bool Validate(T obj, EditorField<T> editorFieldInfo)
         {
             return true;
         }
