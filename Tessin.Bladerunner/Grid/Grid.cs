@@ -177,7 +177,7 @@ namespace Tessin.Bladerunner.Grid
             return this;
         }
 
-        public Grid<T> Editor<TU>(Func<CellRendererFactory<T>, ICellRenderer<T>> editor)
+        public Grid<T> Renderer<TU>(Func<CellRendererFactory<T>, ICellRenderer<T>> editor)
         {
             foreach (var hint in _columns.Values.Where(e => e.Type is TU))
             {

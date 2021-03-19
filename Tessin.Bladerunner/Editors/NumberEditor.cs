@@ -34,7 +34,14 @@ namespace Tessin.Bladerunner.Editors
                 }
                 type = t;
             }
-            editorFieldInfo.SetValue(obj, Convert.ChangeType(double.Parse(_textBox.Text), type));
+            try
+            {
+                editorFieldInfo.SetValue(obj, Convert.ChangeType(double.Parse(_textBox.Text), type));
+            }
+            catch (Exception)
+            {
+                editorFieldInfo.SetValue(obj, Convert.ChangeType(0, type));
+            }
         }
 
         public bool Validate(T obj, EditorField<T> editorFieldInfo)

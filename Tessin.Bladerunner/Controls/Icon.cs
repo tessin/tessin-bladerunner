@@ -9,10 +9,10 @@ namespace Tessin.Bladerunner.Controls
 {
     public class Icon : Div
     {
-        public Icon(string icon, string tooltip = "") : base()
+        public Icon(string icon, string tooltip = "", Color color = Color.Black) : base()
         {
             this.HtmlElement.SetAttribute("title", tooltip);
-            this.HtmlElement.SetAttribute("class", "icon");
+            this.HtmlElement.SetAttribute("class", $"icon {color.ToString().ToLower()}");
             this.HtmlElement.InnerHtml = icon;
         }
     }

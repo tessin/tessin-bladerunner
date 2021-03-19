@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using LINQPad;
 using LINQPad.Controls;
@@ -37,14 +38,22 @@ namespace Tessin.Bladerunner.Controls
                 children.Add(pillContainer);
 
                 if (pillTask != null)
-                { 
+                {
                     pillTask?.ContinueWith(e =>
                     {
                         if (e.Result != null)
                         {
-                            var span = new Span(e.Result.ToString());
-                            span.SetClass("menu-button--pill");
-                            _pillContainer.Content = span;
+                            var content = e.Result.ToString();
+                            if (content != "")
+                            {
+                                var span = new Span(content);
+                                span.SetClass("menu-button--pill");
+                                _pillContainer.Content = span;
+                            }
+                            else
+                            {
+                                _pillContainer.Content = "";
+                            }
                         }
                         else
                         {
@@ -54,9 +63,13 @@ namespace Tessin.Bladerunner.Controls
                 }
                 else 
                 {
-                    var span = new Span(pill.ToString());
-                    span.SetClass("menu-button--pill");
-                    _pillContainer.Content = span;
+                    var content = pill.ToString();
+                    if (content != "")
+                    {
+                        var span = new Span(content);
+                        span.SetClass("menu-button--pill");
+                        _pillContainer.Content = span;
+                    }
                 }
             }
 

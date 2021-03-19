@@ -154,12 +154,13 @@ th.headingpresenter {
     padding: 0 0 0.2em 0.5em;
     color: $primary-cta;
     font-weight: $font-weight-bold;
-    font-size: 1.2em;
+    font-size: 1em;
     background-color: transparent;  
 }
 
 td.headingpresenter {
 	border: none;
+	background-color:transparent;
 	padding: 0 0 0 0.6em;
 }
 

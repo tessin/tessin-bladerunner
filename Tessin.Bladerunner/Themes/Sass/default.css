@@ -1,3 +1,38 @@
+.red {
+  fill: red;
+  color: red;
+}
+
+.yellow {
+  fill: yellow;
+  color: yellow;
+}
+
+.purple {
+  fill: purple;
+  color: purple;
+}
+
+.blue {
+  fill: blue;
+  color: blue;
+}
+
+.black {
+  fill: black;
+  color: black;
+}
+
+.green {
+  fill: green;
+  color: green;
+}
+
+.gray {
+  fill: gray;
+  color: gray;
+}
+
 body {
   margin: 0em;
   padding: 0em;
@@ -160,12 +195,13 @@ th.headingpresenter {
   padding: 0 0 0.2em 0.5em;
   color: #1158aa;
   font-weight: 400;
-  font-size: 1.2em;
+  font-size: 1em;
   background-color: transparent;
 }
 
 td.headingpresenter {
   border: none;
+  background-color: transparent;
   padding: 0 0 0 0.6em;
 }
 

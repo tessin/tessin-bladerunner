@@ -6,5 +6,49 @@ $primary-cta: rgb(17, 88, 170);
 $primary-header: aquamarine;
 $primary-cherry: tomato;
 
+$color-red: red;
+$color-yellow: yellow;
+$color-purple: purple;
+$color-blue: blue;
+$color-black: black;
+$color-green: green;
+$color-gray: gray;
+
+.red {
+    fill:$color-red;
+    color:$color-red;
+}
+
+.yellow {
+    fill:$color-yellow;
+    color:$color-yellow;
+}
+
+.purple {
+    fill:$color-purple;
+    color:$color-purple;
+}
+
+.blue {
+    fill:$color-blue;
+    color:$color-blue;
+}
+
+.black {
+    fill:$color-black;
+    color:$color-black;
+}
+
+.green {
+    fill:$color-green;
+    color:$color-green;
+}
+
+.gray {
+    fill:$color-gray;
+    color:$color-gray;
+}
+
+
 
 

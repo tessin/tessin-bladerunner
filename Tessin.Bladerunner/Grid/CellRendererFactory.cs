@@ -17,6 +17,11 @@ namespace Tessin.Bladerunner.Grid
             return new NumberCell<T>(format);
         }
 
+        public ICellRenderer<T> Percentage()
+        {
+            return new NumberCell<T>("P2");
+        }
+
         public ICellRenderer<T> Date(string format = "yyyy-MM-dd")
         {
             return new DateCell<T>(format);
