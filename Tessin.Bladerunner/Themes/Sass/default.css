@@ -114,10 +114,6 @@ td.typeheader:hover {
   opacity: 1;
 }
 
-td.typeheader {
-  display: none;
-}
-
 td.n {
   text-align: right;
 }

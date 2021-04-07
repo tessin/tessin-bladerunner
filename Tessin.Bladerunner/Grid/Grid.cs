@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using LINQPad.Controls;
-using LINQPad.Extensibility.DataContext.DbSchema;
 using Table = LINQPad.Controls.Table;
 
 namespace Tessin.Bladerunner.Grid
@@ -16,7 +15,7 @@ namespace Tessin.Bladerunner.Grid
             return new Grid<T>(obj);
         }
     }
-
+    
     public class Grid<T> where T : new()
     {
         private IEnumerable<T> _rows;
@@ -39,7 +38,9 @@ namespace Tessin.Bladerunner.Grid
         {
             _columns = new Dictionary<string, GridColumn<T>>();
 
-            var type = _rows.GetType().GetGenericArguments()[0];
+            //var type = _rows.GetType().GetGenericArguments()[0];
+
+            var type = typeof(T);
 
             var fields = type
                 .GetFields()
@@ -49,7 +50,7 @@ namespace Tessin.Bladerunner.Grid
                         .GetProperties()
                         .Select(e => new { e.Name, Type = e.PropertyType, FieldInfo = (FieldInfo)null, PropertyInfo = e })
                 )
-                .OrderBy(e => e.Name)
+                //.OrderBy(e => e.Name)
                 .ToList();
 
             int order = fields.Count();
