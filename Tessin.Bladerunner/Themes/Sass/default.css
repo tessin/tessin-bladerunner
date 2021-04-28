@@ -78,7 +78,9 @@ table.error {
 }
 
 td {
-  background-color: white;
+  /*
+    background-color: white;
+	*/
 }
 
 td, th {

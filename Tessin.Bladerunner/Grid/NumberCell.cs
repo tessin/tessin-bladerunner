@@ -16,7 +16,7 @@ namespace Tessin.Bladerunner.Grid
 
         public Control Render(object value, GridColumn<T> column)
         {
-            if (value == null) return new Literal("-");
+            if (value == null) return new Literal("n/a");
 
             var _value = Convert.ToDouble(value);
 

@@ -26,6 +26,8 @@ namespace Tessin.Bladerunner.Grid
 
         private string _width;
 
+        private Action<T, TableRow> _rowAction;
+
         public Grid(IEnumerable<T> rows, string width = null)
         {
             _rows = rows;
@@ -126,13 +128,18 @@ namespace Tessin.Bladerunner.Grid
             var columns = _columns.Values.Where(e => !e.Removed && e.CellRenderer != null)
                 .OrderBy(e => e.Order).ToList();
 
+            TableRow RenderRow(T e)
+            {
+                var row = new TableRow(
+                    columns.Select(f => RenderCell(f, f.CellRenderer.Render(f.GetValue(e), f)))
+                );
+                _rowAction?.Invoke(e, row);
+                return row; 
+            }
+
             var header = new TableRow(columns.Select(e => RenderHeaderCell(e, new Literal(e.Label))));
 
-            var rows = _rows.Select(e => 
-                    new TableRow(
-                        columns.Select(f => RenderCell(f, f.CellRenderer.Render(f.GetValue(e), f)))
-                    )
-                );
+            var rows = _rows.Select(RenderRow);
 
             var renderedRows = new[] {header}.Concat(rows);
 
@@ -243,6 +250,12 @@ namespace Tessin.Bladerunner.Grid
             return this;
         }
 
+        public Grid<T> Row(Action<T,TableRow> rowAction)
+        {
+            _rowAction = rowAction;
+            return this;
+        }
+
         public Grid<T> Totals(Expression<Func<T, object>> field, Func<IEnumerable<T>,object> summaryMethod)
         {
             var _field = GetField(field);
@@ -255,7 +268,7 @@ namespace Tessin.Bladerunner.Grid
             var _field = GetField(field);
             object SummaryMethod(IEnumerable<T> rows)
             {
-                return rows.Select(e => _field.GetValue(e)).Aggregate((a, b) => (dynamic)a + (dynamic)b);
+                return rows.Select(e => _field.GetValue(e)).Where(e => e != null).Aggregate((a, b) => (dynamic)a + (dynamic)b);
             }
             return Totals(field, SummaryMethod);
         }

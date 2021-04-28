@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using LINQPad;
 using LINQPad.Controls;
 
@@ -25,6 +27,11 @@ namespace Tessin.Bladerunner
 
         public BladeManager(int maxDepth = 10, bool showDebugButton = false, string cssPath = null, bool cssHotReloading = false)
         {
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentCulture = new System.Globalization.CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentUICulture = new System.Globalization.CultureInfo("en-US");
+
             _maxDepth = maxDepth;
             _cssPath = cssPath;
             _cssHotReloading = cssHotReloading;
@@ -32,7 +39,7 @@ namespace Tessin.Bladerunner
             _stack = new Stack<Blade>();
             _panels = Enumerable.Range(0, _maxDepth).Select((e, i) => new DumpContainer()).ToArray();
             _styleManager = new StyleManager();
-            Util.KeepRunning();
+            //Util.KeepRunning();
         }
 	
         public void PushBlade(IBladeRenderer renderer, string title = "")
