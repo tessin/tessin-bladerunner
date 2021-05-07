@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using LINQPad;
 using LINQPad.Controls;
 
 namespace Tessin.Bladerunner
 {
-    public static class LinqPadUtils
+    public static class Layout
     {
-        private static object _VerticalRun(bool withGaps, IEnumerable<object> elements)
+        private static object _Vertical(bool withGaps, IEnumerable<object> elements)
         {
             if (!withGaps)
             {
@@ -17,14 +19,42 @@ namespace Tessin.Bladerunner
             return LINQPad.Util.VerticalRun(elements.Select(e => LINQPad.Util.WithStyle(e, "margin-bottom:0.4em;display:block;")));
         }
 
-        public static object VerticalRun(bool withGaps, IEnumerable<object> elements)
+        public static object Vertical(bool withGaps, IEnumerable<object> elements)
         {
-            return _VerticalRun(withGaps, elements);
+            return _Vertical(withGaps, elements);
         }
 
-        public static object VerticalRun(bool withGaps, params object[] elements)
+        public static object Vertical(bool withGaps, params object[] elements)
         {
-            return _VerticalRun(withGaps, elements);
+            return _Vertical(withGaps, elements);
+        }
+
+        public static object WithClass(object data, string @class)
+        {
+            Type t = typeof(Util)
+                .Assembly.GetType("LINQPad.ObjectGraph.Highlight");
+            var ctor = t.GetConstructors()[0];
+            return ctor.Invoke(new object[] { data, @class, null });
+        }
+
+        private static object _Horizontal(bool withGaps, IEnumerable<object> elements)
+        {
+            if (!withGaps)
+            {
+                return WithClass(Util.VerticalRun(elements), "hrun");
+            }
+            return WithClass(LINQPad.Util.VerticalRun(elements.Select(e => LINQPad.Util.WithStyle(e, "margin-right:0.4em;display:block;"))), "hrun");
+        }
+
+        public static object Horizontal(bool withGaps, IEnumerable<object> elements)
+        {
+            return _Horizontal(withGaps, elements);
+        }
+
+
+        public static object Horizontal(bool withGaps, params object[] elements)
+        {
+            return _Horizontal(withGaps, elements);
         }
 
         public static object DumpMatrix<T, T1, T2>(IQueryable<T> raw, Expression<Func<T, T1>> verticalExpr, Expression<Func<T, T2>> horizontalExpr, Func<IEnumerable<T>, object> cellRenderer) where T1 : IComparable where T2 : IComparable

@@ -384,6 +384,12 @@ a.graphcolumn {
   color: green;
 }
 
+.hrun DIV {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .blade-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
