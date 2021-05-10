@@ -10,21 +10,20 @@ namespace Tessin.Bladerunner.Query
     {
         public int RuleIndex { get; set; }
 
-        private string _field;
-
         private bool _value;
 
-        public BoolRule(string field, bool value = false)
+        private Expression<Func<T, bool>> _expr;
+
+        public BoolRule(Expression<Func<T, bool>> expr)
         {
-            _field = field;
-            _value = value;
+            _expr = expr;
         }
 
-        public Expression ToExpression(ParameterExpression p)
+        public Expression<Func<T, bool>> ToExpression()
         {
-            var property = Expression.Field(p, _field);
-            var constant = Expression.Constant(_value);
-            return Expression.Equal(property, constant);
+            var p = Expression.Parameter(typeof(T));
+            return Expression.Lambda<Func<T, bool>>(
+                Expression.Equal(Expression.Invoke(_expr, p), Expression.Constant(_value)), p);
         }
 
         public object Render(QueryBuilder<T> builder)

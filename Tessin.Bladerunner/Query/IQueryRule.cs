@@ -11,6 +11,6 @@ namespace Tessin.Bladerunner.Query
 
         object Render(QueryBuilder<T> builder);
 
-        Expression ToExpression(ParameterExpression p);
+        Expression<Func<T, bool>> ToExpression();
     }
 }

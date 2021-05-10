@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -270,5 +271,23 @@ namespace Tessin.Bladerunner
         {
             return Task.Run<object>(async () => await Task.FromResult(meat(new T())));
         }
+
+        public static string GetNameFromMemberExpression(Expression expression)
+        {
+            while (true)
+            {
+                switch (expression)
+                {
+                    case MemberExpression memberExpression:
+                        return memberExpression.Member.Name;
+                    case UnaryExpression unaryExpression:
+                        expression = unaryExpression.Operand;
+                        continue;
+                }
+
+                throw new ArgumentException("Invalid expression.");
+            }
+        }
+
     }
 }

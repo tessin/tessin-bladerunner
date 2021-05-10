@@ -12,6 +12,7 @@ namespace Tessin.Bladerunner
     {
         private static object _Vertical(bool withGaps, IEnumerable<object> elements)
         {
+            elements = elements.Where(e => e != null);
             if (!withGaps)
             {
                 return LINQPad.Util.VerticalRun(elements);
@@ -39,6 +40,7 @@ namespace Tessin.Bladerunner
 
         private static object _Horizontal(bool withGaps, IEnumerable<object> elements)
         {
+            elements = elements.Where(e => e != null);
             if (!withGaps)
             {
                 return WithClass(Util.VerticalRun(elements), "hrun");

@@ -17,29 +17,26 @@ namespace Tessin.Bladerunner.Query
 
         public int RuleIndex { get; set; }
 
-        private string _field { get; set; }
-
         private string _value { get; set; }
 
         private string _operator { get; set; }
 
-        public StringRule(string field, string value = null)
+        private Expression<Func<T, string>> _expr { get; set; }
+
+        public StringRule(Expression<Func<T, string>> expr)
         {
-            _field = field;
-            _value = value;
+            _expr = expr;
         }
 
-        public Expression ToExpression(ParameterExpression p)
+        public Expression<Func<T, bool>> ToExpression()
         {
+            var p = Expression.Parameter(typeof(T));
             if (_operator == "Contains")
             {
                 var contains = typeof(string).GetMethod("Contains", new[] { typeof(string) });
-                return Expression.Call(Expression.Field(p, _field), contains, Expression.Constant(_value));
+                return Expression.Lambda<Func<T, bool>>(Expression.Call(Expression.Invoke(_expr, p), contains, Expression.Constant(_value)), p);
             }
-            else
-            {
-                return Expression.Equal(Expression.Field(p, _field), Expression.Constant(_value));
-            }
+            return Expression.Lambda<Func<T, bool>>(Expression.Equal(Expression.Invoke(_expr, p), Expression.Constant(_value)), p);
         }
 
         public object Render(QueryBuilder<T> builder)

@@ -10,11 +10,20 @@
       "Tessin.Bladerunner/1.0.11": {
         "dependencies": {
           "LINQPad": "5.40.0",
+          "LinqKit": "1.1.24",
           "Microsoft.CSharp": "4.7.0",
           "NETStandard.Library": "2.0.3"
         },
         "runtime": {
           "Tessin.Bladerunner.dll": {}
+        }
+      },
+      "LinqKit/1.1.24": {
+        "runtime": {
+          "lib/net45/LinqKit.dll": {
+            "assemblyVersion": "1.1.24.0",
+            "fileVersion": "1.1.24.0"
+          }
         }
       },
       "LINQPad/5.40.0": {
@@ -50,6 +59,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "LinqKit/1.1.24": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zooSe/9O1Jany4BUB/MlFzsl41OMcEpoArmTmCWDGIQKoQYyuiPb6OiVQ43UUfN+4M5OC1/b1+RNn+sTLmrMFQ==",
+      "path": "linqkit/1.1.24",
+      "hashPath": "linqkit.1.1.24.nupkg.sha512"
     },
     "LINQPad/5.40.0": {
       "type": "package",

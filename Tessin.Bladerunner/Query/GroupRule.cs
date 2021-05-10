@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using LinqKit;
 using LINQPad;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
@@ -68,10 +69,19 @@ namespace Tessin.Bladerunner.Query
 				refresh();
 			});
 
+            var deleteButton = new IconButton(Icons.Delete, (_) =>
+            {
+
+            });
+
 			refresh();
 
+            var groupId = Guid.NewGuid().ToString();
+            var optAnd = new RadioButton(groupId, "AND", true, (_) => { _operator = QueryOperator.And; });
+			var optOr = new RadioButton(groupId, "OR", false, (_) => { _operator = QueryOperator.Or; });
+
 			return Layout.Vertical(true,
-				Layout.Horizontal(true, new Button("AND"), new Button("OR"), ruleButton, groupButton),
+				Layout.Horizontal(true, optAnd, optOr, ruleButton, groupButton, deleteButton),
 				dc
 			);
 		}
@@ -80,28 +90,21 @@ namespace Tessin.Bladerunner.Query
 
 		private List<IQueryRule<T>> _rules;
 
-		private delegate Expression Binder(Expression left, Expression right);
-
-		public GroupRule(QueryOperator op, params IQueryRule<T>[] rules)
+        public GroupRule(QueryOperator op, params IQueryRule<T>[] rules)
 		{
 			_operator = op;
 			_rules = new List<IQueryRule<T>>(rules);
 		}
 
-		public Expression ToExpression(ParameterExpression p)
+		public Expression<Func<T, bool>> ToExpression()
 		{
-			Expression expr = null;
+            var builder = _operator == QueryOperator.And ? PredicateBuilder.New<T>(true) : PredicateBuilder.New<T>(false);
+            foreach (var rule in _rules)
+            {
+                builder = _operator == QueryOperator.And ? builder.And(rule.ToExpression()) : builder.Or(rule.ToExpression());
+            }
 
-			Binder binder = _operator == QueryOperator.And ? (Binder)Expression.And : (Binder)Expression.Or;
-
-			Expression bind(Expression left, Expression right) => left == null ? right : binder(left, right);
-
-			foreach (var rule in _rules)
-			{
-				expr = bind(expr, rule.ToExpression(p));
-			}
-
-			return expr;
+			return builder;
 		}
 	}
 }

@@ -245,25 +245,8 @@ namespace Tessin.Bladerunner.Editors
 
         private EditorField<T> GetField(Expression<Func<T, object>> field)
         {
-            var name = GetNameFromMemberExpression(field.Body);
+            var name = Utils.GetNameFromMemberExpression(field.Body);
             return _fields[name];
-        }
-
-        private static string GetNameFromMemberExpression(Expression expression)
-        {
-            while (true)
-            {
-                switch (expression)
-                {
-                    case MemberExpression memberExpression:
-                        return memberExpression.Member.Name;
-                    case UnaryExpression unaryExpression:
-                        expression = unaryExpression.Operand;
-                        continue;
-                }
-
-                throw new ArgumentException("Invalid expression.");
-            }
         }
 
     }
