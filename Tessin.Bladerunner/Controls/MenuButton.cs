@@ -19,6 +19,8 @@ namespace Tessin.Bladerunner.Controls
             Task<object> pillTask = null,
             IconButton[] actions = null)
         {
+            //todo: can be made into a Control using VisualTree
+            
             List<Control> children = new List<Control>();
 
             var button = new Button(null, onClick);

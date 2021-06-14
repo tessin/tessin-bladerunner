@@ -30,12 +30,15 @@ namespace Tessin.Bladerunner.Editors
 
         private readonly EditorFactory<T> _factory;
 
-        public EntityEditor(T obj, Action<T> save, Action<T> preview = null)
+        private string _actionVerb;
+
+        public EntityEditor(T obj, Action<T> save, Action<T> preview = null, string actionVerb = "Save")
         {
             _save = save;
             _preview = preview;
             _obj = obj;
             _factory = new EditorFactory<T>();
+            _actionVerb = actionVerb;
             Scaffold();
         }
 
@@ -54,7 +57,7 @@ namespace Tessin.Bladerunner.Editors
                         .Select(e => new {e.Name, Type = e.PropertyType, FieldInfo = (FieldInfo) null, PropertyInfo = e}
                         )
                 )
-                .OrderBy(e => e.Name)
+                //.OrderBy(e => e.Name)
                 .ToList();
 
             int order = fields.Count();
@@ -125,7 +128,7 @@ namespace Tessin.Bladerunner.Editors
                 _preview?.Invoke(pObj);
             }
 
-            rendered.Add(new Button("Save", (_) =>
+            rendered.Add(new Button(_actionVerb, (_) =>
             {
                 if (fields.Select(e => e.Editor.Validate(_obj, e)).All(e => e))
                 {
@@ -133,7 +136,6 @@ namespace Tessin.Bladerunner.Editors
                     {
                         field.Editor.Save(_obj, field);
                     }
-
                     _save?.Invoke(_obj);
                 }
             }));
@@ -236,6 +238,20 @@ namespace Tessin.Bladerunner.Editors
             return this;
         }
 
+        public EntityEditor<T> Validate<TU>(Expression<Func<T, TU>> field, Func<TU, (bool, string)> validator) 
+        {
+            var hint = GetField(field);
+            hint.Validators.Add((o) => validator((TU)o));
+            return this;
+        }
+
+        public EntityEditor<T> Required(Expression<Func<T, string>> field)
+        {
+            var hint = GetField(field);
+            hint.Validators.Add(e => (string.IsNullOrWhiteSpace(((string)e)), "Required field.")) ;
+            return this;
+        }
+
         public EntityEditor<T> ShowIf(Expression<Func<T, object>> field, Func<T, bool> predicate)
         {
             var hint = GetField(field);
@@ -243,7 +259,7 @@ namespace Tessin.Bladerunner.Editors
             return this;
         }
 
-        private EditorField<T> GetField(Expression<Func<T, object>> field)
+        private EditorField<T> GetField<TU>(Expression<Func<T, TU>> field)
         {
             var name = Utils.GetNameFromMemberExpression(field.Body);
             return _fields[name];

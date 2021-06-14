@@ -1,4 +1,4 @@
-﻿namespace Tessin.Bladerunner
+﻿namespace Tessin.Bladerunner.Blades
 {
     public interface IBladeRenderer
     {

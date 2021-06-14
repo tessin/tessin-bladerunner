@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -7,7 +8,7 @@ using System.Threading;
 using LINQPad;
 using LINQPad.Controls;
 
-namespace Tessin.Bladerunner
+namespace Tessin.Bladerunner.Blades
 {
     public class BladeManager
     {
@@ -18,12 +19,22 @@ namespace Tessin.Bladerunner
         private readonly StyleManager _styleManager;
 
         private readonly int _maxDepth;
+
         private readonly string _cssPath;
+        
         private readonly bool _cssHotReloading;
 
         public bool ShowDebugButton { get; }
 
         private Div _divBladeManager;
+
+        private DumpContainer _sideBladeContainer;
+
+        private Action<object> _sideBladeOnClose;
+
+        private Blade _sideBlade;
+
+        private Overlay _overlay;
 
         public BladeManager(int maxDepth = 10, bool showDebugButton = false, string cssPath = null, bool cssHotReloading = false)
         {
@@ -38,7 +49,10 @@ namespace Tessin.Bladerunner
             ShowDebugButton = showDebugButton;
             _stack = new Stack<Blade>();
             _panels = Enumerable.Range(0, _maxDepth).Select((e, i) => new DumpContainer()).ToArray();
+            _sideBladeContainer = new DumpContainer();
             _styleManager = new StyleManager();
+            _overlay = new Overlay();
+
             //Util.KeepRunning();
         }
 	
@@ -47,6 +61,30 @@ namespace Tessin.Bladerunner
             var blade = new Blade(this, renderer, _stack.Count(), _panels[_stack.Count()], title);
             _stack.Push(blade);
             blade.Refresh();
+        }
+
+        public void OpenSideBlade(IBladeRenderer renderer, Action<object> onClose = null, string title = "")
+        {
+            _overlay.Show();
+            _sideBladeOnClose = onClose;
+            _sideBlade = new Blade(this, renderer, -1, _sideBladeContainer, title);
+            _sideBlade.Refresh();
+        }
+
+        public void CloseSideBlade(object result = null, bool refresh = false)
+        {
+            _overlay.Hide();
+            _sideBlade.Clear();
+            _sideBlade = null;
+            if (_sideBladeOnClose != null)
+            {
+                _sideBladeOnClose(result);
+            }
+            else if (refresh)
+            {
+                _stack.Peek().Refresh();
+            }
+            _sideBladeOnClose = null;
         }
 	
         public void PopTo(int index, bool refresh)
@@ -69,9 +107,8 @@ namespace Tessin.Bladerunner
 
         object BladeWrapper(params Control[] blades)
         {
-            var div = new Div(blades);
-            div.HtmlElement.SetAttribute("class", "blade-wrapper");
-            _divBladeManager = new Div(_styleManager.Init(_cssPath, _cssHotReloading), div);
+            var div = new Div(blades).SetClass("blade-wrapper");
+            _divBladeManager = new Div(_styleManager.Init(_cssPath, _cssHotReloading), div, _overlay, SideBlade(_sideBladeContainer));
             return _divBladeManager;
         }
 
@@ -86,12 +123,20 @@ namespace Tessin.Bladerunner
             return outerDiv;
         }
 
+        Control SideBlade(DumpContainer dc)
+        {
+            return new Div(
+                new Div(
+                    new Div(dc).SetClass("blade-container")
+                ).SetClass("blade")
+            ).SetClass("side-blade");
+        }
+
         public void DebugHtml()
         {
             var tempPath = Path.GetTempFileName()+".html";
             File.WriteAllText(tempPath, _divBladeManager.HtmlElement.InnerHtml);
             Process.Start(tempPath);
         }
-
     }
 }

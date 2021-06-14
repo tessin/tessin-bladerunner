@@ -10,7 +10,7 @@ namespace Tessin.Bladerunner.Query
     {
         public int RuleIndex { get; set; }
 
-        private bool _value;
+        public bool Negate { get; set; }
 
         private Expression<Func<T, bool>> _expr;
 
@@ -23,20 +23,12 @@ namespace Tessin.Bladerunner.Query
         {
             var p = Expression.Parameter(typeof(T));
             return Expression.Lambda<Func<T, bool>>(
-                Expression.Equal(Expression.Invoke(_expr, p), Expression.Constant(_value)), p);
+                Expression.Equal(Expression.Invoke(_expr, p), Expression.Constant(true)), p);
         }
 
         public object Render(QueryBuilder<T> builder)
         {
-            var chkValue = new CheckBox()
-            {
-                Checked = _value
-            };
-            chkValue.Click += (_, __) =>
-            {
-                _value = chkValue.Checked;
-            };
-            return chkValue;
+            return null;
         }
     }
 }

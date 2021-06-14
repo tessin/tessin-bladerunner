@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
 
@@ -46,11 +48,29 @@ namespace Tessin.Bladerunner.Editors
 
         public bool Validate(T obj, EditorField<T> editorFieldInfo)
         {
-            if (!editorFieldInfo.Type.IsNullable() && string.IsNullOrEmpty(_textBox.Text) || !string.IsNullOrEmpty(_textBox.Text) && !double.TryParse(_textBox.Text, out double _))
+            void SetError(string message)
             {
                 _textBox.Styles["border-color"] = "tomato";
+            }
+
+            if (!editorFieldInfo.Type.IsNullable() && string.IsNullOrEmpty(_textBox.Text) || !string.IsNullOrEmpty(_textBox.Text) && !double.TryParse(_textBox.Text, out double _))
+            {
+                SetError("Invalid number.");
                 return false;
             }
+
+            (bool, string)? error = editorFieldInfo.Validators
+                .Select(e => e(Convert.ChangeType(_textBox.Text, editorFieldInfo.Type)))
+                .Where(e => e.Item1)
+                .Select(e => ((bool, string)?)e)
+                .FirstOrDefault();
+
+            if (error != null)
+            {
+                SetError(error.Value.Item2);
+                return false;
+            }
+
             return true;
         }
 

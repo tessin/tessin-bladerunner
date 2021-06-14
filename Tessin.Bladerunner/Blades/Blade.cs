@@ -5,7 +5,7 @@ using LINQPad;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
 
-namespace Tessin.Bladerunner
+namespace Tessin.Bladerunner.Blades
 {
     public class Blade
     {
@@ -34,12 +34,15 @@ namespace Tessin.Bladerunner
             {
                 var dc = new DumpContainer();
 
-                var buttons = new List<Control>()
+                var buttons = new List<Control>();
+
+                if (Index != -1)
                 {
-                    new IconButton(Icons.Refresh, (_) => {
+                    buttons.Add(new IconButton(Icons.Refresh, (_) =>
+                    {
                         Manager.PopTo(Index, true);
-                    })
-                };
+                    }));
+                }
 
                 if (Index == 0 && Manager.ShowDebugButton)
                 {
@@ -53,7 +56,14 @@ namespace Tessin.Bladerunner
                 {
                     buttons.Add(new IconButton(Icons.Close, (_) =>
                     {
-                        Manager.PopTo(Index - 1, false);
+                        if (Index == -1)
+                        {
+                            Manager.CloseSideBlade(false);
+                        }
+                        else
+                        {
+                            Manager.PopTo(Index - 1, false);
+                        }
                     }));
                 }
 
@@ -83,13 +93,23 @@ namespace Tessin.Bladerunner
 
         public void PopToPrevious(bool refresh = true)
         {
-            Manager.PopTo(this.Index - 1, refresh);
+            if (Index == -1)
+            {
+                Manager.CloseSideBlade(refresh);
+            }
+            else
+            {
+                Manager.PopTo(this.Index - 1, refresh);
+            }
         }
 
         public void Refresh()
         {
-            Manager.PopTo(this.Index, false);
-            Panel.Content = Element("div", "loading", "Loading...");
+            if (Index != -1)
+            {
+                Manager.PopTo(this.Index, false);
+                Panel.Content = Element("div", "loading", "Loading...");
+            }
             Task.Run(() =>
             {
                 Panel.Content = this.Render();

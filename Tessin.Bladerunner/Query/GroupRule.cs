@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Security.Authentication.ExtendedProtection;
 using System.Text;
 using LinqKit;
 using LINQPad;
 using LINQPad.Controls;
+using LINQPad.UI;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Query
@@ -20,23 +22,32 @@ namespace Tessin.Bladerunner.Query
 	{
         public int RuleIndex { get; set; }
 
-		public object Render(QueryBuilder<T> builder)
-		{
-            var dc = new DumpContainer {Style = "margin-left:1em;"};
+        public bool Negate { get; set; }
 
+        public GroupRule<T> _parent;
+        
+        private DumpContainer _dc;
+
+        private QueryOperator _operator;
+
+        private List<IQueryRule<T>> _rules;
+
+        public void Refresh(QueryBuilder<T> builder)
+        {
             Action refresh = null;
 
-			object RenderRule(IQueryRule<T> rule)
+            object RenderRule(IQueryRule<T> rule)
             {
                 if (rule is GroupRule<T> group)
-				{
-					return group.Render(builder);
-				}
+                {
+                    return group.Render(builder);
+                }
 
                 var lstRules = new SelectBox(builder.Labels.ToArray(), rule.RuleIndex)
                 {
-                    Width = "10em"
+                    Width = "15em"
                 };
+
                 lstRules.SelectionChanged += (_, __) => {
                     var index = _rules.IndexOf(rule);
                     _rules.Remove(rule);
@@ -45,54 +56,93 @@ namespace Tessin.Bladerunner.Query
                     _rules.Insert(index, newRule);
                     refresh();
                 };
+
+                var chkNegate = new CheckBox("NOT", false, (chk) =>
+                {
+                    rule.Negate = chk.Checked;
+                });
+                
                 var btnDelete = new IconButton(Icons.Delete, (_) =>
                 {
                     _rules.Remove(rule);
                     refresh();
                 });
-                return Layout.Horizontal(true, lstRules, rule.Render(builder), btnDelete);
+
+                return Layout.Horizontal(true, lstRules, chkNegate, rule.Render(builder), btnDelete);
             }
 
-			refresh = () => {
-                dc.Content = Layout.Vertical(false, _rules.Select(RenderRule));
-                dc.Refresh();
+            refresh = () => {
+                if (_dc != null)
+                {
+                    _dc.Content = Layout.Vertical(true, _rules.Select(RenderRule));
+                    _dc.Refresh();
+                }
             };
+
+            refresh();
+        }
+
+		public object Render(QueryBuilder<T> builder)
+		{
+            _dc = new DumpContainer {Style = "margin-left:1em;margin-top:0.6em;"};
 
 			var ruleButton = new IconButton(Icons.Plus, (_) => {
 				_rules.Add(builder.Rules[0]());
-				refresh();
-			});
+				Refresh(builder);
+			}, tooltip:"Add Rule");
 
-			var groupButton = new IconButton(Icons.Plus, (_) =>
-			{
-				_rules.Add(new GroupRule<T>(QueryOperator.And));
-				refresh();
-			});
+            IconButton groupButton = null;
+            IconButton deleteButton = null;
 
-            var deleteButton = new IconButton(Icons.Delete, (_) =>
+            ContextMenu contextMenu = null;
+
+            if (_parent != null)
             {
+                deleteButton = new IconButton(Icons.Delete, (_) =>
+                {
+                    _parent._rules.Remove(this);
+                    _parent.Refresh(builder);
+                });
 
-            });
+                groupButton = new IconButton(Icons.FolderOpen, (_) =>
+                {
+                    _rules.Add(new GroupRule<T>(QueryOperator.And, this));
+                    Refresh(builder);
+                });
+            }
+            else
+            {
+                contextMenu = new ContextMenu(
+                    new IconButton(Icons.DotsHorizontal),
+                    new ContextMenu.Item("Add Group", (_) => {
+                        _rules.Add(new GroupRule<T>(QueryOperator.And, this));
+                        Refresh(builder);
+                    }, icon: Icons.FolderOpen),
+                    new ContextMenu.Item("Save...", (_) => {
+                        //todo?
+                    }),
+                    new ContextMenu.Item("Load...", (_) => {
+                        //todo?
+                    })
+                );
+            }
 
-			refresh();
+            Refresh(builder);
 
             var groupId = Guid.NewGuid().ToString();
             var optAnd = new RadioButton(groupId, "AND", true, (_) => { _operator = QueryOperator.And; });
 			var optOr = new RadioButton(groupId, "OR", false, (_) => { _operator = QueryOperator.Or; });
 
 			return Layout.Vertical(true,
-				Layout.Horizontal(true, optAnd, optOr, ruleButton, groupButton, deleteButton),
-				dc
+				Layout.Horizontal(true, optAnd, optOr, ruleButton, groupButton, deleteButton, contextMenu),
+				_dc
 			);
 		}
 
-		private QueryOperator _operator;
-
-		private List<IQueryRule<T>> _rules;
-
-        public GroupRule(QueryOperator op, params IQueryRule<T>[] rules)
+        public GroupRule(QueryOperator op, GroupRule<T> parent, params IQueryRule<T>[] rules)
 		{
 			_operator = op;
+            _parent = parent;
 			_rules = new List<IQueryRule<T>>(rules);
 		}
 
@@ -101,10 +151,16 @@ namespace Tessin.Bladerunner.Query
             var builder = _operator == QueryOperator.And ? PredicateBuilder.New<T>(true) : PredicateBuilder.New<T>(false);
             foreach (var rule in _rules)
             {
-                builder = _operator == QueryOperator.And ? builder.And(rule.ToExpression()) : builder.Or(rule.ToExpression());
-            }
+                var expr = rule.ToExpression();
 
-			return builder;
+                if (rule.Negate)
+                {
+                    expr = PredicateBuilder.Not(expr);
+                }
+
+                builder = _operator == QueryOperator.And ? builder.And(expr) : builder.Or(expr);
+            }
+            return builder;
 		}
 	}
 }

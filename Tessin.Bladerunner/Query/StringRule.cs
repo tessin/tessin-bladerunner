@@ -11,11 +11,16 @@ namespace Tessin.Bladerunner.Query
     {
         private string[] operators = new[]
         {
-            "Equals",
-            "Contains"
+            "is",
+            "is empty",
+            "contains",
+            "starts with",
+            "ends with"
         };
 
         public int RuleIndex { get; set; }
+
+        public bool Negate { get; set; }
 
         private string _value { get; set; }
 
@@ -31,10 +36,24 @@ namespace Tessin.Bladerunner.Query
         public Expression<Func<T, bool>> ToExpression()
         {
             var p = Expression.Parameter(typeof(T));
-            if (_operator == "Contains")
+            if (_operator == "contains")
             {
-                var contains = typeof(string).GetMethod("Contains", new[] { typeof(string) });
-                return Expression.Lambda<Func<T, bool>>(Expression.Call(Expression.Invoke(_expr, p), contains, Expression.Constant(_value)), p);
+                var method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
+                return Expression.Lambda<Func<T, bool>>(Expression.Call(Expression.Invoke(_expr, p), method, Expression.Constant(_value)), p);
+            }
+            if (_operator == "starts with")
+            {
+                var method = typeof(string).GetMethod("StartsWith", new[] { typeof(string) });
+                return Expression.Lambda<Func<T, bool>>(Expression.Call(Expression.Invoke(_expr, p), method, Expression.Constant(_value)), p);
+            }
+            if (_operator == "ends with")
+            {
+                var method = typeof(string).GetMethod("EndsWith", new[] { typeof(string) });
+                return Expression.Lambda<Func<T, bool>>(Expression.Call(Expression.Invoke(_expr, p), method, Expression.Constant(_value)), p);
+            }
+            if (_operator == "is empty")
+            {
+                return Expression.Lambda<Func<T, bool>>(Expression.Equal(Expression.Invoke(_expr, p), Expression.Constant(null)), p);
             }
             return Expression.Lambda<Func<T, bool>>(Expression.Equal(Expression.Invoke(_expr, p), Expression.Constant(_value)), p);
         }

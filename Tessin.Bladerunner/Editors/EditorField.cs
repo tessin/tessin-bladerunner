@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using LINQPad.Controls;
@@ -69,5 +70,7 @@ namespace Tessin.Bladerunner.Editors
         public IFieldEditor<T> Editor { get; set; }
 
         public bool Removed { get; set; }
+
+        public List<Func<object, (bool, string)>> Validators { get; set; } = new List<Func<object, (bool, string)>>();
     }
 }

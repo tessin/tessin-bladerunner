@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using LINQPad;
 using LINQPad.Controls;
@@ -8,14 +9,25 @@ namespace Tessin.Bladerunner
 {
     public static class ControlExtensions
     {
-        public static void SetClass(this Control control, string @class)
+        public static T SetClass<T>(this T control, string @class) where T : Control
         {
             control.HtmlElement.SetAttribute("class", @class);
+            return control;
+        }
+
+        public static T AddClass<T>(this T control, string @class) where T : Control
+        {
+            var current = control.HtmlElement.GetAttribute("class");
+            if (current.Split(' ').All(e => e != @class))
+            {
+                control.HtmlElement.SetAttribute("class", $"{current} {@class}");
+            }
+            return control;
         }
 
         public static void SetVisibility(this Control control, bool value)
         {
-            control.HtmlElement.SetAttribute("style", "display:" + (value ? "block" : "none"));
+            control.Styles["display"] = (value ? "block" : "none");
         }
 
         public static void SetVisibility(this DumpContainer control, bool value)

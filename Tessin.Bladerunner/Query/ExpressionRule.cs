@@ -10,6 +10,8 @@ namespace Tessin.Bladerunner.Query
     {
         public int RuleIndex { get; set; }
 
+        public bool Negate { get; set; }
+
         private string _field;
 
         private Expression<Func<T, bool>> _expr;

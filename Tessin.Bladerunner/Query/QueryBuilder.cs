@@ -17,7 +17,7 @@ namespace Tessin.Bladerunner.Query
 
         public QueryBuilder()
         {
-            Root = new GroupRule<T>(QueryOperator.And);
+            Root = new GroupRule<T>(QueryOperator.And, null);
         }
 
         public object Render()
@@ -32,9 +32,44 @@ namespace Tessin.Bladerunner.Query
             return this;
         }
 
+        public QueryBuilder<T> AddRule(string label, Expression<Func<T, string>> expr, string[] options)
+        {
+            Rules.Add(() => new SelectRule<T>(expr, options));
+            Labels.Add(label);
+            return this;
+        }
+
         public QueryBuilder<T> AddRule(string label, Expression<Func<T, bool>> expr)
         {
             Rules.Add(() => new BoolRule<T>(expr));
+            Labels.Add(label);
+            return this;
+        }
+
+        public QueryBuilder<T> AddRule(string label, Expression<Func<T, Guid>> expr)
+        {
+            Rules.Add(() => new GuidRule<T>(expr));
+            Labels.Add(label);
+            return this;
+        }
+
+        public QueryBuilder<T> AddRule(string label, Expression<Func<T, DateTime>> expr)
+        {
+            Rules.Add(() => new DateRule<T>(expr));
+            Labels.Add(label);
+            return this;
+        }
+
+        public QueryBuilder<T> AddRule(string label, Expression<Func<T, DateTime?>> expr)
+        {
+            Rules.Add(() => new DateRule<T>(expr));
+            Labels.Add(label);
+            return this;
+        }
+
+        public QueryBuilder<T> AddRule(string label, Expression<Func<T, int>> expr)
+        {
+            Rules.Add(() => new NumberRule<T, int>(expr));
             Labels.Add(label);
             return this;
         }

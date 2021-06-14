@@ -9,6 +9,8 @@ namespace Tessin.Bladerunner.Query
     {
         int RuleIndex { get; set; }
 
+        bool Negate { get; set; }
+
         object Render(QueryBuilder<T> builder);
 
         Expression<Func<T, bool>> ToExpression();

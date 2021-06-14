@@ -16,7 +16,7 @@ namespace Tessin.Bladerunner.Controls
             return Util.HorizontalRun(false, buttons.Where(f => f != null).ToList());
         }
 
-        public IconButton(string icon, Action<Button> onClick, string tooltip = "", Color color = Color.Black) : base("", onClick)
+        public IconButton(string icon, Action<Button> onClick = null, string tooltip = "", Color color = Color.Black) : base("", onClick)
         {
             this.HtmlElement.SetAttribute("class", $"icon-button {color.ToString().ToLower()}");
             this.HtmlElement.SetAttribute("title", tooltip);

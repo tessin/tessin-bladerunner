@@ -1,0 +1,34 @@
+.context-menu
+{
+   
+}
+
+.context-menu ul
+{
+    position: absolute;
+    border: 1px solid rgba(0,0,0,.1);
+    width:180px;
+    list-style-type: none;
+    background-color: white;
+    margin:0px;
+    padding:0px;
+    visibility: hidden; 
+    z-index: 10;
+}
+
+.context-menu ul li 
+{
+    padding: 0px 16px;
+    display:flex;
+    position:relative;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    height: 40px;
+    cursor: pointer;
+}
+
+.context-menu ul li:hover
+{
+    background-color:lightgrey;
+}

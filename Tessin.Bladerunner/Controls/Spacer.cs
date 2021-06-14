@@ -8,7 +8,7 @@ namespace Tessin.Bladerunner.Controls
     public class Spacer : Div
     {
 
-        public Spacer(string width, string height)
+        public Spacer(string width, string height = "0px")
         {
             this.HtmlElement.SetAttribute("style", $"width:{width};height:{height};");
         }

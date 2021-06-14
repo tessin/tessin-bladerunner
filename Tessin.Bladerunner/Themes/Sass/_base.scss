@@ -225,13 +225,22 @@ span.cc { background:#666; color:white;margin:0px 1.5px; padding:0px 1px; font-f
 input,textarea,select {
 	padding-left: 5px;
     padding-right: 5px;
-    height: 30px;
-    width: 20em;
+	padding-top:0px;
+	padding-bottom:0px;
+	margin:0;
+}
+
+input,select {
+	height: 35px;
+	width: 10em;
+}
+
+select {
+	box-sizing:content-box;
 }
 
 textarea {
     font-family: "Roboto", sans-serif;
-    width: 20em;
 }
 
 button { 
@@ -244,23 +253,23 @@ button {
 	border-radius: 0px;
 }
 
-input,textarea,select { margin:.15em 0; }
+button:disabled {
+	background-color: gray;
+}
 
 input[type="radio"],
 input[type="checkbox"] 
 {
     margin:0 0.4em 0 0;
-	width: 20px;
-    height: 20px;
-	padding:3px;
+	width: 21px;
+    height: 21px;
+	padding: 3px;
 	outline: none;
 }
 
-.checkbox-label {
-	vertical-align:middle;
-	position:relative;
-	bottom:.07em;
-	margin-right:.5em;
+label.checkbox-label {
+	display: block;
+	margin-top:10px;
 }
 
 fieldset {

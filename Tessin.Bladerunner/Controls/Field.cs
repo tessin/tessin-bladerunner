@@ -7,7 +7,9 @@ using LINQPad.Controls;
 namespace Tessin.Bladerunner.Controls
 {
     public class Field : DumpContainer
-    {   
+    {
+        private Div _divError;
+
         public Field(string label, Control input, string description, Func<Control,object> helper = null)
         {
             var dcHelper = new DumpContainer();
@@ -24,10 +26,18 @@ namespace Tessin.Bladerunner.Controls
                 dcHelper.Content = helper(input);
             }
 
+            _divError = new Div();
+            _divError.SetClass("field--error");
+
             var divContainer = new Div(divHeader, input);
             divContainer.SetClass("field");
 
             this.Content = divContainer;
+        }
+
+        public void SetError(string message)
+        {
+
         }
     }
 }
