@@ -44,11 +44,12 @@ table.error {
 td {
 	/*
     background-color: white;
-	*/
+	*/	
 }
 
 
 td, th {
+	font-size: 1em;
 	vertical-align: middle;
 	border: 1px solid #aaa;
 	padding: 6px 6px;
@@ -82,6 +83,7 @@ td.typeheader:hover {
 }
 
 td.typeheader {
+	display: none;
 }
 
 td.n { text-align: right }
@@ -124,7 +126,7 @@ span.fixedextenser {
 }
 
 td.typeheader:hover .fixedextenser {
-	display:block
+	display:block;
 }
 
 span.typeglyphx, span.extenserx {
@@ -253,7 +255,7 @@ button {
 	border-radius: 0px;
 }
 
-button:disabled {
+button:disabled { 
 	background-color: gray;
 }
 

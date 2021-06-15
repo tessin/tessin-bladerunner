@@ -4,9 +4,11 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading;
 using LINQPad;
 using LINQPad.Controls;
+using Tessin.Bladerunner.Alerts;
 
 namespace Tessin.Bladerunner.Blades
 {
@@ -43,6 +45,8 @@ namespace Tessin.Bladerunner.Blades
             CultureInfo.DefaultThreadCurrentCulture = new System.Globalization.CultureInfo("en-US");
             CultureInfo.DefaultThreadCurrentUICulture = new System.Globalization.CultureInfo("en-US");
 
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
             _maxDepth = maxDepth;
             _cssPath = cssPath;
             _cssHotReloading = cssHotReloading;
@@ -55,7 +59,13 @@ namespace Tessin.Bladerunner.Blades
 
             //Util.KeepRunning();
         }
-	
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            var ex = (Exception) e.ExceptionObject;
+            new AlertBuilder(this, ex.Message).ShowOk();
+        }
+
         public void PushBlade(IBladeRenderer renderer, string title = "")
         {
             var blade = new Blade(this, renderer, _stack.Count(), _panels[_stack.Count()], title);

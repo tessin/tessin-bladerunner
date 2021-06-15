@@ -8,26 +8,34 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner
 {
+    public enum HorizontalAlignment
+    {
+        Left,
+        Center,
+        Right
+    }
+
     public static class Layout
     {
-        private static object _Vertical(bool withGaps, IEnumerable<object> elements)
+        private static object _Vertical(bool withGaps, IEnumerable<object> elements, HorizontalAlignment alignment)
         {
+            var @class = $"vrun vrun-{alignment.ToString().ToLower()}";
             elements = elements.Where(e => e != null);
             if (!withGaps)
             {
-                return LINQPad.Util.VerticalRun(elements);
+                return WithClass(LINQPad.Util.VerticalRun(elements), @class);
             }
-            return LINQPad.Util.VerticalRun(elements.Select(e => LINQPad.Util.WithStyle(e, "margin-bottom:0.4em;display:block;")));
+            return WithClass(LINQPad.Util.VerticalRun(elements.Select(e => LINQPad.Util.WithStyle(e, "margin-bottom:0.4em;display:block;"))), @class);
         }
 
-        public static object Vertical(bool withGaps, IEnumerable<object> elements)
+        public static object Vertical(bool withGaps, IEnumerable<object> elements, HorizontalAlignment alignment = HorizontalAlignment.Left)
         {
-            return _Vertical(withGaps, elements);
+            return _Vertical(withGaps, elements, alignment);
         }
 
         public static object Vertical(bool withGaps, params object[] elements)
         {
-            return _Vertical(withGaps, elements);
+            return _Vertical(withGaps, elements, HorizontalAlignment.Left);
         }
 
         public static object WithClass(object data, string @class)

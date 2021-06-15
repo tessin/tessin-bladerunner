@@ -51,6 +51,7 @@ namespace Tessin.Bladerunner.Editors
             void SetError(string message)
             {
                 _textBox.Styles["border-color"] = "tomato";
+                _field.SetError(message);
             }
 
             if (!editorFieldInfo.Type.IsNullable() && string.IsNullOrEmpty(_textBox.Text) || !string.IsNullOrEmpty(_textBox.Text) && !double.TryParse(_textBox.Text, out double _))

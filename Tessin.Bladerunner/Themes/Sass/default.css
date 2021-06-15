@@ -84,6 +84,7 @@ td {
 }
 
 td, th {
+  font-size: 1em;
   vertical-align: middle;
   border: 1px solid #aaa;
   padding: 6px 6px;
@@ -114,6 +115,10 @@ td.typeheader {
 
 td.typeheader:hover {
   opacity: 1;
+}
+
+td.typeheader {
+  display: none;
 }
 
 td.n {
@@ -392,10 +397,42 @@ a.graphcolumn {
   color: green;
 }
 
-.hrun DIV {
+.hrun > DIV {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.vrun > DIV {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.vrun-center > DIV {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.vrun-left > DIV {
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.vrun-right > DIV {
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
 
 .blade-wrapper {

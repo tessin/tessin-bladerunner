@@ -11,11 +11,6 @@ namespace Tessin.Bladerunner.Controls
 {
     public class Icon : Div
     {
-        public static object HorizontalRun(params Icon[] buttons)
-        {
-            return Util.HorizontalRun(false, buttons.Where(f => f != null).ToList());
-        }
-
         public Icon(string icon, string tooltip = "", Color color = Color.Black) : base()
         {
             this.HtmlElement.SetAttribute("title", tooltip);

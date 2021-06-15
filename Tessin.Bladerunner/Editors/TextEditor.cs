@@ -56,6 +56,7 @@ namespace Tessin.Bladerunner.Editors
             void SetError(string message)
             {
                 _textBox.Styles["border-color"] = "tomato";
+                _field.SetError(message);
             }
 
             object value = _textBox.GetType().GetProperty("Text").GetValue(_textBox);

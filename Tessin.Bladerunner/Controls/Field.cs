@@ -29,7 +29,7 @@ namespace Tessin.Bladerunner.Controls
             _divError = new Div();
             _divError.SetClass("field--error");
 
-            var divContainer = new Div(divHeader, input);
+            var divContainer = new Div(divHeader, input, _divError);
             divContainer.SetClass("field");
 
             this.Content = divContainer;
@@ -37,7 +37,7 @@ namespace Tessin.Bladerunner.Controls
 
         public void SetError(string message)
         {
-
+            _divError.HtmlElement.InnerText = message; 
         }
     }
 }

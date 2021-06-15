@@ -1,3 +1,22 @@
-.hrun DIV {
+.hrun > DIV {
     display: flex;
+    flex-direction: row;
+}
+
+.vrun > DIV {
+    display: flex;
+    flex-direction: column;
 } 
+
+
+.vrun-center > DIV {
+    align-items: center;   
+}
+
+.vrun-left > DIV {
+    align-items: flex-start;   
+}
+
+.vrun-right > DIV {
+    align-items: flex-end;   
+}

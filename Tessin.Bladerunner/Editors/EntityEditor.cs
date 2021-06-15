@@ -109,7 +109,7 @@ namespace Tessin.Bladerunner.Editors
                 .GroupBy(e => e.Column)
                 .OrderBy(e => e.Key)
                 .Select(e =>
-                    Util.VerticalRun(e.OrderBy(f => f.Order).Select(f => f.Editor.Render(_obj, f, Updated)).ToList()))
+                    Layout.Vertical(false, e.OrderBy(f => f.Order).Select(f => f.Editor.Render(_obj, f, Updated)).ToList()))
                 .ToList();
 
             void Updated()
@@ -141,7 +141,7 @@ namespace Tessin.Bladerunner.Editors
             }));
 
             rendered.Add(
-                Util.HorizontalRun(
+                Layout.Horizontal(
                     true,
                     fieldsRendered
                 )
@@ -149,7 +149,7 @@ namespace Tessin.Bladerunner.Editors
 
             Updated();
 
-            return LINQPad.Util.VerticalRun(rendered);
+            return Layout.Vertical(false, rendered);
         }
 
         public EntityEditor<T> Editor(Expression<Func<T, object>> field, Func<EditorFactory<T>, IFieldEditor<T>> editor)
