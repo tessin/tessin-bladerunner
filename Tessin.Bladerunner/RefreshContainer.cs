@@ -5,8 +5,6 @@ using LINQPad;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
 
-//todo: debouncer
-
 namespace Tessin.Bladerunner
 {
     public delegate void RefreshEvent(object value);
@@ -47,8 +45,13 @@ namespace Tessin.Bladerunner
     {
         private readonly Func<object> _onRefresh;
 
-        public RefreshContainer(object[] controls, Func<object> onRefresh)
+        private bool _first = true;
+
+        private readonly DebounceDispatcher _debounceDispatcher;
+
+        public RefreshContainer(object[] controls, Func<object> onRefresh, int debounceInterval = 250)
         {
+            _debounceDispatcher = new DebounceDispatcher(debounceInterval);
             _onRefresh = onRefresh;
 
             foreach (var control in controls)
@@ -115,7 +118,21 @@ namespace Tessin.Bladerunner
 
         private void _Refresh()
         {
-            this.Content = _onRefresh();
+            lock (this)
+            {
+                if (_first)
+                {
+                    _first = false;
+                    this.Content = _onRefresh();
+                }
+                else
+                {
+                    _debounceDispatcher.Debounce(() =>
+                    {
+                        this.Content = _onRefresh();
+                    });
+                }
+            }
         }
 	}
 }

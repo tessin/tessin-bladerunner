@@ -30,6 +30,8 @@ namespace Tessin.Bladerunner.Blades
 
         private Div _divBladeManager;
 
+        private Div _divSideBlade;
+
         private DumpContainer _sideBladeContainer;
 
         private Action<object> _sideBladeOnClose;
@@ -77,12 +79,14 @@ namespace Tessin.Bladerunner.Blades
         {
             _overlay.Show();
             _sideBladeOnClose = onClose;
+            _divSideBlade.SetVisibility(true);
             _sideBlade = new Blade(this, renderer, -1, _sideBladeContainer, title);
             _sideBlade.Refresh();
         }
 
         public void CloseSideBlade(object result = null, bool refresh = false)
         {
+            _divSideBlade.SetVisibility(false);
             _overlay.Hide();
             _sideBlade.Clear();
             _sideBlade = null;
@@ -118,7 +122,8 @@ namespace Tessin.Bladerunner.Blades
         object BladeWrapper(params Control[] blades)
         {
             var div = new Div(blades).SetClass("blade-wrapper");
-            _divBladeManager = new Div(_styleManager.Init(_cssPath, _cssHotReloading), div, _overlay, SideBlade(_sideBladeContainer));
+            _divSideBlade = SideBlade(_sideBladeContainer);
+            _divBladeManager = new Div(_styleManager.Init(_cssPath, _cssHotReloading), div, _overlay, _divSideBlade);
             return _divBladeManager;
         }
 
@@ -133,13 +138,13 @@ namespace Tessin.Bladerunner.Blades
             return outerDiv;
         }
 
-        Control SideBlade(DumpContainer dc)
+        Div SideBlade(DumpContainer dc)
         {
             return new Div(
                 new Div(
                     new Div(dc).SetClass("blade-container")
                 ).SetClass("blade")
-            ).SetClass("side-blade");
+            ).SetClass("side-blade").SetVisibility(false);
         }
 
         public void DebugHtml()

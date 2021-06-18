@@ -58,6 +58,11 @@ namespace Tessin.Bladerunner.Editors
             return new DataListEditor<T>(options.ToArray());
         }
 
+        public IFieldEditor<T> MultiSelect(IEnumerable<Option> options)
+        {
+            return new MultiSelectEditor<T>(options.ToArray());
+        }
+
         public IFieldEditor<T> Select(IEnumerable<Option> options)
         {
             return new SelectEditor<T>(options.ToArray());

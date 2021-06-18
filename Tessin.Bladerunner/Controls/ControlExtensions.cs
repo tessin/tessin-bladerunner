@@ -25,9 +25,10 @@ namespace Tessin.Bladerunner
             return control;
         }
 
-        public static void SetVisibility(this Control control, bool value)
+        public static T SetVisibility<T>(this T control, bool value) where T : Control
         {
             control.Styles["display"] = (value ? "block" : "none");
+            return control;
         }
 
         public static void SetVisibility(this DumpContainer control, bool value)

@@ -3,7 +3,7 @@ body {
     padding: 0em;
     height: 100%;
     min-height: 100%;
-    font-family: $font-family;
+    font-family: $font-family !important;
     font-size: 12px;
     line-height: 1.5;
     color: $font-color;
