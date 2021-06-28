@@ -1,6 +1,6 @@
 <Query Kind="Program">
   <Reference>&lt;RuntimeDirectory&gt;\System.Windows.Forms.dll</Reference>
-  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netstandard2.0\Tessin.Bladerunner.dll</Reference>
+  <Reference Relative="..\..\bin\Debug\netstandard2.0\Tessin.Bladerunner.dll">C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netstandard2.0\Tessin.Bladerunner.dll</Reference>
   <Namespace>Tessin.Bladerunner</Namespace>
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
   <Namespace>Tessin.Bladerunner.Controls</Namespace>
@@ -27,13 +27,13 @@ static IBladeRenderer Blade1()
 			new MenuButton("HelloWorld", (_) => {}, Icons.Atom, actions: new IconButton[] {
 				new IconButton(Icons.Alert, (_) => {
 				}),
-				new IconButton(Icons.Badminton, (_) => {
+				new IconButton(Icons.AlertCircle, (_) => {
 				})
 			}),
 			new MenuButton("HelloWorld", (_) => {}, Icons.Atom, pillTask: Utils.CreateTask<object>(e => "HELLOWORLD"), actions: new IconButton[] {
 				new IconButton(Icons.Alert, (_) => {
 				}),
-				new IconButton(Icons.Badminton, (_) => {
+				new IconButton(Icons.Alert, (_) => {
 				})
 			})
 		);
