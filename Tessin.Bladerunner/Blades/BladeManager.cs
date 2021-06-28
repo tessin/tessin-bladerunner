@@ -40,6 +40,8 @@ namespace Tessin.Bladerunner.Blades
 
         private Overlay _overlay;
 
+        private ProgressDisplay _progressDisplay;
+
         public BladeManager(int maxDepth = 10, bool showDebugButton = false, string cssPath = null, bool cssHotReloading = false)
         {
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
@@ -58,6 +60,7 @@ namespace Tessin.Bladerunner.Blades
             _sideBladeContainer = new DumpContainer();
             _styleManager = new StyleManager();
             _overlay = new Overlay();
+            _progressDisplay = new ProgressDisplay(_overlay);
 
             //Util.KeepRunning();
         }
@@ -66,6 +69,12 @@ namespace Tessin.Bladerunner.Blades
         {
             var ex = (Exception) e.ExceptionObject;
             new AlertBuilder(this, ex.Message).ShowOk();
+        }
+
+        public IDisposable ShowProgress(string title = null, Progress<int> progress = null,
+            CancellationTokenSource cancellationTokenSource = null)
+        {
+            return _progressDisplay.Show(title, progress, cancellationTokenSource);
         }
 
         public void PushBlade(IBladeRenderer renderer, string title = "")
@@ -123,7 +132,7 @@ namespace Tessin.Bladerunner.Blades
         {
             var div = new Div(blades).SetClass("blade-wrapper");
             _divSideBlade = SideBlade(_sideBladeContainer);
-            _divBladeManager = new Div(_styleManager.Init(_cssPath, _cssHotReloading), div, _overlay, _divSideBlade);
+            _divBladeManager = new Div(_styleManager.Init(_cssPath, _cssHotReloading), div, _overlay, _divSideBlade, _progressDisplay);
             return _divBladeManager;
         }
 

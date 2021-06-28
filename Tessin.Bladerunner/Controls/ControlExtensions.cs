@@ -31,6 +31,32 @@ namespace Tessin.Bladerunner
             return control;
         }
 
+        public static DumpContainer Show(this DumpContainer control)
+        {
+            control.SetVisibility(true);
+            return control;
+        }
+
+        public static DumpContainer Hide(this DumpContainer control)
+        {
+            control.SetVisibility(false);
+            return control;
+        }
+
+        public static T Show<T>(this T control) where T : Control
+        {
+            control.SetVisibility(true);
+            return control;
+        }
+
+        public static T Hide<T>(this T control) where T : Control
+        {
+            control.SetVisibility(false);
+            return control;
+        }
+
+       
+
         public static void SetVisibility(this DumpContainer control, bool value)
         {
             control.Style = "display:" + (value ? "block" : "none");
