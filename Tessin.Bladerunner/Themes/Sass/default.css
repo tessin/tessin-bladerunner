@@ -79,8 +79,8 @@ table.error {
 
 td {
   /*
-    background-color: white;
-	*/
+     background-color: white;
+  */
 }
 
 td, th {
@@ -96,7 +96,7 @@ th {
   color: white;
   text-align: left;
   border: 1px solid #777;
-  font-size: .9em;
+  font-size: 0.9em;
   font-weight: 400;
 }
 
@@ -126,7 +126,7 @@ td.n {
 }
 
 a:link.typeheader, a:visited.typeheader, a:link.extenser, a:visited.extenser, a:link.fixedextenser, a:visited.fixedextenser {
-  font-size: .8em;
+  font-size: 0.8em;
   font-weight: 400;
   text-decoration: none;
   color: #000;
@@ -190,7 +190,7 @@ div.spacer {
 table.headingpresenter {
   border: none;
   border-left: 3px solid #1158aa;
-  margin: .8em 0em 1em 0.15em;
+  margin: 0.8em 0em 1em 0.15em;
 }
 
 th.headingpresenter {
@@ -289,7 +289,7 @@ span.cc {
   color: white;
   margin: 0px 1.5px;
   padding: 0px 1px;
-  font-family: Consolas,monospace;
+  font-family: Consolas, monospace;
   border-radius: 3px;
 }
 
@@ -319,8 +319,7 @@ input, select {
 }
 
 select {
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  box-sizing: content-box;
 }
 
 textarea {
@@ -341,8 +340,8 @@ button:disabled {
   background-color: gray;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
+input[type=radio],
+input[type=checkbox] {
   margin: 0 0.4em 0 0;
   width: 21px;
   height: 21px;
@@ -356,13 +355,13 @@ label.checkbox-label {
 }
 
 fieldset {
-  margin: 0 .2em .4em .1em;
+  margin: 0 0.2em 0.4em 0.1em;
   border: 1pt solid #aaa;
-  padding: .1em .6em .4em .6em;
+  padding: 0.1em 0.6em 0.4em 0.6em;
 }
 
 legend {
-  padding: .2em .1em;
+  padding: 0.2em 0.1em;
 }
 
 span.warning {
@@ -398,62 +397,38 @@ a.graphcolumn {
 }
 
 .hrun > DIV {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  flex-direction: row;
 }
 
 .vrun > DIV {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  flex-direction: column;
 }
 
 .vrun-center > DIV {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 .vrun-left > DIV {
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  align-items: flex-start;
 }
 
 .vrun-right > DIV {
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  align-items: flex-end;
 }
 
 .blade-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   height: 100vh;
   overflow-y: hidden;
 }
 
 .blade {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 0;
-      -ms-flex-positive: 0;
-          flex-grow: 0;
-  -ms-flex-negative: 0;
-      flex-shrink: 0;
-  -ms-flex-preferred-size: auto;
-      flex-basis: auto;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
   min-width: 250px;
   min-height: 0;
   height: 100vh;
@@ -501,14 +476,9 @@ a.graphcolumn {
   border-bottom: 1px solid #ccc;
   background-color: aquamarine;
   z-index: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 }
 
 .blade-header > h1 {
@@ -523,8 +493,6 @@ a.graphcolumn {
 .blade-header > aside {
   margin-right: 10px;
   margin-top: 4px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
@@ -533,6 +501,10 @@ a.graphcolumn {
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 50px;
+  box-sizing: border-box;
+  /* Setting border-box allows you to add padding "inside" of the 100%. */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 .blade:nth-child(even) .blade-panel {
@@ -559,15 +531,9 @@ a.graphcolumn {
   width: 100%;
   height: 40px;
   background-color: transparent;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: left;
-      -ms-flex-pack: left;
-          justify-content: left;
+  align-items: center;
+  justify-content: left;
 }
 
 .menu-blade-group-header SPAN {
@@ -608,67 +574,38 @@ a.graphcolumn {
   margin-top: 10px;
 }
 
-.field > input[type="checkbox"] {
+.field > input[type=checkbox] {
   margin-top: 2px;
   margin-bottom: 2px;
 }
 
 .field--header {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
 }
-
 .field--header SPAN {
   font-size: 12px;
   font-weight: bold;
 }
-
-.progress {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: 3;
-}
-
-.progress--title {
-  font-size: 2em;
-}
-
-.progress--animation {
-  width: 300px;
-  height: 200px;
-  background-color: red;
-}
-
 .menu {
   margin-top: -10px;
+  margin-left: -10px;
+  margin-right: -10px;
+  padding-bottom: 10px;
 }
 
 .menu-button {
   padding: 0px;
   margin: 0px;
-  margin-left: -10px;
   width: 100%;
   min-width: 200px;
   height: 40px;
   border: 0px;
   border-bottom: 1px solid #ccc;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   background-color: transparent;
-  -webkit-box-pack: left;
-      -ms-flex-pack: left;
-          justify-content: left;
+  justify-content: left;
 }
 
 .menu-button > button {
@@ -678,15 +615,9 @@ a.graphcolumn {
   height: 40px;
   background-color: transparent;
   color: #000000;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: left;
-      -ms-flex-pack: left;
-          justify-content: left;
+  align-items: center;
+  justify-content: left;
 }
 
 .menu-button:hover {
@@ -714,15 +645,9 @@ a.graphcolumn {
 }
 
 .menu-button--actions {
-  -webkit-box-flex: 0;
-      -ms-flex: none;
-          flex: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  flex: none;
   display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  justify-content: flex-end;
   margin-right: 5px;
 }
 
@@ -731,7 +656,7 @@ a.graphcolumn {
   padding: 0;
   margin-top: 5px;
   border: 0;
-  width: 24x;
+  width: 24px;
   height: 24px;
   opacity: 0.5;
   cursor: pointer;
@@ -751,13 +676,8 @@ a.graphcolumn {
 }
 
 .search-box .flexbox {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  flex-direction: row;
 }
 
 .search-box .flexbox INPUT {
@@ -806,16 +726,10 @@ a.graphcolumn {
 
 .context-menu ul li {
   padding: 0px 16px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   position: relative;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  align-items: center;
+  justify-content: flex-start;
   overflow: hidden;
   height: 40px;
   cursor: pointer;
@@ -823,5 +737,4 @@ a.graphcolumn {
 
 .context-menu ul li:hover {
   background-color: lightgrey;
-}
-/*# sourceMappingURL=default.css.map */
+}/*# sourceMappingURL=default.css.map */
