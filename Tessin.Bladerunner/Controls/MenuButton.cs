@@ -16,7 +16,7 @@ namespace Tessin.Bladerunner.Controls
             string svgIcon = null,
             string tooltip = null,
             object pill = null,
-            Task<object> pillTask = null,
+            AnyTask pillTask = null,
             IconButton[] actions = null)
         {
             //todo: can be made into a Control using VisualTree
@@ -41,7 +41,7 @@ namespace Tessin.Bladerunner.Controls
 
                 if (pillTask != null)
                 {
-                    pillTask?.ContinueWith(e =>
+                    Task.Run(() => pillTask.Result).ContinueWith(e =>
                     {
                         if (e.Result != null)
                         {
