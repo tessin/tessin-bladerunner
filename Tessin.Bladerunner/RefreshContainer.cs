@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using LINQPad;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
@@ -43,73 +44,78 @@ namespace Tessin.Bladerunner
 
     public class RefreshContainer : DumpContainer
     {
-        private readonly Func<object> _onRefresh;
+        private readonly Func<AnyTask> _onRefreshAsync;
 
         private bool _first = true;
 
         private readonly DebounceDispatcher _debounceDispatcher;
 
-        public RefreshContainer(object[] controls, Func<object> onRefresh, int debounceInterval = 250)
+        public RefreshContainer(object[] controls, Func<object> onRefreshAsync, int debounceInterval = 250) 
+            : this(controls, () => Task.Run(async () => await Task.FromResult(onRefreshAsync())), debounceInterval)
+        {
+        }
+
+        public RefreshContainer(object[] controls, Func<AnyTask> onRefreshAsync, int debounceInterval = 250)
         {
             _debounceDispatcher = new DebounceDispatcher(debounceInterval);
-            _onRefresh = onRefresh;
+            _onRefreshAsync = onRefreshAsync;
 
             foreach (var control in controls)
             {
                 if (control is IRefreshable refreshable)
                 {
-                    refreshable.Updated += (_) =>
+                    refreshable.Updated +=  (_) =>
                     {
-                        _Refresh();
+                         _Refresh();
                     };
                 }
                 else if (control is TextBox textBox)
                 {
-                    textBox.TextInput += (_, __) =>
+                    textBox.TextInput +=  (_, __) =>
                     {
-                        _Refresh();
+                         _Refresh();
                     };
                 }
                 else if (control is SearchBox searchBox)
                 {
-                    searchBox.TextInput += (_, __) =>
+                    searchBox.TextInput +=  (_, __) =>
                     {
-                        _Refresh();
+                         _Refresh();
                     };
                 }
                 else if (control is CheckBox checkBox)
                 {
-                    checkBox.Click += (_, __) =>
+                    checkBox.Click +=  (_, __) =>
                     {
-                        _Refresh();
+                         _Refresh();
                     };
                 }
                 else if (control is DataListBox dataListBox)
                 {
-                    dataListBox.TextInput += (_, __) =>
+                    dataListBox.TextInput +=  (_, __) =>
                     {
-                        _Refresh();
+                         _Refresh();
                     };
                 }
                 else if (control is TextArea textArea)
                 {
-                    textArea.TextInput += (_, __) =>
+                    textArea.TextInput +=  (_, __) =>
                     {
-                        _Refresh();
+                         _Refresh();
                     };
                 }
                 else if (control is FilePicker filePicker)
                 {
-                    filePicker.TextInput += (_, __) =>
+                    filePicker.TextInput +=  (_, __) =>
                     {
-                        _Refresh();
+                         _Refresh();
                     };
                 }
                 else if (control is SelectBox selectBox)
                 {
                     selectBox.SelectionChanged += (_, __) =>
                     {
-                        _Refresh();
+                         _Refresh();
                     };
                 }
             }
@@ -118,18 +124,24 @@ namespace Tessin.Bladerunner
 
         private void _Refresh()
         {
-            lock (this)
+            //lock (this)
             {
                 if (_first)
                 {
                     _first = false;
-                    this.Content = _onRefresh();
+                    Task.Run(() => _onRefreshAsync().Result).ContinueWith(e =>
+                    {
+                        this.Content = e.Result;
+                    });
                 }
                 else
                 {
                     _debounceDispatcher.Debounce(() =>
                     {
-                        this.Content = _onRefresh();
+                        Task.Run(() => _onRefreshAsync().Result).ContinueWith(e =>
+                        {
+                            this.Content = e.Result;
+                        });
                     });
                 }
             }

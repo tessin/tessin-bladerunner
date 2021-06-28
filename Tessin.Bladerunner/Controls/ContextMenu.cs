@@ -43,13 +43,14 @@ namespace Tessin.Bladerunner.Controls
 
             _menu = new Control("ul", items.Select(RenderItem).ToArray());
  
-            VisualTree.Add(new Div(target, _menu).SetClass("context-menu"));
+            VisualTree.Add(new Div(target, _menu, new Literal(_menu.HtmlElement.ID)).SetClass("context-menu"));
 
-            //todo: this is broken :( 
+            //todo: this is broken :( works when we only have one blade
 
             var script = new Literal(
 $@"<script>
     document.addEventListener('click', function(e) {{
+        external.log('{_menu.HtmlElement.ID}');
         var menu = document.getElementById('{_menu.HtmlElement.ID}');
         if(!!menu && menu.style.visibility == 'visible')
         {{
