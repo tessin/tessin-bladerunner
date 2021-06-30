@@ -36,8 +36,15 @@ namespace Tessin.Bladerunner.Blades
         private readonly Overlay _overlay;
 
         private readonly Div _divContainer;
+
+        private readonly Div _divWrap;
+
         private readonly Div _divTitle;
         private readonly Div _divAnimation;
+        private readonly Div _divAnimationPart1;
+        private readonly Div _divAnimationPart2;
+        private readonly Div _divAnimationPart3;
+        private readonly Div _divAnimationBg;
 
         private readonly Button _btnAbort;
 
@@ -53,7 +60,19 @@ namespace Tessin.Bladerunner.Blades
             _divTitle = new Div();
             _divTitle.SetClass("progress--title");
 
-            _divAnimation = new Div();
+            _divAnimationPart1 = new Div();
+            _divAnimationPart1.SetClass("line");
+
+            _divAnimationPart2 = new Div();
+            _divAnimationPart2.SetClass("line");
+
+            _divAnimationPart3 = new Div();
+            _divAnimationPart3.SetClass("line");
+
+            _divAnimationBg = new Div();
+            _divAnimationBg.SetClass("animation-bg");
+
+            _divAnimation = new Div(_divAnimationPart1, _divAnimationPart2, _divAnimationPart3, _divAnimationBg);
             _divAnimation.SetClass("progress--animation");
 
             _btnAbort = new Button("Abort", OnAbort);
@@ -64,7 +83,10 @@ namespace Tessin.Bladerunner.Blades
             _progressContainer = new DumpContainer(_progressBar);
             _progressContainer.Hide();
 
-            _divContainer = new Div(_divTitle, _divAnimation, _progressContainer, _btnAbort);
+            _divWrap = new Div(_divTitle, _divAnimation, _progressContainer, _btnAbort);
+            _divWrap.SetClass("progress-container");
+
+            _divContainer = new Div(_divWrap);
             _divContainer.SetClass("progress");
             _divContainer.Hide();
 
@@ -108,10 +130,10 @@ namespace Tessin.Bladerunner.Blades
 
         internal void Close()
         {
-            _overlay.Hide();
             _divContainer.Hide();
             _progressContainer.Hide();
             _btnAbort.Hide();
+            _overlay.Hide();
             _progressInstance = null;
         }
     }
