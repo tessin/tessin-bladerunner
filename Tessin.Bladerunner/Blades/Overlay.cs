@@ -12,8 +12,8 @@ namespace Tessin.Bladerunner.Blades
         public Overlay()
         {
             _divOverlay = new Div().SetClass("overlay");
-            VisualTree.Add(_divOverlay);
             Hide();
+            VisualTree.Add(_divOverlay);
         }
 
         public void Hide()
