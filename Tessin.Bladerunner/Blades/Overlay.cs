@@ -9,6 +9,8 @@ namespace Tessin.Bladerunner.Blades
     {
         private readonly Control _divOverlay;
 
+        private int stack = 0;
+
         public Overlay()
         {
             _divOverlay = new Div().SetClass("overlay");
@@ -18,11 +20,16 @@ namespace Tessin.Bladerunner.Blades
 
         public void Hide()
         {
-            _divOverlay.SetVisibility(false);
+            stack = Math.Max(stack - 1, 0);
+            if (stack == 0)
+            {
+                _divOverlay.SetVisibility(false);
+            }
         }
 
         public void Show()
         {
+            stack++;
             _divOverlay.SetVisibility(true);
         }
     }

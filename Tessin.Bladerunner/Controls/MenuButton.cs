@@ -11,7 +11,7 @@ namespace Tessin.Bladerunner.Controls
     public class MenuButton : DumpContainer
     {
         public MenuButton(
-            string label, 
+            object label, 
             Action<Button> onClick, 
             string svgIcon = null,
             string tooltip = null,
@@ -20,7 +20,23 @@ namespace Tessin.Bladerunner.Controls
             IconButton[] actions = null)
         {
             //todo: can be made into a Control using VisualTree
-            
+
+            /*
+             * public class MenuButton : Button
+                {
+	                public MenuButton(
+		                object content,
+		                Action<Button> onClick
+	                ) : base("",onClick)
+	                {
+		                var dc = new DumpContainer();
+		                dc.Content = content;
+		                
+		                this.VisualTree.Add(dc);
+	                }
+                }
+             */
+
             List<Control> children = new List<Control>();
 
             var button = new Button(null, onClick);
@@ -29,6 +45,7 @@ namespace Tessin.Bladerunner.Controls
                 button.HtmlElement.SetAttribute("title", tooltip);
             }
             button.HtmlElement.InnerHtml = $@"{svgIcon}<span>{label}</span>";
+
             children.Add(button);
 
             Control pillContainer = null;

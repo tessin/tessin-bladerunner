@@ -289,5 +289,10 @@ namespace Tessin.Bladerunner
             }
         }
 
+        public static void Report(this Progress<int> progress, int current, int max)
+        {
+            ((IProgress<int>)progress).Report(current/max);
+        }
+
     }
 }

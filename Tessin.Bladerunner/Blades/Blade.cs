@@ -103,6 +103,14 @@ namespace Tessin.Bladerunner.Blades
             }
         }
 
+        public void PopToMe(bool refresh = false)
+        {
+            if (Index != -1)
+            {
+                Manager.PopTo(this.Index, refresh);
+            }
+        }
+
         public void Refresh()
         {
             if (Index != -1)

@@ -10,7 +10,7 @@ namespace Tessin.Bladerunner.Controls
     {
         private Div _divError;
 
-        public Field(string label, Control input, string description, Func<Control,object> helper = null)
+        public Field(string label, Control input, string description = "", Func<Control,object> helper = null)
         {
             var dcHelper = new DumpContainer();
 

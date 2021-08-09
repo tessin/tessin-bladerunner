@@ -16,11 +16,11 @@ namespace Tessin.Bladerunner.Alerts
     public class AlertBuilder
     {
         private readonly BladeManager _manager;
-        private readonly string _message;
-        private readonly string _title;
+        private string _message;
+        private string _title;
         private readonly List<AlertAction> _actions = new List<AlertAction>();
 
-        public AlertBuilder(BladeManager manager, string message, string title = null)
+        public AlertBuilder(BladeManager manager, string message = null, string title = null)
         {
             _manager = manager;
             _message = message;
@@ -47,6 +47,14 @@ namespace Tessin.Bladerunner.Alerts
 
         public void ShowOk(Action<AlertAction> onClose = null)
         {
+            _actions.Add(AlertAction.Ok);
+            Show(onClose);
+        }
+
+        public void ShowException(Exception ex, Action<AlertAction> onClose = null)
+        {
+            _title = ex.GetType().Name;
+            _message = ex.Message;
             _actions.Add(AlertAction.Ok);
             Show(onClose);
         }
