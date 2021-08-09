@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using LINQPad.Controls;
 
+//todo: remove? 
 namespace Tessin.Bladerunner.Controls
 {
     public class Filtered<T> : Control

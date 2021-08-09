@@ -411,6 +411,7 @@ a.graphcolumn {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -433,6 +434,11 @@ a.graphcolumn {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+}
+
+SPAN.small {
+  font-size: 0.8em;
+  color: darkgray;
 }
 
 .blade-wrapper {
@@ -500,7 +506,7 @@ a.graphcolumn {
   position: absolute;
   top: 0;
   border-bottom: 1px solid #ccc;
-  background-color: aquamarine;
+  background-color: aqua;
   z-index: 1;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -756,7 +762,7 @@ a.graphcolumn {
   margin: 0px;
   width: 100%;
   min-width: 200px;
-  height: 40px;
+  min-height: 40px;
   border: 0px;
   border-bottom: 1px solid #ccc;
   display: -webkit-box;
@@ -774,8 +780,11 @@ a.graphcolumn {
 .menu-button > button {
   padding: 0px;
   margin: 0px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   width: 100%;
-  height: 40px;
+  height: 100%;
+  min-height: 30px;
   background-color: transparent;
   color: #000000;
   display: -webkit-box;
@@ -793,7 +802,7 @@ a.graphcolumn {
   background-color: #dddddd;
 }
 
-.menu-button > button > svg {
+.menu-button > button > div > svg {
   margin-left: 5px;
   margin-right: -5px;
   opacity: 0.5;
@@ -802,7 +811,7 @@ a.graphcolumn {
 .menu-button > button > span {
   margin-left: 10px;
   font-size: 1em;
-  font-family: "Roboto";
+  font-family: "Roboto", sans-serif;
 }
 
 .menu-button--pill {
@@ -820,6 +829,9 @@ a.graphcolumn {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;

@@ -8,8 +8,37 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class MenuButton : DumpContainer
+    public class MenuButton : Div
     {
+        private class InternalButton : Button
+        {
+            public InternalButton(Action<Button> onClick, object label, string svgIcon, string tooltip) : base("", onClick)
+            {
+                if (tooltip != null)
+                {
+                    this.HtmlElement.SetAttribute("title", tooltip);
+                }
+    
+                if(!string.IsNullOrEmpty(svgIcon))
+                {
+                    var divIcon = new Div();
+                    divIcon.HtmlElement.InnerHtml = svgIcon;
+                    this.VisualTree.Add(divIcon);
+                }
+              
+                if(label is string stringLabel)
+                {
+                    this.VisualTree.Add(new Span(stringLabel));
+                }
+                else
+                {
+                    var dc = new DumpContainer();
+                    dc.Content = label;
+                    this.VisualTree.Add(new Span(dc));
+                }
+            }
+        }
+
         public MenuButton(
             object label, 
             Action<Button> onClick, 
@@ -19,34 +48,11 @@ namespace Tessin.Bladerunner.Controls
             AnyTask pillTask = null,
             IconButton[] actions = null)
         {
-            //todo: can be made into a Control using VisualTree
+            this.SetClass("menu-button");
 
-            /*
-             * public class MenuButton : Button
-                {
-	                public MenuButton(
-		                object content,
-		                Action<Button> onClick
-	                ) : base("",onClick)
-	                {
-		                var dc = new DumpContainer();
-		                dc.Content = content;
-		                
-		                this.VisualTree.Add(dc);
-	                }
-                }
-             */
-
-            List<Control> children = new List<Control>();
-
-            var button = new Button(null, onClick);
-            if (tooltip != null)
-            {
-                button.HtmlElement.SetAttribute("title", tooltip);
-            }
-            button.HtmlElement.InnerHtml = $@"{svgIcon}<span>{label}</span>";
-
-            children.Add(button);
+            var button = new InternalButton(onClick, label, svgIcon, tooltip);
+            
+            this.VisualTree.Add(button);
 
             Control pillContainer = null;
 
@@ -54,7 +60,7 @@ namespace Tessin.Bladerunner.Controls
             {
                 var _pillContainer = new DumpContainer();
                 pillContainer = _pillContainer.ToControl();
-                children.Add(pillContainer);
+                this.VisualTree.Add(pillContainer);
 
                 if (pillTask != null)
                 {
@@ -101,18 +107,15 @@ namespace Tessin.Bladerunner.Controls
                 );
                 divActions.SetClass("menu-button--actions");
 
-                children.Add(divActions);
+                this.VisualTree.Add(divActions);
             }
-
-            var divContainer = new Div(children);
-            divContainer.SetClass("menu-button");
 
             if (actions != null)
             { 
-                JavascriptHelpers.ShowOnMouseOver(divContainer, divActions, pillContainer);
+                JavascriptHelpers.ShowOnMouseOver(this, divActions, pillContainer);
             }
-            
-            this.Content = new Div(divContainer);
         }
+
+
     }
 }

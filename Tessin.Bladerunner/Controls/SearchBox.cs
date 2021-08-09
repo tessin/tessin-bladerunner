@@ -22,7 +22,7 @@ namespace Tessin.Bladerunner.Controls
         {
             var children = new List<Control>();
 
-            _textBox = new TextBox(initialText, width: "200px");
+            _textBox = new TextBox(initialText, width: "150px");
             _textBox.HtmlElement.SetAttribute("placeholder", placeHolder);
             _textBox.TextInput += (sender, args) =>
             {

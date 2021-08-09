@@ -60,6 +60,8 @@ namespace Tessin.Bladerunner
             _debounceDispatcher = new DebounceDispatcher(debounceInterval);
             _onRefreshAsync = onRefreshAsync;
 
+            this.Style = "width:100%;";
+
             foreach (var control in controls)
             {
                 if (control is IRefreshable refreshable)

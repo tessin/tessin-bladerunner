@@ -5,9 +5,9 @@
 
 .vrun > DIV {
     display: flex;
+    width:100%;
     flex-direction: column;
 } 
-
 
 .vrun-center > DIV {
     align-items: center;   
@@ -19,4 +19,9 @@
 
 .vrun-right > DIV {
     align-items: flex-end;   
+}
+
+SPAN.small {
+    font-size:0.8em;    
+    color:darkgray;
 }
