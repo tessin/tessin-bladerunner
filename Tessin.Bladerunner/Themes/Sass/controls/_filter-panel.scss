@@ -1,0 +1,30 @@
+.filter-panel {
+    margin-top: -($panel-margin+$blade-header-height);
+    margin-left: -$panel-margin;
+    margin-right: -$panel-margin;
+    height: 100vh;
+
+}
+
+.filter-panel--container 
+{
+    background-color:blue;
+    height: 100%;
+    margin-top:($blade-header-height);
+    box-sizing: padding-box;
+}
+
+.filter-panel--header {
+    margin-top:40px;
+    background-color:fuchsia;
+    padding: $panel-margin;
+    border-bottom: 1px solid red;
+}
+
+.filter-panel--body {
+    padding-right: $panel-margin;
+    padding-left: $panel-margin;
+    padding-top: $panel-margin;
+    overflow-y: auto;
+    height:100%;
+}

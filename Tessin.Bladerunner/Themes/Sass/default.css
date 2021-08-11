@@ -874,7 +874,6 @@ SPAN.small {
 
 .search-box .flexbox INPUT {
   height: 30px;
-  margin-bottom: 6px;
   border-radius: 8px;
   border: 1px solid #1158aa;
   padding-left: 10px;
@@ -935,5 +934,35 @@ SPAN.small {
 
 .context-menu ul li:hover {
   background-color: lightgrey;
+}
+
+.filter-panel {
+  margin-top: -50px;
+  margin-left: -10px;
+  margin-right: -10px;
+  height: 100vh;
+}
+
+.filter-panel--container {
+  background-color: blue;
+  height: 100%;
+  margin-top: 40px;
+  -webkit-box-sizing: padding-box;
+          box-sizing: padding-box;
+}
+
+.filter-panel--header {
+  margin-top: 40px;
+  background-color: fuchsia;
+  padding: 10px;
+  border-bottom: 1px solid red;
+}
+
+.filter-panel--body {
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+  overflow-y: auto;
+  height: 100%;
 }
 /*# sourceMappingURL=default.css.map */

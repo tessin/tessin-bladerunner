@@ -20,7 +20,7 @@
   right: 0px;
   z-index: 3;
 }
-
+ 
 .overlay {
   width: 100%;
   height: 100%;
@@ -51,7 +51,7 @@
 
 .blade-header {
   width: 100%;
-  height: 40px;
+  height: $blade-header-height;
   position: absolute;
   top: 0;
   border-bottom: 1px solid #ccc;
@@ -67,7 +67,7 @@
   padding: 0px 10px;
   font-size: 1.1em;
   font-weight: normal;
-  line-height: 40px;
+  line-height: $blade-header-height;
   overflow: hidden;
 }
 
@@ -79,9 +79,9 @@
 
 .blade-content {
   width: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 50px;
+  padding-left: $panel-margin;
+  padding-right: $panel-margin;
+  padding-top: $blade-header-height+$panel-margin;
   box-sizing: border-box; /* Setting border-box allows you to add padding "inside" of the 100%. */
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
