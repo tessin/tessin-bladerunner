@@ -10,22 +10,24 @@ namespace Tessin.Bladerunner.Controls
 {
     public class MenuButton : Div
     {
-        private class InternalButton : Button
+        private class InternalButton : Div
         {
-            public InternalButton(Action<Button> onClick, object label, string svgIcon, string tooltip) : base("", onClick)
+            public InternalButton(Action<Div> onClick, object label, string svgIcon, string tooltip)
             {
+                this.SetClass("button");
+
                 if (tooltip != null)
                 {
                     this.HtmlElement.SetAttribute("title", tooltip);
                 }
-    
+
                 if(!string.IsNullOrEmpty(svgIcon))
                 {
                     var divIcon = new Div();
                     divIcon.HtmlElement.InnerHtml = svgIcon;
                     this.VisualTree.Add(divIcon);
                 }
-              
+
                 if(label is string stringLabel)
                 {
                     this.VisualTree.Add(new Span(stringLabel));
@@ -34,14 +36,14 @@ namespace Tessin.Bladerunner.Controls
                 {
                     var dc = new DumpContainer();
                     dc.Content = label;
-                    this.VisualTree.Add(new Span(dc));
+                    this.VisualTree.Add(new Div(dc).SetClass("dc"));
                 }
             }
         }
 
         public MenuButton(
-            object label, 
-            Action<Button> onClick, 
+            object label,
+            Action<Div> onClick,
             string svgIcon = null,
             string tooltip = null,
             object pill = null,
@@ -51,7 +53,7 @@ namespace Tessin.Bladerunner.Controls
             this.SetClass("menu-button");
 
             var button = new InternalButton(onClick, label, svgIcon, tooltip);
-            
+
             this.VisualTree.Add(button);
 
             Control pillContainer = null;
@@ -86,7 +88,7 @@ namespace Tessin.Bladerunner.Controls
                         }
                     }).ConfigureAwait(false);
                 }
-                else 
+                else
                 {
                     var content = pill.ToString();
                     if (content != "")
@@ -111,7 +113,7 @@ namespace Tessin.Bladerunner.Controls
             }
 
             if (actions != null)
-            { 
+            {
                 JavascriptHelpers.ShowOnMouseOver(this, divActions, pillContainer);
             }
         }
