@@ -1,45 +1,38 @@
-.search-box
-{
-
+.search-box {
 }
 
-.search-box .flexbox
-{
-    display: flex;
-    flex-direction: row;
+.search-box .flexbox {
+  display: flex;
+  flex-direction: row;
 }
 
-.search-box .flexbox INPUT
-{ 
-    height: 30px;
-    border-radius: 8px;
-    border: 1px solid $primary-cta;
-    padding-left:10px;
-    padding-right: 30px;;
+.search-box .flexbox INPUT {
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid $primary-cta;
+  padding-left: 10px;
+  padding-right: 30px;
 }
 
-.search-box .flexbox .context-menu
-{
-    margin-left:-30px;
+.search-box .flexbox .context-menu {
+  margin-left: -30px;
 }
 
 .search-box .flexbox INPUT:-ms-input-placeholder {
-    color: #ccc !important;
-    font-weight: 400 !important;
-    font-size: 13px;
-    font-family: $font-family;
+  color: #ccc !important;
+  font-weight: 400 !important;
+  font-size: 13px;
+  font-family: $font-family;
 }
 
-.search-box .flexbox .external-clear
-{
-    margin-left:-45px;
-    display:none;
+.search-box .flexbox .external-clear {
+  margin-left: -45px;
+  display: none;
 }
 
-.search-box .external-open
-{
-    display:none;
-    position:absolute;
-    margin-top:-31px;
-    margin-left:12px;
+.search-box .external-open {
+  display: none;
+  position: absolute;
+  margin-top: -31px;
+  margin-left: 12px;
 }
