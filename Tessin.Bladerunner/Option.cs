@@ -1,4 +1,4 @@
-﻿namespace Tessin.Bladerunner.Editors
+﻿namespace Tessin.Bladerunner
 {
     public class Option
     {
@@ -8,10 +8,13 @@
             Value = value;
         }
 
+        public Option(string label) : this(label, label)
+        {
+        }
+
         public string Label { get; set; }
 
         public object Value { get; set; }
-
 
         public override string ToString()
         {

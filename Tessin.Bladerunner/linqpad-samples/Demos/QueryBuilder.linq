@@ -11,15 +11,16 @@
     <IsProduction>true</IsProduction>
     <DisplayName>Tessin-Production</DisplayName>
   </Connection>
-  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netstandard2.0\Tessin.Bladerunner.dll</Reference>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5.0\Tessin.Bladerunner.dll</Reference>
   <NuGetReference>LinqKit</NuGetReference>
   <NuGetReference>Newtonsoft.Json</NuGetReference>
   <Namespace>LINQPad.Controls</Namespace>
   <Namespace>Newtonsoft.Json.Linq</Namespace>
   <Namespace>Tessin.Bladerunner</Namespace>
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
-  <Namespace>Tessin.Bladerunner.Query</Namespace>
   <Namespace>Tessin.Bladerunner.Controls</Namespace>
+  <Namespace>Tessin.Bladerunner.Query</Namespace>
+  <RuntimeVersion>5.0</RuntimeVersion>
 </Query>
 
 void Main()

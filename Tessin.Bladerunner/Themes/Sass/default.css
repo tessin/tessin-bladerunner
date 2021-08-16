@@ -101,7 +101,7 @@ th {
 }
 
 th.member {
-  padding: 0.1em 0.2em 0.1em 0.2em;
+  padding: 6px 6px;
 }
 
 td.typeheader {
@@ -211,7 +211,7 @@ td.headingpresenter {
 td.summary {
   background-color: #def;
   color: #024;
-  padding: 0 0.1em 0.1em 0.1em;
+  padding: 6px 6px;
   border-top: 2px solid #000000;
 }
 
@@ -944,7 +944,6 @@ SPAN.small {
 }
 
 .filter-panel--container {
-  background-color: blue;
   height: 100%;
   margin-top: 40px;
   -webkit-box-sizing: padding-box;
@@ -964,5 +963,20 @@ SPAN.small {
   padding-top: 10px;
   overflow-y: auto;
   height: 100%;
+}
+
+.auto-complete-box--loading {
+  background-color: red;
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+}
+
+.auto-complete-box INPUT.validated {
+  text-decoration: underline;
+  color: darkblue;
 }
 /*# sourceMappingURL=default.css.map */

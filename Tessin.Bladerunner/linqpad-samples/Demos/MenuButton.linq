@@ -1,9 +1,10 @@
 <Query Kind="Program">
-  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netstandard2.0\Tessin.Bladerunner.dll</Reference>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5.0\Tessin.Bladerunner.dll</Reference>
+  <Namespace>System.Drawing</Namespace>
+  <Namespace>Tessin.Bladerunner</Namespace>
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
   <Namespace>Tessin.Bladerunner.Controls</Namespace>
-  <Namespace>Tessin.Bladerunner</Namespace>
-  <Namespace>System.Drawing</Namespace>
+  <RuntimeVersion>5.0</RuntimeVersion>
 </Query>
 
 void Main()
@@ -12,9 +13,9 @@ void Main()
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", showDebugButton: true, cssHotReloading: true);
 	
-	manager.PushBlade(Blade1(), "Blade1");
+	//manager.PushBlade(Blade1(), "Blade1");
 	
-	//manager.PushBlade(Blade2(), "Blade2");
+	manager.PushBlade(Blade2(), "Blade2");
 	
 	manager.Dump();
 }

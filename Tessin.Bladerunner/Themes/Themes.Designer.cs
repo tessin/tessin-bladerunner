@@ -61,47 +61,52 @@ namespace Tessin.Bladerunner.Themes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to body {
+        ///   Looks up a localized string similar to .red {
+        ///  fill: red;
+        ///  color: red;
+        ///}
+        ///
+        ///.yellow {
+        ///  fill: yellow;
+        ///  color: yellow;
+        ///}
+        ///
+        ///.purple {
+        ///  fill: purple;
+        ///  color: purple;
+        ///}
+        ///
+        ///.blue {
+        ///  fill: blue;
+        ///  color: blue;
+        ///}
+        ///
+        ///.black {
+        ///  fill: black;
+        ///  color: black;
+        ///}
+        ///
+        ///.green {
+        ///  fill: green;
+        ///  color: green;
+        ///}
+        ///
+        ///.gray {
+        ///  fill: gray;
+        ///  color: gray;
+        ///}
+        ///
+        ///body {
         ///  margin: 0em;
         ///  padding: 0em;
         ///  height: 100%;
         ///  min-height: 100%;
-        ///  font-family: &quot;Roboto&quot;, sans-serif;
+        ///  font-family: &quot;Roboto&quot;, sans-serif !important;
         ///  font-size: 12px;
         ///  line-height: 1.5;
         ///  color: #000;
-        ///  -webkit-print-color-adjust: exact;
-        ///}
-        ///
-        ///h1, h2, h3 {
-        ///  font-weight: 400;
-        ///}
-        ///
-        ///a {
-        ///  color: #1158aa;
-        ///}
-        ///
-        ///p, pre {
-        ///  margin: 0;
-        ///  padding: 0;
-        ///}
-        ///
-        ///table {
-        ///  border-collapse: collapse;
-        ///  margin: 0.3em 0.2em;
-        ///  border: 0px;
-        ///}
-        ///
-        ///table.limit {
-        ///  border-bottom-color: #c31;
-        ///}
-        ///
-        ///table.expandable {
-        ///  border-bottom-style: dashed;
-        ///}
-        ///
-        ///table.error {
-        ///  border-bottom- [rest of string was truncated]&quot;;.
+        ///  background-color: white;
+        ///  -webkit-prin [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Default {
             get {
