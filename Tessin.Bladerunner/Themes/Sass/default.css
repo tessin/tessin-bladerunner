@@ -857,30 +857,31 @@ SPAN.small {
 }
 
 .filter-panel {
-  margin-top: -50px;
   margin-left: -10px;
   margin-right: -10px;
-  height: 100vh;
 }
 
 .filter-panel--container {
   background-color: blue;
   height: 100%;
-  margin-top: 40px;
-  box-sizing: padding-box;
 }
 
 .filter-panel--header {
   margin-top: 40px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
   background-color: fuchsia;
+  width: calc(100% - 37px);
   padding: 10px;
-  border-bottom: 1px solid red;
 }
 
 .filter-panel--body {
   padding-right: 10px;
   padding-left: 10px;
-  padding-top: 10px;
-  overflow-y: auto;
+  margin-top: 50px;
+  padding-bottom: 10px;
   height: 100%;
 }/*# sourceMappingURL=default.css.map */
