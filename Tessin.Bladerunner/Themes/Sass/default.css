@@ -101,7 +101,7 @@ th {
 }
 
 th.member {
-  padding: 0.1em 0.2em 0.1em 0.2em;
+  padding: 6px 6px;
 }
 
 td.typeheader {
@@ -211,7 +211,7 @@ td.headingpresenter {
 td.summary {
   background-color: #def;
   color: #024;
-  padding: 0 0.1em 0.1em 0.1em;
+  padding: 6px 6px;
   border-top: 2px solid #000000;
 }
 
@@ -515,7 +515,7 @@ SPAN.small {
 }
 
 .blade:nth-child(even) .blade-panel {
-  background-color: #ffffff;
+  background-color: #f8f8f8;
 }
 
 .blade:nth-child(odd) .blade-panel {
@@ -862,7 +862,7 @@ SPAN.small {
 }
 
 .filter-panel--container {
-  background-color: blue;
+  background-color: #fff;
   height: 100%;
 }
 
@@ -873,9 +873,10 @@ SPAN.small {
   top: 0;
   left: 0;
   z-index: 1;
-  background-color: fuchsia;
+  background-color: #f8f8f8;
   width: calc(100% - 37px);
   padding: 10px;
+  border-bottom: 1px solid #ccc;
 }
 
 .filter-panel--body {
@@ -884,4 +885,20 @@ SPAN.small {
   margin-top: 50px;
   padding-bottom: 10px;
   height: 100%;
+  background-color: #f8f8f8;
+}
+
+.auto-complete-box--loading {
+  background-color: red;
+  height: 10px;
+  width: 10px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+}
+
+.auto-complete-box INPUT.validated {
+  text-decoration: underline;
+  color: darkblue;
 }/*# sourceMappingURL=default.css.map */

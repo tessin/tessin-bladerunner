@@ -4,7 +4,7 @@
 }
 
 .filter-panel--container {
-  background-color: blue;
+  background-color: #fff;
   height: 100%;
 }
 
@@ -15,9 +15,10 @@
   top: 0;
   left: 0;
   z-index: 1;
-  background-color: fuchsia;
+  background-color: $filter-panel-color;
   width: calc(100% - 37px);
   padding: $panel-margin;
+  border-bottom: 1px solid $blade-border-color;
 }
 
 .filter-panel--body {
@@ -26,4 +27,5 @@
   margin-top: 50px;
   padding-bottom: $panel-margin;
   height: 100%;
+  background-color: $filter-panel-color;
 }

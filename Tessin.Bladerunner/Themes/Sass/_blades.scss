@@ -20,7 +20,7 @@
   right: 0px;
   z-index: 3;
 }
- 
+
 .overlay {
   width: 100%;
   height: 100%;
@@ -54,7 +54,7 @@
   height: $blade-header-height;
   position: absolute;
   top: 0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid $blade-border-color;
   background-color: $primary-header;
   z-index: 1;
   display: flex;
@@ -81,18 +81,18 @@
   width: 100%;
   padding-left: $panel-margin;
   padding-right: $panel-margin;
-  padding-top: $blade-header-height+$panel-margin;
+  padding-top: $blade-header-height + $panel-margin;
   box-sizing: border-box; /* Setting border-box allows you to add padding "inside" of the 100%. */
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
 }
 
 .blade:nth-child(even) .blade-panel {
-  background-color: #ffffff;
+  background-color: $blade-panel-odd;
 }
 
 .blade:nth-child(odd) .blade-panel {
-  background-color: #f8f8f8;
+  background-color: $blade-panel-odd;
 }
 
 .blade-content H1 {
