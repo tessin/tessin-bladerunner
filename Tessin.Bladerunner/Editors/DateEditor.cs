@@ -8,7 +8,7 @@ namespace Tessin.Bladerunner.Editors
 {
     public class DateEditor<T> : IFieldEditor<T>
     {
-        private TextBox _textBox;
+        private DateBox _dateBox;
         private Field _field;
 
         public DateEditor()
@@ -38,12 +38,12 @@ namespace Tessin.Bladerunner.Editors
                 throw new ArgumentException("Not a DateTime or DateTimeOffset.");
             }
 
-            _textBox = new TextBox(value?.ToString("yyyy-MM-dd") ?? "") { };
-            _textBox.HtmlElement.SetAttribute("placeholder", "YYYY-MM-DD");
+            _dateBox = new DateBox() { };
+            //_dateBox.HtmlElement.SetAttribute("placeholder", "YYYY-MM-DD");
 
-            _textBox.TextInput += (sender, args) => preview();
+            _dateBox.TextInput += (sender, args) => preview();
 
-            return _field = new Field(editorField.Label, _textBox, editorField.Description, editorField.Helper);
+            return _field = new Field(editorField.Label, _dateBox, editorField.Description, editorField.Helper);
         }
 
         public void Save(T obj, EditorField<T> editorField)
@@ -51,7 +51,7 @@ namespace Tessin.Bladerunner.Editors
             var type = editorField.Type;
             if ((Nullable.GetUnderlyingType(editorField.Type) is Type ut))
             {
-                if (string.IsNullOrEmpty(_textBox.Text))
+                if (string.IsNullOrEmpty(_dateBox.Text))
                 {
                     editorField.SetValue(obj, null);
                     return;
@@ -61,20 +61,20 @@ namespace Tessin.Bladerunner.Editors
 
             if (type == typeof(DateTimeOffset))
             {
-                editorField.SetValue(obj, DateTimeOffset.Parse(_textBox.Text));
+                editorField.SetValue(obj, DateTimeOffset.Parse(_dateBox.Text));
             }
             else
             {
-                editorField.SetValue(obj, DateTime.Parse(_textBox.Text));
+                editorField.SetValue(obj, DateTime.Parse(_dateBox.Text));
             }
         }
 
         public bool Validate(T obj, EditorField<T> editorField)
         {
-            if (!editorField.Type.IsNullable() && string.IsNullOrEmpty(_textBox.Text) ||
-                !string.IsNullOrEmpty(_textBox.Text) && !DateTime.TryParseExact(_textBox.Text, new[] {"yyyy-MM-dd"}, null, DateTimeStyles.None, out DateTime _))
+            if (!editorField.Type.IsNullable() && string.IsNullOrEmpty(_dateBox.Text) ||
+                !string.IsNullOrEmpty(_dateBox.Text) && !DateTime.TryParseExact(_dateBox.Text, new[] {"yyyy-MM-dd"}, null, DateTimeStyles.None, out DateTime _))
             {
-                _textBox.Styles["border-color"] = "tomato";
+                _dateBox.Styles["border-color"] = "tomato";
                 return false;
             }
             return true;

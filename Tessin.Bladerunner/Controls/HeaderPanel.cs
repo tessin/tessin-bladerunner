@@ -6,22 +6,22 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class FilterPanel : Div  
+    public class HeaderPanel : Div  
     {
-        public FilterPanel(object header, object body)
+        public HeaderPanel(object header, object body)
         {
-            this.SetClass("filter-panel");
+            this.SetClass("header-panel");
 
             var dcHeader = new DumpContainer {Content = header};
             var divHeader = new Div(dcHeader);
-            divHeader.SetClass("filter-panel--header");
+            divHeader.SetClass("header-panel--header");
 
             var dcBody = new DumpContainer {Content = body};
             var divBody = new Div(dcBody);
-            divBody.SetClass("filter-panel--body");
+            divBody.SetClass("header-panel--body");
 
             var divContainer = new Div(divHeader, divBody);
-            divContainer.SetClass("filter-panel--container");
+            divContainer.SetClass("header-panel--container");
 
             this.VisualTree.Add(divContainer);
         }

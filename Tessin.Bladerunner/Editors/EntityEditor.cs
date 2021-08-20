@@ -4,8 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Security.Policy;
 using LINQPad;
 using LINQPad.Controls;
+using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors
 {
@@ -101,16 +103,24 @@ namespace Tessin.Bladerunner.Editors
 
         public object Render()
         {
-            var rendered = new List<object>();
-
             var fields = _fields.Values.Where(e => !e.Removed && e.Editor != null).ToList();
 
-            var fieldsRendered = fields
+            var columns = fields
                 .GroupBy(e => e.Column)
                 .OrderBy(e => e.Key)
-                .Select(e =>
-                    Layout.Vertical(false, e.OrderBy(f => f.Order).Select(f => f.Editor.Render(_obj, f, Updated)).ToList()))
-                .ToList();
+                .Select(e => Layout.Vertical(false,
+                    e.GroupBy(f => f.Group)
+                    .OrderBy(f => f.Key)
+                    .Select(f =>
+                        Layout.Vertical(false, 
+                            f.Key == null
+                            ? Layout.Vertical(false,
+                                f.OrderBy(h => h.Order).Select(h => h.Editor.Render(_obj, h, Updated)).ToArray())
+                            : new CollapsablePanel(f.Key,
+                                Layout.Vertical(false,
+                                    f.OrderBy(h => h.Order).Select(h => h.Editor.Render(_obj, h, Updated)).ToArray()))
+                        ))
+                        .ToArray())).ToArray();
 
             void Updated()
             {
@@ -128,9 +138,13 @@ namespace Tessin.Bladerunner.Editors
                 _preview?.Invoke(pObj);
             }
 
-            rendered.Add(new Button(_actionVerb, (_) =>
+            var validationLabel = Typography.Error("");
+
+            var saveButton = new Button(_actionVerb, (_) =>
             {
-                if (fields.Select(e => e.Editor.Validate(_obj, e)).All(e => e))
+                var validationErrors = fields.Select(e => e.Editor.Validate(_obj, e)).Count(e => !e);
+
+                if (validationErrors == 0)
                 {
                     foreach (var field in fields)
                     {
@@ -138,18 +152,21 @@ namespace Tessin.Bladerunner.Editors
                     }
                     _save?.Invoke(_obj);
                 }
-            }));
-
-            rendered.Add(
-                Layout.Horizontal(
-                    true,
-                    fieldsRendered
-                )
-            );
+                else
+                {
+                    validationLabel.HtmlElement.InnerText = $"{validationErrors} validation error{(validationErrors > 1 ? "s" : "")}.";
+                }
+            });
 
             Updated();
 
-            return Layout.Vertical(false, rendered);
+            return new HeaderPanel(
+                Layout.Horizontal(true, saveButton, validationLabel), 
+                Layout.Horizontal( //columns
+                    true,
+                    columns
+                )
+            );
         }
 
         public EntityEditor<T> Editor(Expression<Func<T, object>> field, Func<EditorFactory<T>, IFieldEditor<T>> editor)
@@ -197,7 +214,6 @@ namespace Tessin.Bladerunner.Editors
             return this;
         }
 
-
         public EntityEditor<T> Place(int col, params Expression<Func<T, object>>[] fields)
         {
             return _Place(col, fields);
@@ -206,6 +222,18 @@ namespace Tessin.Bladerunner.Editors
         public EntityEditor<T> Place(params Expression<Func<T, object>>[] fields)
         {
             return _Place(1, fields);
+        }
+
+        public EntityEditor<T> Group(string group, params Expression<Func<T, object>>[] fields)
+        {
+            int order = 0;
+            foreach (var expr in fields)
+            {
+                var hint = GetField(expr);
+                hint.Group = group;
+                hint.Order = order++;
+            }
+            return this;
         }
 
         public EntityEditor<T> Remove(Expression<Func<T, object>> field)

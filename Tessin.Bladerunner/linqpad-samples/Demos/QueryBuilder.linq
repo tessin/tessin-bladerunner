@@ -134,7 +134,7 @@ static IBladeRenderer SearchBlade()
 				})
 				.ToList()
 				.Select(e => BuildMenuButton(e.Id, e.Title, e.LoanNumber, e.Developer)).ToList();
-				return Util.VerticalRun(cards);
+				return new Menu(cards.ToArray());
 			}
 		});
 

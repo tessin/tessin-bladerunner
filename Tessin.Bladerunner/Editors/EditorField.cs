@@ -63,6 +63,8 @@ namespace Tessin.Bladerunner.Editors
 
         public int Column { get; set; }
 
+        public string Group { get; set; }
+
         public string Label { get; set; }
 
         public string Description { get; set; }

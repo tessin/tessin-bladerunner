@@ -29,19 +29,19 @@ namespace Tessin.Bladerunner.Controls
         public AsyncDataListBox(Func<string, Task<IEnumerable<Option>>> queryOptions, Func<object,Task<Option>> findOption = null,  int debounceInterval = 250)
         {
             _debounceDispatcher = new DebounceDispatcher(debounceInterval);
-            this.SetClass("auto-complete-box");
+            this.SetClass("async-data-list-box");
             _queryOptions = queryOptions;
             _findOption = findOption;
 
-            _loadingDiv.SetClass("auto-complete-box--loading");
+            _loadingDiv.SetClass("async-data-list-box--loading");
 
             _textBox.HtmlElement["list"] = _dataList.HtmlElement.ID;
             _textBox.HtmlElement["autocomplete"] = "off";
             _textBox.HtmlElement["spellcheck"] = "false";
             _textBox.TextInput += (sender, args) => OnTextInput();
 
-            VisualTree.Add(_textBox);
             VisualTree.Add(_loadingDiv);
+            VisualTree.Add(_textBox);
             VisualTree.Add(_dataList);
             _loadingDiv.SetVisibility(false);
         }

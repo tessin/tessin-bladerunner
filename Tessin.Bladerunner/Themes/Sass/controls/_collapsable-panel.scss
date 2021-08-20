@@ -1,0 +1,36 @@
+.collapsable-panel {
+    width: 100%;
+    display: block;
+}
+
+.collapsable-panel--container {
+    width: 100%;
+}
+
+BUTTON.collapsable-panel--header {
+    cursor: pointer;
+    display: block;
+    padding-top: $panel-margin;
+    padding-left: 0px;
+    padding-bottom: $panel-margin;
+    outline: none;
+    background-color: transparent;
+    color: black;
+    font-weight: 700;
+    box-shadow: none;
+    font-size: 12px;
+}
+
+BUTTON.collapsable-panel--header:before
+{
+    content: ">";
+}
+
+.collapsable-panel--header:hover {
+}
+
+.collapsable-panel--body {
+    display: none;
+    overflow: hidden;
+    width: 100%;
+}

@@ -1,0 +1,27 @@
+.async-data-list-box
+{
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+// .async-data-list-box--loading
+// {
+//     position: relative;
+//     width:10px;
+//     height: 10px;
+//     top: 0px;
+//     left: 0px;
+//     z-index: 10;
+//     margin-left:-35px;
+//     margin-right: 25px;
+    
+// }
+
+// .async-data-list-box--loading::before
+// {
+//     margin-top:-5px;
+//     text-align: center;
+//     font-size: 15px;
+//     content:"↻"
+// }
