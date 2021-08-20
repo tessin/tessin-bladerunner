@@ -37,7 +37,13 @@ static IBladeRenderer Blade1()
 	return BladeFactory.Make((blade) =>
 	{
 		DateBox db = new DateBox();
-		
-		return Layout.Vertical(true, db);
+		DateBox tb = new DateBox(showTime:true);
+
+		RefreshContainer rc = new RefreshContainer(new[] { db, tb }, () =>
+		{
+			return Layout.Vertical(true, db.SelectedDate, tb.SelectedDate);
+		});
+
+		return Layout.Vertical(true, db, tb, rc);
 	});
 }

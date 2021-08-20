@@ -1055,4 +1055,58 @@ BUTTON.collapsable-panel--header:before {
   overflow: hidden;
   width: 100%;
 }
+
+.property-list {
+  min-width: 230px;
+}
+
+.property-list > DIV {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  min-height: 30px;
+}
+
+.property-list > DIV > SPAN {
+  text-align: left;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.property-list > DIV > DIV {
+  font-size: 1.1em;
+  margin-left: auto;
+  margin-right: 0;
+  position: relative;
+  text-align: right;
+}
+
+.card {
+  padding: 10px;
+  background-color: white;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.matrix table tr {
+  border: 1px;
+  min-height: 50px;
+}
+
+.matrix th {
+  background-color: transparent;
+  color: #000;
+  border: 0px;
+}
+
+.matrix td {
+  min-width: 50px;
+  vertical-align: middle;
+}
 /*# sourceMappingURL=default.css.map */

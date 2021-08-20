@@ -9,10 +9,26 @@ namespace Tessin.Bladerunner.Controls
 {
     public class DateBox : TextBox
     {
-        public DateBox(DateTime? intitialValue = null, string width = "10em", Action<TextBox> onTextInput = null) : base("", width, onTextInput)
+        public DateBox(DateTime? initialValue = null, bool showTime = false, string width = "12em", Action<TextBox> onTextInput = null) : base("", width, onTextInput)
         {
-            //todo: handle initialValue
-            this.HtmlElement.SetAttribute("type","date");
+            if (initialValue != null)
+            {
+                this.Text = initialValue.Value.ToString("yyyy-MM-dd");
+            }
+            this.HtmlElement.SetAttribute("type", showTime ? "datetime-local" : "date");
+        }
+
+        public DateTime? SelectedDate
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.Text)) return null;
+                if (DateTime.TryParse(this.Text, out var result))
+                {
+                    return result;
+                }
+                return null;
+            }
         }
     }
 }

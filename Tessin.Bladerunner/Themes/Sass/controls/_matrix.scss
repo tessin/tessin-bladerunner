@@ -1,0 +1,24 @@
+.matrix {
+
+}
+
+
+.matrix table tr
+{
+    border: 1px;
+    min-height: 50px;
+}
+
+.matrix th
+{
+    background-color:transparent;
+    color: #000;
+    border:0px;
+}
+
+.matrix td 
+{
+    
+    min-width: 50px;
+    vertical-align: middle;
+}

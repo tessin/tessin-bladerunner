@@ -118,6 +118,5 @@ namespace Tessin.Bladerunner.Controls
             }
         }
 
-
     }
 }
