@@ -15,7 +15,7 @@ void Main()
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	
-	manager.PushBlade(Blade1(), "Matrix");
+	manager.PushBlade(Blade1(), "MultiSelectBox");
 	
 	manager.Dump();
 }
@@ -24,18 +24,21 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		List<MatrixCell> list = new();
-		void Add(string col, string row, object value)
-		{
-			list.Add(new MatrixCell(col, row, value));
-		}
+		MultiSelectBox msb = new MultiSelectBox(GetColors().Select(e => new Option(e, Guid.NewGuid())).Take(3).ToArray()); 
 		
-		Add("Apa","Bar",new Tessin.Bladerunner.Controls.Icon(Icons.CoffeeOutline));
-		Add("Name","City","Stocholm");
-		Add("B","X","Nisse");
-		Add("C","Y","Nisse");
-		Add("Name","Investor",Layout.Vertical(false, new Button("Hej"),"Hej"));
+		RefreshContainer rc = new RefreshContainer(new [] { msb }, () => {
+			return msb.SelectedOptions;
+		});
 		
-		return Matrix<MatrixCell>.Create(list);
+		return Layout.Vertical(true, msb, rc);
 	});
+}
+
+static IEnumerable<string> GetColors()
+{
+	foreach (System.Reflection.PropertyInfo prop in typeof(SystemColors).GetProperties())
+	{
+		if (prop.PropertyType.FullName == "System.Drawing.Color")
+			yield return prop.Name;
+	}
 }

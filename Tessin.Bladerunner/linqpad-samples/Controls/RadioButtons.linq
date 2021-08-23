@@ -15,7 +15,7 @@ void Main()
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	
-	manager.PushBlade(Blade1(), "Matrix");
+	manager.PushBlade(Blade1(), "RadioButtons");
 	
 	manager.Dump();
 }
@@ -24,18 +24,21 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		List<MatrixCell> list = new();
-		void Add(string col, string row, object value)
-		{
-			list.Add(new MatrixCell(col, row, value));
-		}
+		Guid ola = Guid.NewGuid();
+	
+		RadioButtons rbs = new RadioButtons(ola, (e) => Layout.Horizontal(true, e),
+			new Option("Niels",Guid.NewGuid()),
+			new Option("John",Guid.NewGuid()),
+			new Option("Ola", ola),
+			new Option("Dennis",Guid.NewGuid())
+		);
 		
-		Add("Apa","Bar",new Tessin.Bladerunner.Controls.Icon(Icons.CoffeeOutline));
-		Add("Name","City","Stocholm");
-		Add("B","X","Nisse");
-		Add("C","Y","Nisse");
-		Add("Name","Investor",Layout.Vertical(false, new Button("Hej"),"Hej"));
+		var chk = new CheckBox("Test");
 		
-		return Matrix<MatrixCell>.Create(list);
+		RefreshContainer rc = new RefreshContainer(new [] {rbs}, () => {
+			return rbs.SelectedOption;
+		});
+		
+		return Layout.Vertical(true, chk, rbs, rc);
 	});
 }

@@ -1,15 +1,15 @@
 <Query Kind="Program">
   <Connection>
-    <ID>ab4f23ff-9abb-40f7-9b23-863370e15152</ID>
+    <ID>267fadab-00a0-4cb2-8e87-82deb2eeba5c</ID>
     <Persist>true</Persist>
     <Server>tessin-prod-q3j2jdhga4u26.database.windows.net</Server>
-    <SqlSecurity>true</SqlSecurity>
     <Database>tessin-prod</Database>
-    <UserName>tessin</UserName>
-    <Password>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAACe+cS1dyVUGiFERUvU8QlgAAAAACAAAAAAAQZgAAAAEAACAAAABb3OP8bsuJwIrNPKB+ILsgdnBXclTFDX/da7IRCu/2LAAAAAAOgAAAAAIAACAAAADFkA1f/WVzhaEv+ibPMYRKXfCBsamjC06esMNT9enBPjAAAADUeZTXRCzJw+bGTMQGfYU6YP5X3K2OAIEVT+fq1nE3nm7IZTA1sUAf3GwtQ7wzbuJAAAAAjtbeXAzOQ6Gzq/AQUVj5y5UFM8X3YBLdkhz+QgRCWyTsUvUJP8ZkK11e29HUdyeSdBUMF8x9Su9kbEG6KvLxcg==</Password>
+    <UserName>niels@tessin.com</UserName>
+    <Password>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAJmcqpNpu20uU3NaGwEEj1QAAAAACAAAAAAAQZgAAAAEAACAAAAA6BjDHBE2B1YISI3OOv3kDRAseCRqE7u0QaIS8PEFc3QAAAAAOgAAAAAIAACAAAAC5dOt038oP0I0o/G23+LZlQpbW+uvQ2jsZuSD1KV2JYTAAAACNdZsqB/XbHlDhRasBXj4WCX0iQrxzpDw5trkImclBxlnkgDpp8hlRZ7PBAt3EcFNAAAAAf1Jx7SyDWnnbfg4m+ZqyS4pucO4eyuw86ckhcYnlJI2SBID5QGJZfsRsLS+xJiW7XF1JHKCWjkZRGbc6lXGy0g==</Password>
     <DbVersion>Azure</DbVersion>
     <IsProduction>true</IsProduction>
-    <DisplayName>Tessin-Production</DisplayName>
+    <DisplayName>Tessin-Prod</DisplayName>
+    <UniversalAuthentication>true</UniversalAuthentication>
   </Connection>
   <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5.0\Tessin.Bladerunner.dll</Reference>
   <Namespace>System.Drawing</Namespace>

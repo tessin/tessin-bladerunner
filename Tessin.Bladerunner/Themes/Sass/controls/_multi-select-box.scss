@@ -1,0 +1,10 @@
+.multi-select-box {
+    min-width: 220px;
+    padding: $panel-margin;
+    padding-top: $panel-margin/2;
+    border: 1px solid black;
+    background:white;
+    max-height: 200px;
+    overflow: hidden;
+    overflow-y: auto;
+}

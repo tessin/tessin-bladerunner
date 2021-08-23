@@ -344,13 +344,21 @@ button:disabled {
   background-color: gray;
 }
 
-input[type="radio"],
+input[type="radio"] {
+  margin: 0 0.4em 0 0;
+  width: 21px;
+  height: 21px;
+  padding: 3px;
+  outline: none;
+}
+
 input[type="checkbox"] {
   margin: 0 0.4em 0 0;
   width: 21px;
   height: 21px;
   padding: 3px;
   outline: none;
+  border-radius: 0px;
 }
 
 label.checkbox-label {
@@ -1108,5 +1116,16 @@ BUTTON.collapsable-panel--header:before {
 .matrix td {
   min-width: 50px;
   vertical-align: middle;
+}
+
+.multi-select-box {
+  min-width: 220px;
+  padding: 10px;
+  padding-top: 5px;
+  border: 1px solid black;
+  background: white;
+  max-height: 200px;
+  overflow: hidden;
+  overflow-y: auto;
 }
 /*# sourceMappingURL=default.css.map */

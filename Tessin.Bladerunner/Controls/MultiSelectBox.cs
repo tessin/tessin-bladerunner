@@ -15,16 +15,15 @@ namespace Tessin.Bladerunner.Controls
 
         private readonly DumpContainer _checkBoxContainer;
 
-        public MultiSelectBox(object[] options, int[] selectedIndexes = null, Action<MultiSelectBox> onSelectionChanged = null)
+        public MultiSelectBox(Option[] options, int[] selectedIndexes = null, Action<MultiSelectBox> onSelectionChanged = null)
         {
             if (options != null && options.Length != 0)
             {
                 Options = options;
             }
-            if (selectedIndexes != null)
-            {
-                SelectedIndexes = selectedIndexes;
-            }
+
+            SelectedIndexes = selectedIndexes;
+
             if (onSelectionChanged != null)
             {
                 SelectionChanged += delegate
@@ -39,8 +38,8 @@ namespace Tessin.Bladerunner.Controls
             VisualTree.Add(_divContainer);
         }
 
-        private object[] _options = new string[0];
-        public object[] Options
+        private Option[] _options = new Option[0];
+        public Option[] Options
         {
             get
             {
@@ -48,7 +47,7 @@ namespace Tessin.Bladerunner.Controls
             }
             set
             {
-                _options = (value ?? new string[0]);
+                _options = (value ?? new Option[0]);
                 if (base.IsRendered)
                 {
                     Update();
@@ -56,17 +55,15 @@ namespace Tessin.Bladerunner.Controls
             }
 		}
 
-        private int[] _selectedIndexes;
         public int[] SelectedIndexes
         {
             get
             {
-                return _selectedIndexes ?? new int[] {};
+                return _checkBoxes?.Select((e, i) => (e, i)).Where(x => x.e.Checked).Select(x => x.i).ToArray() ?? new int[0];
             }
             set
             {
-                _selectedIndexes = value;
-                UpdateChecked();
+                UpdateChecked(value ?? new int[] { });
             }
         }
 
@@ -85,19 +82,19 @@ namespace Tessin.Bladerunner.Controls
             if (Options != null)
             {
                 DetachCheckBoxes();
-                _checkBoxes = _options.Select((e,i) => new CheckBox(e.ToString(), isChecked: _selectedIndexes.Contains(i))).ToArray();
-                AttachCheckBoxes();
+                _checkBoxes = _options.Select((e,i) => new CheckBox(e.Label, isChecked: SelectedIndexes.Contains(i))).ToArray();
                 _checkBoxContainer.Content = Layout.Vertical(false, _checkBoxes);
+                AttachCheckBoxes();
             }
         }
 
-        private void UpdateChecked()
+        private void UpdateChecked(int[] selectedIndexes)
         {
             if (_checkBoxes != null)
             {
                 foreach (var pair in _checkBoxes.Select((c, i) => (c, i)))
                 {
-                    pair.c.Checked = _selectedIndexes?.Contains(pair.i) ?? false;
+                    pair.c.Checked = selectedIndexes?.Contains(pair.i) ?? false;
                 }
             }
         }
@@ -126,11 +123,8 @@ namespace Tessin.Bladerunner.Controls
 
         private void CheckBoxHandler(object sender, EventArgs e)
         {
-            if (base.IsRendered)
-            {
-                SelectionChanged?.Invoke(this, null);
-                Updated?.Invoke(SelectedIndexes);
-            }
+            SelectionChanged?.Invoke(this, null);
+            Updated?.Invoke(SelectedOptions);
         }
 
         public event RefreshEvent Updated;
