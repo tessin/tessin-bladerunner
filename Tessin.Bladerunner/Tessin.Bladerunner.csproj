@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5</TargetFramework>
     <!-- use same major version as LINQPad.Runtime, when LINQPad 7 is released we can maintain backwards compatability -->
-    <Version>6.0.0</Version>
+    <Version>6.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
