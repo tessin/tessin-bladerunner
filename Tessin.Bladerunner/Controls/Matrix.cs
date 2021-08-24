@@ -46,21 +46,30 @@ namespace Tessin.Bladerunner.Controls
             Func<IEnumerable<T>, object> cellRenderer)
         {
             this.AddClass("matrix");
-
+            
             var cols = cells.AsQueryable().GroupBy(colExpr).Select(e => e.Key).Distinct().ToList();
             var rows = cells.AsQueryable().GroupBy(rowExpr).Select(e => e.Key).Distinct().ToList();
+
+            this.Styles["grid-template-columns"] = $"auto repeat({cols.Count}, 1fr);";
 
             var colFunc = colExpr.Compile();
             var rowFunc = rowExpr.Compile();
 
-            var table = new Table();
+            Div MakeColHeader(object label)
+            {
+                var div = new Div(new Span(label.ToString()));
+                div.SetClass("col-header");
+                return div;
+            }
 
-            table.ClearStyles();
+            Div MakeRowHeader(object label)
+            {
+                var div = new Div(new Span(label.ToString()));
+                div.SetClass("row-header");
+                return div;
+            }
 
-            table.Rows.Add(new TableRow(true, cols.Select(e => new TableCell(true, new Literal(e.ToString()))).ToArray().Prepend(new TableCell(true, new Literal("")))));
-
-
-            TableCell MakeCell(object content)
+            Div MakeCell(object content)
             {
                 Control child;
                 if (content == null || content is string || content.GetType().IsNumeric())
@@ -73,18 +82,22 @@ namespace Tessin.Bladerunner.Controls
                     child = dc;
                 }
 
-                return new TableCell(false, child);
+                var div = new Div(new Div(child));
+                div.SetClass("cell");
+
+                return div;
             }
+
+            this.VisualTree.AddRange(cols.Select(MakeColHeader).ToArray().Prepend(new Div(new Literal(""))));
 
             foreach (var row in rows)
             {
-                table.Rows.Add(new TableRow(false,
+                this.VisualTree.AddRange(
                     cols.Select(horizontalKey => cellRenderer(cells.Where(e => colFunc(e).Equals(horizontalKey) && rowFunc(e).Equals(row)))).Select(MakeCell).ToArray()
-                        .Prepend(new TableCell(true, new Literal(row)))
-                ));
+                        .Prepend(MakeRowHeader(row))
+                );
             }
-
-            this.VisualTree.Add(table);
+            
         }
 
     }

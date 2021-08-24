@@ -1102,20 +1102,54 @@ BUTTON.collapsable-panel--header:before {
           box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
-.matrix table tr {
-  border: 1px;
-  min-height: 50px;
+.matrix {
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  -webkit-column-gap: 2px;
+          column-gap: 2px;
+  row-gap: 2px;
 }
 
-.matrix th {
-  background-color: transparent;
-  color: #000;
-  border: 0px;
+.matrix > DIV.col-header {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+  justify-items: center;
+  font-weight: bold;
+  height: 100%;
 }
 
-.matrix td {
-  min-width: 50px;
-  vertical-align: middle;
+.matrix > DIV.col-header > SPAN {
+  padding-bottom: 5px;
+}
+
+.matrix > DIV.row-header {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: right;
+  font-weight: bold;
+  width: 100%;
+}
+
+.matrix > DIV.row-header > SPAN {
+  padding-right: 10px;
+}
+
+.matrix > DIV.cell {
+  min-width: 75px;
+  min-height: 54px;
+  background-color: white;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 .multi-select-box {

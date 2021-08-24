@@ -15,8 +15,6 @@ void Main()
 	
 	manager.PushBlade(Blade1(), "Blade1");
 	
-	manager.PushBlade(Blade2(), "Blade2");
-	
 	manager.Dump();
 }
 
@@ -25,7 +23,9 @@ static IBladeRenderer Blade1()
 	return BladeFactory.Make((blade) =>
 	{		
 		var menu = new Menu(
-			new MenuButton("Hello World", (_) => { }),
+			new MenuButton("Hello World", (_) => {
+				blade.PushBlade(Blade2(), "Blade2");
+			}),
 			new MenuButton("Hello World", (_) => { }, Icons.Atom),
 			new MenuButton("Hello World", (_) => { }, Icons.Atom, pillTask: Utils.CreateTask<object>(e => "HEJ")),
 			new MenuButton("Hello World", (_) => { }, Icons.Atom, actions: new IconButton[] {

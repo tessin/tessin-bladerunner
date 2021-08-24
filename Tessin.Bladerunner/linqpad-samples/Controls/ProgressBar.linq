@@ -15,7 +15,7 @@ void Main()
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	
-	manager.PushBlade(Blade1(), "Matrix");
+	manager.PushBlade(Blade1(), "ProgressBar");
 	
 	manager.Dump();
 }
@@ -24,18 +24,8 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		List<MatrixCell> list = new();
-		void Add(string col, string row, object value)
-		{
-			list.Add(new MatrixCell(col, row, value));
-		}
-		
-		Add("A","1",new Tessin.Bladerunner.Controls.Icon(Icons.CoffeeOutline));
-		Add("B","2","Foo");
-		Add("C", "3", "Bar");
-		Add("D", "4", Layout.Vertical(false, new object[] { "23 %", new ProgressBar(23, "70px")}, HorizontalAlignment.Center));
-		Add("E","5",Layout.Vertical(false, new Button("HelloWorld")));
-		
-		return Matrix<MatrixCell>.Create(list);
+		return Layout.Vertical(true,
+			new ProgressBar(50, "200px")
+		);
 	});
 }

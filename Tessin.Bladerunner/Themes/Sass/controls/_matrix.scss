@@ -1,24 +1,52 @@
 .matrix {
-
+    display: grid;
+    place-items: center;
+    //grid-template-rows: repeat(2, 1fr);
+    column-gap: 2px;
+    row-gap: 2px;
 }
 
-
-.matrix table tr
-{
-    border: 1px;
-    min-height: 50px;
-}
-
-.matrix th
-{
-    background-color:transparent;
-    color: #000;
-    border:0px;
-}
-
-.matrix td 
+.matrix > DIV
 {
     
-    min-width: 50px;
-    vertical-align: middle;
+}
+
+.matrix > DIV.col-header
+{
+    display: grid;
+    align-items: end;
+    justify-items: center;
+    font-weight: bold;
+    height: 100%;
+}
+
+.matrix > DIV.col-header > SPAN
+{
+    padding-bottom: 5px;
+}
+
+.matrix > DIV.row-header
+{
+    display: grid;
+    align-items: center;
+    justify-items: right;
+    font-weight: bold;
+    width: 100%;
+}
+
+.matrix > DIV.row-header > SPAN
+{
+    padding-right: 10px;
+}
+
+
+.matrix > DIV.cell
+{
+    min-width: 75px;
+    min-height: 54px;
+    background-color: white;
+    display: grid;
+    place-items: center;
+    height: 100%;
+    width: 100%;
 }
