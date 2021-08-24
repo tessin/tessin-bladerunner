@@ -5,6 +5,13 @@ $font-weight-bold: 400;
 $panel-margin: 10px;
 $blade-header-height: 40px;
 
+$blade-border-color: #ccc;
+$blade-pill-color: #ccc;
+$blade-button-hover: #e1e1e1;
+$filter-panel-color: #f8f8f8;
+$blade-panel-even: #ffffff;
+$blade-panel-odd: #f8f8f8;
+
 $primary-cta: rgb(17, 88, 170);
 $primary-header: aqua;
 $primary-cherry: tomato;
@@ -18,40 +25,36 @@ $color-green: green;
 $color-gray: gray;
 
 .red {
-    fill:$color-red;
-    color:$color-red;
+  fill: $color-red;
+  color: $color-red;
 }
 
 .yellow {
-    fill:$color-yellow;
-    color:$color-yellow;
+  fill: $color-yellow;
+  color: $color-yellow;
 }
 
 .purple {
-    fill:$color-purple;
-    color:$color-purple;
+  fill: $color-purple;
+  color: $color-purple;
 }
 
 .blue {
-    fill:$color-blue;
-    color:$color-blue;
+  fill: $color-blue;
+  color: $color-blue;
 }
 
 .black {
-    fill:$color-black;
-    color:$color-black;
+  fill: $color-black;
+  color: $color-black;
 }
 
 .green {
-    fill:$color-green;
-    color:$color-green;
+  fill: $color-green;
+  color: $color-green;
 }
 
 .gray {
-    fill:$color-gray;
-    color:$color-gray;
+  fill: $color-gray;
+  color: $color-gray;
 }
-
-
-
-

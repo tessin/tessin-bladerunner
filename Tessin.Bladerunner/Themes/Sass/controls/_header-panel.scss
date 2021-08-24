@@ -1,0 +1,40 @@
+.header-panel {
+  margin-left: -$panel-margin;
+  margin-right: -$panel-margin;
+}
+
+.header-panel--container {
+  background-color: #fff;
+  height: 100%;
+}
+
+.header-panel--header {
+  margin-top: 39px;
+  height: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  background-color: powderblue;
+  width: calc(100% - 35px);
+  padding: $panel-margin;
+  border-bottom: 1px solid $blade-border-color;
+  align-content: center;
+}
+
+.header-panel--header SPAN
+{
+
+}
+
+.header-panel--body {
+  padding-right: $panel-margin;
+  padding-left: $panel-margin;
+  margin-top: 50px;
+  padding-bottom: $panel-margin - 2;
+  height: 100%;
+  background-color: $filter-panel-color;
+}

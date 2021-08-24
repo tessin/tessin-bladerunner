@@ -1,9 +1,10 @@
 <Query Kind="Program">
-  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netstandard2.0\Tessin.Bladerunner.dll</Reference>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5.0\Tessin.Bladerunner.dll</Reference>
+  <Namespace>System.Drawing</Namespace>
+  <Namespace>Tessin.Bladerunner</Namespace>
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
   <Namespace>Tessin.Bladerunner.Controls</Namespace>
-  <Namespace>Tessin.Bladerunner</Namespace>
-  <Namespace>System.Drawing</Namespace>
+  <RuntimeVersion>5.0</RuntimeVersion>
 </Query>
 
 void Main()
@@ -14,8 +15,6 @@ void Main()
 	
 	manager.PushBlade(Blade1(), "Blade1");
 	
-	//manager.PushBlade(Blade2(), "Blade2");
-	
 	manager.Dump();
 }
 
@@ -24,7 +23,9 @@ static IBladeRenderer Blade1()
 	return BladeFactory.Make((blade) =>
 	{		
 		var menu = new Menu(
-			new MenuButton("Hello World", (_) => { }),
+			new MenuButton("Hello World", (_) => {
+				blade.PushBlade(Blade2(), "Blade2");
+			}),
 			new MenuButton("Hello World", (_) => { }, Icons.Atom),
 			new MenuButton("Hello World", (_) => { }, Icons.Atom, pillTask: Utils.CreateTask<object>(e => "HEJ")),
 			new MenuButton("Hello World", (_) => { }, Icons.Atom, actions: new IconButton[] {
@@ -58,7 +59,7 @@ static IBladeRenderer Blade2()
 			);
 		});
 		
-		return new FilterPanel(
+		return new HeaderPanel(
 			Layout.Horizontal(true, searchBox, new IconButton(Icons.Plus)), 
 			refreshContainer
 		);

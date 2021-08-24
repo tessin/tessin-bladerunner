@@ -158,9 +158,10 @@ namespace Tessin.Bladerunner.Blades
 
         public void DebugHtml()
         {
-            var tempPath = Path.GetTempFileName()+".html";
+            var tempPath = Path.GetTempFileName() + ".html";
             File.WriteAllText(tempPath, _divBladeManager.HtmlElement.InnerHtml);
-            Process.Start(tempPath);
+            var psi = new System.Diagnostics.ProcessStartInfo {UseShellExecute = true, FileName = tempPath};
+            Process.Start(psi);
         }
     }
 }

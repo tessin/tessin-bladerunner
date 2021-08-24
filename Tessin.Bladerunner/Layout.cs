@@ -67,6 +67,7 @@ namespace Tessin.Bladerunner
             return _Horizontal(withGaps, elements);
         }
 
+        [Obsolete]
         public static object DumpMatrix<T, T1, T2>(IQueryable<T> raw, Expression<Func<T, T1>> verticalExpr, Expression<Func<T, T2>> horizontalExpr, Func<IEnumerable<T>, object> cellRenderer) where T1 : IComparable where T2 : IComparable
         {
             var verticalKeys = raw.GroupBy(verticalExpr).Select(e => e.Key).Distinct().ToList();

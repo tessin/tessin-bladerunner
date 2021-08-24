@@ -66,7 +66,7 @@ th {
 }
 
 th.member {
-	padding: 0.1em 0.2em 0.1em 0.2em;
+	padding: 6px 6px;
 }
 
 td.typeheader {
@@ -170,8 +170,7 @@ td.headingpresenter {
 td.summary { 
 	background-color: #def;
 	color: #024;
-	padding: 0 0.1em 0.1em 0.1em;
-	border-top: 2px solid #000000;
+	padding: 6px 6px;
 }
 
 td.columntotal 
@@ -224,12 +223,13 @@ span.cc { background:#666; color:white;margin:0px 1.5px; padding:0px 1px; font-f
 
 ::-ms-clear { display: none; }
 
-input,textarea,select {
+input,textarea,select,input[type="number"],input[type="date"] {
 	padding-left: 5px;
     padding-right: 5px;
 	padding-top:0px;
 	padding-bottom:0px;
 	margin:0;
+	font-family: "Roboto", sans-serif;
 }
 
 input,select {
@@ -242,7 +242,8 @@ select {
 }
 
 textarea {
-    font-family: "Roboto", sans-serif;
+	padding-top:5px;
+	padding-bottom:5px;
 }
 
 button { 
@@ -253,13 +254,22 @@ button {
     border: 0px;
     color: white;
 	border-radius: 0px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
 }
 
 button:disabled { 
 	background-color: gray;
 }
 
-input[type="radio"],
+input[type="radio"]
+{
+    margin:0 0.4em 0 0;
+	width: 21px;
+    height: 21px;
+	padding: 3px;
+	outline: none;
+}
+
 input[type="checkbox"] 
 {
     margin:0 0.4em 0 0;
@@ -267,6 +277,7 @@ input[type="checkbox"]
     height: 21px;
 	padding: 3px;
 	outline: none;
+	border-radius: 0px;
 }
 
 label.checkbox-label {

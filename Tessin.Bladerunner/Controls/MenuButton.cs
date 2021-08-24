@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using LINQPad;
 using LINQPad.Controls;
+using LINQPad.Controls.Core;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -14,7 +16,26 @@ namespace Tessin.Bladerunner.Controls
         {
             public InternalButton(Action<Div> onClick, object label, string svgIcon, string tooltip)
             {
+                DateTime? lastClick = null;
+
+                Action<Div> _onClick =
+                (div) =>
+                {
+
+                    if (lastClick != null && (DateTime.Now - lastClick.Value) < TimeSpan.FromSeconds(1))
+                    {
+                        lastClick = DateTime.Now;
+                        return;
+                    }
+                    lastClick = DateTime.Now;
+                    onClick(div);
+                };
+
                 this.SetClass("button");
+                this.Click += (_, _) =>
+                {
+                    _onClick(this);
+                };
 
                 if (tooltip != null)
                 {
@@ -117,7 +138,6 @@ namespace Tessin.Bladerunner.Controls
                 JavascriptHelpers.ShowOnMouseOver(this, divActions, pillContainer);
             }
         }
-
 
     }
 }

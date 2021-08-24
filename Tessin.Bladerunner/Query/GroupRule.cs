@@ -7,7 +7,6 @@ using System.Text;
 using LinqKit;
 using LINQPad;
 using LINQPad.Controls;
-// using LINQPad.UI;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Query

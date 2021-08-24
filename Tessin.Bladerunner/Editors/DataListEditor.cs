@@ -15,6 +15,8 @@ namespace Tessin.Bladerunner.Editors
 
         private readonly string[] _options;
 
+        //todo: change interface to Options[]
+
         public DataListEditor(string[] options)
         {
             _options = options;

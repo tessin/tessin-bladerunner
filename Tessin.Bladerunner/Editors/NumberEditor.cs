@@ -9,7 +9,7 @@ namespace Tessin.Bladerunner.Editors
     public class NumberEditor<T> : IFieldEditor<T>
     {
         private Field _field;
-        private TextBox _textBox;
+        private NumberBox _numberBox;
 
         public NumberEditor()
         {
@@ -17,11 +17,11 @@ namespace Tessin.Bladerunner.Editors
 
         public object Render(T obj, EditorField<T> editorFieldInfo, Action preview)
         {
-            _textBox = new TextBox(editorFieldInfo.GetValue(obj)?.ToString()??"") { };
+            _numberBox = new NumberBox(Convert.ToDouble(editorFieldInfo.GetValue(obj))) { };
 
-            _textBox.TextInput += (sender, args) => preview();
+            _numberBox.TextInput += (sender, args) => preview();
 
-            return _field = new Field(editorFieldInfo.Label, _textBox, editorFieldInfo.Description, editorFieldInfo.Helper);
+            return _field = new Field(editorFieldInfo.Label, _numberBox, editorFieldInfo.Description, editorFieldInfo.Helper);
         }
 
         public void Save(T obj, EditorField<T> editorFieldInfo)
@@ -29,7 +29,7 @@ namespace Tessin.Bladerunner.Editors
             var type = editorFieldInfo.Type;
             if (Nullable.GetUnderlyingType(editorFieldInfo.Type) is Type t)
             {
-                if (string.IsNullOrEmpty(_textBox.Text))
+                if (string.IsNullOrEmpty(_numberBox.Text))
                 {
                     editorFieldInfo.SetValue(obj, null);
                     return;
@@ -38,7 +38,7 @@ namespace Tessin.Bladerunner.Editors
             }
             try
             {
-                editorFieldInfo.SetValue(obj, Convert.ChangeType(double.Parse(_textBox.Text), type));
+                editorFieldInfo.SetValue(obj, Convert.ChangeType(double.Parse(_numberBox.Text), type));
             }
             catch (Exception)
             {
@@ -50,18 +50,18 @@ namespace Tessin.Bladerunner.Editors
         {
             void SetError(string message)
             {
-                _textBox.Styles["border-color"] = "tomato";
+                _numberBox.Styles["border-color"] = "tomato";
                 _field.SetError(message);
             }
 
-            if (!editorFieldInfo.Type.IsNullable() && string.IsNullOrEmpty(_textBox.Text) || !string.IsNullOrEmpty(_textBox.Text) && !double.TryParse(_textBox.Text, out double _))
+            if (!editorFieldInfo.Type.IsNullable() && string.IsNullOrEmpty(_numberBox.Text) || !string.IsNullOrEmpty(_numberBox.Text) && !double.TryParse(_numberBox.Text, out double _))
             {
                 SetError("Invalid number.");
                 return false;
             }
 
             (bool, string)? error = editorFieldInfo.Validators
-                .Select(e => e(Convert.ChangeType(_textBox.Text, editorFieldInfo.Type)))
+                .Select(e => e(Convert.ChangeType(_numberBox.Text, editorFieldInfo.Type)))
                 .Where(e => e.Item1)
                 .Select(e => ((bool, string)?)e)
                 .FirstOrDefault();

@@ -5,6 +5,7 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
+    [Obsolete]
     public class H1 : Control
     {
         public H1(string text, string @class = null) : base("h1", text)
