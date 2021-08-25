@@ -39,10 +39,11 @@ namespace Tessin.Bladerunner.Controls
             foreach (var prop in properties)
             {
                 var label = new Span(prop.Label);
-                var dcValue = new DumpContainer {Content = prop.Value};
+                var dcValue = new DumpContainer { Content = prop.Value };
                 var divProp = new Div(label, dcValue);
                 this.VisualTree.Add(divProp);
             }
         }
     }
+
 }

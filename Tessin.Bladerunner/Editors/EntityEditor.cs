@@ -224,7 +224,7 @@ namespace Tessin.Bladerunner.Editors
             return _Place(1, fields);
         }
 
-        public EntityEditor<T> Group(string group, params Expression<Func<T, object>>[] fields)
+        public EntityEditor<T> Group(string group, int column, params Expression<Func<T, object>>[] fields)
         {
             int order = 0;
             foreach (var expr in fields)
@@ -232,8 +232,14 @@ namespace Tessin.Bladerunner.Editors
                 var hint = GetField(expr);
                 hint.Group = group;
                 hint.Order = order++;
+                hint.Column = column;
             }
             return this;
+        }
+
+        public EntityEditor<T> Group(string group, params Expression<Func<T, object>>[] fields)
+        {
+            return Group(group, 1, fields);
         }
 
         public EntityEditor<T> Remove(Expression<Func<T, object>> field)

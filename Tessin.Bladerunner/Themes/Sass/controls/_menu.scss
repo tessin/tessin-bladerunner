@@ -9,6 +9,7 @@
   width: 100%;
   box-sizing: border-box;
   min-width: 200px;
+  max-width: 250px;
   min-height: 50px;
 
   padding-left: 10px;
@@ -30,7 +31,6 @@
   width: 100%;
   min-height: 24px;
   line-height: 24px;
-
   color: #000000;
   display: flex;
   align-items: center;
@@ -49,6 +49,9 @@
 
 .menu-button > .button > span {
   font-family: $font-family;
+  white-space: nowrap;
+  text-overflow: ellipsis; 
+  overflow-x: hidden;
 }
 
 .menu-button > .button > .dc {

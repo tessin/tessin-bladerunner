@@ -1,5 +1,5 @@
 <Query Kind="Program">
-  <NuGetReference>Tessin.Bladerunner</NuGetReference>
+  <Reference Relative="..\..\bin\Debug\net5\Tessin.Bladerunner.dll">C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5\Tessin.Bladerunner.dll</Reference>
   <Namespace>LINQPad.Controls</Namespace>
   <Namespace>System.Drawing</Namespace>
   <Namespace>System.Threading.Tasks</Namespace>
@@ -15,7 +15,7 @@ void Main()
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	
-	manager.PushBlade(Blade1(), "MultiSelectBox");
+	manager.PushBlade(Blade1(), "PropertyListBuilder");
 	
 	manager.Dump();
 }
@@ -24,21 +24,26 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		MultiSelectBox msb = new MultiSelectBox(GetColors().Select(e => new Option(e, Guid.NewGuid())).Take(3).ToArray()); 
+		var test = new { 
+			HelloWorld = "Bar",
+			Name = 123456
+		};
 		
-		RefreshContainer rc = new RefreshContainer(new [] { msb }, () => {
-			return msb.SelectedOptions;
-		});
-		
-		return Layout.Vertical(true, msb, rc);
+		var x = PropertyListBuilder.Create(test).Render();
+
+		return Layout.Vertical(true, x);
 	});
 }
 
-static IEnumerable<string> GetColors()
+
+public static class X
 {
-	foreach (System.Reflection.PropertyInfo prop in typeof(SystemColors).GetProperties())
+	public static List<T> Create<T>(T obj) where T : new()
 	{
-		if (prop.PropertyType.FullName == "System.Drawing.Color")
-			yield return prop.Name;
+		var foo = new List<T>();
+		
+		foo.Add(obj);
+		
+		return foo;
 	}
 }

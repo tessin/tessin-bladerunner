@@ -21,7 +21,6 @@ namespace Tessin.Bladerunner.Controls
                 Action<Div> _onClick =
                 (div) =>
                 {
-
                     if (lastClick != null && (DateTime.Now - lastClick.Value) < TimeSpan.FromSeconds(1))
                     {
                         lastClick = DateTime.Now;

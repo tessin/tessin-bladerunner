@@ -15,11 +15,13 @@ namespace Tessin.Bladerunner.Editors
         private Control _textBox;
         private readonly bool _multiLine;
         private readonly bool _fixedFont;
+        private string _type;
 
-        public TextEditor(bool multiLine = false, bool fixedFont = false)
+        public TextEditor(bool multiLine = false, bool fixedFont = false, string type = null)
         {
             _multiLine = multiLine;
             _fixedFont = fixedFont;
+            _type = type;
         }
 
         public object Render(T obj, EditorField<T> editorFieldInfo, Action updated)
@@ -34,7 +36,12 @@ namespace Tessin.Bladerunner.Editors
             }
             else
             {
-                _textBox = new TextBox(value);
+                _textBox = _type switch
+                {
+                    "url" => new UrlBox(value),
+                    "email" =>  new EmailBox(value),
+                    _ => new TextBox(value)
+                };
                 ((TextBox)_textBox).TextInput += (sender, args) => updated();
             }
 

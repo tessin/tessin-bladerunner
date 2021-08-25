@@ -53,6 +53,16 @@ namespace Tessin.Bladerunner.Editors
             return new LinkEditor<T>();
         }
 
+        public IFieldEditor<T> Url()
+        {
+            return new TextEditor<T>(type:"url");
+        }
+
+        public IFieldEditor<T> Email()
+        {
+            return new TextEditor<T>(type: "email");
+        }
+
         public IFieldEditor<T> DataList(IEnumerable<string> options)
         {
             return new DataListEditor<T>(options.ToArray());
