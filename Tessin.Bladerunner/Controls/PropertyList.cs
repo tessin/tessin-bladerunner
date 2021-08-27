@@ -10,10 +10,13 @@ namespace Tessin.Bladerunner.Controls
 {
     public class Property
     {
-        public Property(string label, object value)
+        internal IContentFormatter _formatter;
+
+        public Property(string label, object value, IContentFormatter formatter = null)
         {
             Label = label;
             Value = value;
+            _formatter = formatter ?? new ContentFormatter();
         }
 
         public Property(string label) : this(label, label)
@@ -39,8 +42,7 @@ namespace Tessin.Bladerunner.Controls
             foreach (var prop in properties)
             {
                 var label = new Span(prop.Label);
-                var dcValue = new DumpContainer { Content = prop.Value };
-                var divProp = new Div(label, dcValue);
+                var divProp = new Div(label, prop._formatter.Format(prop.Value));
                 this.VisualTree.Add(divProp);
             }
         }

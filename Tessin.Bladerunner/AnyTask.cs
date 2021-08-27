@@ -6,8 +6,32 @@ using System.Threading.Tasks;
 
 namespace Tessin.Bladerunner
 {
+    public class AnyTaskFactory
+    {
+        private Func<Task> taskFactory;
+
+        public AnyTaskFactory(Func<Task> taskFactory)
+        {
+            this.taskFactory = taskFactory;
+        }
+
+        public AnyTask Run()
+        {
+            return taskFactory();
+        }
+    }
+
     public class AnyTask
     {
+        public static AnyTaskFactory Factory<T>(Func<Task<T>> taskFactory)
+        {
+            return new AnyTaskFactory(() => (Task)taskFactory());
+        }
+
+        public static AnyTaskFactory Factory(Func<Task> taskFactory)
+        {
+            return new AnyTaskFactory(taskFactory);
+        }
 
         public static implicit operator AnyTask(Task task)
         {

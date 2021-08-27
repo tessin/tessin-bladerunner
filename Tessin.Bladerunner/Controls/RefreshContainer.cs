@@ -6,7 +6,7 @@ using LINQPad;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
 
-namespace Tessin.Bladerunner
+namespace Tessin.Bladerunner.Controls
 {
     public delegate void RefreshEvent(object value);
 
@@ -44,21 +44,28 @@ namespace Tessin.Bladerunner
 
     public class RefreshContainer : DumpContainer
     {
-        private readonly Func<AnyTask> _onRefreshAsync;
+        private readonly AnyTaskFactory _taskFactory;
 
         private bool _first = true;
 
         private readonly DebounceDispatcher _debounceDispatcher;
 
-        public RefreshContainer(object[] controls, Func<object> onRefreshAsync, int debounceInterval = 250) 
-            : this(controls, () => Task.Run(async () => await Task.FromResult(onRefreshAsync())), debounceInterval)
+        public RefreshContainer(object[] controls, Func<Task<object>> onRefreshAsync, int debounceInterval = 250) 
+            : this(controls, AnyTask.Factory<object>(onRefreshAsync), debounceInterval)
         {
+
         }
 
-        public RefreshContainer(object[] controls, Func<AnyTask> onRefreshAsync, int debounceInterval = 250)
+        public RefreshContainer(object[] controls, Func<object> onRefreshAsync, int debounceInterval = 250)
+            : this(controls, AnyTask.Factory<object>(() => Task.FromResult(onRefreshAsync())), debounceInterval)
+        {
+
+        }
+
+        public RefreshContainer(object[] controls, AnyTaskFactory taskFactory, int debounceInterval = 250)
         {
             _debounceDispatcher = new DebounceDispatcher(debounceInterval);
-            _onRefreshAsync = onRefreshAsync;
+            _taskFactory = taskFactory;
 
             this.Style = "width:100%;";
 
@@ -131,7 +138,7 @@ namespace Tessin.Bladerunner
                 if (_first)
                 {
                     _first = false;
-                    Task.Run(() => _onRefreshAsync().Result).ContinueWith(e =>
+                    Task.Run(() => _taskFactory.Run().Result).ContinueWith(e =>
                     {
                         this.Content = e.Result;
                     });
@@ -140,7 +147,7 @@ namespace Tessin.Bladerunner
                 {
                     _debounceDispatcher.Debounce(() =>
                     {
-                        Task.Run(() => _onRefreshAsync().Result).ContinueWith(e =>
+                        Task.Run(() => _taskFactory.Run().Result).ContinueWith(e =>
                         {
                             this.Content = e.Result;
                         });

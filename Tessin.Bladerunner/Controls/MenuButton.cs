@@ -88,24 +88,13 @@ namespace Tessin.Bladerunner.Controls
                 {
                     Task.Run(() => pillTask.Result).ContinueWith(e =>
                     {
-                        if (e.Result != null)
+                        _pillContainer.Content = ContentFormatter.Format(e.Result, (c, e) =>
                         {
-                            var content = e.Result.ToString();
-                            if (content != "")
-                            {
-                                var span = new Span(content);
-                                span.SetClass("menu-button--pill");
-                                _pillContainer.Content = span;
-                            }
-                            else
-                            {
-                                _pillContainer.Content = "";
-                            }
-                        }
-                        else
-                        {
-                            _pillContainer.Content = "";
-                        }
+                            if (e) return c;
+                            var span = new Span(c);
+                            span.SetClass("menu-button--pill");
+                            return span;
+                        });
                     }).ConfigureAwait(false);
                 }
                 else

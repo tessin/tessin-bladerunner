@@ -45,7 +45,6 @@ namespace Tessin.Bladerunner.Controls
                 //.OrderBy(e => e.Name)
                 .ToList();
 
-
             foreach (var field in fields)
             {
                 _properties[field.Name] =

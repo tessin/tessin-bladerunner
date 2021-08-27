@@ -464,10 +464,6 @@ H2.default {
   font-size: 2em;
 }
 
-P.default {
-  max-width: 300px;
-}
-
 .blade-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
