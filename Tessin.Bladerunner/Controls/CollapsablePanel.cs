@@ -19,11 +19,17 @@ namespace Tessin.Bladerunner.Controls
             var divBody = new Div(dcBody);
             divBody.SetClass("collapsable-panel--body");
 
-            var divHeader = new Button(header, (_) =>
+            var divHeader = new Button(header, btn =>
             {
-                divBody.Styles["display"] = _isOpen ? "none" : "block";
+
+                if(_isOpen) {
+                    this.AddClass("collapsable-panel-open");
+                } else {
+                    this.RemoveClass("collapsable-panel-open");
+                }
                 _isOpen = !_isOpen;
             });
+
             divHeader.SetClass("collapsable-panel--header");
 
             var divContainer = new Div(divHeader, divBody);
