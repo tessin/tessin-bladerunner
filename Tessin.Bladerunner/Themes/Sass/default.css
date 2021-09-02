@@ -1009,7 +1009,9 @@ BUTTON.collapsable-panel--header:before {
 .card {
   padding: 10px;
   background-color: white;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
+  margin-left: 1px;
+  margin-right: 1px;
 }
 
 .matrix {
