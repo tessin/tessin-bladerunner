@@ -448,8 +448,6 @@ H2.default {
 
 .blade-wrapper {
   display: flex;
-  height: 100vh;
-  overflow-y: hidden;
 }
 
 .blade {
@@ -458,14 +456,13 @@ H2.default {
   flex-shrink: 0;
   flex-basis: auto;
   min-width: 250px;
-  min-height: 0;
-  height: 100vh;
+  height: 100%;
 }
 
 .side-blade {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
   z-index: 3;
 }
 
@@ -474,37 +471,34 @@ H2.default {
   height: 100%;
   position: absolute;
   background-color: black;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   z-index: 2;
   opacity: 0.2;
   display: none;
 }
 
 .blade-container {
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   position: relative;
-  padding-top: 0px;
+  padding-top: 0;
   height: 100%;
   width: 100%;
 }
 
 .blade-panel {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100%;
-  overflow-y: auto;
+  overflow: hidden;
+  /* Just make sure overflowing things don't end up over other blades. */
 }
 
 .blade-header {
   width: 100%;
-  height: 40px;
-  position: absolute;
-  top: 0;
+  height: 38px;
   border-bottom: 1px solid #ccc;
   background-color: aqua;
-  z-index: 2;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -526,14 +520,18 @@ H2.default {
 }
 
 .blade-content {
+  display: flex;
   width: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 50px;
-  box-sizing: border-box;
-  /* Setting border-box allows you to add padding "inside" of the 100%. */
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
+/* We need flox throughout to figure out scrolling further down the line.. */
+.blade-content > div,
+.blade-content > div > div {
+  display: flex;
 }
 
 .blade:nth-child(even) .blade-panel {
@@ -714,10 +712,9 @@ H2.default {
   }
 }
 .menu {
-  margin-top: -10px;
-  margin-left: -10px;
-  margin-right: -10px;
-  padding-bottom: 10px;
+  width: 100%;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .menu-button {
@@ -725,7 +722,6 @@ H2.default {
   box-sizing: border-box;
   min-width: 200px;
   max-width: 250px;
-  min-height: 50px;
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 4px;
@@ -739,25 +735,27 @@ H2.default {
 }
 
 .menu-button > .button {
-  padding: 0px;
+  padding-top: 4px;
   margin: 0;
   width: 100%;
-  min-height: 24px;
   line-height: 24px;
   color: #000000;
-  display: flex;
-  align-items: center;
-  align-content: center;
+  display: grid;
+  grid-template-columns: minmax(32px, auto) 1fr;
   cursor: pointer;
 }
 
 .menu-button > .button > div {
-  display: flex;
+  /* display: flex; */
+}
+
+.menu-button > .button > .menu-button--icon {
+  margin-top: -1px;
+  height: 24px;
 }
 
 .menu-button > .button > div > svg {
   opacity: 0.5;
-  margin-right: 5px;
 }
 
 .menu-button > .button > span {
@@ -780,6 +778,7 @@ H2.default {
   padding: 4px 7px;
   border-radius: 12px;
   font-size: 0.8em;
+  margin-left: 5px;
 }
 
 .menu-button--actions {
@@ -797,6 +796,10 @@ H2.default {
   margin-bottom: 3px;
   margin-left: 1px;
   margin-right: 1px;
+}
+
+.menu-button--icon {
+  color: red;
 }
 
 .icon-button {
@@ -888,38 +891,32 @@ H2.default {
 }
 
 .header-panel {
-  margin-left: -10px;
-  margin-right: -10px;
+  min-height: 0;
 }
 
 .header-panel--container {
-  background-color: #fff;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-start;
 }
 
 .header-panel--header {
-  margin-top: 39px;
-  height: 30px;
-  position: absolute;
-  top: 0;
-  left: 0;
   z-index: 1;
   display: flex;
   flex-direction: column;
   justify-items: center;
   background-color: powderblue;
-  width: calc(100% - 35px);
   padding: 10px;
   border-bottom: 1px solid #ccc;
   align-content: center;
+  height: 50px;
 }
 
 .header-panel--body {
-  padding-right: 10px;
-  padding-left: 10px;
-  margin-top: 50px;
-  padding-bottom: 8px;
-  height: 100%;
+  height: 100vh;
+  width: 100%;
+  overflow-y: auto;
   background-color: #f8f8f8;
 }
 

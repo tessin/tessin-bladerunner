@@ -1,7 +1,5 @@
 .blade-wrapper {
   display: flex;
-  height: 100vh;
-  overflow-y: hidden;
 }
 
 .blade {
@@ -10,14 +8,14 @@
   flex-shrink: 0;
   flex-basis: auto;
   min-width: 250px;
-  min-height: 0;
-  height: 100vh;
+
+  height: 100%;
 }
 
 .side-blade {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
   z-index: 3;
 }
 
@@ -26,37 +24,33 @@
   height: 100%;
   position: absolute;
   background-color: black;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   z-index: 2;
   opacity: 0.2;
   display: none;
 }
 
 .blade-container {
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   position: relative;
-  padding-top: 0px;
+  padding-top: 0;
   height: 100%;
   width: 100%;
 }
 
 .blade-panel {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 100%;
-  overflow-y: auto;
+  overflow: hidden; /* Just make sure overflowing things don't end up over other blades. */
 }
 
 .blade-header {
   width: 100%;
-  height: $blade-header-height;
-  position: absolute;
-  top: 0;
+  height: 38px;
   border-bottom: 1px solid $blade-border-color;
   background-color: $primary-header;
-  z-index: 2;
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -78,13 +72,18 @@
 }
 
 .blade-content {
+  display: flex;
   width: 100%;
-  padding-left: $panel-margin;
-  padding-right: $panel-margin;
-  padding-top: $blade-header-height + $panel-margin;
-  box-sizing: border-box; /* Setting border-box allows you to add padding "inside" of the 100%. */
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
+/* We need flox throughout to figure out scrolling further down the line.. */
+.blade-content > div,
+.blade-content > div > div {
+  display: flex;
 }
 
 .blade:nth-child(even) .blade-panel {

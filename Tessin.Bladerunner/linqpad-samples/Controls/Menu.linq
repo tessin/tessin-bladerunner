@@ -1,5 +1,5 @@
 <Query Kind="Program">
-  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5\Tessin.Bladerunner.dll</Reference>
+  <Reference Relative="..\..\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll">C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
   <Namespace>System.Drawing</Namespace>
   <Namespace>Tessin.Bladerunner</Namespace>
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
@@ -27,7 +27,25 @@ static IBladeRenderer Blade1()
 				blade.PushBlade(Blade2(), "Blade2");
 			}),
 			new MenuButton("Hello World", (_) => { }, Icons.Atom),
-			new MenuButton("Hello World", (_) => { }, Icons.Atom, pillTask: Utils.CreateTask<object>(e => "HEJ")),
+			new MenuButton("Lorem ipsum some really pushing long text", (_) => { }, Icons.Atom, pillTask: Utils.CreateTask<object>(e => "HEJ")),
+			new MenuButton("Hello World", (_) => { }, Icons.Atom, actions: new IconButton[] {
+				new IconButton(Icons.Alert, (_) => {
+				}),
+				new IconButton(Icons.AlertCircle, (_) => {
+				})
+			}),
+			new MenuButton(Layout.Vertical(false, "Niels Bosma", Typography.Small("Product Owner"), "niels@tessin.se"), (_) => { }, Icons.Atom, pillTask: Utils.CreateTask<object>(e => "HELLOWORLD"), actions: new IconButton[] {
+				new IconButton(Icons.Alert, (_) => {
+				}),
+				new IconButton(Icons.Alert, (_) => {
+				})
+			}),
+						new MenuButton("Hello World", (_) =>
+						{
+							blade.PushBlade(Blade2(), "Blade2");
+						}),
+			new MenuButton("Hello World", (_) => { }, Icons.Atom),
+			new MenuButton("Lorem ipsum some really pushing long text", (_) => { }, Icons.Atom, pillTask: Utils.CreateTask<object>(e => "HEJ")),
 			new MenuButton("Hello World", (_) => { }, Icons.Atom, actions: new IconButton[] {
 				new IconButton(Icons.Alert, (_) => {
 				}),
@@ -41,7 +59,7 @@ static IBladeRenderer Blade1()
 				})
 			})
 		);
-		
+
 		return menu;
 
 	});
@@ -58,11 +76,13 @@ static IBladeRenderer Blade2()
 				GetColors().Where(e => e.StartsWith(searchBox.Text)).Select(e => new MenuButton(e.ToString(), (_) => { })).ToArray()
 			);
 		});
+
 		
 		return new HeaderPanel(
 			Layout.Horizontal(true, searchBox, new IconButton(Icons.Plus)), 
 			refreshContainer
 		);
+		
 	});
 }
 
