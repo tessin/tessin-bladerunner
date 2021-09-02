@@ -46,7 +46,9 @@ body {
   -webkit-print-color-adjust: exact;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: 400;
 }
 
@@ -54,7 +56,8 @@ a {
   color: #1158aa;
 }
 
-p, pre {
+p,
+pre {
   margin: 0;
   padding: 0;
 }
@@ -83,7 +86,8 @@ td {
   */
 }
 
-td, th {
+td,
+th {
   font-size: 1em;
   vertical-align: middle;
   border: 1px solid #aaa;
@@ -125,7 +129,12 @@ td.n {
   text-align: right;
 }
 
-a:link.typeheader, a:visited.typeheader, a:link.extenser, a:visited.extenser, a:link.fixedextenser, a:visited.fixedextenser {
+a:link.typeheader,
+a:visited.typeheader,
+a:link.extenser,
+a:visited.extenser,
+a:link.fixedextenser,
+a:visited.fixedextenser {
   font-size: 0.8em;
   font-weight: 400;
   text-decoration: none;
@@ -134,27 +143,36 @@ a:link.typeheader, a:visited.typeheader, a:link.extenser, a:visited.extenser, a:
   background-color: transparent;
 }
 
-a:link.difheader, a:visited.difheader {
+a:link.difheader,
+a:visited.difheader {
   color: #ff8;
 }
 
-a:link.extenser, a:visited.extenser, a:link.fixedextenser, a:visited.fixedextenser {
+a:link.extenser,
+a:visited.extenser,
+a:link.fixedextenser,
+a:visited.fixedextenser {
   float: right;
   padding-left: 2pt;
   margin-left: 4pt;
   background-color: transparent;
 }
 
-span.typeglyph, span.typeglyphx {
+span.typeglyph,
+span.typeglyphx {
   padding: 0 0.2em 0 0;
   margin: 0;
 }
 
-span.extenser, span.extenserx, span.fixedextenser {
+span.extenser,
+span.extenserx,
+span.fixedextenser {
   margin-top: 1.2pt;
 }
 
-span.typeglyph, span.extenser, span.fixedextenser {
+span.typeglyph,
+span.extenser,
+span.fixedextenser {
   font-family: webdings;
 }
 
@@ -168,7 +186,8 @@ td.typeheader:hover .fixedextenser {
   display: block;
 }
 
-span.typeglyphx, span.extenserx {
+span.typeglyphx,
+span.extenserx {
   font-weight: 400;
   margin: 2px;
 }
@@ -228,7 +247,8 @@ span.graphbar {
   margin-right: -2px;
 }
 
-a:link.graphcolumn, a:visited.graphcolumn {
+a:link.graphcolumn,
+a:visited.graphcolumn {
   color: #17b;
   text-decoration: none;
   font-weight: 400;
@@ -238,11 +258,13 @@ a:link.graphcolumn, a:visited.graphcolumn {
   margin-right: 0.2em;
 }
 
-a:link.collection, a:visited.collection {
+a:link.collection,
+a:visited.collection {
   color: green;
 }
 
-a:link.reference, a:visited.reference {
+a:link.reference,
+a:visited.reference {
   color: blue;
 }
 
@@ -304,7 +326,11 @@ span.cc {
   display: none;
 }
 
-input, textarea, select, input[type=number], input[type=date] {
+input,
+textarea,
+select,
+input[type=number],
+input[type=date] {
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 0px;
@@ -313,7 +339,8 @@ input, textarea, select, input[type=number], input[type=date] {
   font-family: "Roboto", sans-serif;
 }
 
-input, select {
+input,
+select {
   height: 35px;
   width: 10em;
 }
@@ -342,21 +369,35 @@ button:disabled {
   background-color: gray;
 }
 
-input[type=radio] {
+input[type=radio],
+input[type=checkbox] {
   margin: 0 0.4em 0 0;
-  width: 21px;
-  height: 21px;
+  width: 32px;
+  height: 32px;
   padding: 3px;
-  outline: none;
+  background-size: 32px 32px;
+  -webkit-appearance: none;
 }
 
 input[type=checkbox] {
-  margin: 0 0.4em 0 0;
-  width: 21px;
-  height: 21px;
-  padding: 3px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23cccccc'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'/%3E%3C/svg%3E");
+}
+
+input[type=checkbox]:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%231158aa'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E");
+}
+
+input[type=radio] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23cccccc'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'/%3E%3C/svg%3E");
+}
+
+input[type=radio]:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%231158aa'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'/%3E%3C/svg%3E");
+}
+
+input[type=radio]:focus,
+input[type=checkbox]:focus {
   outline: none;
-  border-radius: 0px;
 }
 
 label.checkbox-label {
@@ -987,7 +1028,7 @@ BUTTON.collapsable-panel--header:before {
 
 .property-list > DIV {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   min-height: 30px;
 }

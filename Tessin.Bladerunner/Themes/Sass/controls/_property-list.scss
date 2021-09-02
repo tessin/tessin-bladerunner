@@ -1,28 +1,24 @@
-.property-list
-{
-    min-width: 230px;
+.property-list {
+  min-width: 230px;
 }
 
-.property-list > DIV
-{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 30px;
+.property-list > DIV {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 30px;
 }
 
-.property-list > DIV > SPAN
-{
-    text-align: left;
-    font-size: 1.1em;
-    font-weight: bold;
+.property-list > DIV > SPAN {
+  text-align: left;
+  font-size: 1.1em;
+  font-weight: bold;
 }
 
-.property-list > DIV > DIV
-{
-    font-size: 1.1em;
-    margin-left: auto; 
-    margin-right: 0;
-    position: relative;
-    text-align: right;
+.property-list > DIV > DIV {
+  font-size: 1.1em;
+  margin-left: auto;
+  margin-right: 0;
+  position: relative;
+  text-align: right;
 }

@@ -43,10 +43,6 @@ static IBladeRenderer Blade1()
 				}),
 				new IconButton(Icons.Alert, (_) => {
 				})
-			}),
-			new MenuButton("Hello World", (_) =>
-			{
-				blade.PushBlade(Blade2(), "Blade2");
 			})
 		);
 
@@ -88,7 +84,8 @@ static IBladeRenderer Blade3()
 			new Property("Actions", Layout.Horizontal(false,
 				new IconButton(Icons.CoffeeOutline),
 				new IconButton(Icons.Alert)
-			))
+			)),
+			new Property("Address", "Ola Taube<br />Häckvägen 12<br />132 43<br />Saltsjö-boo")
 		);
 
 		return Layout.Vertical(true, new Card(pl));
