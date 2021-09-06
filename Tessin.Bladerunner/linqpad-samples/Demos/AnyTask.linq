@@ -1,10 +1,11 @@
 <Query Kind="Program">
   <Reference>&lt;RuntimeDirectory&gt;\System.Windows.Forms.dll</Reference>
-  <Reference Relative="..\..\bin\Debug\netstandard2.0\Tessin.Bladerunner.dll">C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netstandard2.0\Tessin.Bladerunner.dll</Reference>
+  <NuGetReference>Tessin.Bladerunner</NuGetReference>
+  <Namespace>System.Threading.Tasks</Namespace>
   <Namespace>Tessin.Bladerunner</Namespace>
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
   <Namespace>Tessin.Bladerunner.Controls</Namespace>
-  <Namespace>System.Threading.Tasks</Namespace>
+  <RuntimeVersion>5.0</RuntimeVersion>
 </Query>
 
 void Main()

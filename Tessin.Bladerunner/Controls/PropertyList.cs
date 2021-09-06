@@ -41,7 +41,7 @@ namespace Tessin.Bladerunner.Controls
 
             foreach (var prop in properties)
             {
-                var label = new Span(prop.Label);
+                var label = new Span(prop.Label == "_" ? "" : prop.Label);
                 var divProp = new Div(label, prop._formatter.Format(prop.Value));
                 this.VisualTree.Add(divProp);
             }

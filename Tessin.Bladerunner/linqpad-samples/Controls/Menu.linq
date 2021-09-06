@@ -9,11 +9,12 @@
 
 void Main()
 {
-	Debugger.Launch();
+	//Debugger.Launch();
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", showDebugButton: true, cssHotReloading: true);
 	
 	manager.PushBlade(Blade1(), "Blade1");
+	manager.PushBlade(Blade2(), "Blade2");
 	
 	manager.Dump();
 }

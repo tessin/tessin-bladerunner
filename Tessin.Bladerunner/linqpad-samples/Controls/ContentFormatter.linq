@@ -36,7 +36,6 @@ static IBladeRenderer Blade1()
 			}
 		}
 		
-		
 		return Layout.Vertical(true, 
 			ContentFormatter.Format(0, Wrapper, "-"),
 			ContentFormatter.Format(null, Wrapper, "-"),
