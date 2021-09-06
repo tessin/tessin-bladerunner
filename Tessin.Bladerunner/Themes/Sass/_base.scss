@@ -95,6 +95,13 @@ td.n {
   text-align: right;
 }
 
+span.meta {
+  padding: 10px;
+  display: block;
+  color:darkgreen;
+  font-weight: 700;
+}
+
 a:link.typeheader,
 a:visited.typeheader,
 a:link.extenser,
@@ -301,7 +308,7 @@ input[type="date"] {
   padding-top: 0px;
   padding-bottom: 0px;
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: $font-family;
 }
 
 input,
@@ -328,10 +335,19 @@ button {
   color: white;
   border-radius: 0px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  font-family: $font-family;
 }
 
 button:disabled {
   background-color: gray;
+}
+
+button:hover {
+  background-color: scale-color($primary-cta, $lightness: -10%, $saturation: 10%); 
+}
+
+button:active {
+  background-color: scale-color($primary-cta, $lightness: 10%, $saturation: -10%); 
 }
 
 input[type="radio"],

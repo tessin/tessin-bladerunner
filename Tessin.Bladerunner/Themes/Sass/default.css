@@ -46,7 +46,9 @@ body {
   -webkit-print-color-adjust: exact;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-weight: 400;
 }
 
@@ -54,7 +56,8 @@ a {
   color: #1158aa;
 }
 
-p, pre {
+p,
+pre {
   margin: 0;
   padding: 0;
 }
@@ -83,7 +86,8 @@ td {
 	*/
 }
 
-td, th {
+td,
+th {
   font-size: 1em;
   vertical-align: middle;
   border: 1px solid #aaa;
@@ -96,7 +100,7 @@ th {
   color: white;
   text-align: left;
   border: 1px solid #777;
-  font-size: .9em;
+  font-size: 0.9em;
   font-weight: 400;
 }
 
@@ -125,8 +129,20 @@ td.n {
   text-align: right;
 }
 
-a:link.typeheader, a:visited.typeheader, a:link.extenser, a:visited.extenser, a:link.fixedextenser, a:visited.fixedextenser {
-  font-size: .8em;
+span.meta {
+  padding: 10px;
+  display: block;
+  color: darkgreen;
+  font-weight: 700;
+}
+
+a:link.typeheader,
+a:visited.typeheader,
+a:link.extenser,
+a:visited.extenser,
+a:link.fixedextenser,
+a:visited.fixedextenser {
+  font-size: 0.8em;
   font-weight: 400;
   text-decoration: none;
   color: #000;
@@ -134,27 +150,36 @@ a:link.typeheader, a:visited.typeheader, a:link.extenser, a:visited.extenser, a:
   background-color: transparent;
 }
 
-a:link.difheader, a:visited.difheader {
+a:link.difheader,
+a:visited.difheader {
   color: #ff8;
 }
 
-a:link.extenser, a:visited.extenser, a:link.fixedextenser, a:visited.fixedextenser {
+a:link.extenser,
+a:visited.extenser,
+a:link.fixedextenser,
+a:visited.fixedextenser {
   float: right;
   padding-left: 2pt;
   margin-left: 4pt;
   background-color: transparent;
 }
 
-span.typeglyph, span.typeglyphx {
+span.typeglyph,
+span.typeglyphx {
   padding: 0 0.2em 0 0;
   margin: 0;
 }
 
-span.extenser, span.extenserx, span.fixedextenser {
+span.extenser,
+span.extenserx,
+span.fixedextenser {
   margin-top: 1.2pt;
 }
 
-span.typeglyph, span.extenser, span.fixedextenser {
+span.typeglyph,
+span.extenser,
+span.fixedextenser {
   font-family: webdings;
 }
 
@@ -168,7 +193,8 @@ td.typeheader:hover .fixedextenser {
   display: block;
 }
 
-span.typeglyphx, span.extenserx {
+span.typeglyphx,
+span.extenserx {
   font-weight: 400;
   margin: 2px;
 }
@@ -230,7 +256,8 @@ span.graphbar {
   margin-right: -2px;
 }
 
-a:link.graphcolumn, a:visited.graphcolumn {
+a:link.graphcolumn,
+a:visited.graphcolumn {
   color: #17b;
   text-decoration: none;
   font-weight: 400;
@@ -240,11 +267,13 @@ a:link.graphcolumn, a:visited.graphcolumn {
   margin-right: 0.2em;
 }
 
-a:link.collection, a:visited.collection {
+a:link.collection,
+a:visited.collection {
   color: green;
 }
 
-a:link.reference, a:visited.reference {
+a:link.reference,
+a:visited.reference {
   color: blue;
 }
 
@@ -290,7 +319,7 @@ span.cc {
   color: white;
   margin: 0px 1.5px;
   padding: 0px 1px;
-  font-family: Consolas,monospace;
+  font-family: Consolas, monospace;
   border-radius: 3px;
 }
 
@@ -306,7 +335,11 @@ span.cc {
   display: none;
 }
 
-input, textarea, select, input[type="number"], input[type="date"] {
+input,
+textarea,
+select,
+input[type="number"],
+input[type="date"] {
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 0px;
@@ -315,7 +348,8 @@ input, textarea, select, input[type="number"], input[type="date"] {
   font-family: "Roboto", sans-serif;
 }
 
-input, select {
+input,
+select {
   height: 35px;
   width: 10em;
 }
@@ -340,27 +374,50 @@ button {
   border-radius: 0px;
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
           box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  font-family: "Roboto", sans-serif;
 }
 
 button:disabled {
   background-color: gray;
 }
 
-input[type="radio"] {
+button:hover {
+  background-color: #0e4f9b;
+}
+
+button:active {
+  background-color: #1d68be;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
   margin: 0 0.4em 0 0;
-  width: 21px;
-  height: 21px;
+  width: 32px;
+  height: 32px;
   padding: 3px;
-  outline: none;
+  background-size: 32px 32px;
+  -webkit-appearance: none;
 }
 
 input[type="checkbox"] {
-  margin: 0 0.4em 0 0;
-  width: 21px;
-  height: 21px;
-  padding: 3px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23cccccc'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'/%3E%3C/svg%3E");
+}
+
+input[type="checkbox"]:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%231158aa'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E");
+}
+
+input[type="radio"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23cccccc'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'/%3E%3C/svg%3E");
+}
+
+input[type="radio"]:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%231158aa'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'/%3E%3C/svg%3E");
+}
+
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
   outline: none;
-  border-radius: 0px;
 }
 
 label.checkbox-label {
@@ -369,13 +426,13 @@ label.checkbox-label {
 }
 
 fieldset {
-  margin: 0 .2em .4em .1em;
+  margin: 0 0.2em 0.4em 0.1em;
   border: 1pt solid #aaa;
-  padding: .1em .6em .4em .6em;
+  padding: 0.1em 0.6em 0.4em 0.6em;
 }
 
 legend {
-  padding: .2em .1em;
+  padding: 0.2em 0.1em;
 }
 
 span.warning {
@@ -470,8 +527,6 @@ H2.default {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 100vh;
-  overflow-y: hidden;
 }
 
 .blade {
@@ -486,14 +541,13 @@ H2.default {
   -ms-flex-preferred-size: auto;
       flex-basis: auto;
   min-width: 250px;
-  min-height: 0;
-  height: 100vh;
+  height: 100%;
 }
 
 .side-blade {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
   z-index: 3;
 }
 
@@ -502,37 +556,39 @@ H2.default {
   height: 100%;
   position: absolute;
   background-color: black;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   z-index: 2;
   opacity: 0.2;
   display: none;
 }
 
 .blade-container {
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   position: relative;
-  padding-top: 0px;
+  padding-top: 0;
   height: 100%;
   width: 100%;
 }
 
 .blade-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   height: 100vh;
   width: 100%;
-  overflow-y: auto;
+  overflow: hidden;
+  /* Just make sure overflowing things don't end up over other blades. */
 }
 
 .blade-header {
   width: 100%;
-  height: 40px;
-  position: absolute;
-  top: 0;
+  height: 38px;
   border-bottom: 1px solid #ccc;
   background-color: aqua;
-  z-index: 2;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -561,14 +617,22 @@ H2.default {
 }
 
 .blade-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   width: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 50px;
-  box-sizing: border-box;
-  /* Setting border-box allows you to add padding "inside" of the 100%. */
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
+/* We need flox throughout to figure out scrolling further down the line.. */
+.blade-content > div,
+.blade-content > div > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .blade:nth-child(even) .blade-panel {
@@ -776,10 +840,9 @@ H2.default {
 }
 
 .menu {
-  margin-top: -10px;
-  margin-left: -10px;
-  margin-right: -10px;
-  padding-bottom: 10px;
+  width: 100%;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .menu-button {
@@ -788,7 +851,6 @@ H2.default {
           box-sizing: border-box;
   min-width: 200px;
   max-width: 250px;
-  min-height: 50px;
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 4px;
@@ -806,32 +868,29 @@ H2.default {
 }
 
 .menu-button > .button {
-  padding: 0px;
+  padding-top: 4px;
   margin: 0;
   width: 100%;
-  min-height: 24px;
   line-height: 24px;
   color: #000000;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-line-pack: center;
-      align-content: center;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: minmax(32px, auto) 1fr;
+      grid-template-columns: minmax(32px, auto) 1fr;
   cursor: pointer;
 }
 
 .menu-button > .button > div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  /* display: flex; */
+}
+
+.menu-button > .button > .menu-button--icon {
+  margin-top: -1px;
+  height: 24px;
 }
 
 .menu-button > .button > div > svg {
   opacity: 0.5;
-  margin-right: 5px;
 }
 
 .menu-button > .button > span {
@@ -854,6 +913,7 @@ H2.default {
   padding: 4px 7px;
   border-radius: 12px;
   font-size: 0.8em;
+  margin-left: 5px;
 }
 
 .menu-button--actions {
@@ -877,6 +937,10 @@ H2.default {
   margin-bottom: 3px;
   margin-left: 1px;
   margin-right: 1px;
+}
+
+.menu-button--icon {
+  color: red;
 }
 
 .icon-button {
@@ -905,45 +969,34 @@ H2.default {
   border-radius: 0.5em;
 }
 
-.search-box .flexbox {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+.search-box {
+  position: relative;
 }
 
-.search-box .flexbox INPUT {
+.search-box INPUT {
   height: 30px;
+  width: 100%;
   border-radius: 8px;
   border: 1px solid #1158aa;
   padding-left: 10px;
   padding-right: 30px;
 }
 
-.search-box .flexbox .context-menu {
-  margin-left: -30px;
-}
-
-.search-box .flexbox INPUT:-ms-input-placeholder {
-  color: #ccc !important;
-  font-weight: 400 !important;
-  font-size: 13px;
-  font-family: "Roboto", sans-serif;
-}
-
-.search-box .flexbox .external-clear {
-  margin-left: -45px;
+.search-box .context-menu {
   display: none;
+  position: absolute;
+}
+
+.search-box .external-clear {
+  display: none;
+  position: absolute;
+  right: 3px;
+  top: 0px;
 }
 
 .search-box .external-open {
   display: none;
   position: absolute;
-  margin-top: -31px;
-  margin-left: 12px;
 }
 
 .context-menu ul {
@@ -980,21 +1033,22 @@ H2.default {
 }
 
 .header-panel {
-  margin-left: -10px;
-  margin-right: -10px;
+  min-height: 0;
 }
 
 .header-panel--container {
-  background-color: #fff;
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  justify-items: flex-start;
 }
 
 .header-panel--header {
-  margin-top: 39px;
-  height: 30px;
-  position: absolute;
-  top: 0;
-  left: 0;
   z-index: 1;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1005,7 +1059,6 @@ H2.default {
           flex-direction: column;
   justify-items: center;
   background-color: powderblue;
-  width: calc(100% - 35px);
   padding: 10px;
   border-bottom: 1px solid #ccc;
   -ms-flex-line-pack: center;
@@ -1013,11 +1066,9 @@ H2.default {
 }
 
 .header-panel--body {
-  padding-right: 10px;
-  padding-left: 10px;
-  margin-top: 50px;
-  padding-bottom: 8px;
-  height: 100%;
+  height: 100vh;
+  width: 100%;
+  overflow-y: auto;
   background-color: #f8f8f8;
 }
 
@@ -1034,7 +1085,6 @@ H2.default {
 
 .collapsable-panel {
   width: 100%;
-  display: block;
 }
 
 .collapsable-panel--container {
@@ -1042,10 +1092,13 @@ H2.default {
 }
 
 BUTTON.collapsable-panel--header {
-  cursor: pointer;
   display: block;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+  text-align: left;
   padding-top: 10px;
-  padding-left: 0px;
+  padding-left: 20px;
   padding-bottom: 10px;
   outline: none;
   background-color: transparent;
@@ -1057,13 +1110,40 @@ BUTTON.collapsable-panel--header {
 }
 
 BUTTON.collapsable-panel--header:before {
-  content: ">";
+  position: absolute;
+  top: 8px;
+  left: -2px;
+  z-index: 1;
+  content: " ";
+  width: 20px;
+  height: 20px;
+  display: block;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23000000'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z'/%3E%3C/svg%3E");
+  background-size: 20px 20px;
+  background-position: 0;
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
+}
+
+.collapsable-panel-open .collapsable-panel--header:before {
+  -webkit-transform: rotateZ(-180deg);
+          transform: rotateZ(-180deg);
 }
 
 .collapsable-panel--body {
   display: none;
   overflow: hidden;
   width: 100%;
+  border-left: 2px solid black;
+  margin-left: 7px;
+  padding-left: 10px;
+  padding-top: 0px;
+}
+
+.collapsable-panel-open .collapsable-panel--body {
+  display: block;
 }
 
 .property-list {
@@ -1074,9 +1154,9 @@ BUTTON.collapsable-panel--header:before {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -1100,8 +1180,10 @@ BUTTON.collapsable-panel--header:before {
 .card {
   padding: 10px;
   background-color: white;
-  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
+          box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
+  margin-left: 1px;
+  margin-right: 1px;
 }
 
 .matrix {

@@ -13,7 +13,7 @@ namespace Tessin.Bladerunner.Controls
     {
         public IconButton(string icon, Action<Button> onClick = null, string tooltip = "", Color color = Color.Black) : base("", onClick)
         {
-            this.HtmlElement.SetAttribute("class", $"icon-button {color.ToString().ToLower()}");
+            this.AddClass($"icon-button {color.ToString().ToLower()}");
             this.HtmlElement.SetAttribute("title", tooltip);
             this.HtmlElement.InnerHtml = icon;
         }

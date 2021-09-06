@@ -12,7 +12,7 @@ namespace Tessin.Bladerunner.Controls
     {
         public static Control Format(object content, Func<Control, bool, Control> wrapper = null, object emptyContent = null)
         {
-            return (new ContentFormatter())._Format(content, null, emptyContent ?? "", false);
+            return (new ContentFormatter())._Format(content, wrapper, emptyContent ?? "", false);
         }
 
         private Control _Format(object content, Func<Control, bool, Control> wrapper, object emptyContent, bool formattingEmpty)
@@ -42,7 +42,7 @@ namespace Tessin.Bladerunner.Controls
                 int and 0 => EmptyFormatter(),
                 int intContent => Wrapper(new Literal(intContent.ToString("N0"))),
                 double and 0 => EmptyFormatter(),
-                double doubleContent => Wrapper(new Literal(doubleContent.ToString())),
+                double doubleContent => Wrapper(new Literal(doubleContent.ToString("N2"))),
                 bool boolContent => Wrapper(new Literal(boolContent.ToString())),
                 DateTime dateContent => Wrapper(new Literal(dateContent.ToString("yyyy-MM-dd"))),
                 _ => Wrapper(new DumpContainer() { Content = content })

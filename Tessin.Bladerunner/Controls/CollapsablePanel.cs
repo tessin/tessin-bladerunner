@@ -21,7 +21,6 @@ namespace Tessin.Bladerunner.Controls
 
             var divHeader = new Button(header, btn =>
             {
-
                 if(_isOpen) {
                     this.AddClass("collapsable-panel-open");
                 } else {

@@ -15,7 +15,7 @@ void Main()
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	
-	manager.PushBlade(Blade1(), "CollapsablePanel");
+	manager.PushBlade(Blade1(), "SearchBox");
 	
 	manager.Dump();
 }
@@ -24,14 +24,13 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		return 
-			Layout.Vertical(true,
-			new Field("Title", new TextBox(), ""),
-			new CollapsablePanel("Contact", Layout.Vertical(true,
-				new Field("Name", new TextBox(), ""),
-				new Field("Email", new TextBox(), "")
-			)),
-			new Field("Company", new TextBox(), "")
-		);
+		SearchBox sb = new SearchBox();
+
+		RefreshContainer rc = new RefreshContainer(new[] { sb }, () =>
+		{
+			return Layout.Vertical(true, sb.Text);
+		});
+
+		return Layout.Vertical(true, sb, rc);
 	});
 }

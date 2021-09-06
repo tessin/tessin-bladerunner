@@ -1,9 +1,9 @@
 <Query Kind="Program">
-  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5\Tessin.Bladerunner.dll</Reference>
-  <Namespace>Tessin.Bladerunner.Blades</Namespace>
-  <Namespace>Tessin.Bladerunner</Namespace>
-  <Namespace>Tessin.Bladerunner.Controls</Namespace>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
   <Namespace>LINQPad.Controls</Namespace>
+  <Namespace>Tessin.Bladerunner</Namespace>
+  <Namespace>Tessin.Bladerunner.Blades</Namespace>
+  <Namespace>Tessin.Bladerunner.Controls</Namespace>
   <IncludeUncapsulator>false</IncludeUncapsulator>
   <RuntimeVersion>5.0</RuntimeVersion>
 </Query>
@@ -26,7 +26,7 @@ static IBladeRenderer Blade1()
 		Control Wrapper(Control c, bool empty) {
 			if(empty)
 			{
-				return c; 
+				return c;
 			}
 			else
 			{
@@ -36,7 +36,7 @@ static IBladeRenderer Blade1()
 			}
 		}
 		
-		return Layout.Vertical(true, 
+		return Layout.Vertical(true, 		
 			ContentFormatter.Format(0, Wrapper, "-"),
 			ContentFormatter.Format(null, Wrapper, "-"),
 			ContentFormatter.Format("", Wrapper, "-"),

@@ -140,7 +140,7 @@ namespace Tessin.Bladerunner.Controls
                     _first = false;
                     Task.Run(() => _taskFactory.Run().Result).ContinueWith(e =>
                     {
-                        this.Content = e.Result;
+                        ControlExtensions.AddPadding(this, e.Result);
                     });
                 }
                 else
@@ -149,7 +149,7 @@ namespace Tessin.Bladerunner.Controls
                     {
                         Task.Run(() => _taskFactory.Run().Result).ContinueWith(e =>
                         {
-                            this.Content = e.Result;
+                            ControlExtensions.AddPadding(this, e.Result);
                         });
                     });
                 }

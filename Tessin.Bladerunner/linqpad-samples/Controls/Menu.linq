@@ -1,15 +1,16 @@
 <Query Kind="Program">
-  <Reference Relative="..\..\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll">C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
   <Namespace>System.Drawing</Namespace>
   <Namespace>Tessin.Bladerunner</Namespace>
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
   <Namespace>Tessin.Bladerunner.Controls</Namespace>
+  <Namespace>LINQPad.Controls</Namespace>
   <RuntimeVersion>5.0</RuntimeVersion>
 </Query>
 
 void Main()
 {
-	//Debugger.Launch();
+	//ebugger.Launch();
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", showDebugButton: true, cssHotReloading: true);
 	
@@ -22,7 +23,19 @@ void Main()
 static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
-	{		
+	{
+		PropertyList pl = new PropertyList(
+			new Property("Antal investerare", 163),
+			new Property("Investeringslag", "Lån"),
+			new Property("Löptid", "Upp till 12 mån"),
+			new Property("Årsränta", "8 %"),
+			new Property("Lånenummer", new Hyperlink("#21139-1", (_) => { })),
+			new Property("Actions", Layout.Horizontal(false,
+				new IconButton(Icons.CoffeeOutline),
+				new IconButton(Icons.Alert)
+			))
+		);
+
 		var menu = new Menu(
 			new MenuButton("Header Panel", (_) => {
 				blade.PushBlade(Blade2(), "Blade2");
@@ -47,7 +60,7 @@ static IBladeRenderer Blade1()
 			})
 		);
 
-		return menu;
+		return Layout.Horizontal(true, menu, new Card(pl));
 
 	});
 }
