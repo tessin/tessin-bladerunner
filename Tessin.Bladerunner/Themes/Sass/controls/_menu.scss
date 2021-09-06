@@ -1,8 +1,7 @@
 .menu {
-  margin-top: -10px;
-  margin-left: -10px;
-  margin-right: -10px;
-  padding-bottom: 10px;
+  width: 100%;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .menu-button {
@@ -10,7 +9,6 @@
   box-sizing: border-box;
   min-width: 200px;
   max-width: 250px;
-  min-height: 50px;
 
   padding-left: 10px;
   padding-right: 10px;
@@ -26,31 +24,33 @@
 }
 
 .menu-button > .button {
-  padding: 0px;
+  padding-top: 4px;
   margin: 0;
   width: 100%;
-  min-height: 24px;
   line-height: 24px;
   color: #000000;
-  display: flex;
-  align-items: center;
-  align-content: center;
+  display: grid;
+  grid-template-columns: minmax(32px, auto) 1fr;
   cursor: pointer;
 }
 
 .menu-button > .button > div {
-  display: flex;
+  /* display: flex; */
+}
+
+.menu-button > .button > .menu-button--icon {
+  margin-top: -1px;
+  height: 24px;
 }
 
 .menu-button > .button > div > svg {
   opacity: 0.5;
-  margin-right: 5px;
 }
 
 .menu-button > .button > span {
   font-family: $font-family;
   white-space: nowrap;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
   overflow-x: hidden;
 }
 
@@ -67,6 +67,7 @@
   padding: 4px 7px;
   border-radius: 12px;
   font-size: 0.8em;
+  margin-left: 5px;
 }
 
 .menu-button--actions {
@@ -84,4 +85,8 @@
   margin-bottom: 3px;
   margin-left: 1px;
   margin-right: 1px;
+}
+
+.menu-button--icon {
+  color: red;
 }

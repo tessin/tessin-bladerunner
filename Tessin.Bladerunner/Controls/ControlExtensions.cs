@@ -26,19 +26,25 @@ namespace Tessin.Bladerunner
 
         public static T AddClass<T>(this T control, string @class) where T : Control
         {
-            var current = control.HtmlElement.GetAttribute("class");
+            //var current = control.HtmlElement.GetAttribute("class");
+            var current = control.HtmlElement["className"];
             if (string.IsNullOrEmpty(current) || current.Split(' ').All(e => e != @class))
             {
-                control.HtmlElement.SetAttribute("class", $"{current} {@class}".Trim());
+                //control.HtmlElement.SetAttribute("class", $"{current} {@class}".Trim());
+                control.HtmlElement["className"] = $"{current} {@class}".Trim();
             }
             return control;
         }
 
         public static T RemoveClass<T>(this T control, string @class) where T : Control
         {
-            var current = control.HtmlElement.GetAttribute("class");
+            //var current = control.HtmlElement.GetAttribute("class");
+            var current = control.HtmlElement["className"];
             if(current != null)
-                control.HtmlElement.SetAttribute("class", string.Join(" ", current.Split(' ').Where(e => e != @class).ToArray()));
+            {
+                //control.HtmlElement.SetAttribute("class", string.Join(" ", current.Split(' ').Where(e => e != @class).ToArray()));
+                control.HtmlElement["className"] = string.Join(" ", current.Split(' ').Where(e => e != @class).ToArray());
+            }
             return control;
         }
 

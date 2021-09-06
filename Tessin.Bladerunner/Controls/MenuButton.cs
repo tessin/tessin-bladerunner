@@ -44,6 +44,7 @@ namespace Tessin.Bladerunner.Controls
                 if(!string.IsNullOrEmpty(svgIcon))
                 {
                     var divIcon = new Div();
+                    divIcon.SetClass("menu-button--icon");
                     divIcon.HtmlElement.InnerHtml = svgIcon;
                     this.VisualTree.Add(divIcon);
                 }
@@ -82,6 +83,7 @@ namespace Tessin.Bladerunner.Controls
             {
                 var _pillContainer = new DumpContainer();
                 pillContainer = _pillContainer.ToControl();
+                pillContainer.SetClass("menu-button--pill");
                 this.VisualTree.Add(pillContainer);
 
                 if (pillTask != null)
@@ -92,7 +94,6 @@ namespace Tessin.Bladerunner.Controls
                         {
                             if (e) return c;
                             var span = new Span(c);
-                            span.SetClass("menu-button--pill");
                             return span;
                         });
                     }).ConfigureAwait(false);
@@ -103,7 +104,6 @@ namespace Tessin.Bladerunner.Controls
                     if (content != "")
                     {
                         var span = new Span(content);
-                        span.SetClass("menu-button--pill");
                         _pillContainer.Content = span;
                     }
                 }
