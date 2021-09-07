@@ -124,7 +124,7 @@ namespace Tessin.Bladerunner
                     }
                     var dc = new DumpContainer
                     {
-                        Style = "padding:10px",
+                        Style = "padding:10px;width:100%;",
                         Content = result
                     };
                     return dc;
@@ -132,12 +132,11 @@ namespace Tessin.Bladerunner
             }
             else if (!(content is INoPadding))
             {
-                dc.Style = "padding:10px";
+                dc.Style = "padding:10px;width:100%;";
             }
 
             dc.Content = content;
         }
-
 
         public static void OnUpdate(this Control control, Action onUpdate)
         {

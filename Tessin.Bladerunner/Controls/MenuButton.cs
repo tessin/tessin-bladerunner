@@ -90,7 +90,7 @@ namespace Tessin.Bladerunner.Controls
                 {
                     Task.Run(() => pillTask.Result).ContinueWith(e =>
                     {
-                        _pillContainer.Content = ContentFormatter.Format(e.Result, (c, e) =>
+                        _pillContainer.Content = DefaultContentFormatter.Format(e.Result, (c, e) =>
                         {
                             if (e) return c;
                             var span = new Span(c);

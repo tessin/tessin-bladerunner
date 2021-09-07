@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class ContentFormatter : IContentFormatter
+    public class DefaultContentFormatter : IContentFormatter
     {
         public static Control Format(object content, Func<Control, bool, Control> wrapper = null, object emptyContent = null)
         {
-            return (new ContentFormatter())._Format(content, wrapper, emptyContent ?? "", false);
+            return (new DefaultContentFormatter())._Format(content, wrapper, emptyContent ?? "", false);
         }
 
         private Control _Format(object content, Func<Control, bool, Control> wrapper, object emptyContent, bool formattingEmpty)
@@ -30,21 +30,21 @@ namespace Tessin.Bladerunner.Controls
                 {
                     return _Format(emptyContent, wrapper, null, true);
                 }
-                return Wrapper(new Literal(content.ToString()));
+                return Wrapper(new Span(content.ToString()));
             }
 
             return content switch
             {
                 null or "" => EmptyFormatter(),
-                string strContent => Wrapper(new Literal(strContent)),
+                string strContent => Wrapper(new Span(strContent)),
                 long and 0 => EmptyFormatter(),
-                long longContent => Wrapper(new Literal(longContent.ToString("N0"))),
+                long longContent => Wrapper(new Span(longContent.ToString("N0"))),
                 int and 0 => EmptyFormatter(),
-                int intContent => Wrapper(new Literal(intContent.ToString("N0"))),
+                int intContent => Wrapper(new Span(intContent.ToString("N0"))),
                 double and 0 => EmptyFormatter(),
-                double doubleContent => Wrapper(new Literal(doubleContent.ToString("N2"))),
-                bool boolContent => Wrapper(new Literal(boolContent.ToString())),
-                DateTime dateContent => Wrapper(new Literal(dateContent.ToString("yyyy-MM-dd"))),
+                double doubleContent => Wrapper(new Span(doubleContent.ToString("N2"))),
+                bool boolContent => Wrapper(new Span(boolContent.ToString())),
+                DateTime dateContent => Wrapper(new Span(dateContent.ToString("yyyy-MM-dd"))),
                 _ => Wrapper(new DumpContainer() { Content = content })
             };
         }

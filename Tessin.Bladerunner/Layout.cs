@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using LINQPad;
 using LINQPad.Controls;
+using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner
 {
@@ -48,6 +49,7 @@ namespace Tessin.Bladerunner
             }
         }
 
+        internal IContentFormatter _formatter = new DefaultContentFormatter();
         internal bool _debug = false;
         internal string _class = null;
         internal int _gap = 1;
@@ -252,7 +254,11 @@ namespace Tessin.Bladerunner
 
             foreach (var element in builder._elements)
             {
-                this.VisualTree.Add((Control)element._content);
+                if (element._space != "auto" && element._content is Control control)
+                {
+                    control.Styles["width"] = "inherit";
+                }
+                this.VisualTree.Add(builder._formatter.Format(element._content));
             }
         }
     }

@@ -2,7 +2,6 @@
   box-shadow: none;
   background: transparent;
   padding: 0;
-  margin-top: 5px;
   border: 0;
   width: 24px;
   height: 24px;
@@ -13,4 +12,9 @@
 
 .icon-button:hover {
   opacity: 1;
+  background: transparent;
+}
+
+.icon-button:active {
+  background: transparent;
 }

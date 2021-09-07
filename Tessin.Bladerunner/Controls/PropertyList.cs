@@ -16,7 +16,7 @@ namespace Tessin.Bladerunner.Controls
         {
             Label = label;
             Value = value;
-            _formatter = formatter ?? new ContentFormatter();
+            _formatter = formatter ?? new DefaultContentFormatter();
         }
 
         public Property(string label) : this(label, label)

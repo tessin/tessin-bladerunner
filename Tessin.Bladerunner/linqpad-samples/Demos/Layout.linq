@@ -27,11 +27,10 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		return Layout2
-			.Right()
-			.Fill()
-			.Padding()
-			.Vertical(new Button("Bar"), new Button("HelloWorld"), new Button("Hi"));
+	return Layout2
+		.Right()
+		.Fill()
+		.Vertical(new Button("Bar"), new Button("HelloWorld"), new Button("Hi"), DateTime.Now, true, new int[] { 1, 2, 3});
 	});
 }
 
@@ -40,7 +39,6 @@ static IBladeRenderer Blade2()
 	return BladeFactory.Make((blade) =>
 	{
 		return Layout2
-			.Padding()
 			.Gap(false)
 			.Middle()
 			.Horizontal(new Button("Bar"), new Button("HelloWorld"), new Literal("Hello"));
@@ -55,10 +53,11 @@ static IBladeRenderer Blade3()
 
 		var header = Layout2
 			.Debug()
+			.Gap(false)
 			.Middle()
 			.Fill()
-			.Add(sb, "100%")
-			.Add(new IconButton(Icons.Plus))
+			.Add(sb, "1fr")
+			.Add(new IconButton(Icons.Plus), "min-content")
 			.Horizontal();
 
 		return new HeaderPanel(header, new Div());
