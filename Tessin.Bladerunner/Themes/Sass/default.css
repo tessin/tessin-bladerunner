@@ -82,8 +82,8 @@ table.error {
 
 td {
   /*
-     background-color: white;
-  */
+    background-color: white;
+	*/
 }
 
 td,
@@ -329,8 +329,8 @@ span.cc {
 input,
 textarea,
 select,
-input[type=number],
-input[type=date] {
+input[type="number"],
+input[type="date"] {
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 0px;
@@ -346,7 +346,8 @@ select {
 }
 
 select {
-  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
 }
 
 textarea {
@@ -362,15 +363,16 @@ button {
   border: 0px;
   color: white;
   border-radius: 0px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
 }
 
 button:disabled {
   background-color: gray;
 }
 
-input[type=radio],
-input[type=checkbox] {
+input[type="radio"],
+input[type="checkbox"] {
   margin: 0 0.4em 0 0;
   width: 32px;
   height: 32px;
@@ -379,24 +381,24 @@ input[type=checkbox] {
   -webkit-appearance: none;
 }
 
-input[type=checkbox] {
+input[type="checkbox"] {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23cccccc'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z'/%3E%3C/svg%3E");
 }
 
-input[type=checkbox]:checked {
+input[type="checkbox"]:checked {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%231158aa'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E");
 }
 
-input[type=radio] {
+input[type="radio"] {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23cccccc'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'/%3E%3C/svg%3E");
 }
 
-input[type=radio]:checked {
+input[type="radio"]:checked {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%231158aa'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'/%3E%3C/svg%3E");
 }
 
-input[type=radio]:focus,
-input[type=checkbox]:focus {
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
   outline: none;
 }
 
@@ -448,26 +450,42 @@ a.graphcolumn {
 }
 
 .hrun > DIV {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
 .vrun > DIV {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .vrun-center > DIV {
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .vrun-left > DIV {
-  align-items: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 .vrun-right > DIV {
-  align-items: flex-end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
 
 SPAN.small {
@@ -488,14 +506,22 @@ H2.default {
 }
 
 .blade-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
 .blade {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: auto;
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  -ms-flex-preferred-size: auto;
+      flex-basis: auto;
   min-width: 250px;
   height: 100%;
 }
@@ -527,8 +553,13 @@ H2.default {
 }
 
 .blade-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   height: 100vh;
   width: 100%;
   overflow: hidden;
@@ -540,9 +571,14 @@ H2.default {
   height: 38px;
   border-bottom: 1px solid #ccc;
   background-color: aqua;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .blade-header > h1 {
@@ -557,10 +593,14 @@ H2.default {
 .blade-header > aside {
   margin-right: 10px;
   margin-top: 4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
 .blade-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
   min-height: 0;
@@ -572,7 +612,10 @@ H2.default {
 /* We need flox throughout to figure out scrolling further down the line.. */
 .blade-content > div,
 .blade-content > div > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  width: 100%;
 }
 
 .blade:nth-child(even) .blade-panel {
@@ -599,9 +642,15 @@ H2.default {
   width: 100%;
   height: 40px;
   background-color: transparent;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: left;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left;
 }
 
 .menu-blade-group-header SPAN {
@@ -642,19 +691,25 @@ H2.default {
   margin-top: 10px;
 }
 
-.field > input[type=checkbox] {
+.field > input[type="checkbox"] {
   margin-top: 2px;
   margin-bottom: 2px;
 }
 
 .field--header {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
+
 .field--header SPAN {
   font-size: 12px;
   font-weight: bold;
 }
+
 .progress {
   width: 100%;
   height: 100%;
@@ -666,10 +721,19 @@ H2.default {
 
 .progress-container {
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .progress-container button {
@@ -688,7 +752,8 @@ H2.default {
 }
 
 .progress--animation .line {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   display: block;
   position: absolute;
   top: 0;
@@ -737,21 +802,26 @@ H2.default {
 
 @-webkit-keyframes lds-ring {
   0% {
-    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
   }
   100% {
-    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }
 
 @keyframes lds-ring {
   0% {
-    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
   }
   100% {
-    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
   }
 }
+
 .menu {
   width: 100%;
   min-height: 0;
@@ -760,7 +830,8 @@ H2.default {
 
 .menu-button {
   width: 100%;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   min-width: 200px;
   max-width: 250px;
   padding-left: 10px;
@@ -769,8 +840,12 @@ H2.default {
   padding-bottom: 5px;
   position: relative;
   border-bottom: 1px solid #ccc;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   /* Centers Button Element on the Left and Button Menu on the right */
   background-color: transparent;
 }
@@ -781,8 +856,10 @@ H2.default {
   width: 100%;
   line-height: 24px;
   color: #000000;
+  display: -ms-grid;
   display: grid;
-  grid-template-columns: minmax(32px, auto) 1fr;
+  -ms-grid-columns: minmax(32px, auto) 1fr;
+      grid-template-columns: minmax(32px, auto) 1fr;
   cursor: pointer;
 }
 
@@ -827,9 +904,15 @@ H2.default {
   top: 0;
   right: 7px;
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  flex: 1 1 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 0px;
+          flex: 1 1 0;
 }
 
 .menu-button--actions > button {
@@ -844,7 +927,8 @@ H2.default {
 }
 
 .icon-button {
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   background: transparent;
   padding: 0;
   margin-top: 5px;
@@ -869,8 +953,13 @@ H2.default {
 }
 
 .search-box .flexbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
 .search-box .flexbox INPUT {
@@ -897,7 +986,7 @@ H2.default {
   display: none;
 }
 
-.search-box .external-open {
+.search-box .flexbox .external-open {
   display: none;
   position: absolute;
   margin-top: -31px;
@@ -918,10 +1007,16 @@ H2.default {
 
 .context-menu ul li {
   padding: 0px 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   position: relative;
-  align-items: center;
-  justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   overflow: hidden;
   height: 40px;
   cursor: pointer;
@@ -933,25 +1028,38 @@ H2.default {
 
 .header-panel {
   min-height: 0;
+  width: 100%;
 }
 
 .header-panel--container {
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   justify-items: flex-start;
 }
 
 .header-panel--header {
   z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   justify-items: center;
   background-color: powderblue;
   padding: 10px;
   border-bottom: 1px solid #ccc;
-  align-content: center;
-  height: 50px;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  width: 100%;
+  height: 40px;
 }
 
 .header-panel--body {
@@ -962,9 +1070,14 @@ H2.default {
 }
 
 .async-data-list-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
 }
 
 .collapsable-panel {
@@ -988,7 +1101,8 @@ BUTTON.collapsable-panel--header {
   background-color: transparent;
   color: black;
   font-weight: 700;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   font-size: 12px;
 }
 
@@ -1004,11 +1118,15 @@ BUTTON.collapsable-panel--header:before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23000000'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z'/%3E%3C/svg%3E");
   background-size: 20px 20px;
   background-position: 0;
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: -webkit-transform 0.2s;
   transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
 }
 
 .collapsable-panel-open .collapsable-panel--header:before {
-  transform: rotateZ(-180deg);
+  -webkit-transform: rotateZ(-180deg);
+          transform: rotateZ(-180deg);
 }
 
 .collapsable-panel--body {
@@ -1027,9 +1145,15 @@ BUTTON.collapsable-panel--header:before {
 }
 
 .property-list > DIV {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   min-height: 30px;
 }
 
@@ -1050,22 +1174,27 @@ BUTTON.collapsable-panel--header:before {
 .card {
   padding: 10px;
   background-color: white;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
+          box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
   margin-left: 1px;
   margin-right: 1px;
 }
 
 .matrix {
+  display: -ms-grid;
   display: grid;
   place-items: center;
-  -moz-column-gap: 2px;
-       column-gap: 2px;
+  -webkit-column-gap: 2px;
+          column-gap: 2px;
   row-gap: 2px;
 }
 
 .matrix > DIV.col-header {
+  display: -ms-grid;
   display: grid;
-  align-items: end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
   justify-items: center;
   font-weight: bold;
   height: 100%;
@@ -1076,8 +1205,11 @@ BUTTON.collapsable-panel--header:before {
 }
 
 .matrix > DIV.row-header {
+  display: -ms-grid;
   display: grid;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   justify-items: right;
   font-weight: bold;
   width: 100%;
@@ -1091,6 +1223,7 @@ BUTTON.collapsable-panel--header:before {
   min-width: 75px;
   min-height: 54px;
   background-color: white;
+  display: -ms-grid;
   display: grid;
   place-items: center;
   height: 100%;
@@ -1106,4 +1239,5 @@ BUTTON.collapsable-panel--header:before {
   max-height: 200px;
   overflow: hidden;
   overflow-y: auto;
-}/*# sourceMappingURL=default.css.map */
+}
+/*# sourceMappingURL=default.css.map */

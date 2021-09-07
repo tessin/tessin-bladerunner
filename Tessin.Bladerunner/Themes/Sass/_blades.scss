@@ -84,6 +84,7 @@
 .blade-content > div,
 .blade-content > div > div {
   display: flex;
+  width: 100%;
 }
 
 .blade:nth-child(even) .blade-panel {
