@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using LINQPad;
 using LINQPad.Controls;
+using Tessin.Bladerunner.Blades;
 
 namespace Tessin.Bladerunner
 {
@@ -11,39 +13,45 @@ namespace Tessin.Bladerunner
     {
         public static T SetClass<T>(this T control, string @class) where T : Control
         {
-            //if (control.IsRendered)
-            //{
-            //    control.HtmlElement["className"] = @class;
-            //}
-            //else
-            //{
-            //    control.HtmlElement.SetAttribute("class", @class);
-            //}
-            //control.HtmlElement["className"] = @class;
-            control.HtmlElement.SetAttribute("class", @class);
+            if (control.IsRendered)
+            {
+                control.HtmlElement["className"] = @class;
+            }
+            else
+            {
+                control.HtmlElement.SetAttribute("class", @class);
+            }
             return control;
+        }
+
+        public static string GetClass<T>(this T control) where T : Control
+        {
+            if (control.IsRendered)
+            {
+                return control.HtmlElement["className"];
+            }
+            else
+            {
+                return control.HtmlElement.GetAttribute("class");
+            }
         }
 
         public static T AddClass<T>(this T control, string @class) where T : Control
         {
-            //var current = control.HtmlElement.GetAttribute("class");
-            var current = control.HtmlElement["className"];
+            var current = GetClass(control);
             if (string.IsNullOrEmpty(current) || current.Split(' ').All(e => e != @class))
             {
-                //control.HtmlElement.SetAttribute("class", $"{current} {@class}".Trim());
-                control.HtmlElement["className"] = $"{current} {@class}".Trim();
+                control.SetClass($"{current} {@class}".Trim());
             }
             return control;
         }
 
         public static T RemoveClass<T>(this T control, string @class) where T : Control
         {
-            //var current = control.HtmlElement.GetAttribute("class");
-            var current = control.HtmlElement["className"];
+            var current = GetClass(control);
             if(current != null)
             {
-                //control.HtmlElement.SetAttribute("class", string.Join(" ", current.Split(' ').Where(e => e != @class).ToArray()));
-                control.HtmlElement["className"] = string.Join(" ", current.Split(' ').Where(e => e != @class).ToArray());
+                control.SetClass(string.Join(" ", current.Split(' ').Where(e => e != @class).ToArray()));
             }
             return control;
         }
@@ -102,6 +110,34 @@ namespace Tessin.Bladerunner
                 table.RowStyles[style.Key] = null;
             }
         }
+
+        public static void AddPadding(DumpContainer dc, object content)
+        {
+            if (content is Task<object> contentTask)
+            {
+                content = Task.Run(async () =>
+                {
+                    object result = await contentTask;
+                    if (result is INoPadding noPadding)
+                    {
+                        return result;
+                    }
+                    var dc = new DumpContainer
+                    {
+                        Style = "padding:10px",
+                        Content = result
+                    };
+                    return dc;
+                });
+            }
+            else if (!(content is INoPadding))
+            {
+                dc.Style = "padding:10px";
+            }
+
+            dc.Content = content;
+        }
+
 
         public static void OnUpdate(this Control control, Action onUpdate)
         {

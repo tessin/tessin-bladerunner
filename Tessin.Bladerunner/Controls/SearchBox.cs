@@ -6,60 +6,47 @@ using LINQPad.Controls.Core;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class SearchBox : Control, ITextControl
+    public class SearchBox : Div, ITextControl
     {
-        private readonly Div _container;
-
         private readonly TextBox _textBox;
 
-        private Action<SearchBox> _externalOpenAction;
+        //private Action<SearchBox> _externalOpenAction;
 
-        private Action _externalClearAction;
+        //private Action _externalClearAction;
 
-        private Hyperlink _externalOpen;
+        //private Hyperlink _externalOpen;
 
         public SearchBox(string initialText = "", string placeHolder = "Search", ContextMenu contextMenu = null)
         {
-            var children = new List<Control>();
-
-            _textBox = new TextBox(initialText, width: "150px");
+            _textBox = new TextBox(initialText, width: "150px;");
             _textBox.HtmlElement.SetAttribute("placeholder", placeHolder);
             _textBox.TextInput += (sender, args) =>
             {
                 TextInput?.Invoke(sender, args);
             };
 
-            children.Add(_textBox);
+            this.SetClass("search-box");
 
-            if (contextMenu != null)
-            {
-                children.Add(contextMenu);
-            }
+            this.VisualTree.Add(_textBox);
 
-            var externalClear = new IconButton(Icons.Close, (_) =>
-            {
-                _container.CssChildRules[".external-open", "display"] = "none";
-                _container.CssChildRules[".external-clear", "display"] = "none";
-                _container.CssChildRules[".flexbox INPUT:-ms-input-placeholder", "color"] = "#ccc !important";
-                _externalClearAction?.Invoke();
-                _textBox.Enabled = true;
-            });
+            //if (contextMenu != null)
+            //{
+            //    children.Add(contextMenu);
+            //}
 
-            externalClear.AddClass("external-clear");
-            children.Add(externalClear);
+            //var externalClear = new IconButton(Icons.Close, (_) =>
+            //{
+            //    _externalClearAction?.Invoke();
+            //    _textBox.Enabled = true;
+            //});
+            //externalClear.AddClass("external-clear");
+            //VisualTree.Add(externalClear);
 
-            var flexBox = new Div(children);
-            flexBox.SetClass("flexbox");
-            
-            _externalOpen = new Hyperlink("Query", (_) => _externalOpenAction?.Invoke(this));
-            _externalOpen.AddClass("external-open");
-
-            _container = new Div(flexBox, _externalOpen);
-            _container.SetClass("search-box");
-
-            VisualTree.Add(_container);
+            //_externalOpen = new Hyperlink("Query", (_) => _externalOpenAction?.Invoke(this));
+            //_externalOpen.AddClass("external-open");
         }
 
+        /*
         public void SetExternal(string title, Action<SearchBox> onClick)
         {
             _externalOpen.Text = title;
@@ -69,6 +56,7 @@ namespace Tessin.Bladerunner.Controls
             _externalOpenAction = onClick;
             _textBox.Enabled = false;
         }
+        */
 
         public void SelectAll()
         {

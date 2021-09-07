@@ -16,12 +16,14 @@ namespace Tessin.Bladerunner.Editors
         private readonly bool _multiLine;
         private readonly bool _fixedFont;
         private string _type;
+        private bool _trim;
 
-        public TextEditor(bool multiLine = false, bool fixedFont = false, string type = null)
+        public TextEditor(bool multiLine = false, bool fixedFont = false, string type = null, bool trim = true)
         {
             _multiLine = multiLine;
             _fixedFont = fixedFont;
             _type = type;
+            _trim = trim;
         }
 
         public object Render(T obj, EditorField<T> editorFieldInfo, Action updated)
@@ -55,7 +57,14 @@ namespace Tessin.Bladerunner.Editors
 
         public void Save(T obj, EditorField<T> editorFieldInfo)
         {
-            editorFieldInfo.SetValue(obj, _textBox.GetType().GetProperty("Text").GetValue(_textBox));
+            string value = (string)_textBox.GetType().GetProperty("Text").GetValue(_textBox);
+
+            if(_trim)
+            {
+                value = value.Trim();
+            }
+
+            editorFieldInfo.SetValue(obj, value);
         }
 
         public bool Validate(T obj, EditorField<T> editorFieldInfo)

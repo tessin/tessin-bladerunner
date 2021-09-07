@@ -95,6 +95,13 @@ td.n {
   text-align: right;
 }
 
+span.meta {
+  padding: 10px;
+  display: block;
+  color:darkgreen;
+  font-weight: 700;
+}
+
 a:link.typeheader,
 a:visited.typeheader,
 a:link.extenser,
@@ -172,25 +179,27 @@ div.spacer {
   margin: 0.6em 0;
 }
 
-table.headingpresenter {
-  border: none;
-  border-left: 3px solid $primary-cta;
-  margin: 0.8em 0em 1em 0.15em;
+DIV.headingpresenter {
+	border: none;
+	display: block;
+	border-left: 3px solid $primary-cta;
+	margin: 0 0.5em 0em 0em;
+	height: 100%;
 }
 
-th.headingpresenter {
-  border: none;
-  padding: 0 0 0.2em 0.5em;
-  color: $primary-cta;
-  font-weight: $font-weight-bold;
-  font-size: 1em;
-  background-color: transparent;
+DIV.headingpresenter H1 {
+	border: none;
+    padding: 0 0 5px 5px;
+    color: $primary-cta;
+    font-weight: $font-weight-bold;
+    font-size: 1em;
+    background-color: transparent;  
 }
 
-td.headingpresenter {
-  border: none;
-  background-color: transparent;
-  padding: 0 0 0 0.6em;
+DIV.headingpresenter DIV {
+	border: none;
+	background-color:transparent;
+	padding: 0 0 0 5px;
 }
 
 td.summary {
@@ -299,7 +308,7 @@ input[type="date"] {
   padding-top: 0px;
   padding-bottom: 0px;
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: $font-family;
 }
 
 input,
@@ -326,10 +335,19 @@ button {
   color: white;
   border-radius: 0px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  font-family: $font-family;
 }
 
 button:disabled {
   background-color: gray;
+}
+
+button:hover {
+  background-color: scale-color($primary-cta, $lightness: -10%, $saturation: 10%); 
+}
+
+button:active {
+  background-color: scale-color($primary-cta, $lightness: 10%, $saturation: -10%); 
 }
 
 input[type="radio"],
