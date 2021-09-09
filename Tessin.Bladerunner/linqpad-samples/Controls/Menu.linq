@@ -30,7 +30,7 @@ static IBladeRenderer Blade1()
 			new Property("Löptid", "Upp till 12 mån"),
 			new Property("Årsränta", "8 %"),
 			new Property("Lånenummer", new Hyperlink("#21139-1", (_) => { })),
-			new Property("Actions", Layout.Gap(false).Horizontal(
+			new Property("Actions", Layout.Horizontal(
 				new IconButton(Icons.CoffeeOutline),
 				new IconButton(Icons.Alert)
 			))

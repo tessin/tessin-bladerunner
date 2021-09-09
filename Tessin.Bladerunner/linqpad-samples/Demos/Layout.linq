@@ -26,11 +26,11 @@ void Main()
 static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
-	{
-	return Layout
-		.Right()
-		.Fill()
-		.Vertical(new Button("Bar"), new Button("HelloWorld"), new Button("Hi"), DateTime.Now, true, new int[] { 1, 2, 3});
+	{		
+		return Layout
+			.Right()
+			.Fill()
+			.Vertical(new Button("Bar"), new Button("HelloWorld"), new Button("Hi"), DateTime.Now, true, new int[] { 1, 2, 3});
 	});
 }
 
@@ -48,7 +48,7 @@ static IBladeRenderer Blade2()
 static IBladeRenderer Blade3()
 {
 	return BladeFactory.Make((blade) =>
-	{
+	{		
 		var tb = new TextBox();
 		
 		var sb = new SelectBox(new string[] { "Hello", "Hej", "Bonjour" });
@@ -59,14 +59,15 @@ static IBladeRenderer Blade3()
 			.Fill()
 			.Add(tb, "1fr")
 			.Add(sb, "1fr")
-			.Add(new IconButton(Icons.Plus), "min-content")
+			.Add(new IconButton(Icons.Plus))
 			.Horizontal();
 
 		return new HeaderPanel(header, 
 			Layout.Vertical(
 				new Button("Hello"),
-				new Spacer("400px")
+				new Spacer("200px")
 			)
 		);
 	});
 }
+
