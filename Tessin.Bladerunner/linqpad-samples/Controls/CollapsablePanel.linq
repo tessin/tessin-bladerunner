@@ -25,9 +25,9 @@ static IBladeRenderer Blade1()
 	return BladeFactory.Make((blade) =>
 	{
 		return 
-			Layout.Vertical(true,
+			Layout.Vertical(
 			new Field("Title", new TextBox(), ""),
-			new CollapsablePanel("Contact", Layout.Vertical(true,
+			new CollapsablePanel("Contact", Layout.Vertical(
 				new Field("Name", new TextBox(), ""),
 				new Field("Email", new TextBox(), "")
 			)),

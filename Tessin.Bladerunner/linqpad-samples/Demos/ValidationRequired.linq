@@ -1,5 +1,5 @@
 <Query Kind="Program">
-  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5.0\Tessin.Bladerunner.dll</Reference>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
   <Reference>&lt;RuntimeDirectory&gt;\System.Windows.Forms.dll</Reference>
   <Namespace>LINQPad.Controls</Namespace>
   <Namespace>System.Threading.Tasks</Namespace>
@@ -11,8 +11,8 @@
 </Query>
 
 void Main()
-{	
-	BladeManager manager = new BladeManager();
+{
+	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.PushBlade(Blade1(), "Blade1");
 	manager.Dump();
 }

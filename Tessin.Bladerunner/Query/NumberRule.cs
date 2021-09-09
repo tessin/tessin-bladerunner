@@ -90,7 +90,7 @@ namespace Tessin.Bladerunner.Query
                 }
             };
 
-            return Layout.Horizontal(true, txtOperator, txtValue);
+            return Layout.Horizontal(txtOperator, txtValue);
         }
     }
 }

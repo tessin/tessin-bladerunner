@@ -71,7 +71,7 @@ namespace Tessin.Bladerunner.Query
             };
             txtValue.TextInput += (_, __) => { _value = txtValue.Text; };
 
-            return Layout.Horizontal(true, txtOperator, txtValue);
+            return Layout.Horizontal(txtOperator, txtValue);
         }
     }
 }

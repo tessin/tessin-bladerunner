@@ -11,7 +11,7 @@
     <IsProduction>true</IsProduction>
     <DisplayName>Tessin-Production</DisplayName>
   </Connection>
-  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5.0\Tessin.Bladerunner.dll</Reference>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
   <NuGetReference>LinqKit</NuGetReference>
   <NuGetReference>Newtonsoft.Json</NuGetReference>
   <Namespace>LINQPad.Controls</Namespace>
@@ -64,9 +64,10 @@ static IBladeRenderer SearchBlade()
 			if (result is QueryBuilder<Projects> queryBuilder)
 			{
 				projectExpr.Value = queryBuilder.ToExpression();
-				txtSearch?.SetExternal("Query", (_) => {
-					blade.Manager.OpenSideBlade(QueryBlade(queryBuilder), onClose);	
-				});
+				//todo
+				//txtSearch?.SetExternal("Query", (_) => {
+				//	blade.Manager.OpenSideBlade(QueryBlade(queryBuilder), onClose);	
+				//});
 			}
 		};
 
@@ -171,7 +172,7 @@ static IBladeRenderer QueryBlade(QueryBuilder<Projects> builder = null)
 			blade.Manager.CloseSideBlade(queryBuilder);
 		});
 
-		return Layout.Vertical(true,
+		return Layout.Vertical(
 			new Spacer("500px"),
 			btnUse,
 			queryBuilder.Render()

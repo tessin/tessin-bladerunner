@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LINQPad;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Blades;
+using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner
 {
@@ -118,7 +119,7 @@ namespace Tessin.Bladerunner
                 content = Task.Run(async () =>
                 {
                     object result = await contentTask;
-                    if (result is INoPadding noPadding)
+                    if (result is INoContainerPadding noPadding)
                     {
                         return result;
                     }
@@ -130,9 +131,9 @@ namespace Tessin.Bladerunner
                     return dc;
                 });
             }
-            else if (!(content is INoPadding))
+            else if (!(content is INoContainerPadding))
             {
-                dc.Style = "padding:10px;width:100%;";
+                dc.Style = "padding:10px;width:calc(100% - 10px);";
             }
 
             dc.Content = content;

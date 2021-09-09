@@ -30,6 +30,6 @@ static IBladeRenderer Blade1()
 			return cb.Text;
 		});
 		
-		return Layout.Vertical(true, cb, rc);
+		return Layout.Vertical(cb, rc);
 	});
 }

@@ -28,9 +28,9 @@ static IBladeRenderer Blade1()
 
 		RefreshContainer rc = new RefreshContainer(new[] { sb }, () =>
 		{
-			return Layout.Vertical(true, sb.Text);
+			return Layout.Vertical(sb.Text);
 		});
 
-		return Layout.Vertical(true, sb, rc);
+		return Layout.Vertical(sb, rc);
 	});
 }

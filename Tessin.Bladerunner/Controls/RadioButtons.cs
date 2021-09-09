@@ -11,11 +11,11 @@ namespace Tessin.Bladerunner.Controls
     public class RadioButtons : DumpContainer, IRefreshable
     {
 
-        public RadioButtons(params Option[] options) : this(null, (e) => Layout.Vertical(true, e), options)
+        public RadioButtons(params Option[] options) : this(null, (e) => Layout.Vertical(e), options)
         {
         }
 
-        public RadioButtons(object selectedValue, params Option[] options) : this(selectedValue, (e) => Layout.Vertical(true, e), options)
+        public RadioButtons(object selectedValue, params Option[] options) : this(selectedValue, (e) => Layout.Vertical(e), options)
         {
         }
 

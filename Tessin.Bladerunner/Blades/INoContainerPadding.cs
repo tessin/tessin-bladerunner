@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tessin.Bladerunner.Blades
 {
-    public interface INoPadding
+    public interface INoContainerPadding
     {
     }
 }

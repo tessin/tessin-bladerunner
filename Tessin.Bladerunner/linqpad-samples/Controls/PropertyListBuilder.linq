@@ -1,5 +1,5 @@
 <Query Kind="Program">
-  <Reference Relative="..\..\bin\Debug\net5\Tessin.Bladerunner.dll">C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5\Tessin.Bladerunner.dll</Reference>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
   <Namespace>LINQPad.Controls</Namespace>
   <Namespace>System.Drawing</Namespace>
   <Namespace>System.Threading.Tasks</Namespace>
@@ -31,7 +31,7 @@ static IBladeRenderer Blade1()
 		
 		var x = PropertyListBuilder.Create(test).Render();
 
-		return Layout.Vertical(true, x);
+		return Layout.Vertical(x);
 	});
 }
 

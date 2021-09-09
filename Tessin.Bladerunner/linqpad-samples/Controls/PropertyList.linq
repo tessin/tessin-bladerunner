@@ -32,13 +32,13 @@ static IBladeRenderer Blade1()
 			new Property("Löptid", "Upp till 12 mån"),
 			new Property("Årsränta", "8 %"),
 			new Property("Lånenummer", new Hyperlink("#21139-1", (_) => { })),
-			new Property("Actions", Layout.Horizontal(false,
+			new Property("Actions", Layout.Gap(false).Horizontal(
 				new IconButton(Icons.CoffeeOutline),
 				new IconButton(Icons.Alert)
 			))
 		);
 
-		return Layout.Vertical(true, pl);
+		return Layout.Vertical(pl);
 	});
 }
 
@@ -52,12 +52,12 @@ static IBladeRenderer Blade2()
 			new Property("Löptid", "Upp till 12 mån"),
 			new Property("Årsränta", "8 %"),
 			new Property("Lånenummer", new Hyperlink("#21139-1", (_) => { })),
-			new Property("Actions", Layout.Horizontal(false,
+			new Property("Actions", Layout.Gap(false).Horizontal(
 				new IconButton(Icons.CoffeeOutline),
 				new IconButton(Icons.Alert)
 			))
 		);
 
-		return Layout.Vertical(true, new Card(pl));
+		return Layout.Vertical(new Card(pl));
 	});
 }

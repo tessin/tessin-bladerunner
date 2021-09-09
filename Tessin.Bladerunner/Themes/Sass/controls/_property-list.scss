@@ -9,16 +9,16 @@
   min-height: 30px;
 }
 
-.property-list > DIV > SPAN {
+.property-list > DIV > SPAN:first-child {
   text-align: left;
   font-size: 1.1em;
   font-weight: bold;
 }
 
-.property-list > DIV > DIV {
-  font-size: 1.1em;
-  margin-left: auto;
-  margin-right: 0;
-  position: relative;
-  text-align: right;
-}
+// .property-list > DIV > DIV {
+//   font-size: 1.1em;
+//   margin-left: auto;
+//   margin-right: 0;
+//   position: relative;
+//   text-align: right;
+// }

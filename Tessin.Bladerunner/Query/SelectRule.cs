@@ -37,7 +37,7 @@ namespace Tessin.Bladerunner.Query
         {
             var lstOptions = new SelectBox(SelectBoxKind.DropDown, _options, 0,
                 (lst) => { _value = (string) lst.SelectedOption; }) {Width = "20em", SelectedOption = _value};
-            return Layout.Horizontal(true, lstOptions);
+            return Layout.Horizontal(lstOptions);
         }
     }
 }

@@ -67,13 +67,13 @@ namespace Tessin.Bladerunner.Query
                     refresh();
                 });
 
-                return Layout.Horizontal(true, lstRules, chkNegate, rule.Render(builder), btnDelete);
+                return Layout.Horizontal(lstRules, chkNegate, rule.Render(builder), btnDelete);
             }
 
             refresh = () => {
                 if (_dc != null)
                 {
-                    _dc.Content = Layout.Vertical(true, _rules.Select(RenderRule));
+                    _dc.Content = Layout.Vertical(_rules.Select(RenderRule));
                     _dc.Refresh();
                 }
             };
@@ -132,8 +132,8 @@ namespace Tessin.Bladerunner.Query
             var optAnd = new RadioButton(groupId, "AND", true, (_) => { _operator = QueryOperator.And; });
 			var optOr = new RadioButton(groupId, "OR", false, (_) => { _operator = QueryOperator.Or; });
 
-			return Layout.Vertical(true,
-				Layout.Horizontal(true, optAnd, optOr, ruleButton, groupButton, deleteButton, contextMenu),
+			return Layout.Vertical(
+				Layout.Horizontal(optAnd, optOr, ruleButton, groupButton, deleteButton, contextMenu),
 				_dc
 			);
 		}

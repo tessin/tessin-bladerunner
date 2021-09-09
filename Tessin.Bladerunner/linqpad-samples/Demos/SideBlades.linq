@@ -1,5 +1,5 @@
 <Query Kind="Program">
-  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5.0\Tessin.Bladerunner.dll</Reference>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
   <Reference>&lt;RuntimeDirectory&gt;\System.Windows.Forms.dll</Reference>
   <Namespace>LINQPad.Controls</Namespace>
   <Namespace>Tessin.Bladerunner</Namespace>
@@ -24,7 +24,7 @@ static IBladeRenderer Blade1()
 		var button = new Button("Open Panel", (_) => {
 			blade.Manager.OpenSideBlade(SideBlade());
 		});
-		return Layout.Vertical(true, button);
+		return Layout.Vertical(button);
 	});
 }
 

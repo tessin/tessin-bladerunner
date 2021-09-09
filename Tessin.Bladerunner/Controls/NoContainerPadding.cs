@@ -6,9 +6,9 @@ using Tessin.Bladerunner.Blades;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class NoPadding : Div, INoPadding
+    public class NoContainerPadding : Div, INoContainerPadding
     {
-        public NoPadding(params Control[] children) : base(children)
+        public NoContainerPadding(params Control[] children) : base(children)
         {
         }
     }

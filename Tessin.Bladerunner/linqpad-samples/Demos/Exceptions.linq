@@ -1,10 +1,10 @@
 <Query Kind="Program">
-  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5.0\Tessin.Bladerunner.dll</Reference>
-  <Namespace>Tessin.Bladerunner.Blades</Namespace>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
   <Namespace>LINQPad.Controls</Namespace>
   <Namespace>System.Threading.Tasks</Namespace>
   <Namespace>System.Windows.Forms</Namespace>
   <Namespace>Tessin.Bladerunner</Namespace>
+  <Namespace>Tessin.Bladerunner.Blades</Namespace>
   <IncludeUncapsulator>false</IncludeUncapsulator>
   <RuntimeVersion>5.0</RuntimeVersion>
 </Query>

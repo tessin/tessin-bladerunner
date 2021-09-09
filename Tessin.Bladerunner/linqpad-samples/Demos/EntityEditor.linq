@@ -1,7 +1,6 @@
 <Query Kind="Program">
   <Connection>
     <ID>267fadab-00a0-4cb2-8e87-82deb2eeba5c</ID>
-    <Persist>true</Persist>
     <Server>tessin-prod-q3j2jdhga4u26.database.windows.net</Server>
     <Database>tessin-prod</Database>
     <UserName>niels@tessin.com</UserName>

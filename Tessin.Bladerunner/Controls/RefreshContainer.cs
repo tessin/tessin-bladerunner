@@ -48,22 +48,26 @@ namespace Tessin.Bladerunner.Controls
 
         private bool _first = true;
 
+        private bool _addPadding = false;
+
         private readonly DebounceDispatcher _debounceDispatcher;
 
-        public RefreshContainer(object[] controls, Func<Task<object>> onRefreshAsync, int debounceInterval = 250) 
-            : this(controls, AnyTask.Factory<object>(onRefreshAsync), debounceInterval)
+        public RefreshContainer(object[] controls, Func<Task<object>> onRefreshAsync, int debounceInterval = 250, bool addPadding = false) 
+            : this(controls, AnyTask.Factory<object>(onRefreshAsync), debounceInterval, addPadding)
         {
 
         }
 
-        public RefreshContainer(object[] controls, Func<object> onRefreshAsync, int debounceInterval = 250)
-            : this(controls, AnyTask.Factory<object>(() => Task.FromResult(onRefreshAsync())), debounceInterval)
+        public RefreshContainer(object[] controls, Func<object> onRefreshAsync, int debounceInterval = 250, bool addPadding = false)
+            : this(controls, AnyTask.Factory<object>(() => Task.FromResult(onRefreshAsync())), debounceInterval, addPadding)
         {
 
         }
 
-        public RefreshContainer(object[] controls, AnyTaskFactory taskFactory, int debounceInterval = 250)
+        public RefreshContainer(object[] controls, AnyTaskFactory taskFactory, int debounceInterval = 250, bool addPadding = false)
         {
+            _addPadding = addPadding;
+
             _debounceDispatcher = new DebounceDispatcher(debounceInterval);
             _taskFactory = taskFactory;
 
@@ -140,7 +144,14 @@ namespace Tessin.Bladerunner.Controls
                     _first = false;
                     Task.Run(() => _taskFactory.Run().Result).ContinueWith(e =>
                     {
-                        ControlExtensions.AddPadding(this, e.Result);
+                        if (_addPadding)
+                        {
+                            ControlExtensions.AddPadding(this, e.Result);
+                        }
+                        else
+                        {
+                            this.Content = e.Result;
+                        }
                     });
                 }
                 else
@@ -149,7 +160,14 @@ namespace Tessin.Bladerunner.Controls
                     {
                         Task.Run(() => _taskFactory.Run().Result).ContinueWith(e =>
                         {
-                            ControlExtensions.AddPadding(this, e.Result);
+                            if (_addPadding)
+                            {
+                                ControlExtensions.AddPadding(this, e.Result);
+                            }
+                            else
+                            {
+                                this.Content = e.Result;
+                            }
                         });
                     });
                 }

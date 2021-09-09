@@ -17,7 +17,7 @@ void Main()
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 
 	manager.PushBlade(Blade1());
-	//manager.PushBlade(Blade2());
+	manager.PushBlade(Blade2());
 	manager.PushBlade(Blade3());
 
 	manager.Dump();
@@ -27,7 +27,7 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-	return Layout2
+	return Layout
 		.Right()
 		.Fill()
 		.Vertical(new Button("Bar"), new Button("HelloWorld"), new Button("Hi"), DateTime.Now, true, new int[] { 1, 2, 3});
@@ -38,7 +38,7 @@ static IBladeRenderer Blade2()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		return Layout2
+		return Layout
 			.Gap(false)
 			.Middle()
 			.Horizontal(new Button("Bar"), new Button("HelloWorld"), new Literal("Hello"));
@@ -49,17 +49,24 @@ static IBladeRenderer Blade3()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		var sb = new TextBox();
+		var tb = new TextBox();
+		
+		var sb = new SelectBox(new string[] { "Hello", "Hej", "Bonjour" });
 
-		var header = Layout2
-			.Debug()
-			.Gap(false)
+		var header = Layout
+			//.Gap(false)
 			.Middle()
 			.Fill()
+			.Add(tb, "1fr")
 			.Add(sb, "1fr")
 			.Add(new IconButton(Icons.Plus), "min-content")
 			.Horizontal();
 
-		return new HeaderPanel(header, new Div());
+		return new HeaderPanel(header, 
+			Layout.Vertical(
+				new Button("Hello"),
+				new Spacer("400px")
+			)
+		);
 	});
 }

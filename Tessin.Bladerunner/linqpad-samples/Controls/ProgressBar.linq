@@ -1,5 +1,5 @@
 <Query Kind="Program">
-  <NuGetReference>Tessin.Bladerunner</NuGetReference>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
   <Namespace>LINQPad.Controls</Namespace>
   <Namespace>System.Drawing</Namespace>
   <Namespace>System.Threading.Tasks</Namespace>
@@ -24,7 +24,7 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		return Layout.Vertical(true,
+		return Layout.Vertical(
 			new Tessin.Bladerunner.Controls.ProgressBar(50, "200px")
 		);
 	});

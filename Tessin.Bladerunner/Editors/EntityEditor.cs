@@ -108,16 +108,16 @@ namespace Tessin.Bladerunner.Editors
             var columns = fields
                 .GroupBy(e => e.Column)
                 .OrderBy(e => e.Key)
-                .Select(e => Layout.Vertical(false,
+                .Select(e => Layout.Gap(false).Vertical(
                     e.GroupBy(f => f.Group)
                     .OrderBy(f => f.Key)
                     .Select(f =>
-                        Layout.Vertical(false, 
+                        Layout.Gap(false).Vertical( 
                             f.Key == null
-                            ? Layout.Vertical(false,
+                            ? Layout.Gap(false).Vertical(
                                 f.OrderBy(h => h.Order).Select(h => h.Editor.Render(_obj, h, Updated)).ToArray())
                             : new CollapsablePanel(f.Key,
-                                Layout.Vertical(false,
+                                Layout.Gap(false).Vertical(
                                     f.OrderBy(h => h.Order).Select(h => h.Editor.Render(_obj, h, Updated)).ToArray()))
                         ))
                         .ToArray())).ToArray();
@@ -161,9 +161,8 @@ namespace Tessin.Bladerunner.Editors
             Updated();
 
             return new HeaderPanel(
-                Layout.Horizontal(true, saveButton, validationLabel), 
+                Layout.Horizontal(saveButton, validationLabel), 
                 Layout.Horizontal( //columns
-                    true,
                     columns
                 )
             );

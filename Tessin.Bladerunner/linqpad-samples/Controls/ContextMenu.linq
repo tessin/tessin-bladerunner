@@ -1,5 +1,5 @@
 <Query Kind="Program">
-  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5.0\Tessin.Bladerunner.dll</Reference>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
   <Reference>&lt;RuntimeDirectory&gt;\System.Windows.Forms.dll</Reference>
   <Namespace>LINQPad.Controls</Namespace>
   <Namespace>System.Threading.Tasks</Namespace>
@@ -29,7 +29,7 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		return Layout.Vertical(true, new ContextMenu(new IconButton(Icons.DotsVertical),
+		return Layout.Vertical(new ContextMenu(new IconButton(Icons.DotsVertical),
 			new ContextMenu.Item("Foo", (_) => {
 				blade.PushBlade(Blade1());
 			}),

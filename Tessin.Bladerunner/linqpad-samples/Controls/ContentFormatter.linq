@@ -5,7 +5,6 @@
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
   <Namespace>Tessin.Bladerunner.Controls</Namespace>
   <IncludeUncapsulator>false</IncludeUncapsulator>
-  <RuntimeVersion>5.0</RuntimeVersion>
 </Query>
 
 void Main()
@@ -36,14 +35,14 @@ static IBladeRenderer Blade1()
 			}
 		}
 		
-		return Layout.Vertical(true, 		
-			ContentFormatter.Format(0, Wrapper, "-"),
-			ContentFormatter.Format(null, Wrapper, "-"),
-			ContentFormatter.Format("", Wrapper, "-"),
-			ContentFormatter.Format(1, Wrapper),
-			ContentFormatter.Format(123456789, Wrapper),
-			ContentFormatter.Format(123456789.24, Wrapper),
-			ContentFormatter.Format(DateTime.Parse("1982-07-17"), Wrapper)
+		return Layout.Vertical( 		
+			DefaultContentFormatter.Format(0, Wrapper, "-"),
+			DefaultContentFormatter.Format(null, Wrapper, "-"),
+			DefaultContentFormatter.Format("", Wrapper, "-"),
+			DefaultContentFormatter.Format(1, Wrapper),
+			DefaultContentFormatter.Format(123456789, Wrapper),
+			DefaultContentFormatter.Format(123456789.24, Wrapper),
+			DefaultContentFormatter.Format(DateTime.Parse("1982-07-17"), Wrapper)
 		);
 	});
 }

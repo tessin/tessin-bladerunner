@@ -1,7 +1,6 @@
 <Query Kind="Program">
   <Connection>
     <ID>267fadab-00a0-4cb2-8e87-82deb2eeba5c</ID>
-    <Persist>true</Persist>
     <Server>tessin-prod-q3j2jdhga4u26.database.windows.net</Server>
     <Database>tessin-prod</Database>
     <UserName>niels@tessin.com</UserName>
@@ -11,13 +10,13 @@
     <DisplayName>Tessin-Prod</DisplayName>
     <UniversalAuthentication>true</UniversalAuthentication>
   </Connection>
-  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5.0\Tessin.Bladerunner.dll</Reference>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
+  <Namespace>LINQPad.Controls</Namespace>
   <Namespace>System.Drawing</Namespace>
   <Namespace>System.Threading.Tasks</Namespace>
   <Namespace>Tessin.Bladerunner</Namespace>
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
   <Namespace>Tessin.Bladerunner.Controls</Namespace>
-  <Namespace>LINQPad.Controls</Namespace>
   <RuntimeVersion>5.0</RuntimeVersion>
 </Query>
 
@@ -47,7 +46,7 @@ static IBladeRenderer Blade1()
 			return ac.SelectedOption;
 		});
 		
-		return Layout.Vertical(true, button, ac, rc);
+		return Layout.Vertical(button, ac, rc);
 	});
 }
 

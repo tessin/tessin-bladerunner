@@ -29,9 +29,9 @@ static IBladeRenderer Blade1()
 
 		RefreshContainer rc = new RefreshContainer(new[] { db, tb }, () =>
 		{
-			return Layout.Vertical(true, db.SelectedDate, tb.SelectedDate);
+			return Layout.Vertical(db.SelectedDate, tb.SelectedDate);
 		});
 
-		return Layout.Vertical(true, db, tb, rc);
+		return Layout.Vertical(db, tb, rc);
 	});
 }

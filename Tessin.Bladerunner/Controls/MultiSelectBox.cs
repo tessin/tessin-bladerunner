@@ -83,7 +83,7 @@ namespace Tessin.Bladerunner.Controls
             {
                 DetachCheckBoxes();
                 _checkBoxes = _options.Select((e,i) => new CheckBox(e.Label, isChecked: SelectedIndexes.Contains(i))).ToArray();
-                _checkBoxContainer.Content = Layout.Vertical(false, _checkBoxes);
+                _checkBoxContainer.Content = Layout.Gap(false).Vertical(_checkBoxes);
                 AttachCheckBoxes();
             }
         }

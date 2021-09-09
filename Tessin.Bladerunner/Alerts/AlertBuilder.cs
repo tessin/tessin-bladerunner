@@ -117,9 +117,9 @@ namespace Tessin.Bladerunner.Alerts
                         blade.Manager.CloseSideBlade(action);
                     });
                 }
-                return Layout.Vertical(true,
+                return Layout.Vertical(
                     _builder._message,
-                    Layout.Horizontal(true, _builder._actions.Select(RenderButton))
+                    Layout.Horizontal(_builder._actions.Select(RenderButton))
                 );
             }
         }

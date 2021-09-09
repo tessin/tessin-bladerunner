@@ -586,7 +586,7 @@ H2.default {
 
 .blade-header {
   width: 100%;
-  height: 38px;
+  height: 43px;
   border-bottom: 1px solid #ccc;
   background-color: aqua;
   display: -webkit-box;
@@ -614,6 +614,9 @@ H2.default {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .blade-content {
@@ -1044,32 +1047,17 @@ H2.default {
 
 .header-panel--container {
   height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  justify-items: flex-start;
 }
 
 .header-panel--header {
   z-index: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  justify-items: center;
   background-color: powderblue;
   padding: 10px;
   border-bottom: 1px solid #ccc;
-  -ms-flex-line-pack: center;
-      align-content: center;
   width: 100%;
+  width: calc(100% - $panel-margin);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .header-panel--body {
@@ -1170,18 +1158,10 @@ BUTTON.collapsable-panel--header:before {
   min-height: 30px;
 }
 
-.property-list > DIV > SPAN {
+.property-list > DIV > SPAN:first-child {
   text-align: left;
   font-size: 1.1em;
   font-weight: bold;
-}
-
-.property-list > DIV > DIV {
-  font-size: 1.1em;
-  margin-left: auto;
-  margin-right: 0;
-  position: relative;
-  text-align: right;
 }
 
 .card {

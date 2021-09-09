@@ -1,11 +1,11 @@
 <Query Kind="Program">
-  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5.0\Tessin.Bladerunner.dll</Reference>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
+  <Namespace>LINQPad.Controls</Namespace>
   <Namespace>System.Drawing</Namespace>
   <Namespace>System.Threading.Tasks</Namespace>
   <Namespace>Tessin.Bladerunner</Namespace>
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
   <Namespace>Tessin.Bladerunner.Controls</Namespace>
-  <Namespace>LINQPad.Controls</Namespace>
   <RuntimeVersion>5.0</RuntimeVersion>
 </Query>
 
@@ -33,8 +33,8 @@ static IBladeRenderer Blade1()
 		Add("A","1",new Tessin.Bladerunner.Controls.Icon(Icons.CoffeeOutline));
 		Add("B","2","Foo");
 		Add("C", "3", "Bar");
-		Add("D", "4", Layout.Vertical(false, new object[] { "23 %", new ProgressBar(23, "70px")}, HorizontalAlignment.Center));
-		Add("E","5",Layout.Vertical(false, new Button("HelloWorld")));
+		Add("D", "4", Layout.Gap(false).Vertical(new object[] { "23 %", new ProgressBar(23, "70px")}));
+		Add("E","5",Layout.Gap(false).Vertical(new Button("HelloWorld")));
 		
 		return Matrix<MatrixCell>.Create(list);
 	});

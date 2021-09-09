@@ -6,7 +6,7 @@ using Tessin.Bladerunner.Blades;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class Menu : Div, INoPadding
+    public class Menu : Div, INoContainerPadding
     {
         internal Menu(IEnumerable<Control> children) : base(children)
         { 

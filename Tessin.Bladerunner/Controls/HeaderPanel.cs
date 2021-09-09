@@ -7,7 +7,7 @@ using Tessin.Bladerunner.Blades;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class HeaderPanel : Div, INoPadding
+    public class HeaderPanel : Div, INoContainerPadding
     {
         public HeaderPanel(object header, object body)
         {
@@ -18,7 +18,16 @@ namespace Tessin.Bladerunner.Controls
             divHeader.SetClass("header-panel--header");
 
             var dcBody = new DumpContainer();
-            ControlExtensions.AddPadding(dcBody, body);
+
+            if (body is RefreshContainer)
+            {
+                dcBody.Content = body;
+            }
+            else
+            {
+                ControlExtensions.AddPadding(dcBody, body);
+            }
+            
             var divBody = new Div(dcBody);
             divBody.SetClass("header-panel--body");
 

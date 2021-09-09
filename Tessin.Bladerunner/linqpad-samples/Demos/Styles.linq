@@ -1,8 +1,8 @@
 <Query Kind="Program">
-  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\net5.0\Tessin.Bladerunner.dll</Reference>
-  <Namespace>Tessin.Bladerunner.Blades</Namespace>
-  <Namespace>Tessin.Bladerunner</Namespace>
+  <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
   <Namespace>LINQPad.Controls</Namespace>
+  <Namespace>Tessin.Bladerunner</Namespace>
+  <Namespace>Tessin.Bladerunner.Blades</Namespace>
   <IncludeUncapsulator>false</IncludeUncapsulator>
   <RuntimeVersion>5.0</RuntimeVersion>
 </Query>
@@ -22,7 +22,7 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		return Layout.Horizontal(true,
+		return Layout.Horizontal(
 			Util.WithHeading(new Button("Hello", (_) => {}), "Test"), Util.WithHeading("Foo", "Test")
 		);
 	});

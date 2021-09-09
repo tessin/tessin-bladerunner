@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using LINQPad;
 using LINQPad.Controls;
+using Tessin.Bladerunner.Blades;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner
@@ -61,10 +62,17 @@ namespace Tessin.Bladerunner
         internal HorizontalAlignment _hAlignment = HorizontalAlignment.Left;
         internal VerticalAlignment _vAlignment = VerticalAlignment.Top;
         internal readonly List<Element> _elements = new();
+        internal bool _containerPadding = true;
 
         public LayoutBuilder Padding(string padding = "10px")
         {
             _padding = "10px";
+            return this;
+        }
+
+        public LayoutBuilder ContainerPadding(bool containerPadding = true)
+        {
+            _containerPadding = containerPadding;
             return this;
         }
 
@@ -179,7 +187,15 @@ namespace Tessin.Bladerunner
 
         private Div Render()
         {
-            return new LayoutDiv(this);
+            return !_containerPadding ? new LayoutDivWithoutContainerContainerPadding(this) : new LayoutDiv(this);
+        }
+    }
+
+    internal class LayoutDivWithoutContainerContainerPadding : LayoutDiv, INoContainerPadding
+    {
+        internal LayoutDivWithoutContainerContainerPadding(LayoutBuilder builder) : base(builder)
+        {
+
         }
     }
 
@@ -214,20 +230,18 @@ namespace Tessin.Bladerunner
             if (builder._orientation == Orientation.Horizontal)
             {
                 this.Styles["grid-template-columns"] = template;
-                this.Styles["grid-template-rows"] = "auto";
                 if (builder._gap != 0)
                 {
                     this.Styles["column-gap"] = (builder._gap*0.4) + "em";
                 }
                 if (builder._fill)
                 {
-                    builder._height = "100%";
+                    builder._width = "100%";
+                    this.Styles["justify-items"] = "stretch";
                 }
             }
             else
             {
-                //Vertical:
-                this.Styles["grid-template-columns"] = "auto";
                 this.Styles["grid-template-rows"] = template;
                 if (builder._gap != 0)
                 {
@@ -237,11 +251,6 @@ namespace Tessin.Bladerunner
                 {
                     builder._width = "100%";
                 }
-            }
-
-            if (builder._gap != 0)
-            {
-                this.Styles["grid-template-rows"] = template;
             }
 
             if (!string.IsNullOrEmpty(builder._padding))
@@ -256,18 +265,23 @@ namespace Tessin.Bladerunner
             {
                 if (element._space != "auto" && element._content is Control control)
                 {
-                    control.Styles["width"] = "inherit";
+                    control.Styles["width"] = "-webkit-fill-available";
                 }
                 this.VisualTree.Add(builder._formatter.Format(element._content));
             }
         }
     }
 
-    public static class Layout2
+    public static class Layout
     {
         public static LayoutBuilder Gap(bool gap = true)
         {
             return (new LayoutBuilder()).Gap(gap);
+        }
+
+        public static LayoutBuilder ContainerPadding(bool containerPadding = true)
+        {
+            return (new LayoutBuilder()).ContainerPadding(containerPadding);
         }
 
         public static LayoutBuilder Top()
@@ -334,82 +348,67 @@ namespace Tessin.Bladerunner
         {
             return (new LayoutBuilder()).Horizontal(elements);
         }
+
+        public static Div Vertical(IEnumerable<object> elements)
+        {
+            return (new LayoutBuilder()).Vertical(elements.ToArray());
+        }
+
+        public static Div Horizontal(IEnumerable<object> elements)
+        {
+            return (new LayoutBuilder()).Horizontal(elements.ToArray());
+        }
     }
 
-    public static class Layout
-    {
-        private static object _Vertical(bool withGaps, IEnumerable<object> elements, HorizontalAlignment alignment)
-        {
-            var @class = $"vrun vrun-{alignment.ToString().ToLower()}";
-            elements = elements.Where(e => e != null);
-            if (!withGaps)
-            {
-                return WithClass(LINQPad.Util.VerticalRun(elements), @class);
-            }
-            return WithClass(LINQPad.Util.VerticalRun(elements.Select(e => LINQPad.Util.WithStyle(e, "margin-bottom:0.4em;display:block;"))), @class);
-        }
+    //public static class Layout
+    //{
+    //    private static object _Vertical(bool withGaps, IEnumerable<object> elements, HorizontalAlignment alignment)
+    //    {
+    //        var @class = $"vrun vrun-{alignment.ToString().ToLower()}";
+    //        elements = elements.Where(e => e != null);
+    //        if (!withGaps)
+    //        {
+    //            return WithClass(LINQPad.Util.VerticalRun(elements), @class);
+    //        }
+    //        return WithClass(LINQPad.Util.VerticalRun(elements.Select(e => LINQPad.Util.WithStyle(e, "margin-bottom:0.4em;display:block;"))), @class);
+    //    }
 
-        public static object Vertical(bool withGaps, IEnumerable<object> elements, HorizontalAlignment alignment = HorizontalAlignment.Left)
-        {
-            return _Vertical(withGaps, elements, alignment);
-        }
+    //    public static object Vertical(bool withGaps, IEnumerable<object> elements, HorizontalAlignment alignment = HorizontalAlignment.Left)
+    //    {
+    //        return _Vertical(withGaps, elements, alignment);
+    //    }
 
-        public static object Vertical(bool withGaps, params object[] elements)
-        {
-            return _Vertical(withGaps, elements, HorizontalAlignment.Left);
-        }
+    //    public static object Vertical(bool withGaps, params object[] elements)
+    //    {
+    //        return _Vertical(withGaps, elements, HorizontalAlignment.Left);
+    //    }
 
-        public static object WithClass(object data, string @class)
-        {
-            Type t = typeof(Util)
-                .Assembly.GetType("LINQPad.ObjectGraph.Highlight");
-            var ctor = t.GetConstructors()[0];
-            return ctor.Invoke(new object[] { data, @class, null });
-        }
+    //    public static object WithClass(object data, string @class)
+    //    {
+    //        Type t = typeof(Util)
+    //            .Assembly.GetType("LINQPad.ObjectGraph.Highlight");
+    //        var ctor = t.GetConstructors()[0];
+    //        return ctor.Invoke(new object[] { data, @class, null });
+    //    }
 
-        private static object _Horizontal(bool withGaps, IEnumerable<object> elements)
-        {
-            elements = elements.Where(e => e != null);
-            if (!withGaps)
-            {
-                return WithClass(Util.VerticalRun(elements), "hrun");
-            }
-            return WithClass(LINQPad.Util.VerticalRun(elements.Select(e => LINQPad.Util.WithStyle(e, "margin-right:0.4em;display:block;"))), "hrun");
-        }
+    //    private static object _Horizontal(bool withGaps, IEnumerable<object> elements)
+    //    {
+    //        elements = elements.Where(e => e != null);
+    //        if (!withGaps)
+    //        {
+    //            return WithClass(Util.VerticalRun(elements), "hrun");
+    //        }
+    //        return WithClass(LINQPad.Util.VerticalRun(elements.Select(e => LINQPad.Util.WithStyle(e, "margin-right:0.4em;display:block;"))), "hrun");
+    //    }
 
-        public static object Horizontal(bool withGaps, IEnumerable<object> elements)
-        {
-            return _Horizontal(withGaps, elements);
-        }
+    //    public static object Horizontal(bool withGaps, IEnumerable<object> elements)
+    //    {
+    //        return _Horizontal(withGaps, elements);
+    //    }
 
-
-        public static object Horizontal(bool withGaps, params object[] elements)
-        {
-            return _Horizontal(withGaps, elements);
-        }
-
-        //[Obsolete]
-        //public static object DumpMatrix<T, T1, T2>(IQueryable<T> raw, Expression<Func<T, T1>> verticalExpr, Expression<Func<T, T2>> horizontalExpr, Func<IEnumerable<T>, object> cellRenderer) where T1 : IComparable where T2 : IComparable
-        //{
-        //    var verticalKeys = raw.GroupBy(verticalExpr).Select(e => e.Key).Distinct().ToList();
-        //    var horizontalKeys = raw.GroupBy(horizontalExpr).Select(e => e.Key).Distinct().ToList();
-
-        //    var verticalFunc = verticalExpr.Compile();
-        //    var horizontalFunc = horizontalExpr.Compile();
-
-        //    var table = new Table();
-
-        //    table.Rows.Add(new TableRow(true, horizontalKeys.Select(e => new TableCell(true, new Literal(e.ToString()))).ToArray().Prepend(new TableCell(true, new Literal("")))));
-
-        //    foreach (var verticalKey in verticalKeys)
-        //    {
-        //        table.Rows.Add(new TableRow(false,
-        //            horizontalKeys.Select(horizontalKey => cellRenderer(raw.Where(e => horizontalFunc(e).Equals(horizontalKey) && verticalFunc(e).Equals(verticalKey)))).Select(e => new TableCell(false, new Literal(e.ToString()))).ToArray()
-        //                .Prepend(new TableCell(true, new Literal(verticalKey.ToString())))
-        //        ));
-        //    }
-
-        //    return table;
-        //}
-	}
+    //    public static object Horizontal(bool withGaps, params object[] elements)
+    //    {
+    //        return _Horizontal(withGaps, elements);
+    //    }
+    //}
 }
