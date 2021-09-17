@@ -33,8 +33,8 @@ static IBladeRenderer Blade1()
 		Add("A","1",new Tessin.Bladerunner.Controls.Icon(Icons.CoffeeOutline));
 		Add("B","2","Foo");
 		Add("C", "3", "Bar");
-		Add("D", "4", Layout.Gap(false).Center().Vertical(new object[] { "23 %", new ProgressBar(23, "70px")}));
-		Add("E","5",Layout.Vertical(new Button("HelloWorld")));
+		Add("D", "4", "X");
+		Add("E","5", "X");
 		
 		return Matrix<MatrixCell>.Create(list);
 	});

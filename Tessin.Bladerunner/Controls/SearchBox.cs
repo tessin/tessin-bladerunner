@@ -18,7 +18,7 @@ namespace Tessin.Bladerunner.Controls
 
         public SearchBox(string initialText = "", string placeHolder = "Search", ContextMenu contextMenu = null)
         {
-            _textBox = new TextBox(initialText, width: "150px;");
+            _textBox = new TextBox(initialText);
             _textBox.HtmlElement.SetAttribute("placeholder", placeHolder);
             _textBox.TextInput += (sender, args) =>
             {

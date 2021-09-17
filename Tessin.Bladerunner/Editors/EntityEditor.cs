@@ -140,7 +140,7 @@ namespace Tessin.Bladerunner.Editors
 
             var validationLabel = Typography.Error("");
 
-            var saveButton = new Button(_actionVerb, (_) =>
+            var saveButton = new Controls.Button(_actionVerb, (_) =>
             {
                 var validationErrors = fields.Select(e => e.Editor.Validate(_obj, e)).Count(e => !e);
 

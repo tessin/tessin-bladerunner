@@ -92,7 +92,7 @@ namespace Tessin.Bladerunner
             control.Style = "display:" + (value ? "block" : "none");
         }
 
-        public static void ClearStyles(this Table table)
+        public static void ClearStyles(this Controls.Table table)
         {
             foreach (var style in table.Styles)
             {
@@ -125,7 +125,7 @@ namespace Tessin.Bladerunner
                     }
                     var dc = new DumpContainer
                     {
-                        Style = "padding:10px;width:100%;",
+                        Style = "padding:10px;width:100%;box-sizing:border-box;",
                         Content = result
                     };
                     return dc;
@@ -133,7 +133,8 @@ namespace Tessin.Bladerunner
             }
             else if (!(content is INoContainerPadding))
             {
-                dc.Style = "padding:10px;width:calc(100% - 10px);";
+                //width:calc(100% - 10px);
+                dc.Style = "padding:10px;width:100%;box-sizing:border-box;";
             }
 
             dc.Content = content;
@@ -141,14 +142,14 @@ namespace Tessin.Bladerunner
 
         public static void OnUpdate(this Control control, Action onUpdate)
         {
-            if (control is TextBox textBox)
+            if (control is LINQPad.Controls.TextBox textBox)
             {
                 textBox.TextInput += (_, __) =>
                 {
                     onUpdate();
                 };
             }
-            if (control is CheckBox checkBox)
+            if (control is Controls.CheckBox checkBox)
             {
                 checkBox.Click += (_, __) =>
                 {
@@ -162,7 +163,7 @@ namespace Tessin.Bladerunner
                     onUpdate();
                 };
             }
-            if (control is TextArea textArea)
+            if (control is Controls.TextArea textArea)
             {
                 textArea.TextInput += (_, __) =>
                 {

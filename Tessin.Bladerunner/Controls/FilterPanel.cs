@@ -13,7 +13,7 @@ namespace Tessin.Bladerunner.Controls
         {
             var txtSearch = new SearchBox(placeHolder: "Filter");
 
-            var refreshPanel = new RefreshContainer(new[] { txtSearch }, () =>
+            var refreshPanel = new RefreshPanel(new[] { txtSearch }, () =>
             {
                 var searchText = txtSearch.Text.Trim();
 

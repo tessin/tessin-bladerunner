@@ -1,6 +1,5 @@
 <Query Kind="Program">
   <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
-  <Namespace>LINQPad.Controls</Namespace>
   <Namespace>System.Drawing</Namespace>
   <Namespace>System.Threading.Tasks</Namespace>
   <Namespace>Tessin.Bladerunner</Namespace>
@@ -23,10 +22,17 @@ void Main()
 static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
-	{
+	{		
+		//return new DefaultContentFormatter().Format(new Field("Title", new TextBox(), ""));
+		
+		
 		return 
 			Layout.Vertical(
 			new Field("Title", new TextBox(), ""),
+			new CollapsablePanel("Contact", Layout.Vertical(
+				new Field("Name", new TextBox(), ""),
+				new Field("Email", new TextBox(), "")
+			)),
 			new CollapsablePanel("Contact", Layout.Vertical(
 				new Field("Name", new TextBox(), ""),
 				new Field("Email", new TextBox(), "")

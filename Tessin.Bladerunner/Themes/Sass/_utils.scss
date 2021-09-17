@@ -1,28 +1,28 @@
-.hrun > DIV {
-    display: flex;
-    flex-direction: row;
-}
+// .hrun > DIV {
+//     display: flex;
+//     flex-direction: row;
+// }
 
-.vrun > DIV {
-    display: flex;
-    width:100%;
-    flex-direction: column;
-} 
+// .vrun > DIV {
+//     display: flex;
+//     width:100%;
+//     flex-direction: column;
+// } 
 
-.vrun-center > DIV {
-    align-items: center;   
-}
+// .vrun-center > DIV {
+//     align-items: center;   
+// }
 
-.vrun-left > DIV {
-    align-items: flex-start;   
-}
+// .vrun-left > DIV {
+//     align-items: flex-start;   
+// }
 
-.vrun-right > DIV {
-    align-items: flex-end;   
-}
+// .vrun-right > DIV {
+//     align-items: flex-end;   
+// }
 
 SPAN.small {
-    font-size:0.8em;    
+    font-size:0.9em;    
     color:darkgray;
 }
 
@@ -43,4 +43,9 @@ H2.default
 P.default
 {
     
+}
+
+SPAN.no-wrap
+{
+    white-space: nowrap;
 }

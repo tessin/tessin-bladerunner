@@ -18,7 +18,7 @@ namespace Tessin.Bladerunner.Controls
 
         private readonly Div _loadingDiv = new Div();
 
-        private readonly TextBox _textBox = new TextBox(width: "250px");
+        private readonly TextBox _textBox = new TextBox();
 
         private readonly Control _dataList = new Control("datalist");
 

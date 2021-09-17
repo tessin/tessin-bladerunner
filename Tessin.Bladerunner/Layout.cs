@@ -8,6 +8,8 @@ using LINQPad.Controls;
 using Tessin.Bladerunner.Blades;
 using Tessin.Bladerunner.Controls;
 
+//todo: make simple Vertical layouts more simple
+
 namespace Tessin.Bladerunner
 {
     public enum HorizontalAlignment
@@ -53,20 +55,20 @@ namespace Tessin.Bladerunner
         internal IContentFormatter _formatter = new DefaultContentFormatter();
         internal bool _debug = false;
         internal string _class = null;
-        internal int _gap = 1;
-        internal string _padding = null;
-        internal bool _fill = false;
-        internal string _width = "max-content";
+        internal bool _gap = true;
+        internal bool _padding = false;
+        internal bool? _fill = null;
+        internal string _width = null;
         internal string _height = "max-content"; 
         internal Orientation _orientation = Orientation.Vertical;
-        internal HorizontalAlignment _hAlignment = HorizontalAlignment.Left;
-        internal VerticalAlignment _vAlignment = VerticalAlignment.Top;
+        internal HorizontalAlignment? _hAlignment = null;
+        internal VerticalAlignment? _vAlignment = null;
         internal readonly List<Element> _elements = new();
         internal bool _containerPadding = true;
 
-        public LayoutBuilder Padding(string padding = "10px")
+        public LayoutBuilder Padding(bool padding)
         {
-            _padding = "10px";
+            _padding = padding;
             return this;
         }
 
@@ -78,13 +80,13 @@ namespace Tessin.Bladerunner
 
         public LayoutBuilder Gap(bool gap = true)
         {
-            _gap = gap ? 1 : 0;
+            _gap = gap;
             return this;
         }
 
-        public LayoutBuilder Fill()
+        public LayoutBuilder Fill(bool fill = true)
         {
-            _fill = true;
+            _fill = fill;
             return this;
         }
 
@@ -185,6 +187,17 @@ namespace Tessin.Bladerunner
             return Render();
         }
 
+        public Div Vertical(IEnumerable<object> elements)
+        {
+            return Vertical(elements.ToArray());
+        }
+
+        public Div Horizontal(IEnumerable<object> elements)
+        {
+            return Horizontal(elements.ToArray());
+        }
+
+
         private Div Render()
         {
             return !_containerPadding ? new LayoutDivWithoutContainerContainerPadding(this) : new LayoutDiv(this);
@@ -203,7 +216,32 @@ namespace Tessin.Bladerunner
     {
         internal LayoutDiv(LayoutBuilder builder)
         {
+            var fill = (builder._fill, builder._orientation) switch
+            {
+                (null, Orientation.Horizontal) => false,
+                (null, Orientation.Vertical) => true,
+                (not null, _) => builder._fill.Value,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            var hAlignment = (builder._hAlignment, builder._orientation) switch
+            {
+                (null, Orientation.Horizontal) => HorizontalAlignment.Left,
+                (null, Orientation.Vertical) => HorizontalAlignment.Stretch,
+                (not null, _) => builder._hAlignment.Value,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            var vAlignment = (builder._vAlignment, builder._orientation) switch
+            {
+                (null, Orientation.Horizontal) => VerticalAlignment.Stretch,
+                (null, Orientation.Vertical) => VerticalAlignment.Top,
+                (not null, _) => builder._vAlignment.Value,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
             this.Styles["display"] = "grid";
+            this.Styles["box-sizing"] = "border-box";
 
             if (builder._debug)
             {
@@ -212,14 +250,14 @@ namespace Tessin.Bladerunner
 
             var template = string.Join(" ", builder._elements.Select(e => e._space));
 
-            this.Styles["justify-items"] = builder._hAlignment switch
+            this.Styles["justify-items"] = hAlignment switch
             {
                 HorizontalAlignment.Right => "end",
                 HorizontalAlignment.Left => "start",
                 HorizontalAlignment.Center => "center",
                 _ => "stretch"
             };
-            this.Styles["align-items"] = builder._vAlignment switch
+            this.Styles["align-items"] = vAlignment switch
             {
                 VerticalAlignment.Bottom => "end",
                 VerticalAlignment.Top => "start",
@@ -230,44 +268,47 @@ namespace Tessin.Bladerunner
             if (builder._orientation == Orientation.Horizontal)
             {
                 this.Styles["grid-template-columns"] = template;
-                if (builder._gap != 0)
+                if (builder._gap)
                 {
-                    this.Styles["column-gap"] = (builder._gap*0.4) + "em";
+                    this.Styles["column-gap"] = "10px";
                 }
-                if (builder._fill)
+                if (fill)
                 {
-                    builder._width = "100%";
+                    builder._width ??= "100%";
                     this.Styles["justify-items"] = "stretch";
                 }
             }
             else
             {
                 this.Styles["grid-template-rows"] = template;
-                if (builder._gap != 0)
+                if (builder._gap)
                 {
-                    this.Styles["row-gap"] = (builder._gap * 0.4) + "em";
+                    this.Styles["row-gap"] = "10px";
                 }
-                if (builder._fill)
+                if (fill)
                 {
-                    builder._width = "100%";
+                    builder._width ??= "100%";
                 }
             }
 
-            if (!string.IsNullOrEmpty(builder._padding))
+            if (builder._padding)
             {
-                this.Styles["padding"] = builder._padding;
+                this.Styles["padding"] = "10px";
             }
 
             this.Styles["height"] = builder._height;
-            this.Styles["width"] = builder._width;
+            this.Styles["width"] = builder._width ?? "max-content";
 
-            foreach (var element in builder._elements)
+            foreach (var element in builder._elements.Where(e => e != null))
             {
                 if (element._space != "auto" && element._content is Control control)
                 {
                     control.Styles["width"] = "-webkit-fill-available";
                 }
-                this.VisualTree.Add(builder._formatter.Format(element._content));
+
+                var formatted = builder._formatter.Format(element._content);
+
+                this.VisualTree.Add(formatted);
             }
         }
     }
@@ -294,7 +335,7 @@ namespace Tessin.Bladerunner
             return (new LayoutBuilder()).Debug();
         }
 
-        public static LayoutBuilder Padding(string padding = "10px")
+        public static LayoutBuilder Padding(bool padding = true)
         {
             return (new LayoutBuilder()).Padding(padding);
         }

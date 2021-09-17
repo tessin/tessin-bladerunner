@@ -7,9 +7,9 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class ColorBox : TextBox
+    public class ColorBox : LINQPad.Controls.TextBox
     {
-        public ColorBox(string intitialValue = null, string width = "40px", Action<TextBox> onTextInput = null) : base(intitialValue??"#000000", width, onTextInput)
+        public ColorBox(string initialValue = null, string width = "40px", Action<LINQPad.Controls.TextBox> onTextInput = null) : base(initialValue ?? "#000000", width, onTextInput)
         {
             this.HtmlElement.SetAttribute("type", "color");
         }

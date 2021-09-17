@@ -33,7 +33,7 @@ static IBladeRenderer Blade1()
 		//	return "Also Works";
 		//};
 
-		var refreshContainer = new RefreshContainer(new[] { txtInput }, foo);
+		var refreshContainer = new RefreshPanel(new[] { txtInput }, foo);
 		
 		return Layout.Vertical(
 			txtInput,

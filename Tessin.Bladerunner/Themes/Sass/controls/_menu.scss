@@ -8,7 +8,8 @@
   width: 100%;
   box-sizing: border-box;
   min-width: 200px;
-  max-width: 250px;
+  max-width: 300px;
+  min-height: 43px;
 
   padding-left: 10px;
   padding-right: 10px;
@@ -32,10 +33,6 @@
   display: grid;
   grid-template-columns: minmax(32px, auto) 1fr;
   cursor: pointer;
-}
-
-.menu-button > .button > div {
-  /* display: flex; */
 }
 
 .menu-button > .button > .menu-button--icon {
@@ -68,6 +65,7 @@
   border-radius: 12px;
   font-size: 0.8em;
   margin-left: 5px;
+  white-space: nowrap;
 }
 
 .menu-button--actions {

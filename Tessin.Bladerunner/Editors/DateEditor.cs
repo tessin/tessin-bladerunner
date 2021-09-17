@@ -38,7 +38,7 @@ namespace Tessin.Bladerunner.Editors
                 throw new ArgumentException("Not a DateTime or DateTimeOffset.");
             }
 
-            _dateBox = new DateBox() { };
+            _dateBox = new DateBox(value) { };
             //_dateBox.HtmlElement.SetAttribute("placeholder", "YYYY-MM-DD");
 
             _dateBox.TextInput += (sender, args) => preview();

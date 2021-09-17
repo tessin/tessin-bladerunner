@@ -42,7 +42,7 @@ namespace Tessin.Bladerunner.Controls
         public event RefreshEvent Updated;
     }
 
-    public class RefreshContainer : DumpContainer
+    public class RefreshPanel : DumpContainer
     {
         private readonly AnyTaskFactory _taskFactory;
 
@@ -52,19 +52,19 @@ namespace Tessin.Bladerunner.Controls
 
         private readonly DebounceDispatcher _debounceDispatcher;
 
-        public RefreshContainer(object[] controls, Func<Task<object>> onRefreshAsync, int debounceInterval = 250, bool addPadding = false) 
+        public RefreshPanel(object[] controls, Func<Task<object>> onRefreshAsync, int debounceInterval = 250, bool addPadding = false) 
             : this(controls, AnyTask.Factory<object>(onRefreshAsync), debounceInterval, addPadding)
         {
 
         }
 
-        public RefreshContainer(object[] controls, Func<object> onRefreshAsync, int debounceInterval = 250, bool addPadding = false)
+        public RefreshPanel(object[] controls, Func<object> onRefreshAsync, int debounceInterval = 250, bool addPadding = false)
             : this(controls, AnyTask.Factory<object>(() => Task.FromResult(onRefreshAsync())), debounceInterval, addPadding)
         {
 
         }
 
-        public RefreshContainer(object[] controls, AnyTaskFactory taskFactory, int debounceInterval = 250, bool addPadding = false)
+        public RefreshPanel(object[] controls, AnyTaskFactory taskFactory, int debounceInterval = 250, bool addPadding = false)
         {
             _addPadding = addPadding;
 
@@ -135,10 +135,23 @@ namespace Tessin.Bladerunner.Controls
             _Refresh();
         }
 
+        private static Control Element(string name, string @class, string content)
+        {
+            var el = new Control(name);
+            el.HtmlElement.InnerText = content;
+            if (@class != null)
+            {
+                el.HtmlElement.SetAttribute("class", @class);
+            }
+            return el;
+        }
+
         private void _Refresh()
         {
             //lock (this)
             {
+                this.Content = Element("div", "loading", "Loading...");
+
                 if (_first)
                 {
                     _first = false;

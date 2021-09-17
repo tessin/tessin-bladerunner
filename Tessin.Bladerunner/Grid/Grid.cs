@@ -4,7 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using LINQPad.Controls;
-using Table = LINQPad.Controls.Table;
+using Table=Tessin.Bladerunner.Controls.Table;
+using TableRow = Tessin.Bladerunner.Controls.TableRow;
+using TableCell = Tessin.Bladerunner.Controls.TableCell;
 
 namespace Tessin.Bladerunner.Grid
 {
@@ -26,7 +28,7 @@ namespace Tessin.Bladerunner.Grid
 
         private string _width;
 
-        private Action<T, TableRow> _rowAction;
+        private Action<T, Controls.TableRow> _rowAction;
 
         public Grid(IEnumerable<T> rows, string width = null)
         {

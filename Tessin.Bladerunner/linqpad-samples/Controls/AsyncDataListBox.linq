@@ -41,7 +41,7 @@ static IBladeRenderer Blade1()
 			await ac.SetValueAsync("fb407699-4987-4fa6-a6ce-a68433c6f7cd");
 		});
 		
-		var rc = new RefreshContainer(new[] { ac }, () =>
+		var rc = new RefreshPanel(new[] { ac }, () =>
 		{
 			return ac.SelectedOption;
 		});

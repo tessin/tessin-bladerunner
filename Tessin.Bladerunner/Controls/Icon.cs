@@ -9,6 +9,15 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
+    public class IconPlaceholder : Div
+    {
+        public IconPlaceholder()
+        {
+            this.Styles["width"] = "24px";
+            this.Styles["height"] = "24px";
+        }
+    }
+
     public class Icon : Div
     {
         public Icon(string icon, string tooltip = "", Color color = Color.Black) : base()

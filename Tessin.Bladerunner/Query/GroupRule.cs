@@ -42,7 +42,7 @@ namespace Tessin.Bladerunner.Query
                     return group.Render(builder);
                 }
 
-                var lstRules = new SelectBox(builder.Labels.ToArray(), rule.RuleIndex)
+                var lstRules = new Controls.SelectBox(builder.Labels.ToArray(), rule.RuleIndex)
                 {
                     Width = "15em"
                 };
@@ -56,7 +56,7 @@ namespace Tessin.Bladerunner.Query
                     refresh();
                 };
 
-                var chkNegate = new CheckBox("NOT", false, (chk) =>
+                var chkNegate = new Controls.CheckBox("NOT", false, (chk) =>
                 {
                     rule.Negate = chk.Checked;
                 });

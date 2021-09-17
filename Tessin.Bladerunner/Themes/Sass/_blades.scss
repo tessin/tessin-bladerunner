@@ -82,13 +82,20 @@
 
 /* We need flox throughout to figure out scrolling further down the line.. */
 .blade-content > div,
-.blade-content > div > div {
+.blade-content > div > div
+{
   display: flex;
   width: 100%;
 }
 
+.blade-content > div > div > div
+{
+  //width:calc(100% - #{$panel-margin});
+  width:100%
+}
+
 .blade:nth-child(even) .blade-panel {
-  background-color: $blade-panel-odd;
+  background-color: $blade-panel-even;
 }
 
 .blade:nth-child(odd) .blade-panel {

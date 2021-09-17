@@ -1,6 +1,5 @@
 <Query Kind="Program">
   <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
-  <Namespace>LINQPad.Controls</Namespace>
   <Namespace>System.Drawing</Namespace>
   <Namespace>System.Threading.Tasks</Namespace>
   <Namespace>Tessin.Bladerunner</Namespace>
@@ -26,7 +25,7 @@ static IBladeRenderer Blade1()
 	{
 		SearchBox sb = new SearchBox();
 
-		RefreshContainer rc = new RefreshContainer(new[] { sb }, () =>
+		RefreshPanel rc = new RefreshPanel(new[] { sb }, () =>
 		{
 			return Layout.Vertical(sb.Text);
 		});

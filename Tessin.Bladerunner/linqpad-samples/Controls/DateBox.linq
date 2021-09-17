@@ -27,7 +27,7 @@ static IBladeRenderer Blade1()
 		DateBox db = new DateBox();
 		DateBox tb = new DateBox(showTime:true);
 
-		RefreshContainer rc = new RefreshContainer(new[] { db, tb }, () =>
+		RefreshPanel rc = new RefreshPanel(new[] { db, tb }, () =>
 		{
 			return Layout.Vertical(db.SelectedDate, tb.SelectedDate);
 		});

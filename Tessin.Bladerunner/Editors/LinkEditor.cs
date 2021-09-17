@@ -36,15 +36,15 @@ namespace Tessin.Bladerunner.Editors
             if (_fetchUrl != null)
             {
                 var url = _fetchUrl(obj);
-                link = new Hyperlink(label, url);
+                link = new Controls.Hyperlink(label, url);
             }
             else if(_onClick != null)
             {
-                link = new Hyperlink(label, (_) => _onClick(obj));
+                link = new Controls.Hyperlink(label, (_) => _onClick(obj));
             }
             else
             {
-                link = new Hyperlink(label, label);
+                link = new Controls.Hyperlink(label, label);
             }
 
             link.HtmlElement.SetAttribute("class", "entity-editor-link");

@@ -19,7 +19,7 @@ namespace Tessin.Bladerunner.Controls
 
             var dcBody = new DumpContainer();
 
-            if (body is RefreshContainer)
+            if (body is RefreshPanel)
             {
                 dcBody.Content = body;
             }

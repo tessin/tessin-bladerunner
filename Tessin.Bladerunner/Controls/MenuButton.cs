@@ -27,7 +27,7 @@ namespace Tessin.Bladerunner.Controls
                         return;
                     }
                     lastClick = DateTime.Now;
-                    onClick(div);
+                    onClick?.Invoke(div);
                 };
 
                 this.SetClass("button");
@@ -64,7 +64,7 @@ namespace Tessin.Bladerunner.Controls
 
         public MenuButton(
             object label,
-            Action<Div> onClick,
+            Action<Div> onClick = null,
             string svgIcon = null,
             string tooltip = null,
             object pill = null,
@@ -83,29 +83,29 @@ namespace Tessin.Bladerunner.Controls
             {
                 var _pillContainer = new DumpContainer();
                 pillContainer = _pillContainer.ToControl();
-                pillContainer.SetClass("menu-button--pill");
                 this.VisualTree.Add(pillContainer);
+
+                Control Format(object content)
+                {
+                    return DefaultContentFormatter.Format(content, (c, e) =>
+                    {
+                        if (e) return c;
+                        var span = new Span(c);
+                        span.SetClass("menu-button--pill");
+                        return span;
+                    });
+                }
 
                 if (pillTask != null)
                 {
                     Task.Run(() => pillTask.Result).ContinueWith(e =>
                     {
-                        _pillContainer.Content = DefaultContentFormatter.Format(e.Result, (c, e) =>
-                        {
-                            if (e) return c;
-                            var span = new Span(c);
-                            return span;
-                        });
+                        _pillContainer.Content = Format(e.Result);
                     }).ConfigureAwait(false);
                 }
                 else
                 {
-                    var content = pill.ToString();
-                    if (content != "")
-                    {
-                        var span = new Span(content);
-                        _pillContainer.Content = span;
-                    }
+                    _pillContainer.Content = Format(pill);
                 }
             }
 
@@ -126,6 +126,5 @@ namespace Tessin.Bladerunner.Controls
                 JavascriptHelpers.ShowOnMouseOver(this, divActions, pillContainer);
             }
         }
-
     }
 }

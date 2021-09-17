@@ -7,9 +7,9 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class DateBox : TextBox
+    public class DateBox : LINQPad.Controls.TextBox
     {
-        public DateBox(DateTime? initialValue = null, bool showTime = false, string width = "12em", Action<TextBox> onTextInput = null) : base("", width, onTextInput)
+        public DateBox(DateTime? initialValue = null, bool showTime = false, string width = "-webkit-fill-available", Action<LINQPad.Controls.TextBox> onTextInput = null) : base("", width, onTextInput)
         {
             if (initialValue != null)
             {

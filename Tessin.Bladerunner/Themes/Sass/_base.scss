@@ -95,13 +95,6 @@ td.n {
   text-align: right;
 }
 
-span.meta {
-  padding: 10px;
-  display: block;
-  color:darkgreen;
-  font-weight: 700;
-}
-
 a:link.typeheader,
 a:visited.typeheader,
 a:link.extenser,
@@ -183,23 +176,23 @@ DIV.headingpresenter {
 	border: none;
 	display: block;
 	border-left: 3px solid $primary-cta;
-	margin: 0 0.5em 0em 0em;
+	margin: 0px;
 	height: 100%;
 }
 
 DIV.headingpresenter H1 {
-	border: none;
-    padding: 0 0 5px 5px;
-    color: $primary-cta;
-    font-weight: $font-weight-bold;
-    font-size: 1em;
-    background-color: transparent;  
+  border: none;
+  padding: 0 0 10px 0;
+  color: $primary-cta;
+  font-weight: $font-weight-bold;
+  font-size: 1em;
+  background-color: transparent;  
 }
 
 DIV.headingpresenter DIV {
 	border: none;
 	background-color:transparent;
-	padding: 0 0 0 5px;
+	padding: 0 0 2px 0;
 }
 
 td.summary {
@@ -240,7 +233,8 @@ a:visited.collection {
 
 a:link.reference,
 a:visited.reference {
-  color: blue;
+  font-weight: normal;
+  font-family: $font-family;
 }
 
 i {
@@ -301,8 +295,11 @@ span.cc {
 input,
 textarea,
 select,
+input[type="text"],
 input[type="number"],
-input[type="date"] {
+input[type="date"],
+input[type="datetime-local"]
+{
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 0px;
@@ -311,10 +308,14 @@ input[type="date"] {
   font-family: $font-family;
 }
 
-input,
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="datetime-local"],
 select {
   height: 35px;
   width: 10em;
+  border: 1px solid gray;
 }
 
 select {
@@ -420,8 +421,12 @@ a.graphcolumn {
   font-family: consolas;
 }
 
-.loading {
+.loading, 
+.meta {
   padding: 10px;
   font-size: 15px;
   color: green;
+  text-transform: capitalize;
+  display: block;
 }
+

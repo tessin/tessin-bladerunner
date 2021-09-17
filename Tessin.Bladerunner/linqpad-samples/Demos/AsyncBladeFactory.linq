@@ -10,8 +10,10 @@
 void Main()
 {	
 	BladeManager manager = new BladeManager();
-	manager.PushBlade(Blade1(), "Blade1");
 	manager.Dump();
+	
+	manager.PushBlade(Blade1(), "Blade1");
+	
 }
 
 static IBladeRenderer Blade1()

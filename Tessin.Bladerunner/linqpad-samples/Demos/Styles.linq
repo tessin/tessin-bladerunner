@@ -22,8 +22,11 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		return Layout.Horizontal(
-			Util.WithHeading(new Button("Hello", (_) => {}), "Test"), Util.WithHeading("Foo", "Test")
+		return Layout.Vertical( 
+			Layout.Horizontal(
+				Util.WithHeading(new Button("Hello", (_) => {}), "Test"), Util.WithHeading("Foo", "Test")
+			),
+			new CheckBox("Hello")
 		);
 	});
 }

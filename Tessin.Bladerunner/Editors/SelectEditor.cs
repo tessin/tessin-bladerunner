@@ -10,7 +10,7 @@ namespace Tessin.Bladerunner.Editors
 {
     public class SelectEditor<T> : IFieldEditor<T>
     {
-        private SelectBox _selectBox;
+        private Controls.SelectBox _selectBox;
         private Field _field;
 
         private readonly Option[] _options;
@@ -26,14 +26,12 @@ namespace Tessin.Bladerunner.Editors
 
             var selectedOption = _options.Where(e => e.Value.Equals(value)).Select(e => e.Label).FirstOrDefault();
 
-            _selectBox = new SelectBox(_options.Select(e => e.Label).ToArray())
+            _selectBox = new Controls.SelectBox(_options.Select(e => e.Label).ToArray())
             {
                 SelectedOption = selectedOption
             };
 
             _selectBox.SelectionChanged += (sender, args) => preview();
-
-            _selectBox.HtmlElement.SetAttribute("class", "entity-editor-select");
 
             return _field = new Field(editorFieldInfo.Label, _selectBox, editorFieldInfo.Description, editorFieldInfo.Helper);
         }

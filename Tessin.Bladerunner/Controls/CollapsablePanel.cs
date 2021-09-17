@@ -21,10 +21,13 @@ namespace Tessin.Bladerunner.Controls
 
             var divHeader = new Button(header, btn =>
             {
-                if(_isOpen) {
-                    this.AddClass("collapsable-panel-open");
-                } else {
+                if (_isOpen)
+                {
                     this.RemoveClass("collapsable-panel-open");
+                }
+                else
+                {
+                    this.AddClass("collapsable-panel-open");
                 }
                 _isOpen = !_isOpen;
             });

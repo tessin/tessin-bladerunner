@@ -7,9 +7,9 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class NumberBox : TextBox
+    public class NumberBox : LINQPad.Controls.TextBox
     {
-        public NumberBox(double? initialValue = null, int decimals = 0, string width = "10em", Action<TextBox> onTextInput = null) : base(initialValue.ToString(), width, onTextInput)
+        public NumberBox(double? initialValue = null, int decimals = 0, string width = "-webkit-fill-available", Action<LINQPad.Controls.TextBox> onTextInput = null) : base(initialValue.ToString(), width, onTextInput)
         {
             this.HtmlElement.SetAttribute("type", "number");
             if (decimals > 0)

@@ -129,13 +129,6 @@ td.n {
   text-align: right;
 }
 
-span.meta {
-  padding: 10px;
-  display: block;
-  color: darkgreen;
-  font-weight: 700;
-}
-
 a:link.typeheader,
 a:visited.typeheader,
 a:link.extenser,
@@ -217,13 +210,13 @@ DIV.headingpresenter {
   border: none;
   display: block;
   border-left: 3px solid #1158aa;
-  margin: 0 0.5em 0em 0em;
+  margin: 0px;
   height: 100%;
 }
 
 DIV.headingpresenter H1 {
   border: none;
-  padding: 0 0 5px 5px;
+  padding: 0 0 10px 0;
   color: #1158aa;
   font-weight: 400;
   font-size: 1em;
@@ -233,7 +226,7 @@ DIV.headingpresenter H1 {
 DIV.headingpresenter DIV {
   border: none;
   background-color: transparent;
-  padding: 0 0 0 5px;
+  padding: 0 0 2px 0;
 }
 
 td.summary {
@@ -274,7 +267,8 @@ a:visited.collection {
 
 a:link.reference,
 a:visited.reference {
-  color: blue;
+  font-weight: normal;
+  font-family: "Roboto", sans-serif;
 }
 
 i {
@@ -338,8 +332,10 @@ span.cc {
 input,
 textarea,
 select,
+input[type="text"],
 input[type="number"],
-input[type="date"] {
+input[type="date"],
+input[type="datetime-local"] {
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 0px;
@@ -348,10 +344,14 @@ input[type="date"] {
   font-family: "Roboto", sans-serif;
 }
 
-input,
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="datetime-local"],
 select {
   height: 35px;
   width: 10em;
+  border: 1px solid gray;
 }
 
 select {
@@ -461,53 +461,17 @@ a.graphcolumn {
   font-family: consolas;
 }
 
-.loading {
+.loading,
+.meta {
   padding: 10px;
   font-size: 15px;
   color: green;
-}
-
-.hrun > DIV {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-.vrun > DIV {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.vrun-center > DIV {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.vrun-left > DIV {
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-}
-
-.vrun-right > DIV {
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  text-transform: capitalize;
+  display: block;
 }
 
 SPAN.small {
-  font-size: 0.8em;
+  font-size: 0.9em;
   color: darkgray;
 }
 
@@ -521,6 +485,10 @@ H1.default {
 
 H2.default {
   font-size: 2em;
+}
+
+SPAN.no-wrap {
+  white-space: nowrap;
 }
 
 .blade-wrapper {
@@ -639,8 +607,12 @@ H2.default {
   width: 100%;
 }
 
+.blade-content > div > div > div {
+  width: 100%;
+}
+
 .blade:nth-child(even) .blade-panel {
-  background-color: #f8f8f8;
+  background-color: #ffffff;
 }
 
 .blade:nth-child(odd) .blade-panel {
@@ -692,16 +664,7 @@ H2.default {
 
 .entity-editor-link {
   display: block;
-  width: 30em;
   overflow: hidden;
-}
-
-.entity-editor-textarea {
-  width: 30em;
-}
-
-.entity-editor-select {
-  width: 30em;
 }
 
 .entity-editor-bool {
@@ -854,7 +817,8 @@ H2.default {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   min-width: 200px;
-  max-width: 250px;
+  max-width: 300px;
+  min-height: 43px;
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 4px;
@@ -882,10 +846,6 @@ H2.default {
   -ms-grid-columns: minmax(32px, auto) 1fr;
       grid-template-columns: minmax(32px, auto) 1fr;
   cursor: pointer;
-}
-
-.menu-button > .button > div {
-  /* display: flex; */
 }
 
 .menu-button > .button > .menu-button--icon {
@@ -918,6 +878,7 @@ H2.default {
   border-radius: 12px;
   font-size: 0.8em;
   margin-left: 5px;
+  white-space: nowrap;
 }
 
 .menu-button--actions {
@@ -1052,10 +1013,12 @@ H2.default {
 .header-panel--header {
   z-index: 1;
   background-color: powderblue;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
   width: 100%;
-  width: calc(100% - $panel-margin);
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
@@ -1114,6 +1077,8 @@ BUTTON.collapsable-panel--header:before {
   height: 20px;
   display: block;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%23000000'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z'/%3E%3C/svg%3E");
+  -webkit-transform: rotateZ(90deg) scale(1.3);
+          transform: rotateZ(90deg) scale(1.3);
   background-size: 20px 20px;
   background-position: 0;
   -webkit-transition: -webkit-transform 0.2s;
@@ -1123,16 +1088,17 @@ BUTTON.collapsable-panel--header:before {
 }
 
 .collapsable-panel-open .collapsable-panel--header:before {
-  -webkit-transform: rotateZ(-180deg);
-          transform: rotateZ(-180deg);
+  -webkit-transform: rotateZ(180deg) scale(1.3);
+          transform: rotateZ(180deg) scale(1.3);
 }
 
 .collapsable-panel--body {
   display: none;
   overflow: hidden;
   width: 100%;
-  border-left: 2px solid black;
-  margin-left: 7px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-left: 0px;
   padding-left: 10px;
   padding-top: 0px;
 }
@@ -1149,19 +1115,28 @@ BUTTON.collapsable-panel--header:before {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  min-height: 30px;
+  min-height: 20px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+.property-list > DIV:hover {
+  background-color: #faf9f9;
 }
 
 .property-list > DIV > SPAN:first-child {
   text-align: left;
   font-size: 1.1em;
   font-weight: bold;
+  padding-right: 20px;
 }
 
 .card {

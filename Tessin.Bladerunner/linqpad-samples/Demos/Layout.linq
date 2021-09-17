@@ -1,6 +1,5 @@
 <Query Kind="Program">
   <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
-  <Namespace>LINQPad.Controls</Namespace>
   <Namespace>Tessin.Bladerunner</Namespace>
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
   <Namespace>Tessin.Bladerunner.Controls</Namespace>
@@ -16,11 +15,11 @@ void Main()
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 
+	manager.Dump();
+
 	manager.PushBlade(Blade1());
 	manager.PushBlade(Blade2());
 	manager.PushBlade(Blade3());
-
-	manager.Dump();
 }
 
 static IBladeRenderer Blade1()
@@ -29,7 +28,6 @@ static IBladeRenderer Blade1()
 	{		
 		return Layout
 			.Right()
-			.Fill()
 			.Vertical(new Button("Bar"), new Button("HelloWorld"), new Button("Hi"), DateTime.Now, true, new int[] { 1, 2, 3});
 	});
 }
@@ -41,7 +39,7 @@ static IBladeRenderer Blade2()
 		return Layout
 			.Gap(false)
 			.Middle()
-			.Horizontal(new Button("Bar"), new Button("HelloWorld"), new Literal("Hello"));
+			.Horizontal(new Button("Bar"), new Button("HelloWorld"), "Hello");
 	});
 }
 
@@ -53,8 +51,10 @@ static IBladeRenderer Blade3()
 		
 		var sb = new SelectBox(new string[] { "Hello", "Hej", "Bonjour" });
 
+		var spacer = new Spacer("200px");
+
 		var header = Layout
-			//.Gap(false)
+			.Gap(false)
 			.Middle()
 			.Fill()
 			.Add(tb, "1fr")
@@ -62,10 +62,13 @@ static IBladeRenderer Blade3()
 			.Add(new IconButton(Icons.Plus))
 			.Horizontal();
 
-		return new HeaderPanel(header, 
+		return new HeaderPanel(header,
 			Layout.Vertical(
-				new Button("Hello"),
-				new Spacer("200px")
+				new Button("Hello", (_) =>
+				{
+					spacer.Styles["width"] = "400px";
+				}),
+				spacer
 			)
 		);
 	});

@@ -26,7 +26,7 @@ static IBladeRenderer Blade1()
 	{
 		ColorBox cb = new ColorBox();
 		
-		RefreshContainer rc = new RefreshContainer(new [] {cb}, () => {
+		RefreshPanel rc = new RefreshPanel(new [] {cb}, () => {
 			return cb.Text;
 		});
 		

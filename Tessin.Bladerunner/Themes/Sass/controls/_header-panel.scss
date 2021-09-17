@@ -10,10 +10,12 @@
 .header-panel--header {
   z-index: 1;
   background-color: powderblue;
-  padding: $panel-margin;
+  padding-left: $panel-margin;
+  padding-right: $panel-margin;
+  padding-top: 5px;
+  padding-bottom: 5px;
   border-bottom: 1px solid $blade-border-color;
   width:100%;
-  width: calc(100% - $panel-margin);
   box-sizing: border-box;
 }
 

@@ -26,7 +26,7 @@ static IBladeRenderer Blade1()
 	{
 		MultiSelectBox msb = new MultiSelectBox(GetColors().Select(e => new Option(e, Guid.NewGuid())).Take(3).ToArray()); 
 		
-		RefreshContainer rc = new RefreshContainer(new [] { msb }, () => {
+		RefreshPanel rc = new RefreshPanel(new [] { msb }, () => {
 			return msb.SelectedOptions;
 		});
 		

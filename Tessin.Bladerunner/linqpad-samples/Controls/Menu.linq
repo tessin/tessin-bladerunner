@@ -1,6 +1,5 @@
 <Query Kind="Program">
   <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
-  <Namespace>LINQPad.Controls</Namespace>
   <Namespace>System.Drawing</Namespace>
   <Namespace>Tessin.Bladerunner</Namespace>
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
@@ -12,12 +11,12 @@ void Main()
 {
 	//ebugger.Launch();
 
-	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", showDebugButton: true, cssHotReloading: true);
-	
-	manager.PushBlade(Blade1(), "Blade1");
-	manager.PushBlade(Blade2(), "Blade2");
+	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", showDebugButton: false, cssHotReloading: true);
 	
 	manager.Dump();
+	
+	manager.PushBlade(Blade1(), "Blade1");
+	//manager.PushBlade(Blade2(), "Blade2");
 }
 
 static IBladeRenderer Blade1()
@@ -39,13 +38,13 @@ static IBladeRenderer Blade1()
 		var menu = new Menu(
 			new MenuButton("Header Panel", (_) => {
 				blade.PushBlade(Blade2(), "Blade2");
-			}),
+			},pill:1_100_100),
 			new MenuButton("Card", (_) =>
 			{
 				blade.PushBlade(Blade3(), "Blade3");
-			}),
+			}, pill:""),
 			new MenuButton("Hello World", (_) => { }, Icons.Atom),
-			new MenuButton("Lorem ipsum some really pushing long text", (_) => { }, Icons.Atom, pillTask: Utils.CreateTask<object>(e => "HEJ")),
+			new MenuButton("Lorem ipsum some really pushing long text", (_) => { }, Icons.Atom, pillTask: Utils.CreateTask<object>(e => DateTime.Now)),
 			new MenuButton("Hello World", (_) => { }, Icons.Atom, actions: new IconButton[] {
 				new IconButton(Icons.Alert, (_) => {
 				}),
@@ -71,7 +70,7 @@ static IBladeRenderer Blade2()
 	{
 		var searchBox = new SearchBox();
 		
-		var refreshContainer = new RefreshContainer(new[] { searchBox }, () => {
+		var refreshContainer = new RefreshPanel(new[] { searchBox }, () => {
 			return new Menu(
 				GetColors().Where(e => e.StartsWith(searchBox.Text)).Select(e => new MenuButton(e.ToString(), (_) => { })).ToArray()
 			);
@@ -79,10 +78,9 @@ static IBladeRenderer Blade2()
 
 		
 		return new HeaderPanel(
-			Layout.Fill().Gap(false).Middle().Horizontal(searchBox, new IconButton(Icons.Plus)), 
+			Layout.Fill().Gap(false).Middle().Add(searchBox, "1fr").Horizontal(new IconButton(Icons.Plus)), 
 			refreshContainer
 		);
-		
 	});
 }
 

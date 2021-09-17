@@ -32,9 +32,8 @@ namespace Tessin.Bladerunner.Editors
 
             if (_multiLine)
             {
-                _textBox = new TextArea(value);
-                _textBox.SetClass("entity-editor-textarea");
-                ((TextArea) _textBox).TextInput += (sender, args) => updated();
+                _textBox = new Controls.TextArea(value);
+                ((Controls.TextArea) _textBox).TextInput += (sender, args) => updated();
             }
             else
             {
@@ -42,9 +41,9 @@ namespace Tessin.Bladerunner.Editors
                 {
                     "url" => new UrlBox(value),
                     "email" =>  new EmailBox(value),
-                    _ => new TextBox(value)
+                    _ => new Controls.TextBox(value)
                 };
-                ((TextBox)_textBox).TextInput += (sender, args) => updated();
+                ((Controls.TextBox)_textBox).TextInput += (sender, args) => updated();
             }
 
             if (_fixedFont)

@@ -89,7 +89,7 @@ static IBladeRenderer SearchBlade()
 			});
 		}
 
-		var refreshPanel = new RefreshContainer(new object[] { txtSearch, projectExpr }, () =>
+		var refreshPanel = new RefreshPanel(new object[] { txtSearch, projectExpr }, () =>
 		{
 			using (var db = new TypedDataContext())
 			{

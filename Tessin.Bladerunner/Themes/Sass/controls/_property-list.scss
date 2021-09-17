@@ -4,15 +4,24 @@
 
 .property-list > DIV {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  min-height: 30px;
+  min-height: 20px;
+  padding-top:7px;
+  padding-bottom:7px;
+  padding-left:2px;
+  padding-right:2px;;
+}
+
+.property-list > DIV:hover {
+  background-color: #faf9f9;
 }
 
 .property-list > DIV > SPAN:first-child {
   text-align: left;
   font-size: 1.1em;
   font-weight: bold;
+  padding-right: 20px;
 }
 
 // .property-list > DIV > DIV {

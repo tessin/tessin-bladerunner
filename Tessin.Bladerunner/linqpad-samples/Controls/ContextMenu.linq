@@ -12,7 +12,7 @@
 
 void Main()
 {		
-	BladeManager manager = new BladeManager(showDebugButton:true);
+	BladeManager manager = new BladeManager();
 	manager.PushBlade(Blade1(), "Blade1");
 	manager.Dump();
 }
