@@ -114,27 +114,30 @@ namespace Tessin.Bladerunner
 
         public static void AddPadding(DumpContainer dc, object content)
         {
+            DumpContainer Wrap(object c)
+            {
+                var inner = new DumpContainer
+                {
+                    Content = c
+                };
+                if (c is not INoContainerPadding noPadding)
+                {
+                    dc.Style = "padding:10px;width:100%;box-sizing:border-box;";
+                }
+                return inner;
+            }
+
             if (content is Task<object> contentTask)
             {
                 content = Task.Run(async () =>
                 {
                     object result = await contentTask;
-                    if (result is INoContainerPadding noPadding)
-                    {
-                        return result;
-                    }
-                    var dc = new DumpContainer
-                    {
-                        Style = "padding:10px;width:100%;box-sizing:border-box;",
-                        Content = result
-                    };
-                    return dc;
+                    return Wrap(result);
                 });
             }
-            else if (!(content is INoContainerPadding))
+            else
             {
-                //width:calc(100% - 10px);
-                dc.Style = "padding:10px;width:100%;box-sizing:border-box;";
+                content = Wrap(content);
             }
 
             dc.Content = content;

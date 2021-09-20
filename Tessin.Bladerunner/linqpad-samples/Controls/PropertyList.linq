@@ -31,7 +31,7 @@ static IBladeRenderer Blade1()
 			new Property("Investeringslag", "Lån"),
 			new Property("Löptid", "Upp till 12 mån"),
 			new Property("Årsränta", "8 %"),
-			new Property("Lånenummer", new Hyperlink("#21139-1", (_) => { })),
+			new Property("Lånenummer", new LINQPad.Controls.Hyperlink("#21139-1", (_) => { })),
 			new Property("Actions", Layout.Gap(false).Horizontal(
 				new IconButton(Icons.CoffeeOutline),
 				new IconButton(Icons.Alert)
@@ -51,7 +51,7 @@ static IBladeRenderer Blade2()
 			new Property("Investeringslag", "Lån"),
 			new Property("Löptid", "Upp till 12 mån"),
 			new Property("Årsränta", "8 %"),
-			new Property("Lånenummer", new Hyperlink("#21139-1", (_) => { })),
+			new Property("Lånenummer", new LINQPad.Controls.Hyperlink("#21139-1", (_) => { })),
 			new Property("Actions", Layout.Gap(false).Horizontal(
 				new IconButton(Icons.CoffeeOutline),
 				new IconButton(Icons.Alert)
