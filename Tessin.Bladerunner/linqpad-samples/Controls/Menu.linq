@@ -4,6 +4,7 @@
   <Namespace>Tessin.Bladerunner</Namespace>
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
   <Namespace>Tessin.Bladerunner.Controls</Namespace>
+  <Namespace>System.Threading.Tasks</Namespace>
 </Query>
 
 void Main()
@@ -16,8 +17,8 @@ void Main()
 	
 	//manager.PushBlade(Blade1(), "Blade1");
 	manager.PushBlade(Blade2(), "Blade2");
-	manager.PushBlade(Blade4(), "Blade4");
-	manager.PushBlade(Blade5(), "Blade5");
+	//manager.PushBlade(Blade4(), "Blade4");
+	//manager.PushBlade(Blade5(), "Blade5");
 }
 
 static IBladeRenderer Blade1()
@@ -67,15 +68,18 @@ static IBladeRenderer Blade1()
 
 static IBladeRenderer Blade2()
 {
-	return BladeFactory.Make((blade) =>
+	return BladeFactory.Make(async (blade) =>
 	{
+		await Task.Delay(500);
+		
 		var searchBox = new SearchBox();
 		
-		var refreshContainer = new RefreshPanel(new[] { searchBox }, () => {
+		var refreshContainer = new RefreshPanel(new[] { searchBox }, async () => {
+			await Task.Delay(500);
 			return new Menu(
 				GetColors().Where(e => e.StartsWith(searchBox.Text)).Select(e => new MenuButton(e.ToString(), (_) => { })).ToArray()
 			);
-		}, addPadding:true);
+		});
 
 		return new HeaderPanel(
 			Layout.Fill().Gap(false).Middle().Add(searchBox, "1fr").Horizontal(new IconButton(Icons.Plus)), 

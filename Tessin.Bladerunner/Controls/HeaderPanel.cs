@@ -25,7 +25,7 @@ namespace Tessin.Bladerunner.Controls
             }
             else
             {
-                ControlExtensions.AddPadding(dcBody, body);
+                ControlExtensions.AddPadding(dcBody, body).GetAwaiter().GetResult();
             }
             
             var divBody = new Div(dcBody);

@@ -46,7 +46,7 @@ namespace Tessin.Bladerunner.Controls
     {
         private readonly AnyTaskFactory _taskFactory;
 
-        private bool _first = true;
+        //private bool _first = true;
 
         private bool _addPadding = false;
 
@@ -64,7 +64,7 @@ namespace Tessin.Bladerunner.Controls
 
         }
 
-        public RefreshPanel(object[] controls, AnyTaskFactory taskFactory, int debounceInterval = 250, bool addPadding = false)
+        public RefreshPanel(object[] controls, AnyTaskFactory taskFactory, int debounceInterval = 250, bool addPadding = true)
         {
             _addPadding = addPadding;
 
@@ -80,57 +80,57 @@ namespace Tessin.Bladerunner.Controls
                     if (control is IRefreshable refreshable)
                     {
                         refreshable.Updated += (_) =>
-                       {
-                           _Refresh();
-                       };
+                        {
+                            _Refresh();
+                        };
                     }
                     else if (control is TextBox textBox)
                     {
                         textBox.TextInput += (_, __) =>
-                       {
-                           _Refresh();
-                       };
+                        {
+                            _Refresh();
+                        };
                     }
                     else if (control is SearchBox searchBox)
                     {
                         searchBox.TextInput += (_, __) =>
-                       {
-                           _Refresh();
-                       };
+                        {
+                            _Refresh();
+                        };
                     }
                     else if (control is CheckBox checkBox)
                     {
                         checkBox.Click += (_, __) =>
-                       {
-                           _Refresh();
-                       };
+                        {
+                            _Refresh();
+                        };
                     }
                     else if (control is DataListBox dataListBox)
                     {
                         dataListBox.TextInput += (_, __) =>
-                       {
-                           _Refresh();
-                       };
+                        {
+                            _Refresh();
+                        };
                     }
                     else if (control is TextArea textArea)
                     {
                         textArea.TextInput += (_, __) =>
-                       {
-                           _Refresh();
-                       };
+                        {
+                            _Refresh();
+                        };
                     }
                     else if (control is FilePicker filePicker)
                     {
                         filePicker.TextInput += (_, __) =>
                        {
-                           _Refresh();
+                            _Refresh();
                        };
                     }
                     else if (control is SelectBox selectBox)
                     {
                         selectBox.SelectionChanged += (_, __) =>
                         {
-                            _Refresh();
+                             _Refresh();
                         };
                     }
                 }
@@ -155,30 +155,30 @@ namespace Tessin.Bladerunner.Controls
             {
                 this.Content = Element("div", "loading", "Loading...");
 
-                if (_first)
-                {
-                    _first = false;
-                    Task.Run(() => _taskFactory.Run().Result).ContinueWith(e =>
-                    {
-                        if (_addPadding)
-                        {
-                            ControlExtensions.AddPadding(this, e.Result);
-                        }
-                        else
-                        {
-                            this.Content = e.Result;
-                        }
-                    });
-                }
-                else
+                //if (_first)
+                //{
+                //    _first = false;
+                //    await Task.Run(() => _taskFactory.Run().Result).ContinueWith(async e =>
+                //    {
+                //        if (_addPadding)
+                //        {
+                //            await ControlExtensions.AddPadding(this, e.Result);
+                //        }
+                //        else
+                //        {
+                //            this.Content = e.Result;
+                //        }
+                //    });
+                //}
+                //else
                 {
                     _debounceDispatcher.Debounce(() =>
                     {
-                        Task.Run(() => _taskFactory.Run().Result).ContinueWith(e =>
+                        Task.Run(() => _taskFactory.Run().Result).ContinueWith(async e =>
                         {
                             if (_addPadding)
                             {
-                                ControlExtensions.AddPadding(this, e.Result);
+                                await ControlExtensions.AddPadding(this, e.Result);
                             }
                             else
                             {

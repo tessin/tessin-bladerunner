@@ -32,7 +32,7 @@ static IBladeRenderer Blade2()
 {
 	return BladeFactory.Make(async (blade) =>
 	{
-		await Task.Delay(TimeSpan.FromSeconds(5));
+		await Task.Delay(TimeSpan.FromSeconds(1));
 
 		return new Menu(
 			new MenuButton("HelloWorld", (_) =>

@@ -112,7 +112,7 @@ namespace Tessin.Bladerunner
             }
         }
 
-        public static void AddPadding(DumpContainer dc, object content)
+        public static async Task AddPadding(DumpContainer dc, object content)
         {
             DumpContainer Wrap(object c)
             {
@@ -129,7 +129,7 @@ namespace Tessin.Bladerunner
 
             if (content is Task<object> contentTask)
             {
-                content = Task.Run(async () =>
+                content = await Task.Run(async () =>
                 {
                     object result = await contentTask;
                     return Wrap(result);

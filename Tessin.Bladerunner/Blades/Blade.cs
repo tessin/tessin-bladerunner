@@ -28,7 +28,7 @@ namespace Tessin.Bladerunner.Blades
             Title = title;
         }
 	
-        public object Render()
+        public async Task<object> Render()
         {
             try
             {
@@ -75,7 +75,7 @@ namespace Tessin.Bladerunner.Blades
                     Div("blade-content", dc)
                 );
 
-                ControlExtensions.AddPadding(dc, Renderer.Render(this));
+                await ControlExtensions.AddPadding(dc, Renderer.Render(this));
 
                 return div;
             }
@@ -118,9 +118,9 @@ namespace Tessin.Bladerunner.Blades
                 Manager.PopTo(this.Index, false);
                 Panel.Content = Element("div", "loading", "Loading...");
             }
-            Task.Run(() =>
+            Task.Run(async () =>
             {
-                Panel.Content = this.Render();
+                Panel.Content = await this.Render();
             });
         }
 
