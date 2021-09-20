@@ -98,10 +98,12 @@ namespace Tessin.Bladerunner.Controls
 
                 if (pillTask != null)
                 {
-                    Task.Run(() => pillTask.Result).ContinueWith(e =>
-                    {
-                        _pillContainer.Content = Format(e.Result);
-                    }).ConfigureAwait(false);
+                    _pillContainer.Content = Format(pillTask.Result);
+
+                    //Task.Run(() => pillTask.Result).ContinueWith(e =>
+                    //{
+                    //    _pillContainer.Content = Format(e.Result);
+                    //}).ConfigureAwait(false);
                 }
                 else
                 {
