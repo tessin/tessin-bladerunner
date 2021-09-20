@@ -151,5 +151,36 @@ namespace Tessin.Bladerunner.Blades
             }
             return el;
         }
+
+        public Action<LINQPad.Controls.Button> Catch(Func<LINQPad.Controls.Button,Task> action)
+        {
+            return async (btn) =>
+            {
+                try
+                {
+                    await action(btn);
+                }
+                catch (Exception ex)
+                {
+                    Manager.ShowUnhandledException(ex);
+                }
+            };
+        }
+
+        public Action<LINQPad.Controls.Button> Catch(Action<LINQPad.Controls.Button> action)
+        {
+            return (btn) =>
+            {
+                try
+                {
+                    action(btn);
+                }
+                catch (Exception ex)
+                {
+                    Manager.ShowUnhandledException(ex);
+                }
+            };
+        }
+
     }
 }

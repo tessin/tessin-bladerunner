@@ -48,7 +48,10 @@ namespace Tessin.Bladerunner.Blades
             CultureInfo.DefaultThreadCurrentCulture = new System.Globalization.CultureInfo("en-US");
             CultureInfo.DefaultThreadCurrentUICulture = new System.Globalization.CultureInfo("en-US");
 
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((_, e) => ShowUnhandledException((Exception)e.ExceptionObject));
+
+            //todo: Add this when LINQPad.Runtime is updated
+            //LINQPad.Controls.Control.UnhandledException
 
             _maxDepth = maxDepth;
             _cssPath = cssPath;
@@ -61,13 +64,12 @@ namespace Tessin.Bladerunner.Blades
             _overlay = new Overlay();
             _progressDisplay = new ProgressDisplay(_overlay);
 
-            //Util.KeepRunning();
+            Util.KeepRunning();
         }
 
-        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        public void ShowUnhandledException(Exception ex)
         {
-            var ex = (Exception) e.ExceptionObject;
-            new AlertBuilder(this, ex.Message).ShowOk();
+            new AlertBuilder(this).ShowException(ex);
         }
 
         public IDisposable ShowProgress(string title = null, Progress<int> progress = null,

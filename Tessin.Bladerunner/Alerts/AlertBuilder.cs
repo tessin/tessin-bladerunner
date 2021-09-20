@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Blades;
+using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Alerts
 {
@@ -16,14 +17,14 @@ namespace Tessin.Bladerunner.Alerts
     public class AlertBuilder
     {
         private readonly BladeManager _manager;
-        private string _message;
+        private object _body;
         private string _title;
         private readonly List<AlertAction> _actions = new List<AlertAction>();
 
-        public AlertBuilder(BladeManager manager, string message = null, string title = null)
+        public AlertBuilder(BladeManager manager, object body = null, string title = null)
         {
             _manager = manager;
-            _message = message;
+            _body = body;
             _title = title;
         }
 
@@ -54,7 +55,7 @@ namespace Tessin.Bladerunner.Alerts
         public void ShowException(Exception ex, Action<AlertAction> onClose = null)
         {
             _title = ex.GetType().Name;
-            _message = ex.Message;
+            _body = Layout.Vertical(ex.Message, new CollapsablePanel("Stack Trace", Typography.Code(ex.StackTrace)));
             _actions.Add(AlertAction.Ok);
             Show(onClose);
         }
@@ -110,15 +111,18 @@ namespace Tessin.Bladerunner.Alerts
 
             public object Render(Blade blade)
             {
-                Button RenderButton(AlertAction action)
+                Controls.Button RenderButton(AlertAction action)
                 {
-                    return new Button(action.Label, (_) =>
+                    return new Controls.Button(action.Label, (_) =>
                     {
                         blade.Manager.CloseSideBlade(action);
                     });
                 }
+
+                IContentFormatter formatter = new DefaultContentFormatter();
+
                 return Layout.Vertical(
-                    _builder._message,
+                    formatter.Format(_builder._body),
                     Layout.Horizontal(_builder._actions.Select(RenderButton))
                 );
             }

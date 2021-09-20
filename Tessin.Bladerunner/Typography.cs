@@ -7,6 +7,14 @@ namespace Tessin.Bladerunner
 {
     public static class Typography
     {
+        public static Control Code(string content)
+        {
+            var pre = new Control("pre");
+            pre.HtmlElement.InnerText = content;
+            pre.SetClass("code");
+            return pre;
+        }
+
         public static Span Small(string content)
         {
             var span = new Span(content);
