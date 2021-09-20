@@ -89,31 +89,30 @@
   width: 100%;
   height: 100%;
   position: relative;
-  overflow-y: auto; /* In most cases, like toggle-panel, this will suffice to oveflow its children. */
+  align-items: flex-start; // We don't want stretching. Align from top to bottom.
+  flex-direction: column;
+  flex: 1 1 auto; // Required to allow for children to overflow.
+  overflow-y: auto; /* In most cases, like toggle-panel, this will suffice to overflow its children. */
 }
 
 /* We need flex throughout to figure out scrolling further down the line.. */
 .blade-content > div,
-.blade-content > div > div {
+.blade-content > div > div,
+.blade-content > div > div > div {
   display: flex;
-  align-items: flex-start; // We don't want stretching. Align from top to bottom.
   width: 100%;
   height: 100%;
 }
 
-.blade-content > div > div > div {
-  flex: 1 1 auto; // Required to allow for children to overflow.
-  height: 100% !important; // Override content-max to let children overflow.
-}
-
-.blade-content > div > div > div > div {
+.blade-content > div > div > div > div:not(.matrix) {
   display: flex;
   flex-direction: column;
   height: 100%;
+  width: 100%;
 }
 
-// This is DEEp. Needed to make scrolling work in Menu.
-.blade-content > div > div > div > div > div {
+// This is deep. Needed to make scrolling work in Menu.
+.blade-content > div > div > div > div:not(.matrix) > div {
   display: flex;
   flex-direction: column;
   height: 100%;
