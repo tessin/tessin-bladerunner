@@ -1,5 +1,5 @@
 .menu {
-  width: 100%;
+  flex: 1 1 auto;
 }
 
 .menu-button {
@@ -81,8 +81,4 @@
   margin-bottom: 3px;
   margin-left: 1px;
   margin-right: 1px;
-}
-
-.menu-button--icon {
-  color: red;
 }

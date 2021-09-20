@@ -1,14 +1,29 @@
 body {
   margin: 0em;
   padding: 0em;
-  height: 100%;
-  min-height: 100%;
   font-family: $font-family !important;
   font-size: 12px;
   line-height: 1.5;
   color: $font-color;
   background-color: white;
   -webkit-print-color-adjust: exact;
+}
+
+/* Set height 100% is needed throughout */
+html,
+body,
+body > div > div {
+  height: 100%;
+}
+
+// Hiding overflow for the body element is needed.
+body {
+  overflow: hidden;
+}
+
+// The outermost <div> and only this needs this.
+body > div {
+  height: 100vh;
 }
 
 h1,
@@ -173,11 +188,11 @@ div.spacer {
 }
 
 DIV.headingpresenter {
-	border: none;
-	display: block;
-	border-left: 3px solid $primary-cta;
-	margin: 0px;
-	height: 100%;
+  border: none;
+  display: block;
+  border-left: 3px solid $primary-cta;
+  margin: 0px;
+  height: 100%;
 }
 
 DIV.headingpresenter H1 {
@@ -186,13 +201,13 @@ DIV.headingpresenter H1 {
   color: $primary-cta;
   font-weight: $font-weight-bold;
   font-size: 1em;
-  background-color: transparent;  
+  background-color: transparent;
 }
 
 DIV.headingpresenter DIV {
-	border: none;
-	background-color:transparent;
-	padding: 0 0 2px 0;
+  border: none;
+  background-color: transparent;
+  padding: 0 0 2px 0;
 }
 
 td.summary {
@@ -298,8 +313,7 @@ select,
 input[type="text"],
 input[type="number"],
 input[type="date"],
-input[type="datetime-local"]
-{
+input[type="datetime-local"] {
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 0px;
@@ -344,11 +358,19 @@ button:disabled {
 }
 
 button:hover {
-  background-color: scale-color($primary-cta, $lightness: -10%, $saturation: 10%); 
+  background-color: scale-color(
+    $primary-cta,
+    $lightness: -10%,
+    $saturation: 10%
+  );
 }
 
 button:active {
-  background-color: scale-color($primary-cta, $lightness: 10%, $saturation: -10%); 
+  background-color: scale-color(
+    $primary-cta,
+    $lightness: 10%,
+    $saturation: -10%
+  );
 }
 
 input[type="radio"],
@@ -421,7 +443,7 @@ a.graphcolumn {
   font-family: consolas;
 }
 
-.loading, 
+.loading,
 .meta {
   padding: 10px;
   font-size: 15px;
@@ -429,4 +451,3 @@ a.graphcolumn {
   text-transform: capitalize;
   display: block;
 }
-
