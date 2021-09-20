@@ -1,52 +1,45 @@
 .matrix {
-    display: grid;
-    place-items: center;
-    //grid-template-rows: repeat(2, 1fr);
-    column-gap: 2px;
-    row-gap: 2px;
+  display: grid;
+  place-items: center;
+  //grid-template-rows: repeat(2, 1fr);
+  column-gap: 2px;
+  row-gap: 2px;
+  height: max-content;
 }
 
-.matrix > DIV
-{
-    
+.matrix > DIV {
 }
 
-.matrix > DIV.col-header
-{
-    display: grid;
-    align-items: end;
-    justify-items: center;
-    font-weight: bold;
-    height: 100%;
+.matrix > DIV.col-header {
+  display: grid;
+  align-items: end;
+  justify-items: center;
+  font-weight: bold;
+  height: 100%;
 }
 
-.matrix > DIV.col-header > SPAN
-{
-    padding-bottom: 5px;
+.matrix > DIV.col-header > SPAN {
+  padding-bottom: 5px;
 }
 
-.matrix > DIV.row-header
-{
-    display: grid;
-    align-items: center;
-    justify-items: right;
-    font-weight: bold;
-    width: 100%;
+.matrix > DIV.row-header {
+  display: grid;
+  align-items: center;
+  justify-items: right;
+  font-weight: bold;
+  width: 100%;
 }
 
-.matrix > DIV.row-header > SPAN
-{
-    padding-right: 10px;
+.matrix > DIV.row-header > SPAN {
+  padding-right: 10px;
 }
 
-
-.matrix > DIV.cell
-{
-    min-width: 75px;
-    min-height: 54px;
-    background-color: white;
-    display: grid;
-    place-items: center;
-    height: 100%;
-    width: 100%;
+.matrix > DIV.cell {
+  min-width: 75px;
+  min-height: 54px;
+  background-color: white;
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 100%;
 }

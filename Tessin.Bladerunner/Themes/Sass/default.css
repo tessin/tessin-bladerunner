@@ -1162,6 +1162,9 @@ BUTTON.collapsable-panel--header:before {
   -moz-column-gap: 2px;
        column-gap: 2px;
   row-gap: 2px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
 }
 
 .matrix > DIV.col-header {
