@@ -23,6 +23,8 @@ namespace Tessin.Bladerunner.Editors
             FieldInfo = fieldInfo;
             PropertyInfo = propertyInfo;
             Column = 1;
+            Order = int.MaxValue;
+            Row = Guid.NewGuid();
             ShowIf = (_) => true;
         }
 
@@ -63,6 +65,8 @@ namespace Tessin.Bladerunner.Editors
 
         public int Column { get; set; }
 
+        public Guid Row { get; set; }
+
         public string Group { get; set; }
 
         public string Label { get; set; }
@@ -72,6 +76,8 @@ namespace Tessin.Bladerunner.Editors
         public IFieldEditor<T> Editor { get; set; }
 
         public bool Removed { get; set; }
+
+        public bool Required { get; set; }
 
         public List<Func<object, (bool, string)>> Validators { get; set; } = new List<Func<object, (bool, string)>>();
     }

@@ -35,7 +35,7 @@ namespace Tessin.Bladerunner.Editors
 
             _dataListBox.TextInput += (sender, args) => preview();
 
-            return _field = new Field(editorField.Label, _dataListBox, editorField.Description, editorField.Helper);
+            return _field = new Field(editorField.Label, _dataListBox, editorField.Description, editorField.Helper, editorField.Required);
         }
 
         public void Save(T obj, EditorField<T> editorField)

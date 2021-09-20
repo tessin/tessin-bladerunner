@@ -349,7 +349,7 @@ input[type="number"],
 input[type="date"],
 input[type="datetime-local"],
 select {
-  height: 35px;
+  height: 30px;
   width: 10em;
   border: 1px solid gray;
 }
@@ -367,7 +367,7 @@ textarea {
 button {
   padding-left: 12px;
   padding-right: 12px;
-  height: 35px;
+  height: 32px;
   background-color: #1158aa;
   border: 0px;
   color: white;
@@ -475,8 +475,9 @@ SPAN.small {
   color: darkgray;
 }
 
-SPAN.error {
+.error {
   color: darkred;
+  font-weight: bold;
 }
 
 H1.default {
@@ -671,6 +672,10 @@ SPAN.no-wrap {
   margin-top: 10px;
 }
 
+.entity-editor--column {
+  min-width: 230px;
+}
+
 .field {
   margin-top: 10px;
 }
@@ -689,9 +694,38 @@ SPAN.no-wrap {
           justify-content: space-between;
 }
 
-.field--header SPAN {
+.field--header DIV {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  text-align: right;
+}
+
+SPAN.field--header-label {
   font-size: 12px;
   font-weight: bold;
+  -ms-flex-negative: 1;
+      flex-shrink: 1;
+}
+
+SPAN.field--header-description {
+  -ms-flex-negative: 1;
+      flex-shrink: 1;
+}
+
+SPAN.field--header-description:after {
+  -ms-flex-negative: 1;
+      flex-shrink: 1;
+  position: relative;
+  top: 1px;
+  left: 2px;
+  width: 15px;
+  height: 15px;
+  content: " ";
+  background-size: 15px 15px;
+  background-position: 0;
+  display: block;
+  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' version='1.1' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z' fill='purple'/%3E%3C/svg%3E");
 }
 
 .progress {
@@ -808,8 +842,6 @@ SPAN.no-wrap {
 
 .menu {
   width: 100%;
-  min-height: 0;
-  overflow-y: auto;
 }
 
 .menu-button {
@@ -1019,6 +1051,7 @@ SPAN.no-wrap {
   padding-bottom: 5px;
   border-bottom: 1px solid #ccc;
   width: 100%;
+  min-height: 43px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }

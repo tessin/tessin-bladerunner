@@ -313,7 +313,7 @@ input[type="number"],
 input[type="date"],
 input[type="datetime-local"],
 select {
-  height: 35px;
+  height: 30px;
   width: 10em;
   border: 1px solid gray;
 }
@@ -330,7 +330,7 @@ textarea {
 button {
   padding-left: 12px;
   padding-right: 12px;
-  height: 35px;
+  height: 32px;
   background-color: $primary-cta;
   border: 0px;
   color: white;

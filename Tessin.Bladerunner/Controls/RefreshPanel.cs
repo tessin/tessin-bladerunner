@@ -71,65 +71,68 @@ namespace Tessin.Bladerunner.Controls
             _debounceDispatcher = new DebounceDispatcher(debounceInterval);
             _taskFactory = taskFactory;
 
-            this.Style = "width:100%;";
+            this.Style = "width:100%;"; //todo: replace with class
 
-            foreach (var control in controls)
+            if (controls != null)
             {
-                if (control is IRefreshable refreshable)
+                foreach (var control in controls)
                 {
-                    refreshable.Updated +=  (_) =>
+                    if (control is IRefreshable refreshable)
                     {
-                         _Refresh();
-                    };
-                }
-                else if (control is TextBox textBox)
-                {
-                    textBox.TextInput +=  (_, __) =>
+                        refreshable.Updated += (_) =>
+                       {
+                           _Refresh();
+                       };
+                    }
+                    else if (control is TextBox textBox)
                     {
-                         _Refresh();
-                    };
-                }
-                else if (control is SearchBox searchBox)
-                {
-                    searchBox.TextInput +=  (_, __) =>
+                        textBox.TextInput += (_, __) =>
+                       {
+                           _Refresh();
+                       };
+                    }
+                    else if (control is SearchBox searchBox)
                     {
-                         _Refresh();
-                    };
-                }
-                else if (control is CheckBox checkBox)
-                {
-                    checkBox.Click +=  (_, __) =>
+                        searchBox.TextInput += (_, __) =>
+                       {
+                           _Refresh();
+                       };
+                    }
+                    else if (control is CheckBox checkBox)
                     {
-                         _Refresh();
-                    };
-                }
-                else if (control is DataListBox dataListBox)
-                {
-                    dataListBox.TextInput +=  (_, __) =>
+                        checkBox.Click += (_, __) =>
+                       {
+                           _Refresh();
+                       };
+                    }
+                    else if (control is DataListBox dataListBox)
                     {
-                         _Refresh();
-                    };
-                }
-                else if (control is TextArea textArea)
-                {
-                    textArea.TextInput +=  (_, __) =>
+                        dataListBox.TextInput += (_, __) =>
+                       {
+                           _Refresh();
+                       };
+                    }
+                    else if (control is TextArea textArea)
                     {
-                         _Refresh();
-                    };
-                }
-                else if (control is FilePicker filePicker)
-                {
-                    filePicker.TextInput +=  (_, __) =>
+                        textArea.TextInput += (_, __) =>
+                       {
+                           _Refresh();
+                       };
+                    }
+                    else if (control is FilePicker filePicker)
                     {
-                         _Refresh();
-                    };
-                }
-                else if (control is SelectBox selectBox)
-                {
-                    selectBox.SelectionChanged += (_, __) =>
+                        filePicker.TextInput += (_, __) =>
+                       {
+                           _Refresh();
+                       };
+                    }
+                    else if (control is SelectBox selectBox)
                     {
-                         _Refresh();
-                    };
+                        selectBox.SelectionChanged += (_, __) =>
+                        {
+                            _Refresh();
+                        };
+                    }
                 }
             }
             _Refresh();

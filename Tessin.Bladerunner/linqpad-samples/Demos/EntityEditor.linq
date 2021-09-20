@@ -1,6 +1,7 @@
 <Query Kind="Program">
   <Connection>
     <ID>267fadab-00a0-4cb2-8e87-82deb2eeba5c</ID>
+    <Persist>true</Persist>
     <Server>tessin-prod-q3j2jdhga4u26.database.windows.net</Server>
     <Database>tessin-prod</Database>
     <UserName>niels@tessin.com</UserName>
@@ -25,7 +26,7 @@ static IDbConnection connection;
 
 void Main()
 {	
-	//Debugger.Launch();
+	Debugger.Launch();
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	
@@ -52,6 +53,7 @@ static IBladeRenderer Blade1()
 					
 		})
 		.Required(e => e.Title)
+		.Validate(e => e.Title, (x) => (false, "Foo"))
 		.Remove(e => e.Id)
 		.Remove(e => e.ChannelId)
 		.Editor(e => e.TypeId, e => e.Select(segmentTypes.Select(f => new Option(f.DescriptionText, f.Id))))
@@ -60,9 +62,13 @@ static IBladeRenderer Blade1()
 		.Label(e => e.CostModelId, "Cost Model")
 		.Editor(e => e.DealTypeId, e => e.Select(dealTypes.Select(f => new Option(f.DescriptionText, f.Id))))
 		.Label(e => e.DealTypeId, "Deal Type")
+		.Description(e => e.Title, "HelloWorld")
 		.Editor(e => e.Comment, e => e.Text(multiLine:true))
-		.Place(2, e => e.Comment)
 		.Group("Deal Conditions", e => e.DealPrice, e => e.DealTypeId)
+		.Place(e => e.Title)
+		.Place(true, e => e.ActiveFrom, e => e.ActiveTo)
+		.Place(2, e => e.Comment, e => e.DealPrice, e => e.DealTypeId)
+		.Helper(e => e.Comment, x => ((ITextControl)x).Text.Length)
 		.Render();
 	});
 }

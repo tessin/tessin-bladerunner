@@ -18,7 +18,13 @@ namespace Tessin.Bladerunner
             ";
 
             Control style;
-            if (!string.IsNullOrEmpty(cssPath))
+
+            bool debug = false;
+            #if DEBUG
+            debug = true;
+            #endif
+
+            if (debug && !string.IsNullOrEmpty(cssPath) && Directory.Exists(Path.GetDirectoryName(cssPath)))
             {
                 style = new Control("link");
                 style.HtmlElement.SetAttribute("href", cssPath);

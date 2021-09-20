@@ -43,7 +43,7 @@ namespace Tessin.Bladerunner.Editors
 
             _dateBox.TextInput += (sender, args) => preview();
 
-            return _field = new Field(editorField.Label, _dateBox, editorField.Description, editorField.Helper);
+            return _field = new Field(editorField.Label, _dateBox, editorField.Description, editorField.Helper, editorField.Required);
         }
 
         public void Save(T obj, EditorField<T> editorField)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 using LINQPad;
@@ -10,13 +11,24 @@ namespace Tessin.Bladerunner.Controls
     {
         private Div _divError;
 
-        public Field(string label, Control input, string description = "", Func<Control,object> helper = null)
+        public Field(string label, Control input, string description = "", Func<Control,object> helper = null, bool required = false)
         {
             this.Style = "width:-webkit-fill-available;";
 
             var dcHelper = new DumpContainer();
 
-            var divHeader = new Div(new Span(label), dcHelper);
+            Span _description = null;
+            if(!string.IsNullOrEmpty(description))
+            {
+                _description = new Span("");
+                _description.HtmlElement.SetAttribute("title", description);
+                _description.SetClass("field--header-description");
+            }
+
+            Span _label = new Span(label + (required ? "*" : ""));
+            _label.SetClass("field--header-label");
+
+            var divHeader = new Div((new Control[] {_label, _description, dcHelper }).Where(e => e != null).ToArray());
             divHeader.SetClass("field--header");
 
             if (helper != null)
@@ -29,7 +41,7 @@ namespace Tessin.Bladerunner.Controls
             }
 
             _divError = new Div();
-            _divError.SetClass("field--error");
+            _divError.SetClass("error");
 
             var divContainer = new Div(divHeader, input, _divError);
             divContainer.SetClass("field");

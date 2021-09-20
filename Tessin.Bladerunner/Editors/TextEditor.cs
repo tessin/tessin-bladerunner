@@ -33,6 +33,7 @@ namespace Tessin.Bladerunner.Editors
             if (_multiLine)
             {
                 _textBox = new Controls.TextArea(value);
+                _textBox.Styles["width"] = "-webkit-fill-available";
                 ((Controls.TextArea) _textBox).TextInput += (sender, args) => updated();
             }
             else
@@ -51,7 +52,13 @@ namespace Tessin.Bladerunner.Editors
                 _textBox.HtmlElement.SetAttribute("class", "fixed-font");
             }
 
-            return _field = new Field(editorFieldInfo.Label, _textBox, editorFieldInfo.Description, editorFieldInfo.Helper);
+            return _field = new Field(
+                editorFieldInfo.Label, 
+                _textBox, 
+                editorFieldInfo.Description, 
+                editorFieldInfo.Helper,
+                editorFieldInfo.Required
+            );
         }
 
         public void Save(T obj, EditorField<T> editorFieldInfo)
@@ -70,22 +77,32 @@ namespace Tessin.Bladerunner.Editors
         {
             void SetError(string message)
             {
-                _textBox.Styles["border-color"] = "tomato";
+                _textBox.Styles["border-color"] = "darkred";
                 _field.SetError(message);
+            }
+
+            void ClearError()
+            {
+                _textBox.Styles["border-color"] = "inherit";
+                _field.SetError("");
             }
 
             object value = _textBox.GetType().GetProperty("Text").GetValue(_textBox);
             
             (bool, string)? error = editorFieldInfo.Validators
                 .Select(e => e(value))
-                .Where(e => e.Item1)
+                .Where(e => !e.Item1)
                 .Select(e => ((bool, string)?)e)
                 .FirstOrDefault();
 
-            if (error != null)
+            if (error != null && !error.Value.Item1)
             {
                 SetError(error.Value.Item2);
                 return false;
+            }
+            else
+            {
+                ClearError();
             }
 
             return true;

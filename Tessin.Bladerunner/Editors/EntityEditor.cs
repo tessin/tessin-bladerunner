@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Security.Policy;
 using LINQPad;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
@@ -105,20 +104,32 @@ namespace Tessin.Bladerunner.Editors
         {
             var fields = _fields.Values.Where(e => !e.Removed && e.Editor != null).ToList();
 
+            object RenderRow(IEnumerable<EditorField<T>> fields)
+            {
+                if(fields.Count() == 1)
+                {
+                    var field = fields.First();
+                    return field.Editor.Render(_obj, field, Updated);
+                }
+                return Layout.Horizontal(fields.Select(e => e.Editor.Render(_obj, e, Updated)));
+            }
+
+            Control RenderRows(IEnumerable<EditorField<T>> fields)
+            {
+                return Layout.Gap(false).Vertical(fields.OrderBy(h => h.Order).GroupBy(f => f.Row).Select(RenderRow));
+            }
+
             var columns = fields
                 .GroupBy(e => e.Column)
                 .OrderBy(e => e.Key)
-                .Select(e => Layout.Gap(false).Vertical(
+                .Select(e => Layout.Class("entity-editor--column").Gap(false).Vertical(
                     e.GroupBy(f => f.Group)
                     .OrderBy(f => f.Key)
                     .Select(f =>
                         Layout.Gap(false).Vertical( 
                             f.Key == null
-                            ? Layout.Gap(false).Vertical(
-                                f.OrderBy(h => h.Order).Select(h => h.Editor.Render(_obj, h, Updated)).ToArray())
-                            : new CollapsablePanel(f.Key,
-                                Layout.Gap(false).Vertical(
-                                    f.OrderBy(h => h.Order).Select(h => h.Editor.Render(_obj, h, Updated)).ToArray()))
+                            ? RenderRows(f)
+                            : new CollapsablePanel(f.Key, RenderRows(f))
                         ))
                         .ToArray())).ToArray();
 
@@ -143,6 +154,7 @@ namespace Tessin.Bladerunner.Editors
             var saveButton = new Controls.Button(_actionVerb, (_) =>
             {
                 var validationErrors = fields.Select(e => e.Editor.Validate(_obj, e)).Count(e => !e);
+                validationLabel.HtmlElement.InnerText = "";
 
                 if (validationErrors == 0)
                 {
@@ -161,7 +173,7 @@ namespace Tessin.Bladerunner.Editors
             Updated();
 
             return new HeaderPanel(
-                Layout.Horizontal(saveButton, validationLabel), 
+                Layout.Middle().Horizontal(saveButton, validationLabel), 
                 Layout.Horizontal( //columns
                     columns
                 )
@@ -199,15 +211,16 @@ namespace Tessin.Bladerunner.Editors
             return this;
         }
 
-        private EntityEditor<T> _Place(int col, params Expression<Func<T, object>>[] fields)
+        private EntityEditor<T> _Place(int col, Guid? row, params Expression<Func<T, object>>[] fields)
         {
-            int order = 0;
+            int order = _fields.Values.Where(e => e.Column == col).Select(e => (int?)e.Order).Max() ?? 0;
             foreach (var expr in fields)
             {
                 var hint = GetField(expr);
                 hint.Removed = false;
-                hint.Order = order++;
+                hint.Order = ++order;
                 hint.Column = col;
+                hint.Row = row ?? Guid.NewGuid();
             }
 
             return this;
@@ -215,12 +228,22 @@ namespace Tessin.Bladerunner.Editors
 
         public EntityEditor<T> Place(int col, params Expression<Func<T, object>>[] fields)
         {
-            return _Place(col, fields);
+            return _Place(col, null, fields);
         }
 
         public EntityEditor<T> Place(params Expression<Func<T, object>>[] fields)
         {
-            return _Place(1, fields);
+            return _Place(1, null, fields);
+        }
+
+        public EntityEditor<T> Place(bool row, params Expression<Func<T, object>>[] fields)
+        {
+            return _Place(1, row?Guid.NewGuid():null, fields) ;
+        }
+
+        public EntityEditor<T> Place(int col, bool row, params Expression<Func<T, object>>[] fields)
+        {
+            return _Place(col, row ? Guid.NewGuid() : null, fields);
         }
 
         public EntityEditor<T> Group(string group, int column, params Expression<Func<T, object>>[] fields)
@@ -281,7 +304,8 @@ namespace Tessin.Bladerunner.Editors
         public EntityEditor<T> Required(Expression<Func<T, string>> field)
         {
             var hint = GetField(field);
-            hint.Validators.Add(e => (string.IsNullOrWhiteSpace(((string)e)), "Required field.")) ;
+            hint.Required = true;
+            hint.Validators.Add(e => (!string.IsNullOrWhiteSpace(((string)e)), "Required field.")) ;
             return this;
         }
 

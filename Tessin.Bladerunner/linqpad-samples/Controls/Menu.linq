@@ -4,19 +4,20 @@
   <Namespace>Tessin.Bladerunner</Namespace>
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
   <Namespace>Tessin.Bladerunner.Controls</Namespace>
-  <RuntimeVersion>5.0</RuntimeVersion>
 </Query>
 
 void Main()
 {
-	//ebugger.Launch();
+	//Debugger.Launch();
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", showDebugButton: false, cssHotReloading: true);
 	
 	manager.Dump();
 	
-	manager.PushBlade(Blade1(), "Blade1");
-	//manager.PushBlade(Blade2(), "Blade2");
+	//manager.PushBlade(Blade1(), "Blade1");
+	manager.PushBlade(Blade2(), "Blade2");
+	manager.PushBlade(Blade4(), "Blade4");
+	manager.PushBlade(Blade5(), "Blade5");
 }
 
 static IBladeRenderer Blade1()
@@ -76,7 +77,6 @@ static IBladeRenderer Blade2()
 			);
 		}, addPadding:true);
 
-		
 		return new HeaderPanel(
 			Layout.Fill().Gap(false).Middle().Add(searchBox, "1fr").Horizontal(new IconButton(Icons.Plus)), 
 			refreshContainer
@@ -101,6 +101,33 @@ static IBladeRenderer Blade3()
 		);
 
 		return Layout.Vertical(new Card(pl));
+	});
+}
+
+static IBladeRenderer Blade4()
+{
+	return BladeFactory.Make((blade) =>
+	{
+		var refreshContainer = new RefreshPanel(null, () =>
+		{
+			return "";
+		}, addPadding: true);
+
+		return new HeaderPanel(
+			Layout.Fill().Gap(false).Middle().Add(new SearchBox(), "1fr").Add(new TextBox(), "auto").Add(new Button("Hej"), "auto").Horizontal(new IconButton(Icons.Plus)),
+			refreshContainer
+		);
+	});
+}
+
+static IBladeRenderer Blade5()
+{
+	return BladeFactory.Make((blade) =>
+	{
+		return new HeaderPanel(
+			"Foo",
+			"Bar"
+		);
 	});
 }
 

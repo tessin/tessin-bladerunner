@@ -7,7 +7,7 @@ using Tessin.Bladerunner.Blades;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class HeaderPanel : Div, INoContainerPadding
+    public class HeaderPanel : Div, INoContainerPadding 
     {
         public HeaderPanel(object header, object body)
         {
