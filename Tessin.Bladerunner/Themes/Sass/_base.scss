@@ -14,6 +14,7 @@ html,
 body,
 body > div > div {
   height: 100%;
+  width: 100%;
 }
 
 // Hiding overflow for the body element is needed.
@@ -24,6 +25,7 @@ body {
 // The outermost <div> and only this needs this.
 body > div {
   height: 100vh;
+  overflow-x: auto; // Key that horizontal scrolling for everything incl. blades goes here.
 }
 
 h1,
