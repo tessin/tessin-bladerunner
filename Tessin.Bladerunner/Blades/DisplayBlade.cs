@@ -17,7 +17,7 @@ namespace Tessin.Bladerunner.Blades
         public object Render(Blade blade)
         {
             return
-                LINQPad.Util.VerticalRun(
+                Layout.Vertical(
                   _show
                 );
         }

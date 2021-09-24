@@ -84,16 +84,9 @@ namespace Tessin.Bladerunner.Controls
                             _Refresh();
                         };
                     }
-                    else if (control is TextBox tb1)
+                    else if (control is LINQPad.Controls.TextBox textBox)
                     {
-                        tb1.TextInput += (_, __) =>
-                        {
-                            _Refresh();
-                        };
-                    }
-                    else if (control is LINQPad.Controls.TextBox tb2)
-                    {
-                        tb2.TextInput += (_, __) =>
+                        textBox.TextInput += (_, __) =>
                         {
                             _Refresh();
                         };
@@ -105,35 +98,35 @@ namespace Tessin.Bladerunner.Controls
                             _Refresh();
                         };
                     }
-                    else if (control is CheckBox checkBox)
+                    else if (control is LINQPad.Controls.CheckBox checkBox)
                     {
                         checkBox.Click += (_, __) =>
                         {
                             _Refresh();
                         };
                     }
-                    else if (control is DataListBox dataListBox)
+                    else if (control is LINQPad.Controls.DataListBox dataListBox)
                     {
                         dataListBox.TextInput += (_, __) =>
                         {
                             _Refresh();
                         };
                     }
-                    else if (control is TextArea textArea)
+                    else if (control is LINQPad.Controls.TextArea textArea)
                     {
                         textArea.TextInput += (_, __) =>
                         {
                             _Refresh();
                         };
                     }
-                    else if (control is FilePicker filePicker)
+                    else if (control is LINQPad.Controls.FilePicker filePicker)
                     {
                         filePicker.TextInput += (_, __) =>
                        {
                             _Refresh();
                        };
                     }
-                    else if (control is SelectBox selectBox)
+                    else if (control is LINQPad.Controls.SelectBox selectBox)
                     {
                         selectBox.SelectionChanged += (_, __) =>
                         {

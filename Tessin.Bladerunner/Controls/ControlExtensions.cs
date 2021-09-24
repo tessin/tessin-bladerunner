@@ -152,28 +152,28 @@ namespace Tessin.Bladerunner
                     onUpdate();
                 };
             }
-            if (control is Controls.CheckBox checkBox)
+            if (control is LINQPad.Controls.CheckBox checkBox)
             {
                 checkBox.Click += (_, __) =>
                 {
                     onUpdate();
                 };
             }
-            if (control is DataListBox dataListBox)
+            if (control is LINQPad.Controls.DataListBox dataListBox)
             {
                 dataListBox.TextInput += (_, __) =>
                 {
                     onUpdate();
                 };
             }
-            if (control is Controls.TextArea textArea)
+            if (control is LINQPad.Controls.TextArea textArea)
             {
                 textArea.TextInput += (_, __) =>
                 {
                     onUpdate();
                 };
             }
-            if (control is FilePicker filePicker)
+            if (control is LINQPad.Controls.FilePicker filePicker)
             {
                 filePicker.TextInput += (_, __) =>
                 {

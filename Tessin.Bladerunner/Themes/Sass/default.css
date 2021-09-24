@@ -505,6 +505,10 @@ H2.default {
   font-size: 2em;
 }
 
+P.default {
+  max-width: 400px;
+}
+
 SPAN.no-wrap {
   white-space: nowrap;
 }

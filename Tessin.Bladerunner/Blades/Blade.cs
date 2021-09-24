@@ -79,9 +79,12 @@ namespace Tessin.Bladerunner.Blades
 
                 return div;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return e;
+                return Layout.Padding(true).Vertical(
+                    Typography.H2(ex.GetType().Name), 
+                    Typography.P(ex.Message), 
+                    new CollapsablePanel("Stack Trace", Typography.Code(ex.StackTrace)));
             }
         }
 
