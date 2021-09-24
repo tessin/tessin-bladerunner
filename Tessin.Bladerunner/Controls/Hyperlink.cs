@@ -4,14 +4,18 @@ using System.Text;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class Hyperlink : LINQPad.Controls.Hyperlink
+    public sealed class Hyperlink : LINQPad.Controls.Hyperlink
     {
-        public Hyperlink(string text = "", Action<LINQPad.Controls.Hyperlink> onClick = null) : base(text, onClick)
+        public Hyperlink(string text = "", Action<Hyperlink> onClick = null) : base(text)
         {
-        }
-
-        public Hyperlink(string text = "", Action<Hyperlink> onClick = null) : base(text, (Action<LINQPad.Controls.Hyperlink>)onClick)
-        {
+            Hyperlink obj = this;
+            if (onClick != null)
+            {
+                Click += delegate
+                {
+                    onClick(obj);
+                };
+            }
         }
 
         public Hyperlink(string text, string href) : base(text, href)

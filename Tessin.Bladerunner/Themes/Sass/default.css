@@ -1162,7 +1162,6 @@ SPAN.field--header-description:after {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  background-color: #f8f8f8;
 }
 
 .header-panel--body > div,

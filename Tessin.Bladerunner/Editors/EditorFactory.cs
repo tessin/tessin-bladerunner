@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Tessin.Bladerunner.Editors
 {
@@ -55,12 +56,17 @@ namespace Tessin.Bladerunner.Editors
 
         public IFieldEditor<T> Url()
         {
-            return new TextEditor<T>(type:"url");
+            return new TextEditor<T>(type: "url");
         }
 
         public IFieldEditor<T> Email()
         {
             return new TextEditor<T>(type: "email");
+        }
+
+        public IFieldEditor<T> AsyncDataList(Func<string, Task<IEnumerable<Option>>> queryOptions, Func<object, Task<Option>> findOption = null)
+        {
+            return new AsyncDataListEditor<T>(queryOptions, findOption);
         }
 
         public IFieldEditor<T> DataList(IEnumerable<string> options)

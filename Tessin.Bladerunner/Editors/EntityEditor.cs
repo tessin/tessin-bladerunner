@@ -301,11 +301,14 @@ namespace Tessin.Bladerunner.Editors
             return this;
         }
 
-        public EntityEditor<T> Required(Expression<Func<T, string>> field)
+        public EntityEditor<T> Required(params Expression<Func<T, string>>[] fields)
         {
-            var hint = GetField(field);
-            hint.Required = true;
-            hint.Validators.Add(e => (!string.IsNullOrWhiteSpace(((string)e)), "Required field.")) ;
+            foreach (var expr in fields)
+            {
+                var hint = GetField(expr);
+                hint.Required = true;
+                hint.Validators.Add(e => (!string.IsNullOrWhiteSpace(((string)e)), "Required field."));
+            }
             return this;
         }
 
