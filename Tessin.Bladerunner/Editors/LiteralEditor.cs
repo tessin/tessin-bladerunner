@@ -16,7 +16,7 @@ namespace Tessin.Bladerunner.Editors
         {
             var value = Convert.ToString(editorFieldInfo.GetValue(obj));
 
-            var valueLabel = new Label(value ?? "null");
+            var valueLabel = new Controls.Label(value ?? "null");
 
             valueLabel.HtmlElement.SetAttribute("class", "entity-editor-literal");
 

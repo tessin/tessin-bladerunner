@@ -10,6 +10,10 @@ namespace Tessin.Bladerunner.Controls
         {
         }
 
+        public Hyperlink(string text = "", Action<Hyperlink> onClick = null) : base(text, (Action<LINQPad.Controls.Hyperlink>)onClick)
+        {
+        }
+
         public Hyperlink(string text, string href) : base(text, href)
         {
         }

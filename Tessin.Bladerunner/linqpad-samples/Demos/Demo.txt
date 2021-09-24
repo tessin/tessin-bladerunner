@@ -1,1 +1,2 @@
 - EntityEditor.linq - Required/Description + Place in rows
+- Exceptions

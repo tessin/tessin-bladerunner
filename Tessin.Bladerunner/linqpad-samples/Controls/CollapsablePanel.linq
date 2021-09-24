@@ -25,7 +25,6 @@ static IBladeRenderer Blade1()
 	{		
 		//return new DefaultContentFormatter().Format(new Field("Title", new TextBox(), ""));
 		
-		
 		return 
 			Layout.Vertical(
 			new Field("Title", new TextBox(), ""),

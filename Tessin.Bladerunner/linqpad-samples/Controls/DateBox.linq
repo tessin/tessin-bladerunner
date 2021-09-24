@@ -30,7 +30,7 @@ static IBladeRenderer Blade1()
 		RefreshPanel rc = new RefreshPanel(new[] { db, tb }, () =>
 		{
 			return Layout.Vertical(db.SelectedDate, tb.SelectedDate);
-		});
+		},addPadding:false);
 
 		return Layout.Vertical(db, tb, rc);
 	});

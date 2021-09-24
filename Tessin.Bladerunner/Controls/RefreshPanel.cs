@@ -48,17 +48,17 @@ namespace Tessin.Bladerunner.Controls
 
         //private bool _first = true;
 
-        private bool _addPadding = false;
+        private readonly bool _addPadding = false;
 
         private readonly DebounceDispatcher _debounceDispatcher;
 
-        public RefreshPanel(object[] controls, Func<Task<object>> onRefreshAsync, int debounceInterval = 250, bool addPadding = false) 
+        public RefreshPanel(object[] controls, Func<Task<object>> onRefreshAsync, int debounceInterval = 250, bool addPadding = true) 
             : this(controls, AnyTask.Factory<object>(onRefreshAsync), debounceInterval, addPadding)
         {
 
         }
 
-        public RefreshPanel(object[] controls, Func<object> onRefreshAsync, int debounceInterval = 250, bool addPadding = false)
+        public RefreshPanel(object[] controls, Func<object> onRefreshAsync, int debounceInterval = 250, bool addPadding = true)
             : this(controls, AnyTask.Factory<object>(() => Task.FromResult(onRefreshAsync())), debounceInterval, addPadding)
         {
 
@@ -84,9 +84,16 @@ namespace Tessin.Bladerunner.Controls
                             _Refresh();
                         };
                     }
-                    else if (control is TextBox textBox)
+                    else if (control is TextBox tb1)
                     {
-                        textBox.TextInput += (_, __) =>
+                        tb1.TextInput += (_, __) =>
+                        {
+                            _Refresh();
+                        };
+                    }
+                    else if (control is LINQPad.Controls.TextBox tb2)
+                    {
+                        tb2.TextInput += (_, __) =>
                         {
                             _Refresh();
                         };

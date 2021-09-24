@@ -1,7 +1,6 @@
 <Query Kind="Program">
   <Connection>
     <ID>267fadab-00a0-4cb2-8e87-82deb2eeba5c</ID>
-    <Persist>true</Persist>
     <Server>tessin-prod-q3j2jdhga4u26.database.windows.net</Server>
     <Database>tessin-prod</Database>
     <UserName>niels@tessin.com</UserName>
@@ -26,15 +25,14 @@ static IDbConnection connection;
 
 void Main()
 {	
-	Debugger.Launch();
+	//Debugger.Launch();
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
+	manager.Dump();
 	
 	manager.PushBlade(Blade1(), "Blade1");
 	
 	connection = Connection;
-	
-	manager.Dump();
 }
 
 static IBladeRenderer Blade1()

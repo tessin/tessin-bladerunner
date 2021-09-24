@@ -332,6 +332,11 @@ select {
   border: 1px solid gray;
 }
 
+input[type="color"]
+{
+    width: 20px;
+}
+
 select {
   box-sizing: content-box;
 }

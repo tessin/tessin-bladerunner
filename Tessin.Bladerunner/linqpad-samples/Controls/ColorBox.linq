@@ -28,7 +28,7 @@ static IBladeRenderer Blade1()
 		
 		RefreshPanel rc = new RefreshPanel(new [] {cb}, () => {
 			return cb.Text;
-		});
+		},addPadding:false);
 		
 		return Layout.Vertical(cb, rc);
 	});

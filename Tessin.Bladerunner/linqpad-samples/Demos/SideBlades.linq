@@ -1,7 +1,6 @@
 <Query Kind="Program">
   <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
   <Reference>&lt;RuntimeDirectory&gt;\System.Windows.Forms.dll</Reference>
-  <Namespace>LINQPad.Controls</Namespace>
   <Namespace>Tessin.Bladerunner</Namespace>
   <Namespace>Tessin.Bladerunner.Blades</Namespace>
   <Namespace>Tessin.Bladerunner.Controls</Namespace>
@@ -32,6 +31,6 @@ static IBladeRenderer SideBlade()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		return "";
+		return "HelloWorld";
 	});
 }
