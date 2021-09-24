@@ -16,10 +16,10 @@ void Main()
 	manager.Dump();
 	
 	manager.PushBlade(Blade0(), "Blade0");
-	//manager.PushBlade(Blade1(), "Blade1");
-	//manager.PushBlade(Blade2(), "Blade2");
+	manager.PushBlade(Blade1(), "Blade1");
+	manager.PushBlade(Blade2(), "Blade2");
 	manager.PushBlade(Blade4(), "Blade4");
-	//manager.PushBlade(Blade5(), "Blade5");
+	manager.PushBlade(Blade5(), "Blade5");
 }
 
 static IBladeRenderer Blade0()
