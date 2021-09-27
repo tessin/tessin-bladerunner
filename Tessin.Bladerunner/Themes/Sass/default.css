@@ -493,6 +493,10 @@ a.graphcolumn {
   display: block;
 }
 
+PROGRESS {
+  display: block;
+}
+
 SPAN.small {
   font-size: 0.9em;
   color: darkgray;

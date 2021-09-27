@@ -34,17 +34,23 @@ namespace Tessin.Bladerunner.Controls
 
     public class Matrix<T> : Div where T : new()
     {
+        private IContentFormatter _contentFormatter;
+
         public static Matrix<MatrixCell> Create(List<MatrixCell> cells)
         {
-            return new(cells, c => c.Column, c => c.Row, c => c.FirstOrDefault()?.Value);
+            return new(cells, c => c.Column, c => c.Row, (c,_,_) => c.FirstOrDefault()?.Value);
         }
 
         public Matrix(
             List<T> cells, 
             Expression<Func<T, string>> colExpr, 
             Expression<Func<T, string>> rowExpr,
-            Func<IEnumerable<T>, object> cellRenderer)
+            Func<IEnumerable<T>, string, string, object> cellRenderer,
+            IContentFormatter formatter = null
+        )
         {
+            _contentFormatter = formatter ?? new DefaultContentFormatter();
+
             this.AddClass("matrix");
             
             var cols = cells.AsQueryable().GroupBy(colExpr).Select(e => e.Key).Distinct().ToList();
@@ -71,20 +77,8 @@ namespace Tessin.Bladerunner.Controls
 
             Div MakeCell(object content)
             {
-                Control child;
-                if (content == null || content is string || content.GetType().IsNumeric())
-                {
-                    child = new Literal(content?.ToString() ?? "");
-                }
-                else
-                {
-                    var dc = new DumpContainer {Content = content};
-                    child = dc;
-                }
-
-                var div = new Div(new Div(child));
+                var div = new Div(_contentFormatter.Format(content));
                 div.SetClass("cell");
-
                 return div;
             }
 
@@ -93,11 +87,11 @@ namespace Tessin.Bladerunner.Controls
             foreach (var row in rows)
             {
                 this.VisualTree.AddRange(
-                    cols.Select(horizontalKey => cellRenderer(cells.Where(e => colFunc(e).Equals(horizontalKey) && rowFunc(e).Equals(row)))).Select(MakeCell).ToArray()
+                    cols.Select(col => cellRenderer(
+                        cells.Where(e => colFunc(e).Equals(col) && rowFunc(e).Equals(row)), col, row)).Select(MakeCell).ToArray()
                         .Prepend(MakeRowHeader(row))
                 );
             }
-            
         }
 
     }

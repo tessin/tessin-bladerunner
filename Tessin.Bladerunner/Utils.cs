@@ -294,5 +294,12 @@ namespace Tessin.Bladerunner
             ((IProgress<int>)progress).Report(current/max);
         }
 
+        public static string TrimEnd(this string source, string value)
+        {
+            if (!source.EndsWith(value))
+                return source;
+            return source.Remove(source.LastIndexOf(value));
+        }
+
     }
 }

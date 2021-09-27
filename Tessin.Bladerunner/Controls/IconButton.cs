@@ -11,11 +11,20 @@ namespace Tessin.Bladerunner.Controls
 {
     public class IconButton : Button
     {
-        public IconButton(string icon, Action<LINQPad.Controls.Button> onClick = null, string tooltip = "", Color color = Color.Black) : base("", onClick)
+        public IconButton(string icon, Action<Button> onClick = null, string tooltip = "", Color color = Color.Black) : base("", onClick)
         {
             this.AddClass($"icon-button {color.ToString().ToLower()}");
             this.HtmlElement.SetAttribute("title", tooltip);
             this.HtmlElement.InnerHtml = icon;
+
+            IconButton obj = this;
+            if (onClick != null)
+            {
+                Click += delegate
+                {
+                    onClick(obj);
+                };
+            }
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Tessin.Bladerunner.Controls
 {
     public class Button : LINQPad.Controls.Button
     {
-        public Button(string initialText = "", Action<Button> onClick = null) : base(initialText, onClick)
+        public Button(string text = "", Action<Button> onClick = null) : base(text)
         {
             Button obj = this;
             if (onClick != null)

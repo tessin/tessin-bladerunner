@@ -42,7 +42,9 @@ namespace Tessin.Bladerunner.Controls
                 int and 0 => EmptyFormatter(),
                 int intContent => Wrapper(new Span(intContent.ToString("N0"))),
                 double and 0 => EmptyFormatter(),
-                double doubleContent => Wrapper(new Span(doubleContent.ToString("N2"))),
+                double doubleContent => Wrapper(new Span(doubleContent.ToString("N2").TrimEnd(".00"))),
+                decimal and 0 => EmptyFormatter(),
+                decimal decimalContent => Wrapper(new Span(decimalContent.ToString("N2").TrimEnd(".00"))),
                 bool boolContent => Wrapper(new Span(boolContent.ToString())),
                 DateTime dateContent => Wrapper(new Span(dateContent.ToString("yyyy-MM-dd"))),
                 _ => Wrapper(new DumpContainer() { Content = content })
