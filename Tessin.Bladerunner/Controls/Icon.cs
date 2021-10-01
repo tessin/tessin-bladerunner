@@ -20,6 +20,11 @@ namespace Tessin.Bladerunner.Controls
 
     public class Icon : Div
     {
+        public static Icon Empty()
+        {
+            return new Icon("");
+        }
+
         public Icon(string icon, string tooltip = "", Color color = Color.Black) : base()
         {
             this.HtmlElement.SetAttribute("title", tooltip);

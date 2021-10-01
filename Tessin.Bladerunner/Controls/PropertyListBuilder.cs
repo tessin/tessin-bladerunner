@@ -16,7 +16,7 @@ namespace Tessin.Bladerunner.Controls
         }
     }
 
-    public class _PropertyListBuilder<T>
+    public class _PropertyListBuilder<T> 
     {
         private object _obj;
 

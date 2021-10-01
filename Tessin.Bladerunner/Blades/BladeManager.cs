@@ -87,6 +87,13 @@ namespace Tessin.Bladerunner.Blades
 
         public void OpenSideBlade(IBladeRenderer renderer, Action<object> onClose = null, string title = "")
         {
+            if (_sideBlade != null)
+            {
+                _sideBlade?.Clear();
+                _sideBlade = null;
+                _overlay.Hide();
+            }
+
             _overlay.Show();
             _sideBladeOnClose = onClose;
             _divSideBlade.SetVisibility(true);
@@ -98,7 +105,7 @@ namespace Tessin.Bladerunner.Blades
         {
             _divSideBlade.SetVisibility(false);
             _overlay.Hide();
-            _sideBlade.Clear();
+            _sideBlade?.Clear();
             _sideBlade = null;
             if (_sideBladeOnClose != null)
             {

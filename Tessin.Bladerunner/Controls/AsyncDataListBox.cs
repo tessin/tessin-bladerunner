@@ -38,6 +38,7 @@ namespace Tessin.Bladerunner.Controls
             _textBox.HtmlElement["list"] = _dataList.HtmlElement.ID;
             _textBox.HtmlElement["autocomplete"] = "off";
             _textBox.HtmlElement["spellcheck"] = "false";
+            _textBox.HtmlElement["placeholder"] ="Search";
             _textBox.TextInput += (sender, args) => OnTextInput();
 
             VisualTree.Add(_loadingDiv);

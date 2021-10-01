@@ -155,7 +155,7 @@ namespace Tessin.Bladerunner.Blades
             return el;
         }
 
-        public Action<LINQPad.Controls.Button> Catch(Func<LINQPad.Controls.Button,Task> action)
+        public Action<T> Catch<T>(Func<T,Task> action)
         {
             return async (btn) =>
             {
@@ -170,7 +170,7 @@ namespace Tessin.Bladerunner.Blades
             };
         }
 
-        public Action<LINQPad.Controls.Button> Catch(Action<LINQPad.Controls.Button> action)
+        public Action<T> Catch<T>(Action<T> action)
         {
             return (btn) =>
             {

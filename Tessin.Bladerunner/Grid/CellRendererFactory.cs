@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 using System.Text;
+using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Grid
 {
-    public class CellRendererFactory<T> where T : new()
+    public class CellRendererFactory<T>
     {
+
+        public ICellRenderer<T> Default(IContentFormatter formatter)
+        {
+            return new DefaultCell<T>(formatter);
+        }
 
         public ICellRenderer<T> Text()
         {

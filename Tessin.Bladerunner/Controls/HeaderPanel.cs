@@ -19,15 +19,18 @@ namespace Tessin.Bladerunner.Controls
 
             var dcBody = new DumpContainer();
 
-            if (body is RefreshPanel)
+            if (body != null)
             {
-                dcBody.Content = body;
+                if (body is RefreshPanel)
+                {
+                    dcBody.Content = body;
+                }
+                else
+                {
+                    ControlExtensions.AddPadding(dcBody, body).GetAwaiter().GetResult();
+                }
             }
-            else
-            {
-                ControlExtensions.AddPadding(dcBody, body).GetAwaiter().GetResult();
-            }
-            
+
             var divBody = new Div(dcBody);
             divBody.SetClass("header-panel--body");
 

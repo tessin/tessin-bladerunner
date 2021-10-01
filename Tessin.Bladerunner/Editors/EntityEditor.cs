@@ -312,6 +312,17 @@ namespace Tessin.Bladerunner.Editors
             return this;
         }
 
+        public EntityEditor<T> Required(params Expression<Func<T, Guid>>[] fields)
+        {
+            foreach (var expr in fields)
+            {
+                var hint = GetField(expr);
+                hint.Required = true;
+                hint.Validators.Add(e => ((e is Guid guid) && guid != Guid.Empty, "Required field."));
+            }
+            return this;
+        }
+
         public EntityEditor<T> ShowIf(Expression<Func<T, object>> field, Func<T, bool> predicate)
         {
             var hint = GetField(field);

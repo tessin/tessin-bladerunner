@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
 using LINQPad.Controls;
+using Tessin.Bladerunner.Controls;
+using Literal = LINQPad.Controls.Literal;
 using Table=Tessin.Bladerunner.Controls.Table;
 using TableRow = Tessin.Bladerunner.Controls.TableRow;
 using TableCell = Tessin.Bladerunner.Controls.TableCell;
@@ -12,25 +15,30 @@ namespace Tessin.Bladerunner.Grid
 {
     public static class EntityGridHelper
     {
-        public static Grid<T> Create<T>(IEnumerable<T> obj) where T : new()
+
+        public static EntityGrid<T> Create<T>(IEnumerable<T> rows)
         {
-            return new Grid<T>(obj);
+            return new EntityGrid<T>(rows);
         }
     }
     
-    public class Grid<T> where T : new()
+    public class EntityGrid<T>
     {
-        private IEnumerable<T> _rows;
+        private readonly IEnumerable<T> _rows;
 
         private Dictionary<string, GridColumn<T>> _columns;
 
         private readonly CellRendererFactory<T> _rendererFactory;
 
-        private string _width;
+        private readonly string _width;
 
         private Action<T, Controls.TableRow> _rowAction;
 
-        public Grid(IEnumerable<T> rows, string width = null)
+        private readonly IContentFormatter _formatter = new DefaultContentFormatter();
+
+        private bool _removeEmptyColumns = false;
+
+        public EntityGrid(IEnumerable<T> rows, string width = null)
         {
             _rows = rows;
             _width = width;
@@ -41,8 +49,6 @@ namespace Tessin.Bladerunner.Grid
         private void Scaffold()
         {
             _columns = new Dictionary<string, GridColumn<T>>();
-
-            //var type = _rows.GetType().GetGenericArguments()[0];
 
             var type = typeof(T);
 
@@ -62,18 +68,23 @@ namespace Tessin.Bladerunner.Grid
             {
                 var cellAlignment = CellAlignment.Left;
 
-                var cellRenderer = _rendererFactory.Text();
+                var cellRenderer = _rendererFactory.Default(_formatter);
 
                 if (field.Type.IsNumeric())
                 {
-                    cellRenderer = _rendererFactory.Number();
+                    //cellRenderer = _rendererFactory.Number();
                     cellAlignment = CellAlignment.Right;
                 }
 
-                if (field.Type.IsDate())
+                if (field.Type.IsAssignableFrom(typeof(Controls.Icon)))
                 {
-                    cellRenderer = _rendererFactory.Date();
+                    cellAlignment = CellAlignment.Center;
                 }
+
+                //if (field.Type.IsDate())
+                //{
+                //    cellRenderer = _rendererFactory.Date();
+                //}
 
                 _columns[field.Name] =
                     new GridColumn<T>(field.Name, field.Name, order++, cellRenderer, cellAlignment, field.FieldInfo, field.PropertyInfo);
@@ -82,6 +93,10 @@ namespace Tessin.Bladerunner.Grid
 
         public Control Render()
         {
+            if (!_rows.Any()) return null;
+
+            bool[] isEmptyColumn = Enumerable.Repeat(true, _columns.Count).ToArray();
+
             Table RenderTable(IEnumerable<TableRow> tableRows)
             {
                 var table = new Table(tableRows);
@@ -95,9 +110,24 @@ namespace Tessin.Bladerunner.Grid
                 return table;
             }
 
-            TableCell RenderCell(GridColumn<T> column, Control content, bool isHeader = false)
+            TableCell RenderCell(int index, GridColumn<T> column, Control content, bool isHeader = false)
             {
                 var cell = new TableCell(isHeader, content);
+
+                if (!isHeader && isEmptyColumn[index])
+                {
+                    if (content is Literal || content is Span || content is Div)
+                    {
+                        if (!string.IsNullOrEmpty(content.HtmlElement.InnerHtml) || !string.IsNullOrEmpty(content.HtmlElement.InnerText))
+                        {
+                            isEmptyColumn[index] = false;
+                        }
+                    }
+                    else
+                    {
+                        isEmptyColumn[index] = false;
+                    }
+                }
 
                 cell.Styles["white-space"] = "nowrap";
 
@@ -113,16 +143,16 @@ namespace Tessin.Bladerunner.Grid
                 return cell;
             }
 
-            TableCell RenderHeaderCell(GridColumn<T> column, Control content)
+            TableCell RenderHeaderCell(int index, GridColumn< T> column, Control content)
             {
-                var cell = RenderCell(column, content, true);
+                var cell = RenderCell(index, column, content, true);
                 cell.HtmlElement.SetAttribute("width", column.Width);
                 return cell;
             }
 
-            TableCell RenderSummaryCell(GridColumn<T> column, Control content)
+            TableCell RenderSummaryCell(int index, GridColumn<T> column, Control content)
             {
-                var cell = RenderCell(column, content);
+                var cell = RenderCell(index, column, content);
                 cell.SetClass("columntotal");
                 return cell;
             }
@@ -133,25 +163,36 @@ namespace Tessin.Bladerunner.Grid
             TableRow RenderRow(T e)
             {
                 var row = new TableRow(
-                    columns.Select(f => RenderCell(f, f.CellRenderer.Render(f.GetValue(e), f)))
+                    columns.Select((f,i) => RenderCell(i, f, f.CellRenderer.Render(f.GetValue(e), f)))
                 );
                 _rowAction?.Invoke(e, row);
                 return row; 
             }
 
-            var header = new TableRow(columns.Select(e => RenderHeaderCell(e, new Literal(e.Label))));
+            var header = new TableRow(columns.Select((e,i) => RenderHeaderCell(i, e, new Literal(e.Label == "_" ? "" : e.Label))));
 
             var rows = _rows.Select(RenderRow);
 
-            var renderedRows = new[] {header}.Concat(rows);
+            var renderedRows = new[] {header}.Concat(rows).ToArray();
 
             if (columns.Any(e => e.SummaryMethod != null))
             {
-                var summary = new TableRow(columns.Select(e => 
-                    RenderSummaryCell(e, e.SummaryMethod != null ? e.CellRenderer.Render(e.SummaryMethod(_rows),e) : new Literal(""))));
-                renderedRows = renderedRows.Append(summary);
-                
-                return RenderTable(renderedRows);
+                var summary = new TableRow(columns.Select((e,i) => 
+                    RenderSummaryCell(i, e, e.SummaryMethod != null ? e.CellRenderer.Render(e.SummaryMethod(_rows),e) : new Literal(""))));
+                renderedRows = renderedRows.Append(summary).ToArray();
+            }
+
+            if (_removeEmptyColumns && isEmptyColumn.Any(e => e))
+            {
+                var indexes = isEmptyColumn.Select((e, i) => (e, i)).Where(x => x.e).Select(x => x.i).Reverse().ToArray();
+                foreach (var row in renderedRows)
+                {
+                    var _row = row;
+                    foreach (var index in indexes)
+                    {
+                        _row.Cells.RemoveAt(index);
+                    }
+                }
             }
 
             return RenderTable(renderedRows);
@@ -180,14 +221,14 @@ namespace Tessin.Bladerunner.Grid
             }
         }
 
-        public Grid<T> Renderer(Expression<Func<T, object>> field, Func<CellRendererFactory<T>, ICellRenderer<T>> editor)
+        public EntityGrid<T> Renderer(Expression<Func<T, object>> field, Func<CellRendererFactory<T>, ICellRenderer<T>> editor)
         {
             var hint = GetField(field);
             hint.CellRenderer = editor(_rendererFactory);
             return this;
         }
 
-        public Grid<T> Renderer<TU>(Func<CellRendererFactory<T>, ICellRenderer<T>> editor)
+        public EntityGrid<T> Renderer<TU>(Func<CellRendererFactory<T>, ICellRenderer<T>> editor)
         {
             foreach (var hint in _columns.Values.Where(e => e.Type is TU))
             {
@@ -196,28 +237,35 @@ namespace Tessin.Bladerunner.Grid
             return this;
         }
 
-        public Grid<T> Description(Expression<Func<T, object>> field, string description)
+        public EntityGrid<T> Description(Expression<Func<T, object>> field, string description)
         {
             var hint = GetField(field);
             hint.Description = description;
             return this;
         }
 
-        public Grid<T> Label(Expression<Func<T, object>> field, string label)
+        public EntityGrid<T> Label(Expression<Func<T, object>> field, string label)
         {
             var hint = GetField(field);
             hint.Label = label;
             return this;
         }
 
-        public Grid<T> Width(Expression<Func<T, object>> field, string width)
+        public EntityGrid<T> Align(Expression<Func<T, object>> field, CellAlignment alignment)
+        {
+            var hint = GetField(field);
+            hint.CellAlignment = alignment;
+            return this;
+        }
+
+        public EntityGrid<T> Width(Expression<Func<T, object>> field, string width)
         {
             var hint = GetField(field);
             hint.Width = width;
             return this;
         }
 
-        public Grid<T> Order(params Expression<Func<T, object>>[] fields)
+        public EntityGrid<T> Order(params Expression<Func<T, object>>[] fields)
         {
             int order = 0;
             foreach (var expr in fields)
@@ -229,21 +277,21 @@ namespace Tessin.Bladerunner.Grid
             return this;
         }
 
-        public Grid<T> Remove(Expression<Func<T, object>> field)
+        public EntityGrid<T> Remove(Expression<Func<T, object>> field)
         {
             var hint = GetField(field);
             hint.Removed = true;
             return this;
         }
 
-        public Grid<T> Add(Expression<Func<T, object>> field)
+        public EntityGrid<T> Add(Expression<Func<T, object>> field)
         {
             var hint = GetField(field);
             hint.Removed = false;
             return this;
         }
 
-        public Grid<T> Clear()
+        public EntityGrid<T> Clear()
         {
             foreach (var field in _columns.Values)
             {
@@ -252,20 +300,20 @@ namespace Tessin.Bladerunner.Grid
             return this;
         }
 
-        public Grid<T> Row(Action<T,TableRow> rowAction)
+        public EntityGrid<T> Row(Action<T,TableRow> rowAction)
         {
             _rowAction = rowAction;
             return this;
         }
 
-        public Grid<T> Totals(Expression<Func<T, object>> field, Func<IEnumerable<T>,object> summaryMethod)
+        public EntityGrid<T> Totals(Expression<Func<T, object>> field, Func<IEnumerable<T>,object> summaryMethod)
         {
             var _field = GetField(field);
             _field.SummaryMethod = summaryMethod;
             return this;
         }
 
-        public Grid<T> Totals(Expression<Func<T, object>> field)
+        public EntityGrid<T> Totals(Expression<Func<T, object>> field)
         {
             var _field = GetField(field);
             object SummaryMethod(IEnumerable<T> rows)
@@ -275,5 +323,10 @@ namespace Tessin.Bladerunner.Grid
             return Totals(field, SummaryMethod);
         }
 
+        public EntityGrid<T> RemoveEmptyColumns()
+        {
+            _removeEmptyColumns = true;
+            return this;
+        }
     }
 }
