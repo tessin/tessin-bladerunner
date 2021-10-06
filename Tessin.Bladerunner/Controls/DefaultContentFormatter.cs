@@ -47,6 +47,7 @@ namespace Tessin.Bladerunner.Controls
                 decimal decimalContent => Wrapper(new Span(decimalContent.ToString("N2").TrimEnd(".00"))),
                 bool boolContent => Wrapper(new Span(boolContent.ToString())),
                 DateTime dateContent => Wrapper(new Span(dateContent.ToString("yyyy-MM-dd"))),
+                Guid guid => guid == Guid.Empty ? EmptyFormatter() : Wrapper(new Span(guid.ToString())),
                 _ => Wrapper(new DumpContainer() { Content = content })
             };
         }
