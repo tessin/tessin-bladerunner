@@ -2,6 +2,11 @@
 {
     public class Option
     {
+        public Option()
+        {
+
+        }
+
         public Option(string label, object value)
         {
             Label = label;
