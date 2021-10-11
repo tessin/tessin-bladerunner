@@ -85,9 +85,11 @@ namespace Tessin.Bladerunner.Controls
                 pillContainer = _pillContainer.ToControl();
                 this.VisualTree.Add(pillContainer);
 
+                var formatter = new DefaultContentFormatter();
+
                 Control Format(object content)
                 {
-                    return DefaultContentFormatter.Format(content, (c, e) =>
+                    return formatter.Format(content, (c, e) =>
                     {
                         if (e) return c;
                         var span = new Span(c);

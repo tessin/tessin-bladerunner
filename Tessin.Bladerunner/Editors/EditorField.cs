@@ -18,6 +18,12 @@ namespace Tessin.Bladerunner.Editors
         {
             Name = name;
             Label = Regex.Replace(label, "(\\B[A-Z])", " $1");
+
+            if(!name.EndsWith("GovId") && name!="Id" && name.EndsWith("Id"))
+            {
+                Label = Label.Substring(0, Label.Length - 3);
+            }
+
             Order = order;
             Editor = editor;
             FieldInfo = fieldInfo;

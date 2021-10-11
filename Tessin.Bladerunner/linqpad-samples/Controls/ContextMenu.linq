@@ -12,9 +12,11 @@
 
 void Main()
 {		
-	BladeManager manager = new BladeManager();
-	manager.PushBlade(Blade1(), "Blade1");
+	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
+	
+	manager.PushBlade(Blade1(), "Blade1");
+	
 }
 
 public class Form {
@@ -32,7 +34,7 @@ static IBladeRenderer Blade1()
 		return Layout.Vertical(new ContextMenu(new IconButton(Icons.DotsVertical),
 			new ContextMenu.Item("Foo", (_) => {
 				blade.PushBlade(Blade1());
-			}),
+			},enabled:false),
 			new ContextMenu.Item("Bar", (_) => { })
 		), 
 		new ContextMenu(new IconButton(Icons.DotsVertical),

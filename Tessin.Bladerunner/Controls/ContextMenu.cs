@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Text;
 using LINQPad;
 using LINQPad.Controls;
@@ -28,11 +27,15 @@ namespace Tessin.Bladerunner.Controls
                 children.Add(new Span(item.Label));
 
                 var control = new Control("li", children);
-                control.Click += (_,__) =>
+                control.Enabled = item.Enabled;
+                if(item.Enabled)
                 {
-                    Close();
-                    item.OnClick?.Invoke(item);
-                };
+                    control.Click += (_, __) =>
+                    {
+                        Close();
+                        item.OnClick?.Invoke(item);
+                    };
+                }
                 return control;
             }
 
@@ -77,12 +80,15 @@ namespace Tessin.Bladerunner.Controls
 
             public string Icon { get; set; }
 
-            public Item(string label, Action<Item> onClick = null, string icon = null, string tag = null)
+            public bool Enabled { get; set; }
+
+            public Item(string label, Action<Item> onClick = null, string icon = null, string tag = null, bool enabled = true)
             {
                 Label = label;
                 OnClick = onClick;
                 Tag = tag;
                 Icon = icon;
+                Enabled = enabled;
             }
         }
     }

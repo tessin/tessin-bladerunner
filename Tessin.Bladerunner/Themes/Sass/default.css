@@ -564,6 +564,10 @@ PRE.code {
   height: 100%;
 }
 
+.blade-hidden {
+  display: none;
+}
+
 .side-blade {
   position: absolute;
   top: 0;
@@ -1095,7 +1099,6 @@ SPAN.field--header-description:after {
 .context-menu ul {
   position: absolute;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  width: 180px;
   list-style-type: none;
   background-color: white;
   margin: 0px;
@@ -1109,7 +1112,6 @@ SPAN.field--header-description:after {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  position: relative;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -1119,6 +1121,10 @@ SPAN.field--header-description:after {
   overflow: hidden;
   height: 40px;
   cursor: pointer;
+}
+
+.context-menu ul li[disabled="disabled"] {
+  color: lightgray;
 }
 
 .context-menu ul li:hover {

@@ -13,9 +13,9 @@ namespace Tessin.Bladerunner.Editors
 
     public static class EntityEditorHelper
     {
-        public static EntityEditor<T> Create<T>(T obj, Action<T> save, Action<T> preview = null) where T : new()
+        public static EntityEditor<T> Create<T>(T obj, Action<T> save, Action<T> preview = null, string actionVerb = "Save", Control toolbar = null) where T : new()
         {
-            return new EntityEditor<T>(obj, save, preview);
+            return new EntityEditor<T>(obj, save, preview, actionVerb, toolbar);
         }
     }
 
@@ -33,13 +33,16 @@ namespace Tessin.Bladerunner.Editors
 
         private string _actionVerb;
 
-        public EntityEditor(T obj, Action<T> save, Action<T> preview = null, string actionVerb = "Save")
+        private Control _toolbar;
+
+        public EntityEditor(T obj, Action<T> save, Action<T> preview = null, string actionVerb = "Save", Control toolbar = null)
         {
             _save = save;
             _preview = preview;
             _obj = obj;
             _factory = new EditorFactory<T>();
             _actionVerb = actionVerb;
+            _toolbar = toolbar;
             Scaffold();
         }
 
@@ -173,7 +176,7 @@ namespace Tessin.Bladerunner.Editors
             Updated();
 
             return new HeaderPanel(
-                Layout.Middle().Horizontal(saveButton, validationLabel), 
+                Layout.Middle().Horizontal(saveButton, _toolbar, validationLabel), 
                 Layout.Horizontal( //columns
                     columns
                 )

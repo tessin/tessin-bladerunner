@@ -17,6 +17,8 @@ namespace Tessin.Bladerunner.Blades
 
         private readonly DumpContainer[] _panels;
 
+        private Div[] _containers;
+
         private readonly StyleManager _styleManager;
 
         private readonly int _maxDepth;
@@ -49,9 +51,7 @@ namespace Tessin.Bladerunner.Blades
             CultureInfo.DefaultThreadCurrentUICulture = new System.Globalization.CultureInfo("en-US");
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((_, e) => ShowUnhandledException((Exception)e.ExceptionObject));
-
-            //todo: Add this when LINQPad.Runtime is updated
-            //LINQPad.Controls.Control.UnhandledException
+            LINQPad.Controls.Control.UnhandledException += new ThreadExceptionEventHandler((_, e) => ShowUnhandledException(e.Exception));
 
             _maxDepth = maxDepth;
             _cssPath = cssPath;
@@ -80,7 +80,7 @@ namespace Tessin.Bladerunner.Blades
 
         public void PushBlade(IBladeRenderer renderer, string title = "")
         {
-            var blade = new Blade(this, renderer, _stack.Count(), _panels[_stack.Count()], title);
+            var blade = new Blade(this, renderer, _stack.Count(), _panels[_stack.Count()], title, _containers[_stack.Count()]);
             _stack.Push(blade);
             blade.Refresh();
         }
@@ -97,7 +97,7 @@ namespace Tessin.Bladerunner.Blades
             _overlay.Show();
             _sideBladeOnClose = onClose;
             _divSideBlade.SetVisibility(true);
-            _sideBlade = new Blade(this, renderer, -1, _sideBladeContainer, title);
+            _sideBlade = new Blade(this, renderer, -1, _sideBladeContainer, title, null);
             _sideBlade.Refresh();
         }
 
@@ -133,7 +133,8 @@ namespace Tessin.Bladerunner.Blades
 
         object ToDump()
         {
-            return BladeWrapper(_panels.Select(Blade).ToArray());
+            _containers = _panels.Select(Blade).ToArray();
+            return BladeWrapper(_containers);
         }
 
         object BladeWrapper(params Control[] blades)
@@ -144,13 +145,13 @@ namespace Tessin.Bladerunner.Blades
             return _divBladeManager;
         }
 
-        Control Blade(DumpContainer dc)
+        Div Blade(DumpContainer dc)
         {
             var innerDiv = new Div(dc);
             innerDiv.HtmlElement.SetAttribute("class", "blade-container");
 
             var outerDiv = new Div(innerDiv);
-            outerDiv.HtmlElement.SetAttribute("class", "blade");
+            outerDiv.HtmlElement.SetAttribute("class", "blade blade-hidden");
 
             return outerDiv;
         }

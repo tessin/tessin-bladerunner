@@ -12,15 +12,13 @@ namespace Tessin.Bladerunner.Editors
     {
         private Field _field;
 
+        private IContentFormatter _contentFormatter = new DefaultContentFormatter();
+
         public object Render(T obj, EditorField<T> editorFieldInfo, Action preview)
         {
-            var value = Convert.ToString(editorFieldInfo.GetValue(obj));
+            Control valueControl = _contentFormatter.Format(editorFieldInfo.GetValue(obj), emptyContent:"-");
 
-            var valueLabel = new Controls.Label(value ?? "null");
-
-            valueLabel.HtmlElement.SetAttribute("class", "entity-editor-literal");
-
-            return _field = new Field(editorFieldInfo.Label, valueLabel, editorFieldInfo.Description, editorFieldInfo.Helper);
+            return _field = new Field(editorFieldInfo.Label, valueControl, editorFieldInfo.Description, editorFieldInfo.Helper);
         }
 
         public void Save(T obj, EditorField<T> editorFieldInfo)

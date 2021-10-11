@@ -19,17 +19,21 @@ namespace Tessin.Bladerunner.Blades
 
         public string Title { get; set;  }
 
-        public Blade(BladeManager manager, IBladeRenderer renderer, int index, DumpContainer panel, string title)
+        public Div Container { get; set; }
+
+        public Blade(BladeManager manager, IBladeRenderer renderer, int index, DumpContainer panel, string title, Div container)
         {
             Manager = manager;
             Index = index;
             Renderer = renderer;
             Panel = panel;
             Title = title;
+            Container = container;
         }
 	
         public async Task<object> Render()
         {
+            Container?.RemoveClass("blade-hidden");
             try
             {
                 var dc = new DumpContainer();
@@ -129,7 +133,8 @@ namespace Tessin.Bladerunner.Blades
 
         public void Clear()
         {
-            Panel.Content = "";
+            Container?.AddClass("blade-hidden");
+            Panel.ClearContent();
         }
 
         private static Control Div(string @class, params Control[] children)

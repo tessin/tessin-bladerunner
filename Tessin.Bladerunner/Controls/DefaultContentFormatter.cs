@@ -10,7 +10,13 @@ namespace Tessin.Bladerunner.Controls
 {
     public class DefaultContentFormatter : IContentFormatter
     {
-        public static Control Format(object content, Func<Control, bool, Control> wrapper = null, object emptyContent = null)
+        public string IntegerFormat { get; set; } = "N0";
+
+        public string DecimalFormat { get; set; } = "N2";
+
+        public string DateFormat { get; set; } = "yyyy-MM-dd";
+
+        public Control Format(object content, Func<Control, bool, Control> wrapper = null, object emptyContent = null)
         {
             return (new DefaultContentFormatter())._Format(content, wrapper, emptyContent ?? "", false);
         }
@@ -38,15 +44,16 @@ namespace Tessin.Bladerunner.Controls
                 null or "" => EmptyFormatter(),
                 string strContent => Wrapper(new Span(strContent)),
                 long and 0 => EmptyFormatter(),
-                long longContent => Wrapper(new Span(longContent.ToString("N0"))),
+                long longContent => Wrapper(new Span(longContent.ToString(IntegerFormat))),
                 int and 0 => EmptyFormatter(),
-                int intContent => Wrapper(new Span(intContent.ToString("N0"))),
+                int intContent => Wrapper(new Span(intContent.ToString(IntegerFormat))),
                 double and 0 => EmptyFormatter(),
-                double doubleContent => Wrapper(new Span(doubleContent.ToString("N2").TrimEnd(".00"))),
+                double doubleContent => Wrapper(new Span(doubleContent.ToString(DecimalFormat).TrimEnd(".00"))),
                 decimal and 0 => EmptyFormatter(),
-                decimal decimalContent => Wrapper(new Span(decimalContent.ToString("N2").TrimEnd(".00"))),
-                bool boolContent => Wrapper(new Span(boolContent.ToString())),
-                DateTime dateContent => Wrapper(new Span(dateContent.ToString("yyyy-MM-dd"))),
+                decimal decimalContent => Wrapper(new Span(decimalContent.ToString(DecimalFormat).TrimEnd(".00"))),
+                bool boolContent => Wrapper(boolContent ? new Icon(Icons.CheckBold, color:Color.Green) : Icon.Empty()),
+                DateTime dateContent => Wrapper(new Span(dateContent.ToString(DateFormat))),
+                DateTimeOffset dateTimeOffset => Wrapper(new Span(dateTimeOffset.ToString(DateFormat))),
                 Guid guid => guid == Guid.Empty ? EmptyFormatter() : Wrapper(new Span(guid.ToString())),
                 _ => Wrapper(new DumpContainer() { Content = content })
             };
