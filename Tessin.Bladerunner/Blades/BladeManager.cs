@@ -41,6 +41,10 @@ namespace Tessin.Bladerunner.Blades
 
         private Overlay _overlay;
 
+        private Popover _popover;
+
+        private Toaster _toaster;
+
         private ProgressDisplay _progressDisplay;
 
         public BladeManager(int maxDepth = 10, bool showDebugButton = false, string cssPath = null, bool cssHotReloading = false)
@@ -62,6 +66,8 @@ namespace Tessin.Bladerunner.Blades
             _sideBladeContainer = new DumpContainer();
             _styleManager = new StyleManager();
             _overlay = new Overlay();
+            _popover = new Popover();
+            _toaster = new Toaster();
             _progressDisplay = new ProgressDisplay(_overlay);
 
             Util.KeepRunning();
@@ -117,7 +123,26 @@ namespace Tessin.Bladerunner.Blades
             }
             _sideBladeOnClose = null;
         }
-	
+
+
+        public Popover ShowPopover(Control content, string parentId)
+        {
+            _popover.Show(content, parentId);
+            return _popover;
+        }
+
+        public Toaster ShowToaster(Control content, int timeout = 3000, ToasterType type = ToasterType.Normal)
+        {
+            _toaster.Show(content, timeout, type);
+            return _toaster;
+        }
+
+        public Toaster ShowToaster(string content, int timeout = 3000, ToasterType type = ToasterType.Normal)
+        {
+            _toaster.Show(new Literal(content), timeout, type);
+            return _toaster;
+        }
+
         public void PopTo(int index, bool refresh)
         {
             while(_stack.Count()-1 > index)
@@ -141,7 +166,9 @@ namespace Tessin.Bladerunner.Blades
         {
             var div = new Div(blades).SetClass("blade-wrapper");
             _divSideBlade = SideBlade(_sideBladeContainer);
-            _divBladeManager = new Div(_styleManager.Init(_cssPath, _cssHotReloading), div, _overlay, _divSideBlade, _progressDisplay);
+            
+            _divBladeManager = new Div(_styleManager.Init(_cssPath, _cssHotReloading), div, _overlay, _divSideBlade, _progressDisplay, _popover, _toaster);
+
             return _divBladeManager;
         }
 

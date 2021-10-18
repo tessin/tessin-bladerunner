@@ -22,6 +22,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Icons.resx</DependentUpon>
     </Compile>
+    <Compile Update="Javascript.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Javascript.resx</DependentUpon>
+    </Compile>
     <Compile Update="Themes\Themes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -33,6 +38,10 @@
     <EmbeddedResource Update="Icons.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Icons.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Javascript.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Javascript.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Themes\Themes.resx">
       <Generator>ResXFileCodeGenerator</Generator>

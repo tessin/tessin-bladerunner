@@ -1097,14 +1097,11 @@ SPAN.field--header-description:after {
 }
 
 .context-menu ul {
-  position: absolute;
   border: 1px solid rgba(0, 0, 0, 0.1);
   list-style-type: none;
   background-color: white;
   margin: 0px;
   padding: 0px;
-  visibility: hidden;
-  z-index: 10;
 }
 
 .context-menu ul li {
@@ -1118,8 +1115,8 @@ SPAN.field--header-description:after {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  overflow: hidden;
   height: 40px;
+  white-space: nowrap;
   cursor: pointer;
 }
 
@@ -1129,6 +1126,10 @@ SPAN.field--header-description:after {
 
 .context-menu ul li:hover {
   background-color: lightgrey;
+}
+
+.context-menu ul li:hover[disabled="disabled"] {
+  color: black;
 }
 
 .header-panel {
@@ -1387,5 +1388,103 @@ BUTTON.collapsable-panel--header:before {
   max-height: 200px;
   overflow: hidden;
   overflow-y: auto;
+}
+
+.portal {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.portal-wrapper {
+  position: absolute;
+  z-index: 10;
+  visibility: visible;
+}
+
+.toaster-wrapper {
+  position: absolute;
+  z-index: 10;
+  right: 10px;
+  bottom: 10px;
+  padding: 25px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  -webkit-animation: fadeIn 0.5s linear 1;
+          animation: fadeIn 0.5s linear 1;
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.toaster-fadeout {
+  -webkit-animation: fadeOut 0.5s linear 1;
+          animation: fadeOut 0.5s linear 1;
+  opacity: 0;
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.toaster-close {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+
+.toaster-normal {
+  background-color: aquamarine;
+}
+
+.toaster-error {
+  background-color: pink;
+}
+
+.code-editor {
+  width: 500px;
+  height: 300px;
+  border: 1px solid darkgray;
 }
 /*# sourceMappingURL=default.css.map */

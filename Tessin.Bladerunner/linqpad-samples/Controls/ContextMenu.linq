@@ -31,13 +31,13 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		return Layout.Vertical(new ContextMenu(new IconButton(Icons.DotsVertical),
+		return Layout.Right().Vertical(new ContextMenu(blade.Manager, new IconButton(Icons.DotsVertical),
 			new ContextMenu.Item("Foo", (_) => {
 				blade.PushBlade(Blade1());
 			},enabled:false),
 			new ContextMenu.Item("Bar", (_) => { })
 		), 
-		new ContextMenu(new IconButton(Icons.DotsVertical),
+		new ContextMenu(blade.Manager, new IconButton(Icons.DotsVertical),
 			new ContextMenu.Item("Foo", (_) =>
 			{
 				blade.PushBlade(Blade1());

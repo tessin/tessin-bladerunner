@@ -4,15 +4,34 @@ using System.Linq;
 using System.Text;
 using LINQPad;
 using LINQPad.Controls;
+using Tessin.Bladerunner.Blades;
 
 namespace Tessin.Bladerunner.Controls
 {
     public class ContextMenu : Control
     {
-        private Control _menu;
+        private Item[] _items;
+        private BladeManager _bladeManager;
+        private Button _target;
 
-        public ContextMenu(Button target, params Item[] items)
+        public ContextMenu(BladeManager bladeManager, Button target, params Item[] items)
         {
+            _items = items;
+            _bladeManager = bladeManager;
+            _target = target;
+
+            target.Click += (_, __) =>
+            {
+                Show();
+            };
+
+            this.VisualTree.Add(target);
+        }
+
+        private void Show()
+        {
+            Popover portal = null;
+
             Control RenderItem(Item item)
             {
                 var children = new List<Control>();
@@ -28,46 +47,21 @@ namespace Tessin.Bladerunner.Controls
 
                 var control = new Control("li", children);
                 control.Enabled = item.Enabled;
-                if(item.Enabled)
+                if (item.Enabled)
                 {
                     control.Click += (_, __) =>
                     {
-                        Close();
+                        portal?.Clear();
                         item.OnClick?.Invoke(item);
                     };
                 }
                 return control;
             }
 
-            target.Click += (_, __) =>
-            {
-                Show();
-            };
+            var menu = new Div(new Control("ul",
+                _items.Select(RenderItem).ToArray())).SetClass("context-menu");
 
-            _menu = new Control("ul", items.Select(RenderItem).ToArray());
- 
-            VisualTree.Add(new Div(target, _menu).SetClass("context-menu"));
-
-            Util.HtmlHead.AddScript($@"
-                document.addEventListener('click', function(e) {{
-                    var menu = document.getElementById('{_menu.HtmlElement.ID}');
-                    if(!!menu && menu.style.visibility == 'visible')
-                    {{
-                        if(!menu.contains(e.target)) menu.style.visibility = 'hidden';
-                    }}
-                }});
-            ");
-
-        }
-
-        private void Show()
-        {
-            _menu.Styles["visibility"] = "visible";
-        }
-
-        private void Close()
-        {
-            _menu.Styles["visibility"] = "hidden";
+            portal = _bladeManager.ShowPopover(menu, _target.HtmlElement.ID);
         }
 
         public class Item

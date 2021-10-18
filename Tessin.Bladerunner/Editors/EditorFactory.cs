@@ -14,6 +14,11 @@ namespace Tessin.Bladerunner.Editors
             return new TextEditor<T>(multiLine, fixedFont);
         }
 
+        public IFieldEditor<T> Code(string language)
+        {
+            return new CodeEditor<T>(language);
+        }
+
         public IFieldEditor<T> Literal() 
         {
             return new LiteralEditor<T>();

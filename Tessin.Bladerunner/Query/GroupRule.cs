@@ -111,19 +111,19 @@ namespace Tessin.Bladerunner.Query
             }
             else
             {
-                contextMenu = new ContextMenu(
-                    new IconButton(Icons.DotsHorizontal),
-                    new ContextMenu.Item("Add Group", (_) => {
-                        _rules.Add(new GroupRule<T>(QueryOperator.And, this));
-                        Refresh(builder);
-                    }, icon: Icons.FolderOpen),
-                    new ContextMenu.Item("Save...", (_) => {
-                        //todo?
-                    }),
-                    new ContextMenu.Item("Load...", (_) => {
-                        //todo?
-                    })
-                );
+                //contextMenu = new ContextMenu(
+                //    new IconButton(Icons.DotsHorizontal),
+                //    new ContextMenu.Item("Add Group", (_) => {
+                //        _rules.Add(new GroupRule<T>(QueryOperator.And, this));
+                //        Refresh(builder);
+                //    }, icon: Icons.FolderOpen),
+                //    new ContextMenu.Item("Save...", (_) => {
+                //        //todo?
+                //    }),
+                //    new ContextMenu.Item("Load...", (_) => {
+                //        //todo?
+                //    })
+                //);
             }
 
             Refresh(builder);
