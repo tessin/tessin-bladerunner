@@ -8,6 +8,13 @@ using System.Threading.Tasks;
 
 namespace Tessin.Bladerunner.Controls
 {
+    public class EmptySpan : Span 
+    {
+        public EmptySpan(string text) : base(text)
+        {
+        }
+    }
+
     public class DefaultContentFormatter : IContentFormatter
     {
         public string IntegerFormat { get; set; } = "N0";
@@ -23,7 +30,7 @@ namespace Tessin.Bladerunner.Controls
 
         private Control _Format(object content, Func<Control, bool, Control> wrapper, object emptyContent, bool formattingEmpty)
         {
-            wrapper = wrapper ?? ((c, e) => c);
+            wrapper ??= ((c, e) => c);
 
             Control Wrapper(Control inner)
             {
@@ -36,7 +43,7 @@ namespace Tessin.Bladerunner.Controls
                 {
                     return _Format(emptyContent, wrapper, null, true);
                 }
-                return Wrapper(new Span(content.ToString()));
+                return Wrapper(new EmptySpan(content.ToString()));
             }
 
             return content switch
@@ -55,6 +62,7 @@ namespace Tessin.Bladerunner.Controls
                 DateTime dateContent => Wrapper(new Span(dateContent.ToString(DateFormat))),
                 DateTimeOffset dateTimeOffset => Wrapper(new Span(dateTimeOffset.ToString(DateFormat))),
                 Guid guid => guid == Guid.Empty ? EmptyFormatter() : Wrapper(new Span(guid.ToString())),
+                Control control => Wrapper(control),
                 _ => Wrapper(new DumpContainer() { Content = content })
             };
         }

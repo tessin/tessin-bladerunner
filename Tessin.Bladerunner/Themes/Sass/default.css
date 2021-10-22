@@ -923,6 +923,7 @@ BUTTON {
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
           box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
   font-family: "Roboto", sans-serif;
+  cursor: pointer;
 }
 
 BUTTON:disabled {
@@ -948,12 +949,22 @@ BUTTON.danger {
   color: black;
 }
 
-button:hover {
+BUTTON:hover {
   background-color: #0e4f9b;
   color: white;
   -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
           box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
   border: 1px solid #1158aa;
+}
+
+TD > BUTTON {
+  background-color: transparent;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: #1158aa;
+  border: none;
+  width: 100%;
+  font-weight: bold;
 }
 
 .menu {

@@ -121,14 +121,7 @@ namespace Tessin.Bladerunner.Grid
 
                 if (!isHeader && isEmptyColumn[index])
                 {
-                    if (content is Literal || content is Span || content is Div)
-                    {
-                        if (!string.IsNullOrEmpty(content.HtmlElement.InnerHtml) || !string.IsNullOrEmpty(content.HtmlElement.InnerText))
-                        {
-                            isEmptyColumn[index] = false;
-                        }
-                    }
-                    else
+                    if (content is not EmptySpan)
                     {
                         isEmptyColumn[index] = false;
                     }
