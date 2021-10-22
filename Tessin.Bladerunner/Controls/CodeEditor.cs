@@ -36,11 +36,13 @@ namespace Tessin.Bladerunner.Controls
                             value: `{value}`,
                             language: '{language}',
                             lineNumbers: false,
+                            lineDecorationsWidth: 0,
                             minimap: {{
                                 enabled: false        
                             }},
-                            theme: 'vs'
+                            theme: 'vs-dry'
                         }});
+                        window.s
                     }});
                 }}, 100);
                 CodeEditorGetValue = function() {{

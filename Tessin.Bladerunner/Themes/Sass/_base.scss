@@ -349,38 +349,6 @@ textarea {
   padding-bottom: 5px;
 }
 
-button {
-  padding-left: 12px;
-  padding-right: 12px;
-  height: 32px;
-  background-color: $primary-cta;
-  border: 0px;
-  color: white;
-  border-radius: 0px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-  font-family: $font-family;
-}
-
-button:disabled {
-  background-color: gray;
-}
-
-button:hover {
-  background-color: scale-color(
-    $primary-cta,
-    $lightness: -10%,
-    $saturation: 10%
-  );
-}
-
-button:active {
-  background-color: scale-color(
-    $primary-cta,
-    $lightness: 10%,
-    $saturation: -10%
-  );
-}
-
 input[type="radio"],
 input[type="checkbox"] {
   margin: 0 0.4em 0 0;

@@ -72,6 +72,7 @@ static IBladeRenderer SearchBlade()
 		};
 
 		var menu = new ContextMenu(
+			blade.Manager,
 			new IconButton(Icons.DotsHorizontal),
 			new ContextMenu.Item("Query", (_) =>
 			{

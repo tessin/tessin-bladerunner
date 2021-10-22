@@ -1,0 +1,48 @@
+BUTTON {
+    padding-left: 12px;
+    padding-right: 12px;
+    height: 32px;
+    background-color: $primary-cta;
+    border: 1px solid $primary-cta;
+    color: white;
+    border-radius: 0px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    font-family: $font-family;
+  }
+  
+  BUTTON:disabled {
+    background-color: gray;
+  }
+  
+  BUTTON:active {
+    background-color: scale-color(
+      $primary-cta,
+      $lightness: 10%,
+      $saturation: -10%
+    );
+  }
+
+  BUTTON.secondary {
+    background-color: white;
+    color: $primary-cta;
+    box-shadow: none;
+  }
+
+  BUTTON.danger {
+    background-color: tomato;
+    border: 1px solid tomato;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    color: black;
+  }
+
+  button:hover {
+    background-color: scale-color(
+      $primary-cta,
+      $lightness: -10%,
+      $saturation: 10%
+    );
+    color: white;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    border: 1px solid $primary-cta;
+  }
+

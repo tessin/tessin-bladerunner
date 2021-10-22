@@ -1,4 +1,4 @@
-.icon-button {
+BUTTON.icon-button {
   box-shadow: none;
   background: transparent;
   padding: 0;
@@ -10,11 +10,16 @@
   display: block;
 }
 
-.icon-button:hover {
+BUTTON.icon-button:hover {
   opacity: 1;
   background: transparent;
 }
 
-.icon-button:active {
+BUTTON.icon-button:active {
   background: transparent;
+}
+
+BUTTON.icon-button:disabled {
+  background-color:transparent;
+  opacity: 0.2;
 }

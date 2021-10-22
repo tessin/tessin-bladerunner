@@ -76,6 +76,11 @@ namespace Tessin.Bladerunner.Grid
                     cellAlignment = CellAlignment.Right;
                 }
 
+                if (field.Type == typeof(bool))
+                {
+                    cellAlignment = CellAlignment.Center;
+                }
+
                 if (field.Type.IsAssignableFrom(typeof(Controls.Icon)))
                 {
                     cellAlignment = CellAlignment.Center;

@@ -145,11 +145,17 @@
   <data name="Application" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/application.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="ArrowDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\arrow-down.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="ArrowLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/arrow-left.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="ArrowRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/arrow-right.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="ArrowUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\arrow-up.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="Atom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/atom.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -172,6 +178,9 @@
   <data name="BusSchool" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/bus-school.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="CashMultiple" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\cash-multiple.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="ChartLine" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons\chart-line.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -186,6 +195,9 @@
   </data>
   <data name="Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/close.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="CodeBraces" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\code-braces.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="CoffeeOutline" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/coffee-outline.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -243,6 +255,12 @@
   </data>
   <data name="FolderOpen" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons\folder-open.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="FolderOutline" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\folder-outline.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="FolderPlusOutline" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\folder-plus-outline.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="HammerScrewdriver" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/hammer-screwdriver.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -327,5 +345,8 @@
   </data>
   <data name="Web" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons\web.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Xml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\xml.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

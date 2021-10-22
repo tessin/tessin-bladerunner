@@ -11,12 +11,12 @@ namespace Tessin.Bladerunner.Controls
 {
     public class IconButton : Button
     {
-        public IconButton(string icon, Action<Button> onClick = null, string tooltip = "", Color color = Color.Black)
+        public IconButton(string icon, Action<Button> onClick = null, string tooltip = "", Color color = Color.Black, bool enabled = true)
         {
             this.AddClass($"icon-button {color.ToString().ToLower()}");
             this.HtmlElement.SetAttribute("title", tooltip);
             this.HtmlElement.InnerHtml = icon;
-
+            this.Enabled = enabled;
             IconButton obj = this;
             if (onClick != null)
             {

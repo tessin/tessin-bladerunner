@@ -301,5 +301,16 @@ namespace Tessin.Bladerunner
             return source.Remove(source.LastIndexOf(value));
         }
 
+        public static string LastSegment(string input)
+        {
+            if (input == null) return input;
+            var pos = input.LastIndexOf('.');
+            if (pos > -1)
+            {
+                return input.Substring(pos + 1, input.Length - pos - 1);
+            }
+            return input;
+        }
+
     }
 }
