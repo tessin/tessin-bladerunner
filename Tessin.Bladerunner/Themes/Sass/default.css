@@ -1362,6 +1362,12 @@ BUTTON.collapsable-panel--header:before {
   margin-right: 1px;
 }
 
+.card--title {
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
 .matrix {
   display: -ms-grid;
   display: grid;
