@@ -178,6 +178,9 @@
   <data name="BusSchool" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/bus-school.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="CalendarRange" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\calendar-range.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="CashMultiple" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>icons\cash-multiple.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -195,6 +198,9 @@
   </data>
   <data name="Close" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/close.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="CloseOctagon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\close-octagon.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="CodeBraces" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>icons\code-braces.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -241,6 +247,9 @@
   <data name="Eye" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/eye.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="EyeOff" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\eye-off.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="File" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/file.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -264,6 +273,9 @@
   </data>
   <data name="HammerScrewdriver" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/hammer-screwdriver.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="LightningBolt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\lightning-bolt.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="Login" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons\login.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -333,6 +345,9 @@
   </data>
   <data name="TooltipTextOutline" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/tooltip-text-outline.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Translate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\translate.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="Tune" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/tune.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
