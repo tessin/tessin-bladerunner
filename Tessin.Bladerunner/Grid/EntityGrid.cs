@@ -15,7 +15,6 @@ namespace Tessin.Bladerunner.Grid
 {
     public static class EntityGridHelper
     {
-
         public static EntityGrid<T> Create<T>(IEnumerable<T> rows)
         {
             return new EntityGrid<T>(rows);
@@ -106,6 +105,7 @@ namespace Tessin.Bladerunner.Grid
             {
                 var table = new Table(tableRows);
                 table.ClearStyles();
+                table.SetClass("entity-grid");
 
                 if (_width != null)
                 {

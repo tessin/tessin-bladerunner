@@ -39,7 +39,7 @@ BUTTON:hover {
   border: 1px solid $primary-cta;
 }
 
-TD > BUTTON {
+TABLE.entity-grid TD > BUTTON {
   background-color:transparent;
   box-shadow: none;
   color:$primary-cta;

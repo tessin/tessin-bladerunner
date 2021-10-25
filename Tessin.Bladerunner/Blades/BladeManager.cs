@@ -8,6 +8,7 @@ using System.Threading;
 using LINQPad;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Alerts;
+using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Blades
 {
@@ -137,9 +138,17 @@ namespace Tessin.Bladerunner.Blades
             return _toaster;
         }
 
-        public Toaster ShowToaster(string content, int timeout = 3000, ToasterType type = ToasterType.Normal)
+        public Toaster ShowToaster(string content, string icon = null, int timeout = 3000, ToasterType type = ToasterType.Normal)
         {
-            _toaster.Show(new Literal(content), timeout, type);
+            if(icon == null)
+            {
+                _toaster.Show(new LINQPad.Controls.Literal(content), timeout, type);
+            }
+            else
+            {
+                _toaster.Show(Layout.Middle().Horizontal(new Icon(icon), new LINQPad.Controls.Literal(content)), timeout, type);
+            }
+            
             return _toaster;
         }
 
