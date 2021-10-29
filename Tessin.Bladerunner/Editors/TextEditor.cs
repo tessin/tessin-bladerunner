@@ -6,6 +6,8 @@ using System.Reflection;
 using LINQPad;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
+using TextArea = LINQPad.Controls.TextArea;
+using TextBox = LINQPad.Controls.TextBox;
 
 namespace Tessin.Bladerunner.Editors
 {
@@ -24,6 +26,18 @@ namespace Tessin.Bladerunner.Editors
             _fixedFont = fixedFont;
             _type = type;
             _trim = trim;
+        }
+
+        public void Update(object value)
+        {
+            if (_textBox != null)
+            {
+                string _value = Convert.ToString(value);
+                if (_textBox is ITextControl _textControl)
+                {
+                    _textControl.Text = _value;
+                }
+            }
         }
 
         public object Render(T obj, EditorField<T> editorFieldInfo, Action updated)

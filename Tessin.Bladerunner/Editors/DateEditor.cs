@@ -15,6 +15,11 @@ namespace Tessin.Bladerunner.Editors
         {
         }
 
+        public void Update(object value)
+        {
+            throw new NotImplementedException();
+        }
+
         public object Render(T obj, EditorField<T> editorField, Action preview)
         {
             object _value = editorField.GetValue(obj);

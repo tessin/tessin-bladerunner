@@ -24,6 +24,11 @@ namespace Tessin.Bladerunner.Editors
             _findOption = findOption;
         }
 
+        public void Update(object value)
+        {
+            throw new NotImplementedException();
+        }
+
         public object Render(T obj, EditorField<T> editorFieldInfo, Action preview)
         {
             object value = editorFieldInfo.GetValue(obj);

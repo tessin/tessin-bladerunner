@@ -11,6 +11,8 @@ namespace Tessin.Bladerunner.Editors
 
         void Save(T obj, EditorField<T> instruction);
 
+        void Update(object value);
+
         bool Validate(T obj, EditorField<T> instruction);
 
         void SetVisibility(bool value);

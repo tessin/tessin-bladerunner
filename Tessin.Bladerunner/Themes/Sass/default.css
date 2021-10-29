@@ -1299,11 +1299,13 @@ BUTTON.collapsable-panel--header:before {
   transition: -webkit-transform 0.2s;
   transition: transform 0.2s;
   transition: transform 0.2s, -webkit-transform 0.2s;
+  opacity: 0.3;
 }
 
 .collapsable-panel-open .collapsable-panel--header:before {
   -webkit-transform: rotateZ(180deg) scale(1.3);
           transform: rotateZ(180deg) scale(1.3);
+  opacity: 1;
 }
 
 .collapsable-panel--body {

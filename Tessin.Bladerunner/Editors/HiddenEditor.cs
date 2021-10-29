@@ -11,6 +11,11 @@ namespace Tessin.Bladerunner.Editors
             return null;
         }
 
+        public void Update(object value)
+        {
+
+        }
+
         public void Save(T obj, EditorField<T> editorFieldInfo)
         {
             // ignore

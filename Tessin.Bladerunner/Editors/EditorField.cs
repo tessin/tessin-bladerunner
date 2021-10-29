@@ -46,6 +46,8 @@ namespace Tessin.Bladerunner.Editors
 
         public Type Type => FieldInfo?.FieldType ?? PropertyInfo?.PropertyType;
 
+        public List<(EditorField<T> field, Func<T, object> transformer)> Dependencies = new(); 
+
         public object GetValue(T obj)
         {
             if (FieldInfo != null)

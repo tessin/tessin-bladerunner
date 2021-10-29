@@ -23,8 +23,14 @@ namespace Tessin.Bladerunner.Editors
             _fetchUrl = fetchUrl;
         }
 
+
         public LinkEditor()
         {
+        }
+
+        public void Update(object value)
+        {
+
         }
 
         public object Render(T obj, EditorField<T> editorFieldInfo, Action preview)

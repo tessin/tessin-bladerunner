@@ -20,6 +20,11 @@ namespace Tessin.Bladerunner.Editors
             _language = language;
         }
 
+        public void Update(object value)
+        {
+            throw new NotImplementedException();
+        }
+
         public object Render(T obj, EditorField<T> editorFieldInfo, Action updated)
         {
             var value = Convert.ToString(editorFieldInfo.GetValue(obj));

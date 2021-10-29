@@ -15,6 +15,14 @@ namespace Tessin.Bladerunner.Editors
         {
         }
 
+        public void Update(object value)
+        {
+            if (_checkBox != null)
+            {
+                _checkBox.Checked = Convert.ToBoolean(value);
+            }
+        }
+
         public object Render(T obj, EditorField<T> editorField, Action preview)
         {
             var value = Convert.ToBoolean(editorField.GetValue(obj));

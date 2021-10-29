@@ -112,9 +112,9 @@ namespace Tessin.Bladerunner.Editors
                 if(fields.Count() == 1)
                 {
                     var field = fields.First();
-                    return field.Editor.Render(_obj, field, Updated);
+                    return field.Editor.Render(_obj, field, Updated(field));
                 }
-                return Layout.Horizontal(fields.Select(e => e.Editor.Render(_obj, e, Updated)));
+                return Layout.Horizontal(fields.Select(e => e.Editor.Render(_obj, e, Updated(e))));
             }
 
             Control RenderRows(IEnumerable<EditorField<T>> fields)
@@ -135,21 +135,32 @@ namespace Tessin.Bladerunner.Editors
                             : new CollapsablePanel(f.Key, RenderRows(f))
                         ))
                         .ToArray())).ToArray();
-
-            void Updated()
+            
+            Action Updated(EditorField<T> updatedField)
             {
-                var pObj = new T();
-                foreach (var field in fields)
+                return () =>
                 {
-                    field.Editor.Save(pObj, field);
-                }
+                    var pObj = new T();
+                    foreach (var field in fields)
+                    {
+                        field.Editor.Save(pObj, field);
+                    }
 
-                foreach (var field in fields)
-                {
-                    field.Editor.SetVisibility(field.ShowIf(pObj));
-                }
+                    foreach (var field in fields)
+                    {
+                        field.Editor.SetVisibility(field.ShowIf(pObj));
+                    }
 
-                _preview?.Invoke(pObj);
+                    if (updatedField != null)
+                    {
+                        foreach (var dependency in updatedField.Dependencies)
+                        {
+                            dependency.field.Editor.Update(dependency.transformer(pObj));
+                        }
+                    }
+
+                    _preview?.Invoke(pObj);
+                };
             }
 
             var validationLabel = Typography.Error("");
@@ -173,7 +184,7 @@ namespace Tessin.Bladerunner.Editors
                 }
             });
 
-            Updated();
+            Updated(null)();
 
             return new HeaderPanel(
                 Layout.Middle().Horizontal(saveButton, _toolbar, validationLabel), 
@@ -301,6 +312,14 @@ namespace Tessin.Bladerunner.Editors
         {
             var hint = GetField(field);
             hint.Validators.Add((o) => validator((TU)o));
+            return this;
+        }
+
+        public EntityEditor<T> Derived<TU,TV>(Expression<Func<T, TU>> field, Expression<Func<T, TV>> derivedFrom, Func<T,TU> transformer)
+        {
+            var _derivedFrom = GetField(derivedFrom);
+            var _field = GetField(field);
+            _derivedFrom.Dependencies.Add((_field, x => transformer(x)));
             return this;
         }
 

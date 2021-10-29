@@ -14,6 +14,11 @@ namespace Tessin.Bladerunner.Editors
 
         private IContentFormatter _contentFormatter = new DefaultContentFormatter();
 
+        public void Update(object value)
+        {
+            throw new NotImplementedException();
+        }
+
         public object Render(T obj, EditorField<T> editorFieldInfo, Action preview)
         {
             Control valueControl = _contentFormatter.Format(editorFieldInfo.GetValue(obj), emptyContent:"-");

@@ -15,6 +15,14 @@ namespace Tessin.Bladerunner.Editors
         {
         }
 
+        public void Update(object value)
+        {
+            if (_numberBox != null)
+            {
+                _numberBox.Text = Convert.ToString(value);
+            }
+        }
+
         public object Render(T obj, EditorField<T> editorFieldInfo, Action preview)
         {
             _numberBox = new NumberBox(Convert.ToDouble(editorFieldInfo.GetValue(obj))) { };
