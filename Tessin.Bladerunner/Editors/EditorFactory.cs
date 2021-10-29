@@ -39,9 +39,9 @@ namespace Tessin.Bladerunner.Editors
         //    return new HiddenEditor<T>();
         //}
 
-        public IFieldEditor<T> Number()
+        public IFieldEditor<T> Number(int decimals = 0)
         {
-            return new NumberEditor<T>();
+            return new NumberEditor<T>(decimals);
         }
 
         public IFieldEditor<T> Link(Func<T,string> fetchUrl)

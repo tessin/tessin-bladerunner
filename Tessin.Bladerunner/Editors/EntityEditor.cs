@@ -94,7 +94,7 @@ namespace Tessin.Bladerunner.Editors
 
             if (type.IsNumeric())
             {
-                return _factory.Number();
+                return _factory.Number(type.SuggestDecimals());
             }
 
             if (type.IsDate())

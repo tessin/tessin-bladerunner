@@ -10,22 +10,24 @@ namespace Tessin.Bladerunner.Editors
     {
         private Field _field;
         private NumberBox _numberBox;
+        private int _decimals;
 
-        public NumberEditor()
+        public NumberEditor(int decimals)
         {
+            _decimals = decimals;
         }
 
         public void Update(object value)
         {
             if (_numberBox != null)
             {
-                _numberBox.Text = Convert.ToString(value);
+                _numberBox.Text = NumberBox.FormatNumber(Convert.ToDouble(value), _decimals);
             }
         }
 
         public object Render(T obj, EditorField<T> editorFieldInfo, Action preview)
         {
-            _numberBox = new NumberBox(Convert.ToDouble(editorFieldInfo.GetValue(obj))) { };
+            _numberBox = new NumberBox(Convert.ToDouble(editorFieldInfo.GetValue(obj)), _decimals) { };
 
             _numberBox.TextInput += (sender, args) => preview();
 

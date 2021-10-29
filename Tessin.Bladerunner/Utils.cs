@@ -40,6 +40,27 @@ namespace Tessin.Bladerunner
             return type == typeof(DateTime) || type == typeof(DateTimeOffset);
         }
 
+        public static int SuggestDecimals(this Type type)
+        {
+            if (type == null) { return 0; }
+
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                type = type.GetGenericArguments()[0];
+            }
+
+            switch (Type.GetTypeCode(type))
+            {
+                case TypeCode.Decimal:
+                case TypeCode.Double:
+                case TypeCode.Single:
+                    return 2;
+                default:
+                    return 0;
+            }
+
+        }
+
         public static bool IsNumeric(this Type type)
         {
             if (type == null) { return false; }

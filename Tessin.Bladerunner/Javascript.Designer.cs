@@ -61,13 +61,27 @@ namespace Tessin.Bladerunner {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BladesScrollTo = function() {
-        ///
+        ///   Looks up a localized string similar to BladesScrollTo = function (id) {
+        ///    var node = document.getElementById(id);
+        ///    if (!!node) {
+        ///        node.scrollIntoViewIfNeeded();
+        ///    }
         ///}.
         /// </summary>
         internal static string Blades {
             get {
                 return ResourceManager.GetString("Blades", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NumberBoxOnChange = function() {
+        ///
+        ///}.
+        /// </summary>
+        internal static string NumberBox {
+            get {
+                return ResourceManager.GetString("NumberBox", resourceCulture);
             }
         }
         
