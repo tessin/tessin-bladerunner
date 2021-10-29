@@ -337,6 +337,16 @@ namespace Tessin.Bladerunner.Editors
             return this;
         }
 
+        public EntityEditor<T> Enabled(bool enabled, params Expression<Func<T, object>>[] fields)
+        {
+            foreach (var expr in fields)
+            {
+                var hint = GetField(expr);
+                hint.Enabled = enabled;
+            }
+            return this;
+        }
+
         public EntityEditor<T> Required(params Expression<Func<T, string>>[] fields)
         {
             foreach (var expr in fields)

@@ -48,6 +48,8 @@ namespace Tessin.Bladerunner.Editors
 
             _dateBox.TextInput += (sender, args) => preview();
 
+            _dateBox.Enabled = editorField.Enabled;
+
             return _field = new Field(editorField.Label, _dateBox, editorField.Description, editorField.Helper, editorField.Required);
         }
 

@@ -39,6 +39,8 @@ namespace Tessin.Bladerunner.Editors
             _selectBox = new MultiSelectBox(_options, _selectedIndexes);
             _selectBox.SelectionChanged += (sender, args) => preview();
 
+            _selectBox.Enabled = editorFieldInfo.Enabled;
+
             return _field = new Field(editorFieldInfo.Label, _selectBox, editorFieldInfo.Description, editorFieldInfo.Helper, editorFieldInfo.Required);
         }
 

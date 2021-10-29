@@ -34,14 +34,14 @@ static IBladeRenderer Blade1()
 		return Layout.Right().Vertical(new ContextMenu(blade.Manager, new IconButton(Icons.DotsVertical),
 			new ContextMenu.Item("Foo", (_) => {
 				blade.PushBlade(Blade1());
-			},enabled:false),
+			}, enabled:false, icon: Icons.AlienOutline),
 			new ContextMenu.Item("Bar", (_) => { })
 		), 
 		new ContextMenu(blade.Manager, new IconButton(Icons.DotsVertical),
 			new ContextMenu.Item("Foo", (_) =>
 			{
 				blade.PushBlade(Blade1());
-			}),
+			}, icon: Icons.AlienOutline),
 			new ContextMenu.Item("Bar", (_) => { })
 		));
 	});

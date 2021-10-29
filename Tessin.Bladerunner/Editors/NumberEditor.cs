@@ -31,6 +31,8 @@ namespace Tessin.Bladerunner.Editors
 
             _numberBox.TextInput += (sender, args) => preview();
 
+            _numberBox.Enabled = editorFieldInfo.Enabled;
+
             return _field = new Field(editorFieldInfo.Label, _numberBox, editorFieldInfo.Description, editorFieldInfo.Helper, editorFieldInfo.Required);
         }
 

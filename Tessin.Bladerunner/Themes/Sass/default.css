@@ -1155,8 +1155,17 @@ BUTTON.icon-button:disabled {
   cursor: pointer;
 }
 
+.context-menu ul li svg {
+  margin-left: -4px;
+  margin-right: 4px;
+}
+
 .context-menu ul li[disabled="disabled"] {
   color: lightgray;
+}
+
+.context-menu ul li[disabled="disabled"] svg {
+  fill: lightgray;
 }
 
 .context-menu ul li:hover {
@@ -1164,7 +1173,7 @@ BUTTON.icon-button:disabled {
 }
 
 .context-menu ul li:hover[disabled="disabled"] {
-  color: black;
+  background-color: white;
 }
 
 .header-panel {

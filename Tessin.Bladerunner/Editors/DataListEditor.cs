@@ -40,6 +40,8 @@ namespace Tessin.Bladerunner.Editors
 
             _dataListBox.TextInput += (sender, args) => preview();
 
+            _dataListBox.Enabled =  editorField.Enabled;
+
             return _field = new Field(editorField.Label, _dataListBox, editorField.Description, editorField.Helper, editorField.Required);
         }
 

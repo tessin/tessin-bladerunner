@@ -36,6 +36,8 @@ namespace Tessin.Bladerunner.Editors
             
             _wrapper = new DumpContainer(_container);
 
+            _checkBox.Enabled = editorField.Enabled;
+
             return _wrapper;
         }
 

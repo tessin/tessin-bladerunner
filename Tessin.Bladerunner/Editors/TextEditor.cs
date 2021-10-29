@@ -66,6 +66,8 @@ namespace Tessin.Bladerunner.Editors
                 _textBox.HtmlElement.SetAttribute("class", "fixed-font");
             }
 
+            _textBox.Enabled = editorFieldInfo.Enabled;
+
             return _field = new Field(
                 editorFieldInfo.Label, 
                 _textBox, 

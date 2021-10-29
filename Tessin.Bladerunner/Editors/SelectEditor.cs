@@ -38,6 +38,8 @@ namespace Tessin.Bladerunner.Editors
 
             _selectBox.SelectionChanged += (sender, args) => preview();
 
+            _selectBox.Enabled = editorFieldInfo.Enabled;
+
             return _field = new Field(editorFieldInfo.Label, _selectBox, editorFieldInfo.Description, editorFieldInfo.Helper, editorFieldInfo.Required);
         }
 

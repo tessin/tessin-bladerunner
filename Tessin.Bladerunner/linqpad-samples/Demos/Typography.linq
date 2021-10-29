@@ -14,10 +14,11 @@ void Main()
 	//Debugger.Launch();
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
+	manager.Dump();
 	
 	manager.PushBlade(Blade1(), "Typography");
 	
-	manager.Dump();
+	
 }
 
 static IBladeRenderer Blade1()
@@ -29,7 +30,7 @@ static IBladeRenderer Blade1()
 			Typography.H2("H2"),
 			Typography.Error("Error"),
 			Typography.Small("Small"),
-			Layout.Width("200px").Vertical(Typography.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consectetur, quam non feugiat lobortis, quam elit elementum sapien, in interdum sem sem sit amet risus. In suscipit, lectus ac aliquet eleifend, dolor tortor molestie dolor, a finibus erat orci non dui. Etiam eget felis sapien. Cras risus mi, ornare porttitor varius ac, aliquet at lacus. Nullam egestas libero lectus, vitae venenatis tellus tincidunt et. Vestibulum eu ante tristique, porttitor quam vel, elementum lacus. Nam facilisis hendrerit libero molestie lacinia. Proin euismod dapibus magna. Nullam urna nibh, faucibus sed arcu ac, finibus rhoncus velit. Proin vitae urna turpis. Maecenas id pellentesque nulla. Fusce nec augue id enim feugiat condimentum."))
+			Typography.P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consectetur, quam non feugiat lobortis, quam elit elementum sapien, in interdum sem sem sit amet risus. In suscipit, lectus ac aliquet eleifend, dolor tortor molestie dolor, a finibus erat orci non dui. Etiam eget felis sapien. Cras risus mi, ornare porttitor varius ac, aliquet at lacus. Nullam egestas libero lectus, vitae venenatis tellus tincidunt et. Vestibulum eu ante tristique, porttitor quam vel, elementum lacus. Nam facilisis hendrerit libero molestie lacinia. Proin euismod dapibus magna. Nullam urna nibh, faucibus sed arcu ac, finibus rhoncus velit. Proin vitae urna turpis. Maecenas id pellentesque nulla. Fusce nec augue id enim feugiat condimentum.")
 		);
 	});
 }
