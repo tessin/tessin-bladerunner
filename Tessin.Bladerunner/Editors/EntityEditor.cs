@@ -35,6 +35,8 @@ namespace Tessin.Bladerunner.Editors
 
         private Control _toolbar;
 
+        private List<string> _groups = new();
+
         public EntityEditor(T obj, Action<T> save, Action<T> preview = null, string actionVerb = "Save", Control toolbar = null)
         {
             _save = save;
@@ -119,7 +121,9 @@ namespace Tessin.Bladerunner.Editors
 
             Control RenderRows(IEnumerable<EditorField<T>> fields)
             {
-                return Layout.Gap(false).Vertical(fields.OrderBy(h => h.Order).GroupBy(f => f.Row).Select(RenderRow));
+                return Layout.Gap(false)
+                    .Vertical(fields.OrderBy(h => h.Order)
+                        .GroupBy(f => f.Row).Select(RenderRow));
             }
 
             var columns = fields
@@ -127,7 +131,7 @@ namespace Tessin.Bladerunner.Editors
                 .OrderBy(e => e.Key)
                 .Select(e => Layout.Class("entity-editor--column").Gap(false).Vertical(
                     e.GroupBy(f => f.Group)
-                    .OrderBy(f => f.Key)
+                    .OrderBy(f => _groups.IndexOf(f.Key))
                     .Select(f =>
                         Layout.Gap(false).Vertical( 
                             f.Key == null
@@ -227,12 +231,16 @@ namespace Tessin.Bladerunner.Editors
 
         private EntityEditor<T> _Place(int col, Guid? row, params Expression<Func<T, object>>[] fields)
         {
-            int order = _fields.Values.Where(e => e.Column == col).Select(e => (int?)e.Order).Max() ?? 0;
+            int order = _fields.Values.Where(e => e.Column == col)
+                .Select(e => (int?)e.Order).Max() ?? 0;
             foreach (var expr in fields)
             {
                 var hint = GetField(expr);
                 hint.Removed = false;
-                hint.Order = ++order;
+                if (hint.Group == null)
+                {
+                    hint.Order = ++order;
+                }
                 hint.Column = col;
                 hint.Row = row ?? Guid.NewGuid();
             }
@@ -263,6 +271,12 @@ namespace Tessin.Bladerunner.Editors
         public EntityEditor<T> Group(string group, int column, params Expression<Func<T, object>>[] fields)
         {
             int order = 0;
+
+            if (!_groups.Contains(group))
+            {
+                _groups.Add(group);
+            }
+            
             foreach (var expr in fields)
             {
                 var hint = GetField(expr);
