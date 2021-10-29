@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using LINQPad;
 using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Grid
@@ -19,7 +20,7 @@ namespace Tessin.Bladerunner.Grid
             PropertyInfo propertyInfo = null)
         {
             Name = name;
-            Label = Regex.Replace(label, "(\\B[A-Z])", " $1");
+            Label = Utils.SplitCamelCase(name);
             Order = order;
             CellRenderer = cellRenderer;
             CellAlignment = cellAlignment;

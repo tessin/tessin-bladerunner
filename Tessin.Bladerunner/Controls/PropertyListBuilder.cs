@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -48,7 +49,7 @@ namespace Tessin.Bladerunner.Controls
             foreach (var field in fields)
             {
                 _properties[field.Name] =
-                    new Property(Regex.Replace(field.Name, "(\\B[A-Z])", " $1"), field.FieldInfo?.GetValue(_obj) ?? field.PropertyInfo?.GetValue(_obj));
+                    new Property(Utils.SplitCamelCase(field.Name), field.FieldInfo?.GetValue(_obj) ?? field.PropertyInfo?.GetValue(_obj));
             }
         }
 
