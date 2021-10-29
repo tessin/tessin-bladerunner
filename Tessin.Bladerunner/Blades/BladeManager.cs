@@ -14,6 +14,11 @@ namespace Tessin.Bladerunner.Blades
 {
     public class BladeManager
     {
+        static BladeManager()
+        {
+            Util.HtmlHead.AddScript(Javascript.Blades);
+        }
+
         private readonly Stack<Blade> _stack;
 
         private readonly DumpContainer[] _panels;

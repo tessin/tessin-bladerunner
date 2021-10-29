@@ -61,6 +61,17 @@ namespace Tessin.Bladerunner {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BladesScrollTo = function() {
+        ///
+        ///}.
+        /// </summary>
+        internal static string Blades {
+            get {
+                return ResourceManager.GetString("Blades", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PopoverSetPosition = function (wrapperId, targetId) {
         ///    setTimeout(function () {
         ///        var wrapperNode = document.getElementById(wrapperId);
