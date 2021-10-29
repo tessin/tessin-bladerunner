@@ -17,7 +17,7 @@ namespace Tessin.Bladerunner.Editors
             PropertyInfo propertyInfo = null)
         {
             Name = name;
-            Label = Regex.Replace(label, "(\\B[A-Z])", " $1");
+            Label = Utils.SplitCamelCase(label);
 
             if(!name.EndsWith("GovId") && name!="Id" && name.EndsWith("Id"))
             {

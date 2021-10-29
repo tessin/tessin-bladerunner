@@ -8,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -225,6 +226,16 @@ namespace Tessin.Bladerunner
                 .Where(e => !string.IsNullOrEmpty(e))
                 .Where(e => !e.StartsWith("#"))
                 .ToList();
+        }
+
+        public static string SplitCamelCase(string input)
+        {
+            if (input == null) return null;
+            string[] words = Regex.Matches(input, "([A-Z]+(?![a-z])|[A-Z][a-z]+|[0-9]+|[a-z]+)")
+                .OfType<Match>()
+                .Select(m => m.Value)
+                .ToArray();
+            return string.Join(" ", words);
         }
 
         public static IEnumerable<IEnumerable<T>> Chunks<T>(this IEnumerable<T> source, int chunkSize)
