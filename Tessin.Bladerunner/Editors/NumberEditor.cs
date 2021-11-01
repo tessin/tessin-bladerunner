@@ -66,14 +66,17 @@ namespace Tessin.Bladerunner.Editors
                 _field.SetError(message);
             }
 
-            if (!editorFieldInfo.Type.IsNullable() && string.IsNullOrEmpty(_numberBox.Text) || !string.IsNullOrEmpty(_numberBox.Text) && !double.TryParse(_numberBox.Text, out double _))
+            double val = 0;
+
+            if (!editorFieldInfo.Type.IsNullable() && string.IsNullOrEmpty(_numberBox.Text) 
+                || !string.IsNullOrEmpty(_numberBox.Text) && !double.TryParse(_numberBox.Text, out val))
             {
                 SetError("Invalid number.");
                 return false;
             }
 
             (bool, string)? error = editorFieldInfo.Validators
-                .Select(e => e(Convert.ChangeType(_numberBox.Text, editorFieldInfo.Type)))
+                .Select(e => e(Convert.ChangeType(val, editorFieldInfo.Type)))
                 .Where(e => e.Item1)
                 .Select(e => ((bool, string)?)e)
                 .FirstOrDefault();

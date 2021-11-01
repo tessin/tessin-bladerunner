@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using LINQPad;
 using LINQPad.Controls;
+using Tessin.Bladerunner.Alerts;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors
@@ -13,13 +14,13 @@ namespace Tessin.Bladerunner.Editors
 
     public static class EntityEditorHelper
     {
-        public static EntityEditor<T> Create<T>(T obj, Action<T> save, Action<T> preview = null, string actionVerb = "Save", Control toolbar = null) where T : new()
+        public static EntityEditor<T> Create<T>(T obj, Action<T> save = null, Action<T> preview = null, string actionVerb = "Save", Control toolbar = null) where T : new()
         {
             return new EntityEditor<T>(obj, save, preview, actionVerb, toolbar);
         }
     }
 
-    public class EntityEditor<T> where T : new()
+    public class EntityEditor<T> : IAlertBuilderEditor where T : new()
     {
         private Dictionary<string, EditorField<T>> _fields;
 
@@ -37,7 +38,7 @@ namespace Tessin.Bladerunner.Editors
 
         private List<string> _groups = new();
 
-        public EntityEditor(T obj, Action<T> save, Action<T> preview = null, string actionVerb = "Save", Control toolbar = null)
+        public EntityEditor(T obj, Action<T> save = null, Action<T> preview = null, string actionVerb = "Save", Control toolbar = null)
         {
             _save = save;
             _preview = preview;
@@ -105,7 +106,7 @@ namespace Tessin.Bladerunner.Editors
             return null;
         }
 
-        public object Render()
+        public object Render(Controls.Button saveButton = null)
         {
             var fields = _fields.Values.Where(e => !e.Removed && e.Editor != null).ToList();
 
@@ -169,7 +170,7 @@ namespace Tessin.Bladerunner.Editors
 
             var validationLabel = Typography.Error("");
 
-            var saveButton = new Controls.Button(_actionVerb, (_) =>
+            Func<T> onSave = () =>
             {
                 var validationErrors = fields.Select(e => e.Editor.Validate(_obj, e)).Count(e => !e);
                 validationLabel.HtmlElement.InnerText = "";
@@ -180,22 +181,47 @@ namespace Tessin.Bladerunner.Editors
                     {
                         field.Editor.Save(_obj, field);
                     }
-                    _save?.Invoke(_obj);
+                    return _obj;
                 }
                 else
                 {
                     validationLabel.HtmlElement.InnerText = $"{validationErrors} validation error{(validationErrors > 1 ? "s" : "")}.";
+                    return default(T);
                 }
-            });
+            };
 
             Updated(null)();
 
-            return new HeaderPanel(
-                Layout.Middle().Horizontal(saveButton, _toolbar, validationLabel), 
-                Layout.Horizontal( //columns
-                    columns
-                )
-            );
+            if (saveButton == null)
+            {
+                saveButton = new Controls.Button(_actionVerb, (_) => {
+                    T obj = onSave();
+                    if (obj != null)
+                    {
+                        _save?.Invoke(_obj);
+                    }
+                });
+                return new HeaderPanel(
+                    Layout.Middle().Horizontal(saveButton, _toolbar, validationLabel),
+                    Layout.Horizontal( 
+                        columns
+                    )
+                );
+            }
+            else
+            {
+                saveButton.Validate = () => {
+                    T obj = onSave();
+                    saveButton.Tag = obj;
+                    return obj != null;
+                };
+                return Layout.Gap(false).Vertical(
+                    validationLabel,
+                    Layout.Horizontal(
+                        columns
+                    )
+                );
+            }
         }
 
         public EntityEditor<T> Editor(Expression<Func<T, object>> field, Func<EditorFactory<T>, IFieldEditor<T>> editor)
@@ -347,24 +373,19 @@ namespace Tessin.Bladerunner.Editors
             return this;
         }
 
-        public EntityEditor<T> Required(params Expression<Func<T, string>>[] fields)
+        public EntityEditor<T> Required(params Expression<Func<T, object>>[] fields)
         {
             foreach (var expr in fields)
             {
                 var hint = GetField(expr);
                 hint.Required = true;
-                hint.Validators.Add(e => (!string.IsNullOrWhiteSpace(((string)e)), "Required field."));
-            }
-            return this;
-        }
-
-        public EntityEditor<T> Required(params Expression<Func<T, Guid>>[] fields)
-        {
-            foreach (var expr in fields)
-            {
-                var hint = GetField(expr);
-                hint.Required = true;
-                hint.Validators.Add(e => ((e is Guid guid) && guid != Guid.Empty, "Required field."));
+                hint.Validators.Add(e => (e switch { 
+                    null => false,
+                    Guid guid => guid != Guid.Empty, 
+                    string str => !string.IsNullOrWhiteSpace(str),
+                    int i => i == 0,
+                    _ => true
+                }, "Required field."));
             }
             return this;
         }
@@ -381,6 +402,5 @@ namespace Tessin.Bladerunner.Editors
             var name = Utils.GetNameFromMemberExpression(field.Body);
             return _fields[name];
         }
-
     }
 }

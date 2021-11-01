@@ -51,7 +51,7 @@ namespace Tessin.Bladerunner
 
         public Control Code(string content)
         {
-            return Render("code", content, "code");
+            return Render("pre", content, "code");
         }
 
         public Control Small(string content)

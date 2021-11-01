@@ -14,6 +14,8 @@ namespace Tessin.Bladerunner.Controls
 
     public class Button : LINQPad.Controls.Button
     {
+        public Func<bool> Validate { get; set; }
+
         public Button(string text = "", Action<Button> onClick = null, ButtonStyle buttonStyle = ButtonStyle.Primary) : base(text)
         {
             Button obj = this;
@@ -24,7 +26,10 @@ namespace Tessin.Bladerunner.Controls
             {
                 Click += delegate
                 {
-                    onClick(obj);
+                    if(Validate==null || Validate())
+                    {
+                        onClick(obj);
+                    }
                 };
             }
         }
