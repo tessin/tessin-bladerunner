@@ -17,7 +17,8 @@ namespace Tessin.Bladerunner.Grid
             ICellRenderer<T> cellRenderer,
             CellAlignment cellAlignment = CellAlignment.Left,
             FieldInfo fieldInfo = null,
-            PropertyInfo propertyInfo = null)
+            PropertyInfo propertyInfo = null,
+            bool removed = false)
         {
             Name = name;
             Label = Utils.SplitCamelCase(name);
@@ -26,6 +27,7 @@ namespace Tessin.Bladerunner.Grid
             CellAlignment = cellAlignment;
             FieldInfo = fieldInfo;
             PropertyInfo = propertyInfo;
+            Removed = removed;
         }
 
         public string Name { get; set; }

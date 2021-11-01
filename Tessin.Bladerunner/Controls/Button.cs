@@ -16,11 +16,11 @@ namespace Tessin.Bladerunner.Controls
     {
         public Func<bool> Validate { get; set; }
 
-        public Button(string text = "", Action<Button> onClick = null, ButtonStyle buttonStyle = ButtonStyle.Primary) : base(text)
+        public Button(string text = "", Action<Button> onClick = null, ButtonStyle style = ButtonStyle.Primary) : base(text)
         {
             Button obj = this;
 
-            this.AddClass(buttonStyle.ToString().ToLower());
+            this.AddClass(style.ToString().ToLower());
 
             if (onClick != null)
             {

@@ -173,7 +173,7 @@ namespace Tessin.Bladerunner.Alerts
                     return new Controls.Button(action.Label, (_) =>
                     {
                         blade.Manager.CloseSideBlade(action);
-                    }, buttonStyle: action.IsPrimary ? ButtonStyle.Primary : ButtonStyle.Secondary);
+                    }, style: action.IsPrimary ? ButtonStyle.Primary : ButtonStyle.Secondary);
                 }
 
                 var primary = RenderButton(_builder._actions.Where(e => e.IsPrimary).Single());

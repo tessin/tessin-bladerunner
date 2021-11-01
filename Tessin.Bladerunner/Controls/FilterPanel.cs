@@ -4,9 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tessin.Bladerunner.Grid;
 
 namespace Tessin.Bladerunner.Controls
 {
+    public static class FilterPanelHelper
+    {
+        public static FilterPanel<T> Create<T>(IEnumerable<T> rows, Func<string, Func<T, bool>> predicate)
+        {
+            return new FilterPanel<T>(rows, predicate);
+        }
+    }
+
     public class FilterPanel<T> : Control
     {
         public FilterPanel(IEnumerable<T> records, Func<string, Func<T, bool>> predicate)
@@ -24,11 +33,17 @@ namespace Tessin.Bladerunner.Controls
                     linq = linq.Where(predicate(searchText));
                 }
 
-                return linq.ToList();
+                if(linq.Any())
+                {
+                    return new EntityGrid<T>(linq).Render();
+                }
+                else
+                {
+                    return "No matching records.";
+                }
             });
 
-            VisualTree.Add(txtSearch);
-            VisualTree.Add(refreshPanel);
+            VisualTree.Add(Layout.Vertical(txtSearch, refreshPanel));
         }
     }
 

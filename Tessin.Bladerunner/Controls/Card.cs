@@ -8,11 +8,17 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
+    public enum CardStyle
+    {
+        Info,
+        Warning
+    }
+
     public class Card : Div
     {
-        public Card(object content, string title = null) : base()
+        public Card(object content, string title = null, CardStyle style = CardStyle.Info) : base()
         {
-            this.SetClass("card");
+            this.SetClass($"card card-{style.ToString().ToLower()}");
             var dc = new DumpContainer {Content = content};
 
             if(!string.IsNullOrEmpty(title))
