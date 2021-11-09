@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -20,6 +21,8 @@ namespace Tessin.Bladerunner.Controls
     public class _PropertyListBuilder<T> 
     {
         private object _obj;
+
+        private bool _removeEmpty = false;
 
         private Dictionary<string, Property> _properties;
 
@@ -53,9 +56,22 @@ namespace Tessin.Bladerunner.Controls
             }
         }
 
+        public _PropertyListBuilder<T> RemoveEmpty()
+        {
+            _removeEmpty = true;
+            return this;
+        }
+
         public PropertyList Render()
         {
-            return new PropertyList(_properties.Values.ToArray());
+            var props = _properties.Values.ToArray();
+
+            if (_removeEmpty)
+            {
+                props = props.Where(e => e.Value != null || e.Value is "").ToArray();
+            }
+
+            return new PropertyList(props);
         }
 
     }

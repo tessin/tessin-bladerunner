@@ -13,19 +13,45 @@ namespace Tessin.Bladerunner.Controls
 
         CheckBox _checkBox;
 
-        public ToggleButton(bool state, Func<bool,Task<bool>> update)
+        public ToggleButton(bool state, Func<ToggleButton,Task> onUpdate, Action<Exception> onError = null, string onLabel = "", string offLabel = "")
         {
             this.SetClass("toggle-button");
             _checkBox = new CheckBox("", isChecked: state, async (_) =>
             {
-                var result = await update(_checkBox.Checked);
+                _checkBox.Enabled = false;
+                this.AddClass("toggle-button--loading");
+                try
+                {
+                    await onUpdate(this);
+                    Updated?.Invoke(_checkBox.Checked);
+                }
+                catch (Exception ex)
+                {
+                    _checkBox.Checked = !_checkBox.Checked;
+                    if (onError != null)
+                    {
+                        onError(ex);
+                    }
+                }
+                finally
+                {
+                    _checkBox.Enabled = true;
+                    this.RemoveClass("toggle-button--loading");
+                }
             });
             this.VisualTree.Add(_checkBox);
-            var span = new Span();
-            span.SetClass("toggle-button--track");
-            var label = new Control("label", new[] { span });
-            label.HtmlElement.SetAttribute("for", _checkBox.HtmlElement.ID);
-            this.VisualTree.Add(label);
+            
+            var sliderSpan = new Span();
+            sliderSpan.SetClass("toggle-button--slider");
+            this.VisualTree.Add(sliderSpan);
+            
+            var onSpan = new Span(onLabel);
+            onSpan.SetClass("toggle-button--on");
+            this.VisualTree.Add(onSpan);
+            
+            var offSpan = new Span(offLabel);
+            offSpan.SetClass("toggle-button--off");
+            this.VisualTree.Add(offSpan);
         }
 
         public bool State => _checkBox.Checked;
