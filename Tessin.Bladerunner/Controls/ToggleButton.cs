@@ -11,23 +11,28 @@ namespace Tessin.Bladerunner.Controls
     {
         public event RefreshEvent Updated;
 
-        CheckBox _checkBox;
+        Control _checkBox;
 
         public ToggleButton(bool state, Func<ToggleButton,Task> onUpdate, Action<Exception> onError = null, string onLabel = "", string offLabel = "")
         {
             this.SetClass("toggle-button");
-            _checkBox = new CheckBox("", isChecked: state, async (_) =>
+            _checkBox = new Control("input");
+            _checkBox.HtmlElement.SetAttribute("type","checkbox");
+
+            Checked = state;
+
+            _checkBox.Click += async (sender, args) =>
             {
                 _checkBox.Enabled = false;
                 this.AddClass("toggle-button--loading");
                 try
                 {
                     await onUpdate(this);
-                    Updated?.Invoke(_checkBox.Checked);
+                    Updated?.Invoke(Checked);
                 }
                 catch (Exception ex)
                 {
-                    _checkBox.Checked = !_checkBox.Checked;
+                    Checked = !Checked;
                     if (onError != null)
                     {
                         onError(ex);
@@ -38,22 +43,29 @@ namespace Tessin.Bladerunner.Controls
                     _checkBox.Enabled = true;
                     this.RemoveClass("toggle-button--loading");
                 }
-            });
+            };
+
             this.VisualTree.Add(_checkBox);
-            
+
             var sliderSpan = new Span();
             sliderSpan.SetClass("toggle-button--slider");
-            this.VisualTree.Add(sliderSpan);
-            
+
             var onSpan = new Span(onLabel);
             onSpan.SetClass("toggle-button--on");
-            this.VisualTree.Add(onSpan);
-            
+
             var offSpan = new Span(offLabel);
             offSpan.SetClass("toggle-button--off");
-            this.VisualTree.Add(offSpan);
+
+            var label = new Control("label", sliderSpan, onSpan, offSpan);
+            label.HtmlElement.SetAttribute("for", _checkBox.HtmlElement.ID);
+
+            this.VisualTree.Add(label);
         }
 
-        public bool State => _checkBox.Checked;
+        public bool Checked
+        {
+            get => this._checkBox.HtmlElement["checked"]?.ToLowerInvariant() == "true";
+            set => this._checkBox.HtmlElement["checked"] = value ? "true" : (string)null;
+        }
     }
 }

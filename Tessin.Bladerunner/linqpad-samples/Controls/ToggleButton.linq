@@ -16,7 +16,6 @@ void Main()
 	manager.Dump();
 	
 	manager.PushBlade(Blade1(), "ToggleButton");
-	
 }
 
 static IBladeRenderer Blade1()
@@ -24,9 +23,9 @@ static IBladeRenderer Blade1()
 	return BladeFactory.Make((blade) =>
 	{
 		ToggleButton tb1 = new ToggleButton(false, async (_) => {
-			await Task.Delay(2000);
-		}, trueLabel:"Fun", falseLabel:"Boring");
-
+			await Task.Delay(1000);
+		}, onLabel:"On", offLabel:"Off");
+		
 		ToggleButton tb2 = new ToggleButton(false, 
 			async (_) =>
 			{
@@ -40,7 +39,7 @@ static IBladeRenderer Blade1()
 
 		RefreshPanel rc = new RefreshPanel(new[] { tb1, tb2 }, () =>
 		{
-			return Layout.Vertical(tb1.State.ToString(), tb2.State.ToString());
+			return Layout.Vertical(tb1.Checked.ToString(), tb2.Checked.ToString());
 		});
 
 		return Layout.Vertical(tb1, tb2, rc);
