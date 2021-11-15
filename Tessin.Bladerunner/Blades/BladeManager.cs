@@ -157,6 +157,12 @@ namespace Tessin.Bladerunner.Blades
             return _toaster;
         }
 
+        public Toaster ShowToaster(Exception e)
+        {
+            _toaster.Show(new LINQPad.Controls.Literal(e.Message), 3000, ToasterType.Error);
+            return _toaster;
+        }
+
         public void PopTo(int index, bool refresh)
         {
             while(_stack.Count()-1 > index)

@@ -259,6 +259,7 @@ namespace Tessin.Bladerunner.Editors
         {
             int order = _fields.Values.Where(e => e.Column == col)
                 .Select(e => (int?)e.Order).Max() ?? 0;
+
             foreach (var expr in fields)
             {
                 var hint = GetField(expr);

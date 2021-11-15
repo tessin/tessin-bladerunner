@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
 using LINQPad;
@@ -216,6 +217,22 @@ namespace Tessin.Bladerunner
     {
         internal LayoutDiv(LayoutBuilder builder)
         {
+            Control BuildElement(LayoutBuilder.Element element)
+            {
+                if (element._space != "auto" && element._content is Control control)
+                {
+                    control.Styles["width"] = "-webkit-fill-available";
+                }
+
+                var formatted = builder._formatter.Format(element._content);
+
+                return formatted;
+            }
+
+
+            var children = builder._elements.Where(e => e._content != null).ToArray();
+            var cn = children.Count();
+
             var fill = (builder._fill, builder._orientation) switch
             {
                 (null, Orientation.Horizontal) => false,
@@ -240,15 +257,20 @@ namespace Tessin.Bladerunner
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            this.Styles["display"] = "grid";
-            this.Styles["box-sizing"] = "border-box";
-
             if (builder._debug)
             {
                 this.Styles["background-color"] = "red";
             }
 
-            var template = string.Join(" ", builder._elements.Select(e => e._space));
+            this.Styles["box-sizing"] = "border-box";
+
+            if (cn == 0) return;
+            if (cn > 1)
+            {
+                this.Styles["display"] = "grid";
+            }
+
+            var template = string.Join(" ", children.Select(e => e._space));
 
             this.Styles["justify-items"] = hAlignment switch
             {
@@ -304,16 +326,9 @@ namespace Tessin.Bladerunner
                 this.SetClass(builder._class);
             }
 
-            foreach (var element in builder._elements.Where(e => e != null))
+            foreach (var element in children)
             {
-                if (element._space != "auto" && element._content is Control control)
-                {
-                    control.Styles["width"] = "-webkit-fill-available";
-                }
-
-                var formatted = builder._formatter.Format(element._content);
-
-                this.VisualTree.Add(formatted);
+                this.VisualTree.Add(BuildElement(element));
             }
         }
     }
