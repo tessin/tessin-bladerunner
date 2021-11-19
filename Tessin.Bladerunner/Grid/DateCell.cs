@@ -17,7 +17,7 @@ namespace Tessin.Bladerunner.Grid
         public Control Render(object value, GridColumn<T> column)
         {
             if (value == null) return new Literal("-");
-
+            
             var _value = Convert.ToDateTime(value);
 
             return new Literal(_value.ToString(_format));

@@ -41,7 +41,7 @@ namespace Tessin.Bladerunner.Grid
         {
             _rows = rows;
             _width = width;
-            _rendererFactory = new CellRendererFactory<T>();
+            _rendererFactory = new CellRendererFactory<T>(_formatter);
             Scaffold();
         }
 
@@ -67,7 +67,7 @@ namespace Tessin.Bladerunner.Grid
             {
                 var cellAlignment = CellAlignment.Left;
 
-                var cellRenderer = _rendererFactory.Default(_formatter);
+                var cellRenderer = _rendererFactory.Default();
 
                 if (field.Type.IsNumeric())
                 {
@@ -296,6 +296,17 @@ namespace Tessin.Bladerunner.Grid
             foreach (var field in _columns.Values)
             {
                 field.Removed = true;
+            }
+            return this;
+        }
+
+        public EntityGrid<T> Reset()
+        {
+            foreach (var field in _columns.Values)
+            {
+                field.Removed = false;
+                field.CellAlignment = CellAlignment.Left;
+                field.CellRenderer = _rendererFactory.Text();
             }
             return this;
         }

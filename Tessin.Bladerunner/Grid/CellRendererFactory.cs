@@ -8,10 +8,16 @@ namespace Tessin.Bladerunner.Grid
 {
     public class CellRendererFactory<T>
     {
+        private IContentFormatter _formatter;
 
-        public ICellRenderer<T> Default(IContentFormatter formatter)
+        public CellRendererFactory(IContentFormatter formatter)
         {
-            return new DefaultCell<T>(formatter);
+            _formatter = formatter;
+        }
+
+        public ICellRenderer<T> Default(IContentFormatter formatter = null)
+        {
+            return new DefaultCell<T>(formatter ?? _formatter);
         }
 
         public ICellRenderer<T> Text()

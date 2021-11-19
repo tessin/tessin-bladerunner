@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
+using System.Xml.Schema;
 using LINQPad.Controls;
 
 namespace Tessin.Bladerunner
@@ -72,6 +74,16 @@ namespace Tessin.Bladerunner
         public Control H2(string content)
         {
             return Render("h2", content, "default");
+        }
+
+        public Control Link(string content, Action<Hyperlink> onClick)
+        {
+            var link = new Hyperlink(content, onClick);
+            foreach (var key in _styles.Keys)
+            {
+                link.Styles[key] = _styles[key];
+            }
+            return link;
         }
 
         private Control Render(string htmlElementName, string content, string @class)
@@ -146,6 +158,11 @@ namespace Tessin.Bladerunner
         public static Control H2(string content)
         {
             return (new TypographyBuilder()).H1(content);
+        }
+
+        public static Control Link(string content, Action<Hyperlink> onClick)
+        {
+            return (new TypographyBuilder()).Link(content, onClick);
         }
     }
 }
