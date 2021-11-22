@@ -45,7 +45,7 @@ namespace Tessin.Bladerunner.Blades
                     buttons.Add(new IconButton(Icons.Refresh, (_) =>
                     {
                         Manager.PopTo(Index, true);
-                    }));
+                    }, theme: Theme.PrimaryAlternate));
                 }
 
                 if (Index == 0 && Manager.ShowDebugButton)
@@ -53,7 +53,7 @@ namespace Tessin.Bladerunner.Blades
                     buttons.Add(new IconButton(Icons.Duck, (_) =>
                     {
                         Manager.DebugHtml();
-                    }));
+                    }, theme:Theme.PrimaryAlternate));
                 }
 
                 if (Index != 0)
@@ -68,7 +68,7 @@ namespace Tessin.Bladerunner.Blades
                         {
                             Manager.PopTo(Index - 1, false);
                         }
-                    }));
+                    }, theme: Theme.PrimaryAlternate));
                 }
 
                 var div = Div("blade-panel", 

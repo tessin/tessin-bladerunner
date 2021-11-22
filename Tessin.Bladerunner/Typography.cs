@@ -157,7 +157,7 @@ namespace Tessin.Bladerunner
 
         public static Control H2(string content)
         {
-            return (new TypographyBuilder()).H1(content);
+            return (new TypographyBuilder()).H2(content);
         }
 
         public static Control Link(string content, Action<Hyperlink> onClick)

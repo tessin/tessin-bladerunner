@@ -38,7 +38,7 @@ static IEnumerable<string> GetColors()
 {
 	foreach (System.Reflection.PropertyInfo prop in typeof(SystemColors).GetProperties())
 	{
-		if (prop.PropertyType.FullName == "System.Drawing.Color")
+		if (prop.PropertyType.FullName == "System.Drawing.Theme")
 			yield return prop.Name;
 	}
 }

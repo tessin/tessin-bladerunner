@@ -4,8 +4,8 @@ SPAN.small {
 }
 
 .error {    
-    color:darkred;
-    font-weight: bold;
+    color:$error-dark;
+    @include weight(700);
 }
 
 H1.default
@@ -15,7 +15,7 @@ H1.default
 
 H2.default
 {
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 

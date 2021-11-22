@@ -15,11 +15,11 @@ void Main()
 	
 	manager.Dump();
 	
-	manager.PushBlade(Blade0(), "Blade0");
-	manager.PushBlade(Blade1(), "Blade1");
-	manager.PushBlade(Blade2(), "Blade2");
+	//manager.PushBlade(Blade0(), "Blade0");
+	//manager.PushBlade(Blade1(), "Blade1");
+	//manager.PushBlade(Blade2(), "Blade2");
 	manager.PushBlade(Blade4(), "Blade4");
-	manager.PushBlade(Blade5(), "Blade5");
+	//manager.PushBlade(Blade5(), "Blade5");
 }
 
 static IBladeRenderer Blade0()
@@ -132,7 +132,7 @@ static IBladeRenderer Blade4()
 		}, addPadding: true);
 
 		return new HeaderPanel(
-			Layout.Fill().Gap(false).Middle().Add(new SearchBox(), "1fr").Add(new TextBox(), "auto").Add(new Button("Hej", (_) => {}), "auto").Vertical(new IconButton(Icons.Plus)),
+			Layout.Fill().Add(new SearchBox(), "1fr").Add(new TextBox(), "auto").Add(new Button("Hej", (_) => {}), "auto").Horizontal(new IconButton(Icons.Plus)),
 			refreshContainer
 		);
 	});
@@ -153,7 +153,7 @@ static IEnumerable<string> GetColors()
 {
 	foreach (System.Reflection.PropertyInfo prop in typeof(SystemColors).GetProperties())
 	{
-		if (prop.PropertyType.FullName == "System.Drawing.Color")
+		if (prop.PropertyType.FullName == "System.Drawing.Theme")
 			yield return prop.Name;
 	}
 }

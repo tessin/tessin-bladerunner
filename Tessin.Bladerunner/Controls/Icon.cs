@@ -25,10 +25,10 @@ namespace Tessin.Bladerunner.Controls
             return new Icon("");
         }
 
-        public Icon(string icon, string tooltip = "", Color color = Color.Black) : base()
+        public Icon(string icon, string tooltip = "", Theme theme = Theme.Secondary) : base()
         {
             this.HtmlElement.SetAttribute("title", tooltip);
-            this.HtmlElement.SetAttribute("class", $"icon {color.ToString().ToLower()}");
+            this.HtmlElement.SetAttribute("class", $"icon {theme.ToString().ToLower()}");
             this.HtmlElement.InnerHtml = icon;
         }
     }

@@ -14,7 +14,7 @@
   display: grid;
   align-items: end;
   justify-items: center;
-  font-weight: bold;
+  @include weight(700);
   height: 100%;
 }
 
@@ -26,7 +26,7 @@
   display: grid;
   align-items: center;
   justify-items: right;
-  font-weight: bold;
+  @include weight(700);
   width: 100%;
 }
 

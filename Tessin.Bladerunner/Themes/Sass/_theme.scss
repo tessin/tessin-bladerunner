@@ -1,60 +1,179 @@
-$font-weight-bold: 400;
-
 $panel-margin: 10px;
-$blade-header-height: 40px;
+
+$blade-header-height:60px;
+
+$blade-panel-even: #ffffff;
+$blade-panel-odd: #f8f8f8;
 
 $blade-border-color: #ccc;
 $blade-pill-color: #ccc;
 $blade-button-hover: #e1e1e1;
-$filter-panel-color: #f8f8f8;
-$blade-panel-even: #ffffff;
-$blade-panel-odd: #f8f8f8;
 
-$primary-cta: rgb(17, 88, 170);
-$primary-header: aqua;
-$primary-cherry: tomato;
+$focus-outline: $medium-grey;
 
-$color-red: red;
-$color-yellow: yellow;
-$color-purple: purple;
-$color-blue: blue;
-$color-black: black;
-$color-green: green;
-$color-gray: gray;
-
-//Change!
-
-.red {
-  fill: $color-red;
-  color: $color-red;
+.theme-primary {
+    background-color: $cta-blue; 
+    color:$white;     
 }
 
-.yellow {
-  fill: $color-yellow;
-  color: $color-yellow;
+.theme-primary:hover {
+    background-color: $cta-blue-light;   
 }
 
-.purple {
-  fill: $color-purple;
-  color: $color-purple;
+.theme-primary:active {
+    background-color: $cta-blue-dark;   
 }
 
-.blue {
-  fill: $color-blue;
-  color: $color-blue;
+.theme-primary:focus {
+    background-color: $cta-blue-dark;
+    outline: 3px solid $focus-outline;   
 }
 
-.black {
-  fill: $color-black;
-  color: $color-black;
+.theme-secondary {
+    background-color: transparent; 
+    border: 2px solid $cta-blue;     
+    color: $cta-blue;
 }
 
-.green {
-  fill: $color-green;
-  color: $color-green;
+.theme-secondary:hover {  
+    border: 2px solid $cta-blue-light;     
+    color: $cta-blue-light;
 }
 
-.gray {
-  fill: $color-gray;
-  color: $color-gray;
+.theme-secondary:active {  
+    border: 2px solid $cta-blue-dark;     
+    color: $cta-blue-dark;
 }
+
+.theme-secondary:focus {
+    border: 2px solid $cta-blue-dark;     
+    color: $cta-blue-dark;
+    outline: 3px solid $focus-outline;   
+}
+
+.theme-primary-alternate {
+    background-color: $tessin-turquoise; 
+    fill:$tessin-turquoise;
+    color:$tessin-dark-green;     
+}
+
+.theme-primary-alternate:hover {
+    background-color: $tessin-turquoise-light;
+    fill:$tessin-turquoise-light;   
+}
+
+.icon-button.theme-primary-alternate:hover {
+    background-color:transparent;
+}
+
+.theme-primary-alternate:active {
+    background-color: $tessin-turquoise-dark;   
+}
+
+.icon-button.theme-primary-alternate:active {
+    background-color: transparent;
+}
+
+.icon-button.theme-primary-alternate:active {
+    fill: $tessin-turquoise-dark;   
+}
+
+.theme-primary-alternate:disabled {
+    color: $medium-grey;  
+    fill: $medium-grey;    
+}
+
+.theme-primary-alternate:focus {
+    background-color: $tessin-turquoise-dark;
+    outline: 3px solid $focus-outline;   
+}
+
+.icon-button.theme-primary-alternate:focus {
+    fill: $tessin-turquoise-dark; 
+    background: none;
+    outline: none;
+}
+
+.theme-secondary-alternate {
+    background-color: transparent; 
+    border: 2px solid $white;     
+    color: $white;
+}
+
+.theme-secondary-alternate:hover {  
+    border: 2px solid $tessin-turquoise;     
+    color: $tessin-turquoise;
+}
+
+.theme-secondary-alternate:active {  
+    border: 2px solid $tessin-turquoise-dark;     
+    color: $tessin-turquoise-dark;
+}
+
+.theme-secondary-alternate:focus {
+    border: 2px solid $tessin-turquoise-dark;    
+    color: $tessin-turquoise-dark;
+    outline: 3px solid $focus-outline;   
+}
+
+.theme-secondary-alternate:disabled {
+    background: transparent;
+    border: 2px solid $neutral-grey; 
+    color: $neutral-grey; 
+}
+
+.theme-error {
+    background-color: $error; 
+    color:$soft-black;     
+}
+
+.theme-error:hover {
+    background-color: $error-light;   
+}
+
+.theme-error:active {
+    background-color: $error-dark;   
+}
+
+.theme-error:focus {
+    background-color: $error-dark;
+    outline: 3px solid $focus-outline;   
+}
+
+.theme-success {
+    background-color: $success; 
+    color:$soft-black;     
+}
+
+.theme-success:hover {
+    background-color: $success-light;   
+}
+
+.theme-success:active {
+    background-color: $success-dark;   
+}
+
+.theme-success:focus {
+    background-color: $success-dark;
+    outline: 3px solid $focus-outline;   
+}
+
+.theme-alert {
+    background-color: $alert; 
+    color:$soft-black;     
+}
+
+.theme-alert:hover {
+    background-color: $alert-light;   
+}
+
+.theme-alert:active {
+    background-color: $alert-dark;   
+}
+
+.theme-alert:focus {
+    background-color: $alert-dark;
+    outline: 3px solid $focus-outline;   
+}
+
+

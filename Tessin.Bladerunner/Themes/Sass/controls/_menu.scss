@@ -44,7 +44,7 @@
 }
 
 .menu-button > .button > span {
-  @include family();
+  font-family: "AeonikProVF";
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow-x: hidden;

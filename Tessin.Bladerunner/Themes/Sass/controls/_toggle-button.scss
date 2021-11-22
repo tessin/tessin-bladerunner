@@ -39,7 +39,7 @@
 
     .toggle-button--on {
         opacity: 0;
-        font-weight: bold;
+        @include weight(700);
         font-size: 10px;
         text-transform: uppercase;
         position:absolute;  
@@ -52,7 +52,7 @@
 
     .toggle-button--off {
         opacity: 1;
-        font-weight: bold;
+        @include weight(700);
         font-size: 10px;
         text-transform: uppercase;
         position:absolute;  

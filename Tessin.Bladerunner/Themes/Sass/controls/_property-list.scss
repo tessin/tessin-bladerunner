@@ -20,7 +20,7 @@
 .property-list > DIV > SPAN:first-child {
   text-align: left;
   font-size: 1.1em;
-  font-weight: bold;
+  @include weight(700);
   padding-right: 20px;
 }
 

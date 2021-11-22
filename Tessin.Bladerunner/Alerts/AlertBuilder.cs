@@ -173,10 +173,10 @@ namespace Tessin.Bladerunner.Alerts
                     return new Controls.Button(action.Label, (_) =>
                     {
                         blade.Manager.CloseSideBlade(action);
-                    }, style: action.IsPrimary ? ButtonStyle.Primary : ButtonStyle.Secondary);
+                    }, theme: action.IsPrimary ? Theme.Primary : Theme.Secondary);
                 }
 
-                var primary = RenderButton(_builder._actions.Where(e => e.IsPrimary).Single());
+                var primary = RenderButton(_builder._actions.Single(e => e.IsPrimary));
                 var buttons = new[] { primary }.Union(_builder._actions.Where(e => !e.IsPrimary).Select(RenderButton));
 
                 IContentFormatter formatter = new DefaultContentFormatter();

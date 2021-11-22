@@ -58,7 +58,7 @@ namespace Tessin.Bladerunner.Controls
                 double doubleContent => Wrapper(new Span(doubleContent.ToString(DecimalFormat).TrimEnd(".00"))),
                 decimal and 0 => EmptyFormatter(),
                 decimal decimalContent => Wrapper(new Span(decimalContent.ToString(DecimalFormat).TrimEnd(".00"))),
-                bool boolContent => Wrapper(boolContent ? new Icon(Icons.CheckBold, color:Color.Green) : Icon.Empty()),
+                bool boolContent => Wrapper(boolContent ? new Icon(Icons.CheckBold, theme:Theme.Primary) : Icon.Empty()),
                 DateTime dateContent => Wrapper(new Span(dateContent.ToString(DateFormat))),
                 DateTimeOffset dateTimeOffset => Wrapper(new Span(dateTimeOffset.ToString(DateFormat))),
                 Guid guid => guid == Guid.Empty ? EmptyFormatter() : Wrapper(new Span(guid.ToString())),
