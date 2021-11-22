@@ -7,7 +7,7 @@ BUTTON {
   color: white;
   border-radius: 0px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-  font-family: $font-family;
+  @include family();
   cursor: pointer;
 }
 

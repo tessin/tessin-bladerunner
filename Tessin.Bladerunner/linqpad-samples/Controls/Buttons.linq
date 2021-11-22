@@ -14,7 +14,7 @@ void Main()
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
 	
-	manager.PushBlade(Blade1(), "DateBox");
+	manager.PushBlade(Blade1(), "Buttons");
 }
 
 static IBladeRenderer Blade1()
@@ -23,8 +23,8 @@ static IBladeRenderer Blade1()
 	{
 		return Layout.Vertical(
 			new Button("Primary"),
-			new Button("Secondary", buttonStyle: ButtonStyle.Secondary),
-			new Button("Danger", buttonStyle: ButtonStyle.Danger)
+			new Button("Secondary", style: ButtonStyle.Secondary),
+			new Button("Danger", style: ButtonStyle.Danger)
 		);
 	});
 }

@@ -17,8 +17,6 @@ void Main()
 	manager.Dump();
 	
 	manager.PushBlade(Blade1(), "Typography");
-	
-	
 }
 
 static IBladeRenderer Blade1()

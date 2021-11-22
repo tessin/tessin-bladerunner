@@ -1,0 +1,200 @@
+@import "globals";
+
+@mixin theme($bgColor, $color, $accent: null) {
+  background-color: $bgColor;
+  color: $color;
+  @if ($accent) {
+    .accent {
+      color: $accent;
+    }
+  } @else {
+    .accent {
+      color: $color;
+    }
+  }
+}
+
+@mixin setColorStatesFilled(
+  $default,
+  $hover,
+  $active,
+  $defaultText: $white,
+  $hoverText: $white,
+  $activeText: $white
+) {
+  background-color: $default;
+  color: $defaultText;
+  &:hover {
+    background-color: $hover;
+    color: $hoverText;
+  }
+  &:active {
+    background-color: $active;
+    color: $activeText;
+  }
+}
+
+@mixin statesFilled($color) {
+  @if ($color == "tessin-green") {
+    @include setColorStatesFilled($tessin-green, $tessin-green-light, $tessin-green-dark);
+  } @else if ($color == "tessin-dark-green") {
+    @include setColorStatesFilled(
+      $tessin-dark-green,
+      $tessin-dark-green-light,
+      $tessin-dark-green-dark
+    );
+  } @else if ($color == "tessin-turquoise") {
+    @include setColorStatesFilled(
+      $tessin-turquoise,
+      $tessin-turquoise-light,
+      $tessin-turquoise-dark,
+      $soft-black,
+      $soft-black,
+      $soft-black
+    );
+  } @else if ($color == "tessin-turquoise-soft") {
+    @include setColorStatesFilled(
+      $tessin-turquoise-soft,
+      $tessin-turquoise-soft-light,
+      $tessin-turquoise-soft-dark,
+      $soft-black,
+      $soft-black,
+      $soft-black
+    );
+  } @else if ($color == "cta-blue") {
+    @include setColorStatesFilled($cta-blue, $cta-blue-light, $cta-blue-dark);
+  } @else if ($color == "success") {
+    @include setColorStatesFilled(
+      $success,
+      $success-light,
+      $success-dark,
+      $success-dark,
+      $success-dark,
+      $white
+    );
+  } @else if ($color == "error") {
+    @include setColorStatesFilled($error, $error-light, $error-dark, $white, $soft-black, $white);
+  } @else if ($color == "alert") {
+    @include setColorStatesFilled(
+      $alert,
+      $alert-light,
+      $alert-dark,
+      $soft-black,
+      $soft-black,
+      $white
+    );
+  } @else {
+    @error "color does not have any mapped states.";
+  }
+}
+
+@mixin setColorStatesOutline($default, $hover, $active) {
+  color: $default;
+  outline-color: $default;
+  &:hover {
+    color: $hover;
+    outline-color: $hover;
+  }
+  &:active {
+    color: $active;
+    outline-color: $active;
+  }
+}
+
+@mixin statesOutline($color) {
+  @if ($color == "tessin-green") {
+    @include setColorStatesOutline($tessin-green, $tessin-green-light, $tessin-green-dark);
+  } @else if ($color == "tessin-dark-green") {
+    @include setColorStatesOutline(
+      $tessin-dark-green,
+      $tessin-dark-green-light,
+      $tessin-dark-green-dark
+    );
+  } @else if ($color == "tessin-turquoise") {
+    @include setColorStatesOutline(
+      $tessin-turquoise,
+      $tessin-turquoise-light,
+      $tessin-turquoise-dark
+    );
+  } @else if ($color == "tessin-turquoise-soft") {
+    @include setColorStatesOutline(
+      $tessin-turquoise-soft,
+      $tessin-turquoise-soft-light,
+      $tessin-turquoise-soft-dark
+    );
+  } @else if ($color == "white") {
+    @include setColorStatesOutline($white, $cool-grey, $soft-grey);
+  } @else if ($color == "cta-blue") {
+    @include setColorStatesOutline($cta-blue, $cta-blue-light, $cta-blue-dark);
+  } @else if ($color == "success") {
+    @include setColorStatesOutline($success, $success-light, $success-dark);
+  } @else if ($color == "error") {
+    @include setColorStatesOutline($error, $error-light, $error-dark);
+  } @else if ($color == "alert") {
+    @include setColorStatesOutline($alert, $alert-light, $alert-dark);
+  } @else {
+    @error "color does not have any mapped states.";
+  }
+}
+
+@mixin setColorStates($default, $hover, $active) {
+  color: $default;
+  &:hover {
+    color: $hover;
+  }
+  &:active {
+    color: $active;
+  }
+}
+
+@mixin setOpacityStates($default) {
+  color: $default;
+  transform: opacity $animation-cubic-bezier;
+  &:hover {
+    opacity: 0.85;
+    color: $default;
+  }
+  &:active {
+    opacity: 0.7;
+    color: $default;
+  }
+}
+
+@mixin states($color) {
+  @if ($color == "soft-black") {
+    @include setColorStatesOutline($soft-black, $neutral-grey, $medium-grey);
+  } @else if ($color == "tessin-green") {
+    @include setColorStatesOutline($tessin-green, $tessin-green-light, $tessin-green-dark);
+  } @else if ($color == "tessin-dark-green") {
+    @include setColorStatesOutline(
+      $tessin-dark-green,
+      $tessin-dark-green-light,
+      $tessin-dark-green-dark
+    );
+  } @else if ($color == "tessin-turquoise") {
+    @include setColorStatesOutline(
+      $tessin-turquoise,
+      $tessin-turquoise-light,
+      $tessin-turquoise-dark
+    );
+  } @else if ($color == "tessin-turquoise-soft") {
+    @include setColorStatesOutline(
+      $tessin-turquoise-soft,
+      $tessin-turquoise-soft-light,
+      $tessin-turquoise-soft-dark
+    );
+  } @else if ($color == "white") {
+    // @include setColorStatesOutline($white, $cool-grey, $soft-grey);
+    @include setOpacityStates($white);
+  } @else if ($color == "cta-blue") {
+    @include setColorStatesOutline($cta-blue, $cta-blue-light, $cta-blue-dark);
+  } @else if ($color == "success") {
+    @include setColorStatesOutline($success, $success-light, $success-dark);
+  } @else if ($color == "error") {
+    @include setColorStatesOutline($error, $error-light, $error-dark);
+  } @else if ($color == "alert") {
+    @include setColorStatesOutline($alert, $alert-light, $alert-dark);
+  } @else {
+    @error "color does not have any mapped states.";
+  }
+}

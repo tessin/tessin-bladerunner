@@ -1,7 +1,10 @@
+@import "mixins";
+@import "font";
+
 body {
   margin: 0em;
   padding: 0em;
-  font-family: $font-family !important;
+  @include family($name: "AeonikPro");
   font-size: 12px;
   line-height: 1.5;
   color: $font-color;
@@ -253,7 +256,7 @@ a:visited.collection {
 a:link.reference,
 a:visited.reference {
   font-weight: normal;
-  font-family: $font-family;
+  @include family();
 }
 
 i {
@@ -323,7 +326,7 @@ input[type="datetime-local"] {
   padding-top: 0px;
   padding-bottom: 0px;
   margin: 0;
-  font-family: $font-family;
+  @include family();
 }
 
 input[type="text"],

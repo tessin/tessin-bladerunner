@@ -1,0 +1,59 @@
+// Brand palette
+$tessin-green: #007867;
+$tessin-green-dark: #006b5d;
+$tessin-green-light: #00ab94;
+$tessin-dark-green: #00463c;
+$tessin-dark-green-dark: #003e35;
+$tessin-dark-green-light: #007e6b;
+
+// Neutrals palette
+$soft-black: #1c1c1c;
+$dark-grey: #2b2b2b;
+$medium-grey: #606060;
+$neutral-grey: #b5b5b5;
+$soft-grey: #e2e2e2;
+$cool-grey: #f7f7f7;
+$white: #ffffff;
+
+// Accents palette
+$tessin-turquoise: #00f7d3;
+$tessin-turquoise-dark: #00d6b6;
+$tessin-turquoise-light: #17ffdc;
+$tessin-turquoise-soft: #bdfff2;
+$tessin-turquoise-soft-dark: #98f8e5;
+$tessin-turquoise-soft-light: #d9fff7;
+
+// Alerts palette
+$cta-blue: #0066ff;
+$cta-blue-dark: #004fc1;
+$cta-blue-light: #2079ff;
+$cta-blue-lightest: #c0eaff;
+$success: #11e86b;
+$success-dark: #0d9143;
+$success-light: #45ff90;
+$success-lightest: #9cffc6;
+$alert: #ffdf0d;
+$alert-dark: #c6a000;
+$alert-light: #fffc80;
+$alert-lightest: #fffcca;
+$error: #ff0d0d;
+$error-dark: #aa0000;
+$error-light: #ff4d4d;
+$error-lightest: #ffb6b6;
+
+// Font Metrics
+$font-color: $soft-black;
+$font-ascent: 0.93;
+$font-descent: 0.21;
+$font-content-area: 1.14;
+$font-capital-height: 0.7;
+
+$font-metrics: (
+  "Aeonik Pro": (
+    "ascent": 0.93,
+    "descent": 0.21,
+    "content-area": 1.14,
+    // ascent+descent
+      "capital-height": 0.7
+  )
+);

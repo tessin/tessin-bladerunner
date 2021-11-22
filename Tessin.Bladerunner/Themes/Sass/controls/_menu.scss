@@ -44,7 +44,7 @@
 }
 
 .menu-button > .button > span {
-  font-family: $font-family;
+  @include family();
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow-x: hidden;
