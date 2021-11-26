@@ -1517,13 +1517,13 @@ SPAN.field--header-description:after {
   width: 100%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  min-width: 260px;
+  min-width: 200px;
   min-height: 48px;
   height: auto !important;
   padding-left: 10px;
   padding-right: 10px;
-  padding-top: 4px;
-  padding-bottom: 5px;
+  padding-top: 9px;
+  padding-bottom: 10px;
   position: relative;
   border-bottom: 1px solid #ccc;
   display: -webkit-box;

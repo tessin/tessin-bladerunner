@@ -130,7 +130,6 @@ namespace Tessin.Bladerunner.Blades
             _sideBladeOnClose = null;
         }
 
-
         public Popover ShowPopover(Control content, string parentId)
         {
             _popover.Show(content, parentId);

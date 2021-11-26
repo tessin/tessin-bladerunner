@@ -203,8 +203,11 @@ namespace Tessin.Bladerunner.Editors
                 });
                 return new HeaderPanel(
                     Layout.Middle().Horizontal(saveButton, _toolbar, validationLabel),
-                    Layout.Horizontal( 
-                        columns
+                    Layout.Vertical(
+                        Layout.Horizontal( 
+                            columns
+                        ),
+                        new Spacer(height:"50px")
                     ),
                     width:null
                 );
@@ -218,8 +221,11 @@ namespace Tessin.Bladerunner.Editors
                 };
                 return Layout.Gap(false).Vertical(
                     validationLabel,
-                    Layout.Horizontal(
-                        columns
+                    Layout.Vertical(
+                        Layout.Horizontal(
+                            columns
+                        ),
+                        new Spacer(height: "50px")
                     )
                 );
             }
