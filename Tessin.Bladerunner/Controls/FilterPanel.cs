@@ -20,7 +20,7 @@ namespace Tessin.Bladerunner.Controls
     {
         public FilterPanel(IEnumerable<T> records, Func<string, Func<T, bool>> predicate)
         {
-            var txtSearch = new SearchBox(placeHolder: "Filter");
+            var txtSearch = new SearchBox();
 
             var refreshPanel = new RefreshPanel(new[] { txtSearch }, () =>
             {

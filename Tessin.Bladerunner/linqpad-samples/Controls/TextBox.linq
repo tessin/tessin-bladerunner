@@ -23,11 +23,24 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		var textBox = new TextBox(placeholder:"Name");
+		var textBox = new TextBox();
+		var textField = new Field("Name", textBox);
+
+		var selectBox = new SelectBox(new[] {"Male","Female"});
+		var selectField = new Field("Sex", selectBox);
+
+		var dateBox = new DateBox();
+		var dateField = new Field("Birth Day", dateBox);
 		
-		var selectBox = new SelectBox();
-	
+		var numberBox = new NumberBox(10_000_000.123, 3);
+		var numberField = new Field("Worth", numberBox);
 		
-		return Layout.Vertical(textBox, selectBox);
+		var searchBox = new SearchBox();
+		var searchField = new Field("Search", searchBox);
+
+		var textArea = new TextArea();
+		var textAreaField = new Field("Comment", textArea);
+
+		return Layout.Vertical(textField, searchField, selectField, dateField, numberField, textAreaField);
 	});
 }

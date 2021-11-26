@@ -16,10 +16,13 @@ namespace Tessin.Bladerunner.Controls
 
         //private Hyperlink _externalOpen;
 
-        public SearchBox(string initialText = "", string placeHolder = "Search", ContextMenu contextMenu = null)
+        public SearchBox(string initialText = "", string placeholder= "Search", ContextMenu contextMenu = null)
         {
             _textBox = new TextBox(initialText);
-            _textBox.HtmlElement.SetAttribute("placeholder", placeHolder);
+            if (!string.IsNullOrEmpty(placeholder))
+            {
+                _textBox.HtmlElement.SetAttribute("placeholder", placeholder);
+            }
             _textBox.TextInput += (sender, args) =>
             {
                 TextInput?.Invoke(sender, args);
@@ -28,6 +31,8 @@ namespace Tessin.Bladerunner.Controls
             this.SetClass("search-box");
 
             this.VisualTree.Add(_textBox);
+
+            this.VisualTree.Add(new Icon(Icons.Magnify));
 
             //if (contextMenu != null)
             //{

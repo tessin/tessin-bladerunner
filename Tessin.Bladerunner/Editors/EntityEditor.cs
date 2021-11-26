@@ -122,7 +122,7 @@ namespace Tessin.Bladerunner.Editors
 
             Control RenderRows(IEnumerable<EditorField<T>> fields)
             {
-                return Layout.Gap(false)
+                return Layout.Gap(true)
                     .Vertical(fields.OrderBy(h => h.Order)
                         .GroupBy(f => f.Row).Select(RenderRow));
             }
@@ -205,7 +205,8 @@ namespace Tessin.Bladerunner.Editors
                     Layout.Middle().Horizontal(saveButton, _toolbar, validationLabel),
                     Layout.Horizontal( 
                         columns
-                    )
+                    ),
+                    width:null
                 );
             }
             else

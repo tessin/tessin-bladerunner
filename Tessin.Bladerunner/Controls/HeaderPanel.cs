@@ -9,9 +9,14 @@ namespace Tessin.Bladerunner.Controls
 {
     public class HeaderPanel : Div, INoContainerPadding 
     {
-        public HeaderPanel(object header, object body)
+        public HeaderPanel(object header, object body, string width = null)
         {
             this.SetClass("header-panel");
+
+            if (width != null)
+            {
+                this.Styles["width"] = width;
+            }
 
             var dcHeader = new DumpContainer {Content = header};
             var divHeader = new Div(dcHeader);

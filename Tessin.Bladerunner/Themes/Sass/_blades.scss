@@ -63,12 +63,14 @@
 
 .blade-header {
   display: flex;
-  flex: 0 0 40px; /* When paren uses flex, we can scale strict here, instead of setting height. */
+  flex: 0 0 40px; /* When parent uses flex, we can scale strict here, instead of setting height. */
   width: 100%;
 
   border-bottom: 1px solid $blade-border-color;
   background-color: $tessin-dark-green;
   color:$tessin-turquoise;
+
+  height: $blade-header-height;
 
   flex-wrap: nowrap;
   justify-content: space-between;

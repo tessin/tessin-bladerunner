@@ -16,7 +16,7 @@ void Main()
 	manager.Dump();
 	
 	manager.PushBlade(Blade1(), "RadioButtons");
-
+	
 }
 
 static IBladeRenderer Blade1()

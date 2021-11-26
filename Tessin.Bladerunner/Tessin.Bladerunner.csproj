@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>9</LangVersion>
     <!-- Use same major version as LINQPad.Runtime, when LINQPad 7 is released we can maintain backwards compatability -->
-    <Version>6.0.15</Version>
+    <Version>6.0.16</Version>
   </PropertyGroup>
 
   <ItemGroup>

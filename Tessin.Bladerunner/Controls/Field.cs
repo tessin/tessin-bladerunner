@@ -15,6 +15,11 @@ namespace Tessin.Bladerunner.Controls
         {
             this.Style = "width:-webkit-fill-available;";
 
+            if (input is not DateBox && input is not SearchBox)
+            {
+                input.HtmlElement.SetAttribute("required", "required");
+            }
+
             var dcHelper = new DumpContainer();
 
             Span _description = null;
@@ -43,7 +48,7 @@ namespace Tessin.Bladerunner.Controls
             _divError = new Div();
             _divError.SetClass("error");
 
-            var divContainer = new Div(divHeader, input, _divError);
+            var divContainer = new Div(input, divHeader, _divError);
             divContainer.SetClass("field");
 
             this.Content = divContainer;

@@ -73,7 +73,7 @@ namespace Tessin.Bladerunner.Blades
 
                 var div = Div("blade-panel", 
                     Div("blade-header",
-                        Element("h1", null, Title??""),
+                        Element("h1", null, Title??" "),
                         Element("aside", null, buttons.ToArray())
                     ),
                     Div("blade-content", dc)
