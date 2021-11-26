@@ -86,6 +86,14 @@ namespace Tessin.Bladerunner
             return link;
         }
 
+        public Control Title(string content)
+        {
+            _styles["white-space"] = "nowrap";
+            _styles["overflow"] = "hidden";
+            _styles["text-overflow"] = "ellipsis";
+            return Render("span", content, "default");
+        }
+
         private Control Render(string htmlElementName, string content, string @class)
         {
             var control = new Control(htmlElementName, content);
@@ -163,6 +171,11 @@ namespace Tessin.Bladerunner
         public static Control Link(string content, Action<Hyperlink> onClick)
         {
             return (new TypographyBuilder()).Link(content, onClick);
+        }
+
+        public static Control Title(string content)
+        {
+            return (new TypographyBuilder()).Title(content);
         }
     }
 }

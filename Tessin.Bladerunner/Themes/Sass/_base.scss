@@ -38,7 +38,7 @@ h3 {
 }
 
 a {
-  color: red;
+  color: $cta-blue;
 }
 
 p,
@@ -57,7 +57,7 @@ table {
 }
 
 table.limit {
-  border-bottom-color: #c31;
+  border-bottom-color: $error;
 }
 
 table.expandable {
@@ -84,12 +84,10 @@ th {
 }
 
 th {
-  background-color: red;
-  color: white;
+  background-color: transparent;
   text-align: left;
   border: 1px solid #777;
   font-size: 0.9em;
-  @include weight(700);
 }
 
 th.member {
@@ -133,7 +131,7 @@ a:visited.fixedextenser {
 
 a:link.difheader,
 a:visited.difheader {
-  color: #ff8;
+  color: $alert;
 }
 
 a:link.extenser,
@@ -226,20 +224,20 @@ td.summary {
 td.columntotal {
   background-color: #eee;
   @include weight(700);
-  color: #17b;
+  color:  $cta-blue;;
   text-align: right;
 }
 
 span.graphbar {
-  background: #17b;
-  color: #17b;
+  background: $cta-blue;
+  color: $cta-blue;
   margin-left: -2px;
   margin-right: -2px;
 }
 
 a:link.graphcolumn,
 a:visited.graphcolumn {
-  color: #17b;
+  color: $cta-blue;
   text-decoration: none;
   @include weight(700);
   font-size: 1.1em;
@@ -250,17 +248,18 @@ a:visited.graphcolumn {
 
 a:link.collection,
 a:visited.collection {
-  color: green;
+  color: $cta-blue;
 }
 
 a:link.reference,
 a:visited.reference {
-  font-weight: normal;
+  color: $cta-blue;
+  font-weight: bold;
   font-family: "AeonikProVF";
 }
 
 i {
-  color: green;
+  color: $success;
 }
 
 em {
@@ -268,7 +267,7 @@ em {
 }
 
 .highlight {
-  background: #ff8;
+  background: $alert;
 }
 
 .fixedfont {
@@ -325,7 +324,7 @@ legend {
 }
 
 span.warning {
-  background: yellow;
+  background: $alert;
   padding: 5px;
   @include weight(700);
 }
@@ -354,9 +353,16 @@ a.graphcolumn {
 .meta {
   padding: 10px;
   font-size: 15px;
-  color: green;
+  color: $tessin-green;
+  @include weight(700);
   text-transform: capitalize;
   display: block;
+}
+
+span.null
+{
+  color: $tessin-green;
+  @include weight(700);
 }
 
 PROGRESS {

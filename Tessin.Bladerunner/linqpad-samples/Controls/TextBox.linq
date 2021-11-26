@@ -23,21 +23,11 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		Guid ola = Guid.NewGuid();
+		var textBox = new TextBox(placeholder:"Name");
+		
+		var selectBox = new SelectBox();
 	
-		RadioButtons rbs = new RadioButtons(ola, (e) => Layout.Horizontal(e),
-			new Option("Niels",Guid.NewGuid()),
-			new Option("John",Guid.NewGuid()),
-			new Option("Ola", ola),
-			new Option("Dennis",Guid.NewGuid())
-		);
 		
-		var chk = new CheckBox("Test");
-		
-		RefreshPanel rc = new RefreshPanel(new [] {rbs}, () => {
-			return rbs.SelectedOption;
-		});
-		
-		return Layout.Vertical(chk, rbs, rc);
+		return Layout.Vertical(textBox, selectBox);
 	});
 }

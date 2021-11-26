@@ -10,11 +10,7 @@ BUTTON {
   border:none;
   background:none;
   cursor: pointer;
-  letter-spacing: 0.02em;
   padding-top:1px;
-  display: inline-flex;
-  justify-content: center;
-  flex-direction: column;
 }
 
 BUTTON:disabled {
@@ -36,12 +32,15 @@ TABLE.entity-grid TD > BUTTON {
 }
 
 BUTTON.icon-button {
+  background:transparent;
   box-shadow: none;
-  background: red;
   padding: 0;
+  margin: 0;
   border: 0;
   width: 24px;
+  height: $control-height;
   cursor: pointer;
-  display: block;
+  display: grid;
+  align-content: center;
 }
 

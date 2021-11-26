@@ -20,6 +20,25 @@ $focus-outline: $medium-grey;
     background-color: $cta-blue-light;   
 }
 
+.icon-button.theme-primary {
+    opacity: 0.5;
+}
+
+.icon-button.theme-primary:hover {
+    background-color: transparent;   
+    opacity: 1;
+}
+
+.icon-button.theme-primary:active {
+    background-color: transparent;   
+    outline:none;
+}
+
+.icon-button.theme-primary:focus {
+    background-color: transparent;   
+    outline:none;
+}
+
 .theme-primary:active {
     background-color: $cta-blue-dark;   
 }
@@ -70,8 +89,9 @@ $focus-outline: $medium-grey;
     background-color: $tessin-turquoise-dark;   
 }
 
-.icon-button.theme-primary-alternate:active {
+.icon-button.theme-primary-alternate:hover {
     background-color: transparent;
+    fill:$tessin-turquoise-light;  
 }
 
 .icon-button.theme-primary-alternate:active {
