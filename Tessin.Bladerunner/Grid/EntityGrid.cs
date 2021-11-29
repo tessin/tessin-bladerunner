@@ -101,7 +101,7 @@ namespace Tessin.Bladerunner.Grid
         {
             if (!_rows.Any()) return null;
 
-            bool[] isEmptyColumn = Enumerable.Repeat(true, _columns.Count).ToArray();
+            bool[] isEmptyColumn = Enumerable.Repeat(true, _columns.Values.Count(e => !e.Removed)).ToArray();
 
             Table RenderTable(IEnumerable<TableRow> tableRows)
             {
