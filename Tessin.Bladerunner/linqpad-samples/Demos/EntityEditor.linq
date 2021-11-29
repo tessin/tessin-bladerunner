@@ -26,6 +26,8 @@ public class Product {
 	
 	public double Double { get; set; }
 	
+	public string File { get; set; }
+	
 }
 
 
@@ -35,13 +37,14 @@ static IBladeRenderer Blade1()
 	{		
 		var record = new Product {
 			Integer = 123456789,
-			Double = 123456.134
+			Double = 123456.134,
 		};
 
 		return new EntityEditor<Product>(record, (_) => {
 					
 		})
 		.Editor(e => e.Double, e => e.Number(2))
+		.Editor(e => e.File, e => e.File(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
 		.Render();
 	});
 }

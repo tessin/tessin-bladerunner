@@ -217,3 +217,15 @@ SPAN.field--header-description:after {
 //   display: none;
 //   position: absolute;
 // }
+
+.file-box
+{
+  position: relative;
+}
+
+.file-box .icon-button
+{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}

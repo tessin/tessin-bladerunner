@@ -15,20 +15,19 @@ void Main()
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
 	
-	manager.PushBlade(Blade1(), "SearchBox");
+	manager.PushBlade(Blade1(), "FileBox");
+	
+	
+
 }
 
 static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		SearchBox sb = new SearchBox();
+		var fileBox = new FileBox();
+		var fileField = new Field("Header Image ", fileBox);
 
-		RefreshPanel rc = new RefreshPanel(new[] { sb }, () =>
-		{
-			return Layout.Vertical(sb.Text);
-		});
-
-		return Layout.Vertical(sb, rc);
+		return Layout.Vertical(fileField, "");
 	});
 }

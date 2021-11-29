@@ -69,6 +69,11 @@ namespace Tessin.Bladerunner.Editors
             return new TextEditor<T>(type: "email");
         }
 
+        public IFieldEditor<T> File(string initialCatalog = null)
+        {
+            return new FileEditor<T>(initialCatalog);
+        }
+
         public IFieldEditor<T> AsyncDataList(Func<string, Task<IEnumerable<Option>>> queryOptions, Func<object, Task<Option>> findOption = null)
         {
             return new AsyncDataListEditor<T>(queryOptions, findOption);
