@@ -28,6 +28,7 @@ namespace Tessin.Bladerunner.Controls
             {
                 var path = ShowOpenFileDialog(initialCatalog);
                 _textBox.Text = path ?? _textBox.Text;
+                TextInput?.Invoke(_textBox, null!);
             });
 
             this.VisualTree.Add(btnSelectFile);

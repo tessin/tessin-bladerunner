@@ -84,7 +84,7 @@ namespace Tessin.Bladerunner.Controls
                             _Refresh();
                         };
                     }
-                    else if (control is LINQPad.Controls.TextBox textBox)
+                    else if (control is LINQPad.Controls.ITextControl textBox)
                     {
                         textBox.TextInput += (_, __) =>
                         {
