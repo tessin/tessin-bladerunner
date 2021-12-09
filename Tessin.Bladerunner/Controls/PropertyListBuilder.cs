@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -62,6 +63,16 @@ namespace Tessin.Bladerunner.Controls
             return this;
         }
 
+        public _PropertyListBuilder<T> MultiLine(params Expression<Func<T, object>>[] fields)
+        {
+            foreach (var expr in fields)
+            {
+                var prop = GetField(expr);
+                prop.IsMultiLine = true;
+            }
+            return this;
+        }
+
         public PropertyList Render()
         {
             var props = _properties.Values.ToArray();
@@ -72,6 +83,12 @@ namespace Tessin.Bladerunner.Controls
             }
 
             return new PropertyList(props);
+        }
+
+        private Property GetField<TU>(Expression<Func<T, TU>> field)
+        {
+            var name = Utils.GetNameFromMemberExpression(field.Body);
+            return _properties[name];
         }
 
     }

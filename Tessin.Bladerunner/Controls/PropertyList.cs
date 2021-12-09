@@ -12,10 +12,11 @@ namespace Tessin.Bladerunner.Controls
     {
         internal IContentFormatter _formatter;
 
-        public Property(string label, object value, IContentFormatter formatter = null)
+        public Property(string label, object value, IContentFormatter formatter = null, bool isMultiLine = false)
         {
             Label = label;
             Value = value;
+            IsMultiLine = isMultiLine;
             _formatter = formatter ?? new DefaultContentFormatter();
         }
 
@@ -27,6 +28,8 @@ namespace Tessin.Bladerunner.Controls
 
         public object Value { get; set; }
 
+        public bool IsMultiLine { get; set; }
+
         public override string ToString()
         {
             return Label;
@@ -37,12 +40,16 @@ namespace Tessin.Bladerunner.Controls
     {
         public PropertyList(params Property[] properties) : base()
         {
-            this.SetClass("property-list");
+            this.AddClass("property-list");
 
             foreach (var prop in properties)
             {
                 var label = new Span(prop.Label == "_" ? "" : prop.Label);
                 var divProp = new Div(label, prop._formatter.Format(prop.Value));
+                if (prop.IsMultiLine)
+                {
+                    divProp.SetClass("multi-line");
+                }
                 this.VisualTree.Add(divProp);
             }
         }

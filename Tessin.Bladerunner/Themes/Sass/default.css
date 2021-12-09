@@ -1918,6 +1918,10 @@ BUTTON.collapsable-panel--header:before {
   }
 }
 
+.property-list DIV.multi-line {
+  display: block;
+}
+
 .card {
   padding: 10px;
   background-color: white;

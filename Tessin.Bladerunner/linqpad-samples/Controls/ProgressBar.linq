@@ -13,10 +13,9 @@ void Main()
 	//Debugger.Launch();
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
+	manager.Dump();
 	
 	manager.PushBlade(Blade1(), "ProgressBar");
-	
-	manager.Dump();
 }
 
 static IBladeRenderer Blade1()

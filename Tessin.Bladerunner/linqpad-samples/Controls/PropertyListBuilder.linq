@@ -14,10 +14,9 @@ void Main()
 	//Debugger.Launch();
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
+	manager.Dump();
 	
 	manager.PushBlade(Blade1(), "PropertyListBuilder");
-	
-	manager.Dump();
 }
 
 static IBladeRenderer Blade1()
@@ -26,12 +25,15 @@ static IBladeRenderer Blade1()
 	{
 		var test = new { 
 			HelloWorld = "Bar",
-			Name = 123456
+			Name = 123456,
+			FatAsText = Typography.MaxWidth(300).P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et iaculis tortor.")
 		};
 		
-		var x = PropertyListBuilder.Create(test).Render();
+		var x = PropertyListBuilder.Create(test)
+		.MultiLine(e => e.FatAsText)
+		.Render();
 
-		return Layout.Vertical(x);
+		return Layout.Vertical(new Card(x));
 	});
 }
 
