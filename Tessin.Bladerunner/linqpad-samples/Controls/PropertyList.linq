@@ -55,7 +55,7 @@ static IBladeRenderer Blade2()
 			//	new IconButton(Icons.Alert)
 			//)),
 			new Property("Foo", 
-				Typography.MaxWidth(300).P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et iaculis tortor. Quisque congue volutpat ligula, vitae gravida arcu dictum eget. In porta bibendum est, vel rhoncus elit placerat eu."), isMultiLine: true)
+				Typography.MaxWidth(300).P("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et iaculis tortor."), isMultiLine: true)
 		);
 
 		return Layout.Vertical(new Card(pl, "FANCY TITLE"));

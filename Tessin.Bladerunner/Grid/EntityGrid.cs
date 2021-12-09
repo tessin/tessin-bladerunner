@@ -35,6 +35,8 @@ namespace Tessin.Bladerunner.Grid
 
         private readonly IContentFormatter _formatter = new DefaultContentFormatter();
 
+        private Control _empty;
+
         private bool _removeEmptyColumns = false;
 
         public EntityGrid(IEnumerable<T> rows, string width = null)
@@ -42,6 +44,7 @@ namespace Tessin.Bladerunner.Grid
             _rows = rows;
             _width = width;
             _rendererFactory = new CellRendererFactory<T>(_formatter);
+            _empty = new Div(new Literal(""));
             Scaffold();
         }
 
@@ -99,7 +102,7 @@ namespace Tessin.Bladerunner.Grid
 
         public Control Render()
         {
-            if (!_rows.Any()) return null;
+            if (!_rows.Any()) return _empty;
 
             bool[] isEmptyColumn = Enumerable.Repeat(true, _columns.Values.Count(e => !e.Removed)).ToArray();
 
@@ -337,6 +340,12 @@ namespace Tessin.Bladerunner.Grid
         public EntityGrid<T> RemoveEmptyColumns()
         {
             _removeEmptyColumns = true;
+            return this;
+        }
+
+        public EntityGrid<T> Empty(object content)
+        {
+            _empty = _formatter.Format(content);
             return this;
         }
     }
