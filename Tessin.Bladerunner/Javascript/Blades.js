@@ -1,6 +1,10 @@
-﻿BladesScrollTo = function (id) {
+﻿ScrollTo = function (id) {
     var node = document.getElementById(id);
     if (!!node) {
-        node.scrollIntoViewIfNeeded();
+        console.log(node);
+        setTimeout(function() {
+                node.scrollIntoView();
+            },
+            1000);
     }
 }
