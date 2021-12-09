@@ -1,4 +1,6 @@
-﻿using System;
+﻿#nullable enable
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -12,6 +14,8 @@ namespace Tessin.Bladerunner.Editors
     {
         private MultiSelectBox _selectBox;
         private Field _field;
+
+        private Type _elementType;
 
         private readonly Option[] _options;
 
@@ -29,11 +33,13 @@ namespace Tessin.Bladerunner.Editors
         {
             object value = editorFieldInfo.GetValue(obj);
 
+            _elementType = editorFieldInfo.Type.GenericTypeArguments.Single();
+
             int[] _selectedIndexes = null;
 
-            if (value is IEnumerable<int> selectedItems)
+            if (value is IEnumerable selectedItems)
             {
-                _selectedIndexes = selectedItems.Select(e => Array.IndexOf(_options.Select(f => f.Value).ToArray(), e)).Where(e => e != -1).ToArray();
+                _selectedIndexes = selectedItems.Cast<object>().Select(e => Array.IndexOf(_options.Select(f => f.Value).ToArray(), e)).Where(e => e != -1).ToArray();
             }
 
             _selectBox = new MultiSelectBox(_options, _selectedIndexes);
@@ -46,7 +52,9 @@ namespace Tessin.Bladerunner.Editors
 
         public void Save(T obj, EditorField<T> editorFieldInfo)
         {
-            editorFieldInfo.SetValue(obj, _selectBox.SelectedOptions.Select(e => (int)((Option)e).Value).ToList());
+            var col = _selectBox.SelectedOptions.Select(e => ((Option)e).Value).ToList();
+            var mi = typeof(Utils).GetMethod(nameof(Utils.ConvertFactory));
+            editorFieldInfo.SetValue(obj, mi.MakeGenericMethod(_elementType).Invoke(null, new object?[] { col } ));
         }
 
         public bool Validate(T obj, EditorField<T> editorFieldInfo)

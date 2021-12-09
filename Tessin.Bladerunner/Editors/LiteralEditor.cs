@@ -23,8 +23,10 @@ namespace Tessin.Bladerunner.Editors
 
         public object Render(T obj, EditorField<T> editorFieldInfo, Action preview)
         {
-            _dumpContainer.Content = _contentFormatter.Format(editorFieldInfo.GetValue(obj), emptyContent:"-");
-            return _field = new Field(editorFieldInfo.Label, _dumpContainer, editorFieldInfo.Description, editorFieldInfo.Helper);
+            var container = new Div(_dumpContainer);
+            container.SetClass("entity-editor-literal");
+            _dumpContainer.Content = _contentFormatter.Format(editorFieldInfo.GetValue(obj), emptyContent: "-");
+            return _field = new Field(editorFieldInfo.Label, container, editorFieldInfo.Description, editorFieldInfo.Helper);
         }
 
         public void Save(T obj, EditorField<T> editorFieldInfo)

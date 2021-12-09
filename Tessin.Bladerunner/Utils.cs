@@ -343,6 +343,10 @@ namespace Tessin.Bladerunner
             }
             return input;
         }
-
+        
+        public static ICollection<T> ConvertFactory<T>(this ICollection<object> list)
+        {
+            return list.Select(e => (T)e).ToArray();
+        }
     }
 }

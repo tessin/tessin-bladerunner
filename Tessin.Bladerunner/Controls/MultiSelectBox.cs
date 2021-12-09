@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using LINQPad;
 using LINQPad.Controls;
 
@@ -15,6 +13,8 @@ namespace Tessin.Bladerunner.Controls
 
         private readonly DumpContainer _checkBoxContainer;
 
+        private int[] _selectedIndexes; 
+
         public MultiSelectBox(Option[] options, int[] selectedIndexes = null, Action<MultiSelectBox> onSelectionChanged = null)
         {
             if (options != null && options.Length != 0)
@@ -22,7 +22,7 @@ namespace Tessin.Bladerunner.Controls
                 Options = options;
             }
 
-            SelectedIndexes = selectedIndexes;
+            _selectedIndexes = selectedIndexes;
 
             if (onSelectionChanged != null)
             {
@@ -38,7 +38,7 @@ namespace Tessin.Bladerunner.Controls
             VisualTree.Add(_divContainer);
         }
 
-        private Option[] _options = new Option[0];
+        private Option[] _options = Array.Empty<Option>();
         public Option[] Options
         {
             get
@@ -47,7 +47,7 @@ namespace Tessin.Bladerunner.Controls
             }
             set
             {
-                _options = (value ?? new Option[0]);
+                _options = (value ?? Array.Empty<Option>());
                 if (base.IsRendered)
                 {
                     Update();
@@ -59,10 +59,12 @@ namespace Tessin.Bladerunner.Controls
         {
             get
             {
-                return _checkBoxes?.Select((e, i) => (e, i)).Where(x => x.e.Checked).Select(x => x.i).ToArray() ?? new int[0];
+                //return _checkBoxes?.Select((e, i) => (e, i)).Where(x => x.e.Checked).Select(x => x.i).ToArray() ?? Array.Empty<int>();
+                return _selectedIndexes;
             }
             set
             {
+                _selectedIndexes = value;
                 UpdateChecked(value ?? new int[] { });
             }
         }
@@ -82,7 +84,7 @@ namespace Tessin.Bladerunner.Controls
             if (Options != null)
             {
                 DetachCheckBoxes();
-                _checkBoxes = _options.Select((e,i) => new CheckBox(e.Label, isChecked: SelectedIndexes.Contains(i))).ToArray();
+                _checkBoxes = _options.Select((e,i) => new CheckBox(e.Label, isChecked: _selectedIndexes.Contains(i))).ToArray();
                 _checkBoxContainer.Content = Layout.Gap(false).Vertical(_checkBoxes);
                 AttachCheckBoxes();
             }
@@ -123,6 +125,9 @@ namespace Tessin.Bladerunner.Controls
 
         private void CheckBoxHandler(object sender, EventArgs e)
         {
+            _selectedIndexes =
+                _checkBoxes?.Select((e, i) => (e, i)).Where(x => x.e.Checked).Select(x => x.i).ToArray() ??
+                Array.Empty<int>();
             SelectionChanged?.Invoke(this, null);
             Updated?.Invoke(SelectedOptions);
         }

@@ -163,6 +163,13 @@ namespace Tessin.Bladerunner.Editors
                             dependency.field.Editor.Update(dependency.transformer(pObj));
                         }
                     }
+                    else
+                    {
+                        foreach (var dependency in fields.Where(e => e.Dependencies.Any()).SelectMany(e => e.Dependencies))
+                        {
+                            dependency.field.Editor.Update(dependency.transformer(pObj));
+                        }
+                    }
 
                     _preview?.Invoke(pObj);
                 };
