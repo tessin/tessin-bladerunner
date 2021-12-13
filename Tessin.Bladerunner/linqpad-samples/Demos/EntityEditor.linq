@@ -12,7 +12,7 @@
 
 void Main()
 {	
-	//Debugger.Launch();
+	Debugger.Launch();
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
@@ -27,7 +27,11 @@ public class Product {
 	public double Double { get; set; }
 	
 	public string File { get; set; }
-	
+
+	public string LiteralOne { get; set; } = "HelloWorld";
+
+	public string LiteralTwo { get; set; } = "HelloWorld";
+
 }
 
 
@@ -44,6 +48,7 @@ static IBladeRenderer Blade1()
 					
 		})
 		.Editor(e => e.Double, e => e.Number(2))
+		.Editor(e => e.LiteralOne, e => e.Literal())
 		.Editor(e => e.File, e => e.File(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
 		.Render();
 	});

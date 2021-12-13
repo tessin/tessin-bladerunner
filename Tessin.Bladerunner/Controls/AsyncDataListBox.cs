@@ -137,7 +137,7 @@ namespace Tessin.Bladerunner.Controls
 
         private void _trackOption(Option option)
         {
-            var key = option.Label.ToLower();
+            var key = option.Label.ToLower().Trim();
             if (!_knownLabels.ContainsKey(key))
             {
                 _knownLabels.Add(key, option);
@@ -146,7 +146,7 @@ namespace Tessin.Bladerunner.Controls
 
         private bool _updateSelectedValue()
         {
-            var key = Text.ToLower();
+            var key = Text.ToLower().Trim();
             if (key != "" && _knownLabels.ContainsKey(key))
             {
                 _addValidatedStyle();

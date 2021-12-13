@@ -535,7 +535,7 @@ div.spacer {
 DIV.headingpresenter {
   border: none;
   display: block;
-  border-left: 3px solid red;
+  border-left: 3px solid #00463c;
   margin: 0px;
   height: 100%;
 }
@@ -543,7 +543,7 @@ DIV.headingpresenter {
 DIV.headingpresenter H1 {
   border: none;
   padding: 0 0 10px 0;
-  color: red;
+  color: #00463c;
   font-size: 1em;
   background-color: transparent;
 }
@@ -629,6 +629,7 @@ a:visited.collection {
   color: #0066ff;
 }
 
+a.reference,
 a:link.reference,
 a:visited.reference {
   color: #0066ff;
@@ -646,6 +647,7 @@ em {
 
 .highlight {
   background: #ffdf0d;
+  padding: 5px;
 }
 
 .fixedfont {
@@ -1128,6 +1130,7 @@ PRE.code {
   border-bottom: 1px solid #B5B5B5;
 }
 
+.async-data-list-box ~ .field--header,
 .entity-editor-literal ~ .field--header {
   top: 0px;
   font-size: 11px;

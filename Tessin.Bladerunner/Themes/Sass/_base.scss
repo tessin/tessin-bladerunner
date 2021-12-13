@@ -195,7 +195,7 @@ div.spacer {
 DIV.headingpresenter {
   border: none;
   display: block;
-  border-left: 3px solid red;
+  border-left: 3px solid $tessin-dark-green;
   margin: 0px;
   height: 100%;
 }
@@ -203,7 +203,7 @@ DIV.headingpresenter {
 DIV.headingpresenter H1 {
   border: none;
   padding: 0 0 10px 0;
-  color: red;
+  color: $tessin-dark-green;
   @include weight(700);
   font-size: 1em;
   background-color: transparent;
@@ -251,6 +251,7 @@ a:visited.collection {
   color: $cta-blue;
 }
 
+a.reference,
 a:link.reference,
 a:visited.reference {
   color: $cta-blue;
@@ -268,6 +269,7 @@ em {
 
 .highlight {
   background: $alert;
+  padding: 5px;
 }
 
 .fixedfont {
