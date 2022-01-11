@@ -7,7 +7,7 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class UrlBox : LINQPad.Controls.TextBox
+    public class UrlBox : Controls.TextBox
     {
         public UrlBox(string initialValue = null, Action<LINQPad.Controls.TextBox> onTextInput = null) : base(initialValue.ToString(), onTextInput:onTextInput)
         {

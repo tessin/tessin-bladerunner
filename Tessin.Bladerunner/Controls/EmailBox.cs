@@ -7,7 +7,7 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class EmailBox : LINQPad.Controls.TextBox
+    public class EmailBox : Controls.TextBox
     {
         public EmailBox(string initialValue = null, Action<LINQPad.Controls.TextBox> onTextInput = null) : base(initialValue.ToString(), onTextInput:onTextInput)
         {

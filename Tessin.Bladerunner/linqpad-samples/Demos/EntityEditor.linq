@@ -12,7 +12,7 @@
 
 void Main()
 {	
-	Debugger.Launch();
+	//Debugger.Launch();
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
@@ -31,6 +31,12 @@ public class Product {
 	public string LiteralOne { get; set; } = "HelloWorld";
 
 	public string LiteralTwo { get; set; } = "HelloWorld";
+	
+	public string Email { get; set; }
+	
+	public string Url { get; set; }
+	
+	public int? TagId { get; set; }
 
 }
 
@@ -42,6 +48,7 @@ static IBladeRenderer Blade1()
 		var record = new Product {
 			Integer = 123456789,
 			Double = 123456.134,
+			TagId = 2
 		};
 
 		return new EntityEditor<Product>(record, (_) => {
@@ -50,6 +57,10 @@ static IBladeRenderer Blade1()
 		.Editor(e => e.Double, e => e.Number(2))
 		.Editor(e => e.LiteralOne, e => e.Literal())
 		.Editor(e => e.File, e => e.File(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
+		.Editor(e => e.Url, e => e.Url())
+		.Editor(e => e.Email, e => e.Email())
+		.Editor(e => e.TagId, e => e.Select(new [] { new Option("Foo",1),new Option("Bar",2) }))
+		.Required(e => e.TagId);
 		.Render();
 	});
 }

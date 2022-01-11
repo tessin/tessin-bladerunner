@@ -29,9 +29,11 @@ namespace Tessin.Bladerunner.Editors
         {
             object value = editorFieldInfo.GetValue(obj);
 
-            var selectedOption = _options.Where(e => e.Value.Equals(value)).Select(e => e.Label).FirstOrDefault();
+            var options = GetOptions(editorFieldInfo);
 
-            _selectBox = new Controls.SelectBox(_options.Select(e => e.Label).ToArray())
+            var selectedOption = options.Where(e => e.Value ==  value).Select(e => e.Label).FirstOrDefault();
+
+            _selectBox = new Controls.SelectBox(options.Select(e => e.Label).ToArray())
             {
                 SelectedOption = selectedOption
             };
@@ -43,13 +45,58 @@ namespace Tessin.Bladerunner.Editors
             return _field = new Field(editorFieldInfo.Label, _selectBox, editorFieldInfo.Description, editorFieldInfo.Helper, editorFieldInfo.Required);
         }
 
+        private Option[] GetOptions(EditorField<T> editorFieldInfo)
+        {
+            var isNullable = editorFieldInfo.Type.IsNullable();
+            if (isNullable)
+            {
+                return (new[] { new Option("", null) }).Concat(_options).ToArray();
+            }
+            else
+            {
+                return _options;
+            }
+        }
+
         public void Save(T obj, EditorField<T> editorFieldInfo)
         {
-            editorFieldInfo.SetValue(obj, _options[_selectBox.SelectedIndex].Value);
+            var options = GetOptions(editorFieldInfo);
+            editorFieldInfo.SetValue(obj, options[_selectBox.SelectedIndex].Value);
         }
 
         public bool Validate(T obj, EditorField<T> editorFieldInfo)
         {
+            void SetError(string message)
+            {
+                _selectBox.Styles["border-color"] = "darkred";
+                _field.SetError(message);
+            }
+
+            void ClearError()
+            {
+                _selectBox.Styles["border-color"] = "inherit";
+                _field.SetError("");
+            }
+            
+            var options = GetOptions(editorFieldInfo);
+            object value = options[_selectBox.SelectedIndex].Value;
+
+            (bool, string)? error = editorFieldInfo.Validators
+                .Select(e => e(value))
+                .Where(e => !e.Item1)
+                .Select(e => ((bool, string)?)e)
+                .FirstOrDefault();
+
+            if (error is { Item1: false })
+            {
+                SetError(error.Value.Item2);
+                return false;
+            }
+            else
+            {
+                ClearError();
+            }
+
             return true;
         }
 
