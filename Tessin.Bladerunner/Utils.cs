@@ -252,7 +252,8 @@ namespace Tessin.Bladerunner
         public static string SplitCamelCase(string input)
         {
             if (input == null) return null;
-            string[] words = Regex.Matches(input, "([A-Z]+(?![a-z])|[A-Z][a-z]+|[0-9]+|[a-z]+)")
+            //string[] words = Regex.Matches(input, "([A-Z]+(?![a-z])|[A-Z][a-z]+|[0-9]+|[a-z]+)")
+            string[] words = Regex.Matches(input, "([A-Z]+[a-z]+|[0-9]+|[a-z]+|[A-Z]+)")
                 .OfType<Match>()
                 .Select(m => m.Value)
                 .ToArray();

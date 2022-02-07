@@ -52,6 +52,14 @@ static IBladeRenderer Blade1()
 						dc.Content = v;
 					}
 				});
+
+				new AlertBuilder(blade.Manager, body, "ShowInput:Int").ShowInput<int?>("Int", (a, v) =>
+				{
+					if (a.IsOk())
+					{
+						dc.Content = v;
+					}
+				});
 			}),
 			new Button("ShowInput:Date", (_) =>
 			{
@@ -72,7 +80,7 @@ static IBladeRenderer Blade1()
 						dc.Content = v;
 					}
 				});
-			}),
+			})
 			dc
 		);
 	});

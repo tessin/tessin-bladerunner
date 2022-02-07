@@ -86,6 +86,12 @@ namespace Tessin.Bladerunner
             return link;
         }
 
+        public Control Property(string content)
+        {
+            _styles["max-width"] = "150";
+            return Title(content);
+        }
+
         public Control Title(string content)
         {
             _styles["white-space"] = "nowrap";
@@ -176,6 +182,11 @@ namespace Tessin.Bladerunner
         public static Control Title(string content)
         {
             return (new TypographyBuilder()).Title(content);
+        }
+
+        public static Control Property(string content)
+        {
+            return (new TypographyBuilder()).Property(content);
         }
     }
 }

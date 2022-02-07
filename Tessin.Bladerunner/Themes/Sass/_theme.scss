@@ -162,7 +162,13 @@ $focus-outline: $medium-grey;
 
 .theme-success {
     background-color: $success; 
-    color:$soft-black;     
+    color:$soft-black;
+
+}
+
+.icon-theme-success svg
+{
+    fill: $success-dark; 
 }
 
 .theme-success:hover {
@@ -181,6 +187,11 @@ $focus-outline: $medium-grey;
 .theme-alert {
     background-color: $alert; 
     color:$soft-black;     
+}
+
+.icon-theme-alert svg
+{
+    fill: $alert-dark; 
 }
 
 .theme-alert:hover {

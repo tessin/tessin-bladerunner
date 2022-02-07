@@ -75,6 +75,7 @@ namespace Tessin.Bladerunner.Blades
             _popover = new Popover();
             _toaster = new Toaster();
             _progressDisplay = new ProgressDisplay(_overlay);
+            _containers = _panels.Select(Blade).ToArray();
 
             Util.KeepRunning();
         }
@@ -177,7 +178,6 @@ namespace Tessin.Bladerunner.Blades
 
         object ToDump()
         {
-            _containers = _panels.Select(Blade).ToArray();
             return BladeWrapper(_containers);
         }
 

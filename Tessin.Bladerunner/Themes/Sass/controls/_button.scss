@@ -25,10 +25,14 @@ BUTTON:disabled:hover {
 TABLE.entity-grid TD > BUTTON {
   background-color:transparent;
   box-shadow: none;
-  color:red;
+  color: $font-color;
   border:none;
   width:100%;
   @include weight(700);
+}
+
+TABLE.entity-grid TD > BUTTON:hover {
+  color: $white;
 }
 
 BUTTON.icon-button {

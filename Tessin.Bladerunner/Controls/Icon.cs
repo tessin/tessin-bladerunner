@@ -28,7 +28,7 @@ namespace Tessin.Bladerunner.Controls
         public Icon(string icon, string tooltip = "", Theme theme = Theme.Secondary) : base()
         {
             this.HtmlElement.SetAttribute("title", tooltip);
-            this.HtmlElement.SetAttribute("class", $"icon {theme.ToString().ToLower()}");
+            this.HtmlElement.SetAttribute("class", $"icon icon-theme-{theme.ToString().ToLower()}");
             this.HtmlElement.InnerHtml = icon;
         }
     }

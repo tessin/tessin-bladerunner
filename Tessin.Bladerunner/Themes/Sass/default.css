@@ -264,6 +264,10 @@
   color: #1c1c1c;
 }
 
+.icon-theme-success svg {
+  fill: #0d9143;
+}
+
 .theme-success:hover {
   background-color: #45ff90;
 }
@@ -280,6 +284,10 @@
 .theme-alert {
   background-color: #ffdf0d;
   color: #1c1c1c;
+}
+
+.icon-theme-alert svg {
+  fill: #c6a000;
 }
 
 .theme-alert:hover {
@@ -1288,7 +1296,7 @@ TABLE.entity-grid TD > BUTTON {
   background-color: transparent;
   -webkit-box-shadow: none;
           box-shadow: none;
-  color: red;
+  color: #1c1c1c;
   border: none;
   width: 100%;
 }
@@ -1304,6 +1312,10 @@ TABLE.entity-grid TD > BUTTON {
   TABLE.entity-grid TD > BUTTON {
     font-weight: 700;
   }
+}
+
+TABLE.entity-grid TD > BUTTON:hover {
+  color: #ffffff;
 }
 
 BUTTON.icon-button {

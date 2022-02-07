@@ -29,19 +29,20 @@ static IBladeRenderer Blade1()
 			else
 			{
 				var span = new Span(c);
-				span.Styles["background-color"] = "green";
+				span.Styles["background-color"] = "white";
 				return span;
 			}
 		}
 		
 		return Layout.Vertical( 		
-			DefaultContentFormatter.Format(0, Wrapper, "-"),
-			DefaultContentFormatter.Format(null, Wrapper, "-"),
-			DefaultContentFormatter.Format("", Wrapper, "-"),
-			DefaultContentFormatter.Format(1, Wrapper),
-			DefaultContentFormatter.Format(123456789, Wrapper),
-			DefaultContentFormatter.Format(123456789.24, Wrapper),
-			DefaultContentFormatter.Format(DateTime.Parse("1982-07-17"), Wrapper)
+			new DefaultContentFormatter().Format(true, Wrapper, "-"),
+			new DefaultContentFormatter().Format(0, Wrapper, "-"),
+			new DefaultContentFormatter().Format(null, Wrapper, "-"),
+			new DefaultContentFormatter().Format("", Wrapper, "-"),
+			new DefaultContentFormatter().Format(1, Wrapper),
+			new DefaultContentFormatter().Format(123456789, Wrapper),
+			new DefaultContentFormatter().Format(123456789.24, Wrapper),
+			new DefaultContentFormatter().Format(DateTime.Parse("1982-07-17"), Wrapper)
 		);
 	});
 }

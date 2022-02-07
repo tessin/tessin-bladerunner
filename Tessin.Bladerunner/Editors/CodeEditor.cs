@@ -32,6 +32,7 @@ namespace Tessin.Bladerunner.Editors
             _codeBox = new Controls.CodeEditor(value, _language);
             _codeBox.TextInput += (sender, args) => updated();
 
+
             return _field = new Field(
                 editorFieldInfo.Label,
                 _codeBox,
