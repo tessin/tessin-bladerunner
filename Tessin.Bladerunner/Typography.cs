@@ -10,6 +10,13 @@ namespace Tessin.Bladerunner
     public class TypographyBuilder
     {
         private readonly Dictionary<string, string> _styles = new();
+        private string _toolTip;
+
+        public TypographyBuilder ToolTip(string toolTip)
+        {
+            _toolTip = toolTip;
+            return this;
+        }
 
         public TypographyBuilder Width(int value)
         {
@@ -108,12 +115,23 @@ namespace Tessin.Bladerunner
             {
                 control.Styles[key] = _styles[key];
             }
+
+            if (!string.IsNullOrEmpty(_toolTip))
+            {
+                control.HtmlElement.SetAttribute("title", _toolTip);
+            }
+
             return control;
         }
     }
 
     public static class Typography
     {
+        public static TypographyBuilder ToolTip(string toolTip)
+        {
+            return (new TypographyBuilder()).ToolTip(toolTip);
+        }
+
         public static TypographyBuilder Width(int value)
         {
             return (new TypographyBuilder()).Width(value);

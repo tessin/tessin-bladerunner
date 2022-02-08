@@ -91,7 +91,13 @@ namespace Tessin.Bladerunner.Blades
             return _progressDisplay.Show(title, progress, cancellationTokenSource);
         }
 
+        [Obsolete("Use Push().")]
         public void PushBlade(IBladeRenderer renderer, string title = "")
+        {
+            Push(renderer, title);
+        }
+
+        public void Push(IBladeRenderer renderer, string title = "")
         {
             var blade = new Blade(this, renderer, _stack.Count(), _panels[_stack.Count()], title, _containers[_stack.Count()]);
             _stack.Push(blade);
@@ -170,6 +176,20 @@ namespace Tessin.Bladerunner.Blades
                 var blade =_stack.Pop();
                 blade.Clear();
             }
+            if (refresh)
+            {
+                _stack.Peek().Refresh();
+            }
+        }
+
+        public void Pop(bool refresh = false)
+        {
+            if (_stack.Any())
+            {
+                var blade = _stack.Pop();
+                blade.Clear();
+            }
+
             if (refresh)
             {
                 _stack.Peek().Refresh();

@@ -1,10 +1,10 @@
 .pill {
-    background-color: aquamarine;
-    color: rgb(17, 88, 170);
+    background-color: $tessin-turquoise;
+    color: $soft-black;
     font-size: 0.8em;
     @include weight(700);
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     padding-left: 8px;
     padding-right: 8px;
     border-radius: 1em;

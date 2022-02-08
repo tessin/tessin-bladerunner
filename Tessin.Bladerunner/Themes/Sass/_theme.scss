@@ -11,200 +11,136 @@ $blade-button-hover: #e1e1e1;
 
 $focus-outline: $medium-grey;
 
-.theme-primary {
-    background-color: $cta-blue; 
-    color:$white;     
-}
+@mixin theme($name, $color, $color-light, $color-dark, $foreground) {
+    .theme-#{$name} {
+       background-color: $color; 
+       color:$foreground;
+    }
+    
+    .theme-#{$name}:hover {
+        background-color: $color-light;  
+    }
 
-.theme-primary:hover {
-    background-color: $cta-blue-light;   
-}
+    .theme-#{$name}:active {
+        background-color: $color-dark;   
+    }
+    
+    .theme-#{$name}:focus {
+        background-color: $color-dark;
+        outline: 1px solid $focus-outline;   
+    }
 
-.icon-button.theme-primary {
-    opacity: 0.5;
-}
+    .theme-#{$name}:disabled {
+        color: $medium-grey;  
+        fill: $medium-grey;    
+    }
 
-.icon-button.theme-primary:hover {
-    background-color: transparent;   
-    opacity: 1;
-}
+    .icon.theme-#{$name}
+    {
+        background-color:transparent;
+    }
 
-.icon-button.theme-primary:active {
-    background-color: transparent;   
-    outline:none;
-}
+    .icon.theme-#{$name} svg {
+        fill:$color;
+    }
+    
+    .icon-button.theme-#{$name} svg {
+        fill:$color;
+    }
 
-.icon-button.theme-primary:focus {
-    background-color: transparent;   
-    outline:none;
-}
+    .icon-button.theme-#{$name}:hover svg {
+        fill:$color-dark;
+    }
 
-.theme-primary:active {
-    background-color: $cta-blue-dark;   
-}
+    .icon-button.theme-#{$name}:hover {
+        background-color:transparent;
+     }
 
-.theme-primary:focus {
-    background-color: $cta-blue-dark;
-    outline: 3px solid $focus-outline;   
-}
+    .icon-button.theme-#{$name}:active {
+        background-color: transparent;   
+        outline:none;
+    }
+    
+    .icon-button.theme-#{$name}:focus {
+        background-color: transparent;   
+        outline:none;
+    }
+  }
 
-.theme-secondary {
-    background-color: transparent; 
-    border: 2px solid $cta-blue;     
-    color: $cta-blue;
-}
+  @mixin theme-outlined($name, $color, $color-light, $color-dark, $foreground) {
+    .theme-#{$name} {
+       background-color: transparent;
+       border: 2px solid $color; 
+       color:$color;
+    }
+    
+    .theme-#{$name}:hover {
+       border: 2px solid $color-light; 
+       color:$color-light; 
+    }
 
-.theme-secondary:hover {  
-    border: 2px solid $cta-blue-light;     
-    color: $cta-blue-light;
-}
+    .icon-button.theme-#{$name} {
+        border:0px;
+    }
 
-.theme-secondary:active {  
-    border: 2px solid $cta-blue-dark;     
-    color: $cta-blue-dark;
-}
+    .icon-button.theme-#{$name}:hover {
+        fill:$color-dark;       
+    }
 
-.theme-secondary:focus {
-    border: 2px solid $cta-blue-dark;     
-    color: $cta-blue-dark;
-    outline: 3px solid $focus-outline;   
-}
+    .icon-button.theme-#{$name} svg {
+        fill:$color;
+    }
 
-.theme-primary-alternate {
-    background-color: $tessin-turquoise; 
-    fill:$tessin-turquoise;
-    color:$tessin-dark-green;     
-}
+    .icon-button.theme-#{$name}:hover {
+        background-color:transparent;
+     }
 
-.theme-primary-alternate:hover {
-    background-color: $tessin-turquoise-light;
-    fill:$tessin-turquoise-light;   
-}
+    .icon.theme-#{$name}
+    {
+        border:0px;
+    }
 
-.icon-button.theme-primary-alternate:hover {
-    background-color:transparent;
-}
+    .icon.theme-#{$name} svg {
+        fill:$color;
+    }
+    
+    .icon-button.theme-#{$name}:active {
+        background-color: transparent;   
+        outline:none;
+    }
+    
+    .icon-button.theme-#{$name}:focus {
+        background-color: transparent;   
+        outline:none;
+    }
+    
+    .theme-#{$name}:active {
+        background-color: $color-dark;   
+    }
+    
+    .theme-#{$name}:focus {
+        background-color: $color-dark;
+        outline: 3px solid $focus-outline;   
+    }
 
-.theme-primary-alternate:active {
-    background-color: $tessin-turquoise-dark;   
-}
+    .theme-#{$name}:disabled {
+        color: $medium-grey;  
+        border: 2px solid $medium-grey; 
+        background: transparent;
+    }
+  }
+  
+  @include theme("primary", $cta-blue, $cta-blue-light, $cta-blue-dark, $white);
+  @include theme("primary-alternate", $tessin-turquoise, $tessin-turquoise-light, $tessin-turquoise-dark, $tessin-dark-green);
+  @include theme("error", $error, $error-light, $error-dark, $soft-black);
+  @include theme("alert", $alert, $alert-light, $alert-dark, $soft-black);
+  @include theme("success", $success, $success-light, $success-dark, $soft-black);
+  @include theme-outlined("secondary", $cta-blue, $cta-blue-light, $cta-blue-dark, $white);
+  @include theme-outlined("secondary-alternate", $tessin-turquoise, $tessin-turquoise-light, $tessin-turquoise-dark, $tessin-dark-green);
+  @include theme("empty", $neutral-grey, $soft-grey, $medium-grey, $soft-black);
 
-.icon-button.theme-primary-alternate:hover {
-    background-color: transparent;
-    fill:$tessin-turquoise-light;  
-}
+/////////////////////////////////////////////////////////////////////
 
-.icon-button.theme-primary-alternate:active {
-    fill: $tessin-turquoise-dark;   
-}
 
-.theme-primary-alternate:disabled {
-    color: $medium-grey;  
-    fill: $medium-grey;    
-}
-
-.theme-primary-alternate:focus {
-    background-color: $tessin-turquoise-dark;
-    outline: 3px solid $focus-outline;   
-}
-
-.icon-button.theme-primary-alternate:focus {
-    fill: $tessin-turquoise-dark; 
-    background: none;
-    outline: none;
-}
-
-.theme-secondary-alternate {
-    background-color: transparent; 
-    border: 2px solid $white;     
-    color: $white;
-}
-
-.theme-secondary-alternate:hover {  
-    border: 2px solid $tessin-turquoise;     
-    color: $tessin-turquoise;
-}
-
-.theme-secondary-alternate:active {  
-    border: 2px solid $tessin-turquoise-dark;     
-    color: $tessin-turquoise-dark;
-}
-
-.theme-secondary-alternate:focus {
-    border: 2px solid $tessin-turquoise-dark;    
-    color: $tessin-turquoise-dark;
-    outline: 3px solid $focus-outline;   
-}
-
-.theme-secondary-alternate:disabled {
-    background: transparent;
-    border: 2px solid $neutral-grey; 
-    color: $neutral-grey; 
-}
-
-.theme-error {
-    background-color: $error; 
-    color:$soft-black;     
-}
-
-.theme-error:hover {
-    background-color: $error-light;   
-}
-
-.theme-error:active {
-    background-color: $error-dark;   
-}
-
-.theme-error:focus {
-    background-color: $error-dark;
-    outline: 3px solid $focus-outline;   
-}
-
-.theme-success {
-    background-color: $success; 
-    color:$soft-black;
-
-}
-
-.icon-theme-success svg
-{
-    fill: $success-dark; 
-}
-
-.theme-success:hover {
-    background-color: $success-light;   
-}
-
-.theme-success:active {
-    background-color: $success-dark;   
-}
-
-.theme-success:focus {
-    background-color: $success-dark;
-    outline: 3px solid $focus-outline;   
-}
-
-.theme-alert {
-    background-color: $alert; 
-    color:$soft-black;     
-}
-
-.icon-theme-alert svg
-{
-    fill: $alert-dark; 
-}
-
-.theme-alert:hover {
-    background-color: $alert-light;   
-}
-
-.theme-alert:active {
-    background-color: $alert-dark;   
-}
-
-.theme-alert:focus {
-    background-color: $alert-dark;
-    outline: 3px solid $focus-outline;   
-}
 
 

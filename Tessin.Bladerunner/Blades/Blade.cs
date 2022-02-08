@@ -73,7 +73,7 @@ namespace Tessin.Bladerunner.Blades
 
                 var div = Div("blade-panel", 
                     Div("blade-header",
-                        Element("h1", null, Title??" "),
+                        Element("h1", null, string.IsNullOrEmpty(Title) ? " " : Title),
                         Element("aside", null, buttons.ToArray())
                     ),
                     Div("blade-content", dc)
@@ -95,7 +95,7 @@ namespace Tessin.Bladerunner.Blades
         public void PushBlade(IBladeRenderer renderer, string title = null)
         {
             Manager.PopTo(this.Index, false);
-            Manager.PushBlade(renderer, title);
+            Manager.Push(renderer, title);
         }
 
         public void PopToPrevious(bool refresh = true)

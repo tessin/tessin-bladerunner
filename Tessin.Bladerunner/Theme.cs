@@ -12,6 +12,7 @@ namespace Tessin.Bladerunner
         SecondaryAlternate,
         Error,
         Success,
-        Alert
+        Alert,
+        Empty
     }
 }
