@@ -57,11 +57,11 @@ namespace Tessin.Bladerunner.Editors
 
             var fields = type
                 .GetFields()
-                .Select(e => new {e.Name, Type = e.FieldType, FieldInfo = e, PropertyInfo = (PropertyInfo) null})
+                .Select(e => new { e.Name, Type = e.FieldType, FieldInfo = e, PropertyInfo = (PropertyInfo)null })
                 .Union(
                     type
                         .GetProperties()
-                        .Select(e => new {e.Name, Type = e.PropertyType, FieldInfo = (FieldInfo) null, PropertyInfo = e}
+                        .Select(e => new { e.Name, Type = e.PropertyType, FieldInfo = (FieldInfo)null, PropertyInfo = e }
                         )
                 )
                 //.OrderBy(e => e.Name)
@@ -112,7 +112,7 @@ namespace Tessin.Bladerunner.Editors
 
             object RenderRow(IEnumerable<EditorField<T>> fields)
             {
-                if(fields.Count() == 1)
+                if (fields.Count() == 1)
                 {
                     var field = fields.First();
                     return field.Editor.Render(_obj, field, Updated(field));
@@ -134,13 +134,13 @@ namespace Tessin.Bladerunner.Editors
                     e.GroupBy(f => f.Group)
                     .OrderBy(f => _groups.IndexOf(f.Key))
                     .Select(f =>
-                        Layout.Gap(false).Vertical( 
+                        Layout.Gap(false).Vertical(
                             f.Key == null
                             ? RenderRows(f)
                             : new CollapsablePanel(f.Key, RenderRows(f))
                         ))
                         .ToArray())).ToArray();
-            
+
             Action Updated(EditorField<T> updatedField)
             {
                 return () =>
@@ -192,7 +192,7 @@ namespace Tessin.Bladerunner.Editors
                 }
                 else
                 {
-                    validationLabel.HtmlElement.InnerText = $"{validationErrors} validation error{(validationErrors > 1 ? "s" : "")}.";
+                    validationLabel.HtmlElement.InnerText = $"{validationErrors} validation error{(validationErrors > 1 ? "s" : "")}";
                     return default(T);
                 }
             };
@@ -201,27 +201,30 @@ namespace Tessin.Bladerunner.Editors
 
             if (saveButton == null)
             {
-                saveButton = new Controls.Button(_actionVerb, (_) => {
+                saveButton = new Controls.Button(_actionVerb, (_) =>
+                {
                     T obj = onSave();
                     if (obj != null)
                     {
                         _save?.Invoke(_obj);
                     }
                 });
+
                 return new HeaderPanel(
                     Layout.Middle().Horizontal(saveButton, _toolbar, validationLabel),
                     Layout.Vertical(
-                        Layout.Horizontal( 
+                        Layout.Horizontal(
                             columns
                         ),
-                        new Spacer(height:"50px")
+                        new Spacer(height: "50px")
                     ),
-                    width:null
+                    width: null
                 );
             }
             else
             {
-                saveButton.Validate = () => {
+                saveButton.Validate = () =>
+                {
                     T obj = onSave();
                     saveButton.Tag = obj;
                     return obj != null;
@@ -301,7 +304,7 @@ namespace Tessin.Bladerunner.Editors
 
         public EntityEditor<T> Place(bool row, params Expression<Func<T, object>>[] fields)
         {
-            return _Place(1, row?Guid.NewGuid():null, fields) ;
+            return _Place(1, row ? Guid.NewGuid() : null, fields);
         }
 
         public EntityEditor<T> Place(int col, bool row, params Expression<Func<T, object>>[] fields)
@@ -317,7 +320,7 @@ namespace Tessin.Bladerunner.Editors
             {
                 _groups.Add(group);
             }
-            
+
             foreach (var expr in fields)
             {
                 var hint = GetField(expr);
@@ -363,14 +366,14 @@ namespace Tessin.Bladerunner.Editors
             return this;
         }
 
-        public EntityEditor<T> Validate<TU>(Expression<Func<T, TU>> field, Func<TU, (bool, string)> validator) 
+        public EntityEditor<T> Validate<TU>(Expression<Func<T, TU>> field, Func<TU, (bool, string)> validator)
         {
             var hint = GetField(field);
             hint.Validators.Add((o) => validator((TU)o));
             return this;
         }
 
-        public EntityEditor<T> Derived<TU,TV>(Expression<Func<T, TU>> field, Expression<Func<T, TV>> derivedFrom, Func<T,TU> transformer)
+        public EntityEditor<T> Derived<TU, TV>(Expression<Func<T, TU>> field, Expression<Func<T, TV>> derivedFrom, Func<T, TU> transformer)
         {
             var _derivedFrom = GetField(derivedFrom);
             var _field = GetField(field);
@@ -394,14 +397,32 @@ namespace Tessin.Bladerunner.Editors
             {
                 var hint = GetField(expr);
                 hint.Required = true;
-                hint.Validators.Add(e => (e switch { 
-                    null => false,
-                    Guid guid => guid != Guid.Empty, 
-                    string str => !string.IsNullOrWhiteSpace(str),
-                    int i => i == 0,
-                    _ => true
-                }, "Required field."));
+                hint.Validators.Add(e =>
+                {
+                    bool valid = true;
+
+                    if (e == null)
+                    {
+                        valid = false;
+                    }
+                    else
+                    {
+                        valid = e switch
+                        {
+                            null => false,
+                            Guid guid => guid != Guid.Empty,
+                            DateTime dt => dt != DateTime.MinValue,
+                            string str => !string.IsNullOrWhiteSpace(str),
+                            int i => i != 0,
+                            double i => i != 0.0,
+                            _ => true
+                        };
+                    }
+
+                    return (!valid, "Required field");
+                });
             }
+
             return this;
         }
 

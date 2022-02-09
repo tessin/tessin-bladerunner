@@ -19,16 +19,20 @@ namespace Tessin.Bladerunner.Controls
         public Card(object content, string title = null, CardStyle style = CardStyle.Info) : base()
         {
             this.SetClass($"card card-{style.ToString().ToLower()}");
-            var dc = new DumpContainer {Content = content};
+
+            List<Control> controls = new();
 
             if(!string.IsNullOrEmpty(title))
             {
                 var titleDiv = new Div(new Literal(title));
                 titleDiv.SetClass("card--title");
-                this.VisualTree.Add(titleDiv);
+                controls.Add(titleDiv);
             }
 
-            this.VisualTree.Add(dc);
+            var dc = new DumpContainer { Content = content };
+            controls.Add(dc);
+
+            this.VisualTree.Add(new Div(controls));
         }
     }
 }

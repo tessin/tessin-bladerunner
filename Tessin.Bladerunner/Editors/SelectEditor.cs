@@ -42,7 +42,13 @@ namespace Tessin.Bladerunner.Editors
 
             _selectBox.Enabled = editorFieldInfo.Enabled;
 
-            return _field = new Field(editorFieldInfo.Label, _selectBox, editorFieldInfo.Description, editorFieldInfo.Helper, editorFieldInfo.Required);
+            return _field = new Field(
+                editorFieldInfo.Label, 
+                _selectBox, 
+                editorFieldInfo.Description, 
+                editorFieldInfo.Helper, 
+                editorFieldInfo.Required
+            );
         }
 
         private Option[] GetOptions(EditorField<T> editorFieldInfo)
@@ -68,13 +74,13 @@ namespace Tessin.Bladerunner.Editors
         {
             void SetError(string message)
             {
-                _selectBox.Styles["border-color"] = "darkred";
+                _selectBox.Styles["border-color"] = "#aa0000";
                 _field.SetError(message);
             }
 
             void ClearError()
             {
-                _selectBox.Styles["border-color"] = "inherit";
+                _selectBox.Styles["border-color"] = null;
                 _field.SetError("");
             }
             

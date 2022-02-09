@@ -45,6 +45,7 @@ static IBladeRenderer Blade1()
 				),
 				Layout.Horizontal(
 					new IconButton(Icons.Duck, theme:Theme.Primary),
+					new IconButton(Icons.Duck, theme:Theme.Primary, enabled:false),
 					new IconButton(Icons.Duck, theme:Theme.PrimaryAlternate),
 					//new IconButton(Icons.Duck, theme:Theme.Secondary),	
 					//new IconButton(Icons.Duck, theme:Theme.SecondaryAlternate),

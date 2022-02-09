@@ -1,9 +1,13 @@
 .card {
-  padding: $panel-margin;
   background-color: white;
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
   margin-left: 1px;
   margin-right: 1px;
+}
+
+.card > div
+{
+  padding: $panel-margin;
 }
 
 .card-warning {

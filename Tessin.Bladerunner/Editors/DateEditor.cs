@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
 
@@ -78,12 +79,43 @@ namespace Tessin.Bladerunner.Editors
 
         public bool Validate(T obj, EditorField<T> editorField)
         {
-            if (!editorField.Type.IsNullable() && string.IsNullOrEmpty(_dateBox.Text) ||
-                !string.IsNullOrEmpty(_dateBox.Text) && !DateTime.TryParseExact(_dateBox.Text, new[] {"yyyy-MM-dd"}, null, DateTimeStyles.None, out DateTime _))
+            void SetError(string message)
             {
-                _dateBox.Styles["border-color"] = "tomato";
+                _dateBox.Styles["border-color"] = "#aa0000";
+                _field.SetError(message);
+            }
+
+            void ClearError()
+            {
+                _dateBox.Styles["border-color"] = null;
+                _field.SetError("");
+            }
+
+            DateTime val = DateTime.MinValue; 
+
+            if (!editorField.Type.IsNullable() && string.IsNullOrEmpty(_dateBox.Text) ||
+                !string.IsNullOrEmpty(_dateBox.Text) && !DateTime.TryParseExact(_dateBox.Text, new[] {"yyyy-MM-dd"}, null, DateTimeStyles.None, out val))
+            {
+                SetError("Invalid date");
                 return false;
             }
+
+            (bool, string)? error = editorField.Validators
+                .Select(e => e(val))
+                .Where(e => e.Item1)
+                .Select(e => ((bool, string)?)e)
+                .FirstOrDefault();
+
+            if (error != null)
+            {
+                SetError(error.Value.Item2);
+                return false;
+            }
+            else
+            {
+                ClearError();
+            }
+
             return true;
         }
 

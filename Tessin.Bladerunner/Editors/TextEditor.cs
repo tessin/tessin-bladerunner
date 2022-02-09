@@ -52,12 +52,7 @@ namespace Tessin.Bladerunner.Editors
             }
             else
             {
-                _textBox = _type switch
-                {
-                    "url" => new UrlBox(value),
-                    "email" =>  new EmailBox(value),
-                    _ => new Controls.TextBox(value)
-                };
+                _textBox = new Controls.TextBox(value);
                 ((Controls.TextBox)_textBox).TextInput += (sender, args) => updated();
             }
 
@@ -93,25 +88,37 @@ namespace Tessin.Bladerunner.Editors
         {
             void SetError(string message)
             {
-                _textBox.Styles["border-color"] = "darkred";
+                _textBox.Styles["border-color"] = "#aa0000";
                 _field.SetError(message);
             }
 
             void ClearError()
             {
-                _textBox.Styles["border-color"] = "inherit";
+                _textBox.Styles["border-color"] = null;
                 _field.SetError("");
             }
 
             object value = _textBox.GetType().GetProperty("Text").GetValue(_textBox);
-            
-            (bool, string)? error = editorFieldInfo.Validators
+
+            var validators = new List<Func<object, (bool, string)>>(editorFieldInfo.Validators);
+
+            if (_type == "email")
+            {
+                validators.Add(e => (string.IsNullOrEmpty((string)e) || Utils.ValidateEmail(e.ToString()), "Invalid email"));
+            }
+
+            if (_type == "url")
+            {
+                validators.Add(e => (string.IsNullOrEmpty((string)e) || Utils.ValidateUrl(e.ToString()), "Invalid url"));
+            }
+
+            (bool, string)? error = validators
                 .Select(e => e(value))
                 .Where(e => !e.Item1)
                 .Select(e => ((bool, string)?)e)
                 .FirstOrDefault();
 
-            if (error != null && !error.Value.Item1)
+            if (error is { Item1: false })
             {
                 SetError(error.Value.Item2);
                 return false;

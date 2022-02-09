@@ -62,8 +62,14 @@ namespace Tessin.Bladerunner.Editors
         {
             void SetError(string message)
             {
-                _numberBox.Styles["border-color"] = "tomato";
+                _numberBox.Styles["border-color"] = "#aa0000";
                 _field.SetError(message);
+            }
+
+            void ClearError()
+            {
+                _numberBox.Styles["border-color"] = null;
+                _field.SetError("");
             }
 
             double val = 0;
@@ -71,7 +77,7 @@ namespace Tessin.Bladerunner.Editors
             if (!editorFieldInfo.Type.IsNullable() && string.IsNullOrEmpty(_numberBox.Text) 
                 || !string.IsNullOrEmpty(_numberBox.Text) && !double.TryParse(_numberBox.Text, out val))
             {
-                SetError("Invalid number.");
+                SetError("Invalid number");
                 return false;
             }
 
@@ -85,6 +91,10 @@ namespace Tessin.Bladerunner.Editors
             {
                 SetError(error.Value.Item2);
                 return false;
+            }
+            else
+            {
+                ClearError();
             }
 
             return true;

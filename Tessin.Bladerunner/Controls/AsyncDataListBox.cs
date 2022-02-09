@@ -26,7 +26,7 @@ namespace Tessin.Bladerunner.Controls
 
         private readonly Dictionary<string, IEnumerable<Option>> _cache = new Dictionary<string, IEnumerable<Option>>();
 
-        public AsyncDataListBox(Func<string, Task<IEnumerable<Option>>> queryOptions, Func<object,Task<Option>> findOption = null,  int debounceInterval = 250)
+        public AsyncDataListBox(Func<string, Task<IEnumerable<Option>>> queryOptions, Func<object,Task<Option>> findOption = null,  int debounceInterval = 250, string placeholder = "Search")
         {
             _debounceDispatcher = new DebounceDispatcher(debounceInterval);
             this.SetClass("async-data-list-box");
@@ -38,7 +38,7 @@ namespace Tessin.Bladerunner.Controls
             _textBox.HtmlElement["list"] = _dataList.HtmlElement.ID;
             _textBox.HtmlElement["autocomplete"] = "off";
             _textBox.HtmlElement["spellcheck"] = "false";
-            _textBox.HtmlElement["placeholder"] ="Search";
+            _textBox.HtmlElement["placeholder"] = placeholder;
             _textBox.TextInput += (sender, args) => OnTextInput();
 
             VisualTree.Add(_loadingDiv);

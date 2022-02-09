@@ -32,6 +32,11 @@ namespace Tessin.Bladerunner.Editors
             _fileBox = new FileBox(value, _initialCatalog);
             _fileBox.TextInput += (sender, args) => updated();
 
+            if (editorFieldInfo.Required)
+            {
+                _fileBox.TextBox.HtmlElement.SetAttribute("required", "required");
+            }
+
             return _field = new Field(
                 editorFieldInfo.Label,
                 _fileBox,
@@ -49,36 +54,35 @@ namespace Tessin.Bladerunner.Editors
 
         public bool Validate(T obj, EditorField<T> editorFieldInfo)
         {
-            //todo:
-            //void SetError(string message)
-            //{
-            //    _fileBox.Styles["border-color"] = "darkred";
-            //    _field.SetError(message);
-            //}
+            void SetError(string message)
+            {
+                _fileBox.TextBox.Styles["border-color"] = "#aa0000";
+                _field.SetError(message);
+            }
 
-            //void ClearError()
-            //{
-            //    _fileBox.Styles["border-color"] = "inherit";
-            //    _field.SetError("");
-            //}
+            void ClearError()
+            {
+                _fileBox.TextBox.Styles["border-color"] = null;
+                _field.SetError("");
+            }
 
-            //object value = _fileBox.GetType().GetProperty("Text").GetValue(_fileBox);
+            object value = _fileBox.GetType().GetProperty("Text").GetValue(_fileBox);
 
-            //(bool, string)? error = editorFieldInfo.Validators
-            //    .Select(e => e(value))
-            //    .Where(e => !e.Item1)
-            //    .Select(e => ((bool, string)?)e)
-            //    .FirstOrDefault();
+            (bool, string)? error = editorFieldInfo.Validators
+                .Select(e => e(value))
+                .Where(e => !e.Item1)
+                .Select(e => ((bool, string)?)e)
+                .FirstOrDefault();
 
-            //if (error != null && !error.Value.Item1)
-            //{
-            //    SetError(error.Value.Item2);
-            //    return false;
-            //}
-            //else
-            //{
-            //    ClearError();
-            //}
+            if (error != null && !error.Value.Item1)
+            {
+                SetError(error.Value.Item2);
+                return false;
+            }
+            else
+            {
+                ClearError();
+            }
 
             return true;
         }

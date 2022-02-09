@@ -56,13 +56,13 @@ namespace Tessin.Bladerunner.Editors
         {
             void SetError(string message)
             {
-                _selectBox.Styles["border-color"] = "darkred";
+                _selectBox.Styles["border-color"] = "#aa0000";
                 _field.SetError(message);
             }
 
             void ClearError()
             {
-                _selectBox.Styles["border-color"] = "inherit";
+                _selectBox.Styles["border-color"] = null;
                 _field.SetError("");
             }
 

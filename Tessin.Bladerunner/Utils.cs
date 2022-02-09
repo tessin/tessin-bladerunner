@@ -349,5 +349,31 @@ namespace Tessin.Bladerunner
         {
             return list.Select(e => (T)e).ToArray();
         }
+
+        public static bool ValidateEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static bool ValidateGuid(string guid)
+        {
+            Guid _foo;
+            return Guid.TryParse(guid, out _foo);
+        }
+
+        public static bool ValidateUrl(string url)
+        {
+            Uri _foo;
+            return Uri.TryCreate(url, UriKind.Absolute, out _foo);
+        }
+
     }
 }

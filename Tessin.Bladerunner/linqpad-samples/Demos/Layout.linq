@@ -17,9 +17,10 @@ void Main()
 
 	manager.Dump();
 
-	manager.PushBlade(Blade1());
-	manager.PushBlade(Blade2());
-	manager.PushBlade(Blade3());
+	manager.Push(Blade4());
+	//manager.Push(Blade1());
+	//manager.Push(Blade2());
+	//manager.Push(Blade3());
 }
 
 static IBladeRenderer Blade1()
@@ -71,6 +72,21 @@ static IBladeRenderer Blade3()
 				spacer
 			)
 		);
+	});
+}
+
+static IBladeRenderer Blade4()
+{
+	var txtComment = new TextArea();
+	var fieldComment = new Field("Comment", txtComment);
+
+	var card = new Card("Hello");
+
+	return BladeFactory.Make((blade) =>
+	{
+		return Layout
+			.Gap(true)
+			.Vertical(new Button("Bar"), new Button("HelloWorld"), "Hello", card, new Button("Bar"), fieldComment);
 	});
 }
 

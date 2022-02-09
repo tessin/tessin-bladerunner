@@ -136,26 +136,40 @@ label.checkbox-label {
   display:flex;
   color:#606060;
   justify-content: space-between;
+  white-space: nowrap;
   DIV {
       flex-grow: 1;
       text-align: right;
   }
 }
 
-.search-box  > input[type="text"]:focus ~ .field--header,
+.field--error {    
+  color:$error-dark;
+  @include weight(700);
+  margin-left:7px
+}
+
+input[type="date"] ~ .field--header,
+input[type="datetime-local"] ~ .field--header
+{
+  top:0px;
+  font-size: 11px;
+}
+
+
+.search-box > input[type="text"]:focus ~ .field--header,
 input[type="text"]:focus ~ .field--header,
 input[type="email"]:focus ~ .field--header,
 input[type="url"]:focus ~ .field--header,
 input[type="number"]:focus ~ .field--header,
 input[type="date"]:focus ~ .field--header,
-input[type="datetime-local"]:focus ~ .field--header,
 select:focus ~ .field--header,
+.search-box > input[type="text"]:valid ~ .field--header,
+input[type="text"]:valid ~ .field--header,
 input[type="text"]:valid ~ .field--header,
 input[type="email"]:valid ~ .field--header,
 input[type="url"]:valid ~ .field--header,
 input[type="number"]:valid ~ .field--header,
-input[type="date"]:valid ~ .field--header,
-input[type="datetime-local"]:valid ~ .field--header,
 select:valid ~ .field--header 
 {
   top:0px;
@@ -165,7 +179,7 @@ select:valid ~ .field--header
 textarea:focus ~ .field--header,
 textarea:valid ~ .field--header
 {
-  top:3;
+  top:3px;
   font-size: 11px;
 }
 

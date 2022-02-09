@@ -65,6 +65,10 @@ $focus-outline: $medium-grey;
         background-color: transparent;   
         outline:none;
     }
+
+    .icon-button.theme-#{$name}:disabled svg {
+        fill: $medium-grey;
+    }
   }
 
   @mixin theme-outlined($name, $color, $color-light, $color-dark, $foreground) {

@@ -13,30 +13,53 @@
 void Main()
 {	
 	//Debugger.Launch();
+           
+	//	             Nullable  Required  Styling  Buggy
+	//File           ✔        ✔        !
+	//Text           ✔        ✔
+	//Select         ✔        ✔
+	//Email          ✔        ✔
+	//Url            ✔        ✔
+	//Int            ✔        ✔
+	//Double         ✔        ✔                 !   
+	//AsyncDataList  ✔        ✔
+	//Code      
+	//TextArea
+    //MultiSelect
+	//Date           ✔        ✔
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
 	
-	manager.PushBlade(Blade1(), "Blade1");
+	manager.Push(Blade1(), "Blade1");
 }
 
-public class Product {
-	
-	public int Integer { get; set; }
-	
-	public double Double { get; set; }
-	
+public class Product
+{
+
 	public string File { get; set; }
 
-	public string LiteralOne { get; set; } = "HelloWorld";
+	public string FileRequired { get; set; }
 
-	public string LiteralTwo { get; set; } = "HelloWorld";
-	
+	public string Literal { get; set; } = "HelloWorld";
+
+	public int? Integer { get; set; }
+
+	public int IntegerRequired { get; set; }
+
+	public double? Double { get; set; }
+
+	public double DoubleRequired { get; set; }
+
 	public string Email { get; set; }
-	
+
+	public string EmailRequired { get; set; }
+
 	public string Url { get; set; }
-	
+
 	public int? TagId { get; set; }
+
+	public DateTime? DateTime { get; set; }
 
 }
 
@@ -47,7 +70,7 @@ static IBladeRenderer Blade1()
 	{		
 		var record = new Product {
 			Integer = 123456789,
-			Double = 123456.134,
+			Double = 0.45,
 			TagId = 2
 		};
 
@@ -55,12 +78,19 @@ static IBladeRenderer Blade1()
 					
 		})
 		.Editor(e => e.Double, e => e.Number(2))
-		.Editor(e => e.LiteralOne, e => e.Literal())
+		.Editor(e => e.Literal, e => e.Literal())
 		.Editor(e => e.File, e => e.File(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
+		.Editor(e => e.FileRequired, e => e.File(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
 		.Editor(e => e.Url, e => e.Url())
 		.Editor(e => e.Email, e => e.Email())
+		.Editor(e => e.Double, e => e.Number(2))
+		.Editor(e => e.EmailRequired, e => e.Email())
 		.Editor(e => e.TagId, e => e.Select(new [] { new Option("Foo",1),new Option("Bar",2) }))
-		.Required(e => e.TagId);
+		//.Required(e => e.DateTime)
+		//.Required(e => e.FileRequired)
+		//.Required(e => e.EmailRequired)
+		//.Required(e => e.IntegerRequired)
+		//.Required(e => e.DoubleRequired)
 		.Render();
 	});
 }

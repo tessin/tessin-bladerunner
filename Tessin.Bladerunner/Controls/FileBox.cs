@@ -50,7 +50,6 @@ namespace Tessin.Bladerunner.Controls
             return null;
         }
 
-
         public void SelectAll()
         {
             _textBox.SelectAll();
@@ -63,5 +62,7 @@ namespace Tessin.Bladerunner.Controls
         }
 
         public event EventHandler TextInput;
+
+        public LINQPad.Controls.TextBox TextBox => _textBox;
     }
 }
