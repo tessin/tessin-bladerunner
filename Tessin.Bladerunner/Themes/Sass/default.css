@@ -600,6 +600,12 @@ body > div {
   overflow-x: auto;
 }
 
+@media print {
+  body > div {
+    height: auto;
+  }
+}
+
 @supports (font-variation-settings: normal) {
   h1,
   h2,

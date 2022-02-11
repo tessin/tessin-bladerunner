@@ -31,6 +31,13 @@ body > div {
   overflow-x: auto; // Key that horizontal scrolling for everything incl. blades goes here.
 }
 
+@media print {
+  body > div {
+    height: auto;
+  }
+}
+
+
 h1,
 h2,
 h3 {
