@@ -81,7 +81,7 @@
     width: 15px;
     background-color: transparent;
     border: 4px solid #fff;
-    border-color: #fff transparent #fff transparent;
+    border-color: $cta-blue transparent $cta-blue transparent;
     border-radius: 50%;
     animation: lds-dual-ring 1.2s linear infinite;
     -webkit-transition: 0s;
@@ -106,11 +106,11 @@
 }
 
 .toggle-button input[type="checkbox"]:checked + label .toggle-button--slider {
-    background-color: #2196F3;
+    background-color: $cta-blue;
 }
 
 .toggle-button input[type="checkbox"]:focus + label .toggle-button--slider{
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px $cta-blue;
 }
 
 .toggle-button input[type="checkbox"]:checked + label .toggle-button--slider:before{

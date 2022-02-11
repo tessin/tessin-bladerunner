@@ -13,7 +13,7 @@ void Main()
 	//Debugger.Launch();
 	
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", showDebugButton: true, cssHotReloading: true);
-	manager.PushBlade(Blade1(), "Blade1");
+	manager.Push(Blade1(), "Blade1");
 	manager.Dump();
 }
 
@@ -58,6 +58,15 @@ static IBladeRenderer Blade1()
 					{
 						//ignore
 					}
+				}
+			}),
+			new Button("Progress With Sideblade", async (_) =>
+			{
+				blade.Manager.OpenSideBlade(new DisplayBlade("Hello"));
+				
+				using (blade.Manager.ShowProgress(title: "Working on it..."))
+				{
+					await Task.Delay(TimeSpan.FromSeconds(1000));
 				}
 			})
 		);

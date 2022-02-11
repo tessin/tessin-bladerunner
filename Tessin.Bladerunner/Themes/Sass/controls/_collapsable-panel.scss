@@ -57,5 +57,5 @@ BUTTON.collapsable-panel--header:before {
 }
 
 .collapsable-panel-open .collapsable-panel--body {
-  display: block;
+  display: -webkit-box;
 }

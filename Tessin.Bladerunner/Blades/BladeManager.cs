@@ -39,26 +39,26 @@ namespace Tessin.Bladerunner.Blades
 
         private Div _divSideBlade;
 
-        private DumpContainer _sideBladeContainer;
+        private readonly DumpContainer _sideBladeContainer;
 
         private Action<object> _sideBladeOnClose;
 
         private Blade _sideBlade;
 
-        private Overlay _overlay;
+        private readonly Overlay _overlay;
 
-        private Popover _popover;
+        private readonly Popover _popover;
 
-        private Toaster _toaster;
+        private readonly Toaster _toaster;
 
-        private ProgressDisplay _progressDisplay;
+        private readonly ProgressDisplay _progressDisplay;
 
         public BladeManager(int maxDepth = 10, bool showDebugButton = false, string cssPath = null, bool cssHotReloading = false)
         {
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
-            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
-            CultureInfo.DefaultThreadCurrentCulture = new System.Globalization.CultureInfo("en-US");
-            CultureInfo.DefaultThreadCurrentUICulture = new System.Globalization.CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((_, e) => ShowUnhandledException((Exception)e.ExceptionObject));
             LINQPad.Controls.Control.UnhandledException += new ThreadExceptionEventHandler((_, e) => ShowUnhandledException(e.Exception));

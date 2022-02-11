@@ -21,7 +21,7 @@
 
 .progress--title {
   font-size: 1.5em;
-  color: white;
+  color: tessin-dark-green;
 }
 
 .progress--animation {
@@ -43,7 +43,7 @@
   border: 8px solid rgba(255, 255, 255, 0.25);
   border-radius: 50%;
   animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #fff transparent transparent transparent;
+  border-color: $tessin-dark-green-light transparent transparent transparent;
 }
 
 .animation-bg {
@@ -59,7 +59,7 @@
   border-radius: 50%;
   border-style: solid;
   border-width: 12px;
-  border-color: rgba(255, 255, 255, 0.5);
+  border-color: $soft-grey;
 }
 
 .progress--animation .line:nth-child(1) {
