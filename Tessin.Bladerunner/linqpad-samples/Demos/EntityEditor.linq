@@ -11,9 +11,9 @@
 </Query>
 
 void Main()
-{	
+{
 	//Debugger.Launch();
-           
+
 	//	             Nullable  Required  Styling  Buggy
 	//File           ✔        ✔        !
 	//Text           ✔        ✔
@@ -25,72 +25,87 @@ void Main()
 	//AsyncDataList  ✔        ✔
 	//Code      
 	//TextArea
-    //MultiSelect
+	//MultiSelect
 	//Date           ✔        ✔
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
-	
-	manager.Push(Blade1(), "Blade1");
-}
 
-public class Product
-{
+	manager.Push(new MenuBlade(new DirectoryNode("",
+		new ActionNode("Text", () => {
+			var record = new TextRecord();
 
-	public string File { get; set; }
+			var editor = new EntityEditor<TextRecord>(record, (_) => {})
+				.Required(e => e.TextRequired)
+				.Editor(e => e.Url, e => e.Url())
+				.Editor(e => e.Email, e => e.Email())
+				.Render();
+			
+			manager.OpenSideBlade(new DisplayBlade(editor), title:"Text");
+		}),
+		new ActionNode("File", () =>
+		{
+			var record = new FileRecord();
 
-	public string FileRequired { get; set; }
+			var editor = new EntityEditor<FileRecord>(record, (_) => { })
+				.Required(e => e.FileRequired)
+				.Editor(e => e.File, e => e.File(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
+				.Editor(e => e.FileRequired, e => e.File(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
+				.Render();
 
-	public string Literal { get; set; } = "HelloWorld";
+			manager.OpenSideBlade(new DisplayBlade(editor), title: "File");
+		}),
+		new ActionNode("Select", () =>
+		{
+			var record = new SelectRecord();
 
-	public int? Integer { get; set; }
+			var options = new [] { new Option("Foo",1),new Option("Bar",2) };
 
-	public int IntegerRequired { get; set; }
+			var editor = new EntityEditor<SelectRecord>(record, (_) => { })
+				.Required(e => e.SelectRequired)
+				.Editor(e => e.Select, e => e.Select(options))
+				.Editor(e => e.SelectRequired, e => e.Select(options))
+				.Render();
 
-	public double? Double { get; set; }
+			manager.OpenSideBlade(new DisplayBlade(editor), title: "Select");
+		}),
+		new ActionNode("Number", () =>
+		{
+			var record = new NumberRecord();
 
-	public double DoubleRequired { get; set; }
+			var editor = new EntityEditor<NumberRecord>(record, (_) => { })
+				.Render();
 
-	public string Email { get; set; }
-
-	public string EmailRequired { get; set; }
-
-	public string Url { get; set; }
-
-	public int? TagId { get; set; }
-
-	public DateTime? DateTime { get; set; }
-
-}
-
-
-static IBladeRenderer Blade1()
-{
-	return BladeFactory.Make(async (blade) =>
-	{		
-		var record = new Product {
-			Integer = 123456789,
-			Double = 0.45,
-			TagId = 2
-		};
-
-		return new EntityEditor<Product>(record, (_) => {
-					
+			manager.OpenSideBlade(new DisplayBlade(editor), title: "Number");
 		})
-		.Editor(e => e.Double, e => e.Number(2))
-		.Editor(e => e.Literal, e => e.Literal())
-		.Editor(e => e.File, e => e.File(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
-		.Editor(e => e.FileRequired, e => e.File(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
-		.Editor(e => e.Url, e => e.Url())
-		.Editor(e => e.Email, e => e.Email())
-		.Editor(e => e.Double, e => e.Number(2))
-		.Editor(e => e.EmailRequired, e => e.Email())
-		.Editor(e => e.TagId, e => e.Select(new [] { new Option("Foo",1),new Option("Bar",2) }))
-		//.Required(e => e.DateTime)
-		//.Required(e => e.FileRequired)
-		//.Required(e => e.EmailRequired)
-		//.Required(e => e.IntegerRequired)
-		//.Required(e => e.DoubleRequired)
-		.Render();
-	});
+	))
+	, "Editors");
+}
+
+public class TextRecord
+{	
+	public string Text { get; set; }
+	public string TextRequired { get; set; }
+	public string Url { get; set; }
+	public string Email { get; set; }
+}
+
+public class FileRecord
+{
+	public string File { get; set; }
+	public string FileRequired { get; set; }
+}
+
+public class SelectRecord
+{
+	public int? Select { get; set; }
+	public int SelectRequired { get; set; }
+}
+
+public class NumberRecord
+{
+	public int Int { get; set; }
+	public int? IntNullable { get; set; }
+	public double Double { get; set; } 
+	public double? DoubleNullable { get; set; }
 }

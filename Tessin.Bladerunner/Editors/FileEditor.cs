@@ -74,7 +74,7 @@ namespace Tessin.Bladerunner.Editors
                 .Select(e => ((bool, string)?)e)
                 .FirstOrDefault();
 
-            if (error != null && !error.Value.Item1)
+            if (error is { Item1: false })
             {
                 SetError(error.Value.Item2);
                 return false;
