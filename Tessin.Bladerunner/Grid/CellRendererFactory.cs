@@ -8,7 +8,7 @@ namespace Tessin.Bladerunner.Grid
 {
     public class CellRendererFactory<T>
     {
-        private IContentFormatter _formatter;
+        private readonly IContentFormatter _formatter;
 
         public CellRendererFactory(IContentFormatter formatter)
         {
@@ -38,6 +38,11 @@ namespace Tessin.Bladerunner.Grid
         public ICellRenderer<T> Date(string format = "yyyy-MM-dd")
         {
             return new DateCell<T>(format);
+        }
+
+        public ICellRenderer<T> Link(Action<T> onClick)
+        {
+            return new LinkCell<T>(onClick);
         }
 
     }

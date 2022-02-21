@@ -6,8 +6,8 @@ using Tessin.Bladerunner.Editors;
 
 namespace Tessin.Bladerunner.Grid
 {
-    public interface ICellRenderer<T>
+    public interface ICellRenderer<T> 
     {
-        Control Render(object value, GridColumn<T> column);
+        Control Render(object value, GridColumn<T> column, T row);
     }
 }

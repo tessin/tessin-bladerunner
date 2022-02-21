@@ -17,7 +17,7 @@ namespace Tessin.Bladerunner.Grid
             _formatter = formatter;
         }
 
-        public Control Render(object value, GridColumn<T> column)
+        public Control Render(object value, GridColumn<T> column, T _)
         {
             return _formatter.Format(value);
         }

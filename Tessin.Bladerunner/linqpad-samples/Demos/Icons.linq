@@ -18,7 +18,7 @@ void Main()
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
-	manager.PushBlade(Blade1());
+	manager.Push(Blade1());
 }
 
 static IBladeRenderer Blade1()
@@ -32,7 +32,7 @@ static IBladeRenderer Blade1()
 		var refreshContainer = new RefreshPanel(new[] { searchBox }, () =>
 		{
 			return new Menu(
-				icons.Where(e => e.name.ToLower().StartsWith(searchBox.Text.Trim().ToLower())).Select(e => new MenuButton(e.name, (_) => { }, svgIcon:e.svgIcon)).ToArray()
+				icons.Where(e => e.name.ToLower().Contains(searchBox.Text.Trim().ToLower())).Select(e => new MenuButton(e.name, (_) => { }, svgIcon:e.svgIcon)).ToArray()
 			);
 		}, addPadding: true);
 
