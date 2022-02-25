@@ -5,6 +5,7 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
+    //todo: update and move to _Shared/_Shared.linq
     public class TessinLogo : Div
     {
         public TessinLogo() : base()
