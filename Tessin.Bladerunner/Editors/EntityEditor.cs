@@ -419,7 +419,7 @@ namespace Tessin.Bladerunner.Editors
                         };
                     }
 
-                    return (!valid, "Required field");
+                    return (valid, "Required field");
                 });
             }
 

@@ -4,6 +4,8 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Xml.Schema;
 using LINQPad.Controls;
+using Tessin.Bladerunner.Controls;
+using Hyperlink = LINQPad.Controls.Hyperlink;
 
 namespace Tessin.Bladerunner
 {
@@ -109,6 +111,8 @@ namespace Tessin.Bladerunner
 
         private Control Render(string htmlElementName, string content, string @class)
         {
+            if (string.IsNullOrEmpty(content)) return new EmptySpan("");
+
             var control = new Control(htmlElementName, content);
             control.SetClass(@class);
             foreach (var key in _styles.Keys)

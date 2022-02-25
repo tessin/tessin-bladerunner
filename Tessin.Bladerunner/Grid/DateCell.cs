@@ -14,7 +14,7 @@ namespace Tessin.Bladerunner.Grid
             _format = format;
         }
 
-        public Control Render(object value, GridColumn<T> column)
+        public Control Render(object value, GridColumn<T> column, T _)
         {
             if (value == null) return new Literal("-");
             

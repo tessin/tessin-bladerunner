@@ -9,12 +9,10 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class IconPlaceholder : Div
+    public class EmptyIcon : Icon
     {
-        public IconPlaceholder()
+        public EmptyIcon() : base("")
         {
-            this.Styles["width"] = "24px";
-            this.Styles["height"] = "24px";
         }
     }
 
@@ -22,7 +20,7 @@ namespace Tessin.Bladerunner.Controls
     {
         public static Icon Empty()
         {
-            return new Icon("");
+            return new EmptyIcon();
         }
 
         public Icon(string icon, string tooltip = "", Theme theme = Theme.Secondary) : base()

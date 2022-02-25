@@ -79,7 +79,7 @@ namespace Tessin.Bladerunner.Controls
 
             if (_removeEmpty)
             {
-                props = props.Where(e => e.Value != null || e.Value is "").ToArray();
+                props = props.Where(e => e.Value != null && e.Value is not "" && e.Value is not EmptySpan).ToArray();
             }
 
             return new PropertyList(props);

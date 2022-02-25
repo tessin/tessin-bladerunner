@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Mail;
 using System.Reflection;
 using System.Threading;
 using LINQPad.Controls;
@@ -15,7 +17,7 @@ namespace Tessin.Bladerunner.Grid
 {
     public static class EntityGridHelper
     {
-        public static EntityGrid<T> Create<T>(IEnumerable<T> rows)
+        public static EntityGrid<T> Create<T>(IEnumerable<T> rows) 
         {
             return new EntityGrid<T>(rows);
         }
@@ -126,7 +128,7 @@ namespace Tessin.Bladerunner.Grid
 
                 if (!isHeader && isEmptyColumn[index])
                 {
-                    if (content is not EmptySpan)
+                    if (content is not EmptySpan && content is not EmptyIcon)
                     {
                         isEmptyColumn[index] = false;
                     }
@@ -146,7 +148,7 @@ namespace Tessin.Bladerunner.Grid
                 return cell;
             }
 
-            TableCell RenderHeaderCell(int index, GridColumn< T> column, Control content)
+            TableCell RenderHeaderCell(int index, GridColumn<T> column, Control content)
             {
                 var cell = RenderCell(index, column, content, true);
                 cell.HtmlElement.SetAttribute("width", column.Width);
@@ -166,7 +168,7 @@ namespace Tessin.Bladerunner.Grid
             TableRow RenderRow(T e)
             {
                 var row = new TableRow(
-                    columns.Select((f,i) => RenderCell(i, f, f.CellRenderer.Render(f.GetValue(e), f)))
+                    columns.Select((f,i) => RenderCell(i, f, f.CellRenderer.Render(f.GetValue(e), f, e)))
                 );
                 _rowAction?.Invoke(e, row);
                 return row; 
@@ -181,7 +183,7 @@ namespace Tessin.Bladerunner.Grid
             if (columns.Any(e => e.SummaryMethod != null))
             {
                 var summary = new TableRow(columns.Select((e,i) => 
-                    RenderSummaryCell(i, e, e.SummaryMethod != null ? e.CellRenderer.Render(e.SummaryMethod(_rows),e) : new Literal(""))));
+                    RenderSummaryCell(i, e, e.SummaryMethod != null ? e.CellRenderer.Render(e.SummaryMethod(_rows), e, default(T)) : new Literal(""))));
                 renderedRows = renderedRows.Append(summary).ToArray();
             }
 

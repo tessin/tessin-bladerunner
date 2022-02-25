@@ -35,7 +35,7 @@ public class ActionNode : IMenuBladeNode
     private readonly Action _onClick;
     private readonly string _svgIcon;
 
-    public ActionNode(string label, Action onClick, string svgIcon)
+    public ActionNode(string label, Action onClick, string svgIcon = null)
     {
         _label = label;
         _onClick = onClick;
@@ -47,7 +47,7 @@ public class ActionNode : IMenuBladeNode
         return new MenuButton(_label, (_) =>
         {
             _onClick();
-        }, _svgIcon ?? Icons.Application);
+        }, _svgIcon);
     }
 }
 

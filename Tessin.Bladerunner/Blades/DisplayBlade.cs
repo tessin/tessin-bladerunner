@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using LINQPad;
+using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Blades
 {
@@ -16,10 +17,14 @@ namespace Tessin.Bladerunner.Blades
 
         public object Render(Blade blade)
         {
-            return
-                Layout.Vertical(
-                  _show
-                );
+            if (_show.Length == 1)
+            {
+                return _show[0];
+            }
+
+            return Layout.Vertical(
+              _show
+            );
         }
     }
 }
