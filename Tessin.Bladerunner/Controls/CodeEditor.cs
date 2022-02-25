@@ -1,8 +1,6 @@
 ﻿using LINQPad;
 using LINQPad.Controls;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -51,19 +49,22 @@ namespace Tessin.Bladerunner.Controls
             ");
         }
 
-        public string Text { 
-            get {
+        public string Text
+        {
+            get
+            {
                 return (string)Util.InvokeScript(true, "CodeEditorGetValue");
-            } 
-            set { 
-            } 
-        } 
+            }
+            set
+            {
+            }
+        }
 
         public event EventHandler TextInput;
 
         public void SelectAll()
         {
-            
+
         }
     }
 }

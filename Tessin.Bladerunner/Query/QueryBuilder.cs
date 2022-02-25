@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace Tessin.Bladerunner.Query
 {
-	public delegate IQueryRule<T> RuleFactory<T>();
+    public delegate IQueryRule<T> RuleFactory<T>();
 
     public class QueryBuilder<T>
     {

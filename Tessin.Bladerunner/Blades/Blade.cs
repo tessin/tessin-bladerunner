@@ -1,8 +1,8 @@
-﻿using System;
+﻿using LINQPad;
+using LINQPad.Controls;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using LINQPad;
-using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Blades
@@ -12,12 +12,12 @@ namespace Tessin.Bladerunner.Blades
         public int Index { get; set; }
 
         public IBladeRenderer Renderer { get; set; }
-	
-        public BladeManager Manager { get; set;}
+
+        public BladeManager Manager { get; set; }
 
         public DumpContainer Panel { get; set; }
 
-        public string Title { get; set;  }
+        public string Title { get; set; }
 
         public Div Container { get; set; }
 
@@ -30,7 +30,7 @@ namespace Tessin.Bladerunner.Blades
             Title = title;
             Container = container;
         }
-	
+
         public async Task<object> Render()
         {
             Container?.RemoveClass("blade-hidden");
@@ -53,7 +53,7 @@ namespace Tessin.Bladerunner.Blades
                     buttons.Add(new IconButton(Icons.Duck, (_) =>
                     {
                         Manager.DebugHtml();
-                    }, theme:Theme.PrimaryAlternate));
+                    }, theme: Theme.PrimaryAlternate));
                 }
 
                 if (Index != 0)
@@ -71,7 +71,7 @@ namespace Tessin.Bladerunner.Blades
                     }, theme: Theme.PrimaryAlternate));
                 }
 
-                var div = Div("blade-panel", 
+                var div = Div("blade-panel",
                     Div("blade-header",
                         Element("h1", null, string.IsNullOrEmpty(Title) ? " " : Title),
                         Element("aside", null, buttons.ToArray())
@@ -86,8 +86,8 @@ namespace Tessin.Bladerunner.Blades
             catch (Exception ex)
             {
                 return Layout.Padding(true).Vertical(
-                    Typography.H2(ex.GetType().Name), 
-                    Typography.P(ex.Message), 
+                    Typography.H2(ex.GetType().Name),
+                    Typography.P(ex.Message),
                     new CollapsablePanel("Stack Trace", Typography.Code(ex.StackTrace)));
             }
         }
@@ -164,7 +164,7 @@ namespace Tessin.Bladerunner.Blades
             return el;
         }
 
-        public Action<T> Catch<T>(Func<T,Task> action)
+        public Action<T> Catch<T>(Func<T, Task> action)
         {
             return async (btn) =>
             {

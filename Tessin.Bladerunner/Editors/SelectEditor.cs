@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LINQPad;
+using System;
 using System.Linq;
-using System.Reflection;
-using LINQPad;
-using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors
@@ -31,7 +28,7 @@ namespace Tessin.Bladerunner.Editors
 
             var options = GetOptions(editorFieldInfo);
 
-            var selectedOption = options.Where(e => e.Value ==  value).Select(e => e.Label).FirstOrDefault();
+            var selectedOption = options.Where(e => e.Value == value).Select(e => e.Label).FirstOrDefault();
 
             _selectBox = new Controls.SelectBox(options.Select(e => e.Label).ToArray())
             {
@@ -43,10 +40,10 @@ namespace Tessin.Bladerunner.Editors
             _selectBox.Enabled = editorFieldInfo.Enabled;
 
             return _field = new Field(
-                editorFieldInfo.Label, 
-                _selectBox, 
-                editorFieldInfo.Description, 
-                editorFieldInfo.Helper, 
+                editorFieldInfo.Label,
+                _selectBox,
+                editorFieldInfo.Description,
+                editorFieldInfo.Helper,
                 editorFieldInfo.Required
             );
         }
@@ -83,7 +80,7 @@ namespace Tessin.Bladerunner.Editors
                 _selectBox.Styles["border-color"] = null;
                 _field.SetError("");
             }
-            
+
             var options = GetOptions(editorFieldInfo);
             object value = options[_selectBox.SelectedIndex].Value;
 

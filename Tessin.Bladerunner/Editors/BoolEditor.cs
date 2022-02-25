@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using LINQPad;
+﻿using LINQPad;
 using LINQPad.Controls;
+using System;
 
 namespace Tessin.Bladerunner.Editors
 {
@@ -33,7 +31,7 @@ namespace Tessin.Bladerunner.Editors
 
             var _container = new Div(_checkBox);
             _container.SetClass("entity-editor-bool");
-            
+
             _wrapper = new DumpContainer(_container);
 
             _checkBox.Enabled = editorField.Enabled;

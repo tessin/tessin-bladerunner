@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors
@@ -74,7 +72,7 @@ namespace Tessin.Bladerunner.Editors
 
             double val = 0;
 
-            if (!editorFieldInfo.Type.IsNullable() && string.IsNullOrEmpty(_numberBox.Text) 
+            if (!editorFieldInfo.Type.IsNullable() && string.IsNullOrEmpty(_numberBox.Text)
                 || !string.IsNullOrEmpty(_numberBox.Text) && !double.TryParse(_numberBox.Text, out val))
             {
                 SetError("Invalid number");

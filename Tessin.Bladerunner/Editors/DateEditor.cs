@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors
@@ -35,7 +33,7 @@ namespace Tessin.Bladerunner.Editors
                 //todo: is this safe?
                 value = dto.DateTime;
             }
-            else if(_value is DateTime dt)
+            else if (_value is DateTime dt)
             {
                 value = dt;
             }
@@ -91,10 +89,10 @@ namespace Tessin.Bladerunner.Editors
                 _field.SetError("");
             }
 
-            DateTime val = DateTime.MinValue; 
+            DateTime val = DateTime.MinValue;
 
             if (!editorField.Type.IsNullable() && string.IsNullOrEmpty(_dateBox.Text) ||
-                !string.IsNullOrEmpty(_dateBox.Text) && !DateTime.TryParseExact(_dateBox.Text, new[] {"yyyy-MM-dd"}, null, DateTimeStyles.None, out val))
+                !string.IsNullOrEmpty(_dateBox.Text) && !DateTime.TryParseExact(_dateBox.Text, new[] { "yyyy-MM-dd" }, null, DateTimeStyles.None, out val))
             {
                 SetError("Invalid date");
                 return false;

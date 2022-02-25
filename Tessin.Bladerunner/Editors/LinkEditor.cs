@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-
-using LINQPad.Controls;
+﻿using LINQPad.Controls;
+using System;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors
@@ -44,7 +41,7 @@ namespace Tessin.Bladerunner.Editors
                 var url = _fetchUrl(obj);
                 link = new Controls.Hyperlink(label, url);
             }
-            else if(_onClick != null)
+            else if (_onClick != null)
             {
                 link = new Controls.Hyperlink(label, (_) => _onClick(obj));
             }

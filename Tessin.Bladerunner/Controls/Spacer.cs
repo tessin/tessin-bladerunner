@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LINQPad.Controls;
+﻿using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {

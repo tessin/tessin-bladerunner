@@ -1,12 +1,9 @@
-﻿using System;
+﻿using LINQPad;
+using LINQPad.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
-using LINQPad;
-using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -38,12 +35,12 @@ namespace Tessin.Bladerunner.Controls
 
         public static Matrix<MatrixCell> Create(List<MatrixCell> cells)
         {
-            return new(cells, c => c.Column, c => c.Row, (c,_,_) => c.FirstOrDefault()?.Value);
+            return new(cells, c => c.Column, c => c.Row, (c, _, _) => c.FirstOrDefault()?.Value);
         }
 
         public Matrix(
-            List<T> cells, 
-            Expression<Func<T, string>> colExpr, 
+            List<T> cells,
+            Expression<Func<T, string>> colExpr,
             Expression<Func<T, string>> rowExpr,
             Func<IEnumerable<T>, string, string, object> cellRenderer,
             IContentFormatter formatter = null
@@ -52,7 +49,7 @@ namespace Tessin.Bladerunner.Controls
             _contentFormatter = formatter ?? new DefaultContentFormatter();
 
             this.AddClass("matrix");
-            
+
             var cols = cells.AsQueryable().GroupBy(colExpr).Select(e => e.Key).Distinct().ToList();
             var rows = cells.AsQueryable().GroupBy(rowExpr).Select(e => e.Key).Distinct().ToList();
 

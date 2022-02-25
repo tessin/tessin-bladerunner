@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using LINQPad;
+using System;
 using System.Threading.Tasks;
-using LINQPad;
 
 namespace Tessin.Bladerunner.Controls
 {

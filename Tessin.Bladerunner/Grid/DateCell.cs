@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LINQPad.Controls;
+﻿using LINQPad.Controls;
+using System;
 
 namespace Tessin.Bladerunner.Grid
 {
@@ -17,7 +15,7 @@ namespace Tessin.Bladerunner.Grid
         public Control Render(object value, GridColumn<T> column, T _)
         {
             if (value == null) return new Literal("-");
-            
+
             var _value = Convert.ToDateTime(value);
 
             return new Literal(_value.ToString(_format));

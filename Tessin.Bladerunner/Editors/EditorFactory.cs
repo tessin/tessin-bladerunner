@@ -8,7 +8,7 @@ namespace Tessin.Bladerunner.Editors
 {
     public class EditorFactory<T>
     {
-        
+
         public IFieldEditor<T> Text(bool multiLine = false, bool fixedFont = false)
         {
             return new TextEditor<T>(multiLine, fixedFont);
@@ -19,7 +19,7 @@ namespace Tessin.Bladerunner.Editors
             return new CodeEditor<T>(language);
         }
 
-        public IFieldEditor<T> Literal() 
+        public IFieldEditor<T> Literal()
         {
             return new LiteralEditor<T>();
         }
@@ -44,14 +44,14 @@ namespace Tessin.Bladerunner.Editors
             return new NumberEditor<T>(decimals);
         }
 
-        public IFieldEditor<T> Link(Func<T,string> fetchUrl)
+        public IFieldEditor<T> Link(Func<T, string> fetchUrl)
         {
             return new LinkEditor<T>(fetchUrl);
         }
 
         public IFieldEditor<T> Link(Action<T> onAction)
         {
-            return new LinkEditor<T>( onAction);
+            return new LinkEditor<T>(onAction);
         }
 
         public IFieldEditor<T> Link()
@@ -104,7 +104,7 @@ namespace Tessin.Bladerunner.Editors
                         ? attribute.Description
                         : null
                 ),
-                (name, descr) => new Option(descr??name, name));
+                (name, descr) => new Option(descr ?? name, name));
 
             return new SelectEditor<T>(options.ToArray());
         }

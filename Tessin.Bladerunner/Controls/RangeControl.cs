@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tessin.Bladerunner.Controls
+﻿namespace Tessin.Bladerunner.Controls
 {
     public class RangeControl : LINQPad.Controls.RangeControl
     {

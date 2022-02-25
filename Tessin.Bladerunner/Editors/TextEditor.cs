@@ -1,13 +1,9 @@
-﻿using System;
+﻿using LINQPad;
+using LINQPad.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
-using System.Reflection;
-using LINQPad;
-using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
-using TextArea = LINQPad.Controls.TextArea;
-using TextBox = LINQPad.Controls.TextBox;
 
 namespace Tessin.Bladerunner.Editors
 {
@@ -48,7 +44,7 @@ namespace Tessin.Bladerunner.Editors
             {
                 _textBox = new Controls.TextArea(value);
                 _textBox.Styles["width"] = "-webkit-fill-available";
-                ((Controls.TextArea) _textBox).TextInput += (sender, args) => updated();
+                ((Controls.TextArea)_textBox).TextInput += (sender, args) => updated();
             }
             else
             {
@@ -64,9 +60,9 @@ namespace Tessin.Bladerunner.Editors
             _textBox.Enabled = editorFieldInfo.Enabled;
 
             return _field = new Field(
-                editorFieldInfo.Label, 
-                _textBox, 
-                editorFieldInfo.Description, 
+                editorFieldInfo.Label,
+                _textBox,
+                editorFieldInfo.Description,
                 editorFieldInfo.Helper,
                 editorFieldInfo.Required
             );
@@ -76,7 +72,7 @@ namespace Tessin.Bladerunner.Editors
         {
             string value = (string)_textBox.GetType().GetProperty("Text").GetValue(_textBox);
 
-            if(_trim)
+            if (_trim)
             {
                 value = value.Trim();
             }

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Threading.Tasks;
-using LINQPad;
+﻿using LINQPad;
 using LINQPad.Controls;
-using LINQPad.Controls.Core;
+using System;
+using System.Linq;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -41,7 +36,7 @@ namespace Tessin.Bladerunner.Controls
                     this.HtmlElement.SetAttribute("title", tooltip);
                 }
 
-                if(!string.IsNullOrEmpty(svgIcon))
+                if (!string.IsNullOrEmpty(svgIcon))
                 {
                     var divIcon = new Div();
                     divIcon.SetClass("menu-button--icon");
@@ -49,7 +44,7 @@ namespace Tessin.Bladerunner.Controls
                     this.VisualTree.Add(divIcon);
                 }
 
-                if(label is string stringLabel)
+                if (label is string stringLabel)
                 {
                     this.VisualTree.Add(new Span(stringLabel));
                 }

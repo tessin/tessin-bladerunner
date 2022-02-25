@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using LINQPad;
+﻿using LINQPad;
 using LINQPad.Controls;
-using Tessin.Bladerunner.Controls;
+using System;
+using System.Threading.Tasks;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -52,7 +49,7 @@ namespace Tessin.Bladerunner.Controls
 
         private readonly DebounceDispatcher _debounceDispatcher;
 
-        public RefreshPanel(object[] controls, Func<Task<object>> onRefreshAsync, int debounceInterval = 250, bool addPadding = true) 
+        public RefreshPanel(object[] controls, Func<Task<object>> onRefreshAsync, int debounceInterval = 250, bool addPadding = true)
             : this(controls, AnyTask.Factory<object>(onRefreshAsync), debounceInterval, addPadding)
         {
 
@@ -123,14 +120,14 @@ namespace Tessin.Bladerunner.Controls
                     {
                         filePicker.TextInput += (_, __) =>
                        {
-                            _Refresh();
+                           _Refresh();
                        };
                     }
                     else if (control is LINQPad.Controls.SelectBox selectBox)
                     {
                         selectBox.SelectionChanged += (_, __) =>
                         {
-                             _Refresh();
+                            _Refresh();
                         };
                     }
                 }
@@ -189,5 +186,5 @@ namespace Tessin.Bladerunner.Controls
                 }
             }
         }
-	}
+    }
 }

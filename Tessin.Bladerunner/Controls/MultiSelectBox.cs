@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
-using LINQPad;
+﻿using LINQPad;
 using LINQPad.Controls;
+using System;
+using System.Linq;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -13,7 +13,7 @@ namespace Tessin.Bladerunner.Controls
 
         private readonly DumpContainer _checkBoxContainer;
 
-        private int[] _selectedIndexes; 
+        private int[] _selectedIndexes;
 
         public MultiSelectBox(Option[] options, int[] selectedIndexes = null, Action<MultiSelectBox> onSelectionChanged = null)
         {
@@ -53,7 +53,7 @@ namespace Tessin.Bladerunner.Controls
                     Update();
                 }
             }
-		}
+        }
 
         public int[] SelectedIndexes
         {
@@ -84,7 +84,7 @@ namespace Tessin.Bladerunner.Controls
             if (Options != null)
             {
                 DetachCheckBoxes();
-                _checkBoxes = _options.Select((e,i) => new CheckBox(e.Label, isChecked: _selectedIndexes.Contains(i))).ToArray();
+                _checkBoxes = _options.Select((e, i) => new CheckBox(e.Label, isChecked: _selectedIndexes.Contains(i))).ToArray();
                 _checkBoxContainer.Content = Layout.Gap(false).Vertical(_checkBoxes);
                 AttachCheckBoxes();
             }

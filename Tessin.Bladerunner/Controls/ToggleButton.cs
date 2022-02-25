@@ -1,9 +1,6 @@
-﻿
-using System.Threading.Tasks;
+﻿using LINQPad.Controls;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using LINQPad.Controls;
+using System.Threading.Tasks;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -13,11 +10,11 @@ namespace Tessin.Bladerunner.Controls
 
         Control _checkBox;
 
-        public ToggleButton(bool state, Func<ToggleButton,Task> onUpdate, Action<Exception> onError = null, string onLabel = "", string offLabel = "")
+        public ToggleButton(bool state, Func<ToggleButton, Task> onUpdate, Action<Exception> onError = null, string onLabel = "", string offLabel = "")
         {
             this.SetClass("toggle-button");
             _checkBox = new Control("input");
-            _checkBox.HtmlElement.SetAttribute("type","checkbox");
+            _checkBox.HtmlElement.SetAttribute("type", "checkbox");
 
             Checked = state;
 

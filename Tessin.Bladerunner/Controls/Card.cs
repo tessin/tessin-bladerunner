@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LINQPad;
+﻿using LINQPad;
 using LINQPad.Controls;
+using System.Collections.Generic;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -22,7 +18,7 @@ namespace Tessin.Bladerunner.Controls
 
             List<Control> controls = new();
 
-            if(!string.IsNullOrEmpty(title))
+            if (!string.IsNullOrEmpty(title))
             {
                 var titleDiv = new Div(new Literal(title));
                 titleDiv.SetClass("card--title");

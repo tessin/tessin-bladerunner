@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Entity.ModelConfiguration.Configuration;
-using System.Linq;
-using System.Linq.Expressions;
-using LINQPad;
+﻿using LINQPad;
 using LINQPad.Controls;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Tessin.Bladerunner.Blades;
 using Tessin.Bladerunner.Controls;
 
@@ -60,13 +57,13 @@ namespace Tessin.Bladerunner
         internal bool _padding = false;
         internal bool? _fill = null;
         internal string _width = null;
-        internal string _height = "max-content"; 
+        internal string _height = "max-content";
         internal Orientation _orientation = Orientation.Vertical;
         internal HorizontalAlignment? _hAlignment = null;
         internal VerticalAlignment? _vAlignment = null;
         internal readonly List<Element> _elements = new();
         internal bool _containerPadding = true;
-        
+
 
         public LayoutBuilder Padding(bool padding)
         {
@@ -321,7 +318,7 @@ namespace Tessin.Bladerunner
             this.Styles["height"] = builder._height;
             this.Styles["width"] = builder._width ?? "max-content";
 
-            if(!string.IsNullOrEmpty(builder._class))
+            if (!string.IsNullOrEmpty(builder._class))
             {
                 this.SetClass(builder._class);
             }

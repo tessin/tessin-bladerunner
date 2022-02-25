@@ -1,11 +1,6 @@
-﻿using LINQPad.Controls;
+﻿using LINQPad;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LINQPad;
-using Tessin.Bladerunner.Grid;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -45,7 +40,7 @@ namespace Tessin.Bladerunner.Controls
             });
 
 
-            Fetch();    
+            Fetch();
             Update();
 
             this.ContentChanged += (sender, args) =>

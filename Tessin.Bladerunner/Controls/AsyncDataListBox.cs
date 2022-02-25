@@ -1,10 +1,8 @@
-﻿using System;
+﻿using LINQPad.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using LINQPad.Controls;
-using Tessin.Bladerunner.Editors;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -26,7 +24,7 @@ namespace Tessin.Bladerunner.Controls
 
         private readonly Dictionary<string, IEnumerable<Option>> _cache = new Dictionary<string, IEnumerable<Option>>();
 
-        public AsyncDataListBox(Func<string, Task<IEnumerable<Option>>> queryOptions, Func<object,Task<Option>> findOption = null,  int debounceInterval = 250, string placeholder = "Search")
+        public AsyncDataListBox(Func<string, Task<IEnumerable<Option>>> queryOptions, Func<object, Task<Option>> findOption = null, int debounceInterval = 250, string placeholder = "Search")
         {
             _debounceDispatcher = new DebounceDispatcher(debounceInterval);
             this.SetClass("async-data-list-box");

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Text;
-using LINQPad;
+﻿using LINQPad;
 using LINQPad.Controls;
+using System;
+using System.Linq;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -11,7 +9,7 @@ namespace Tessin.Bladerunner.Controls
     {
         private Div _divError;
 
-        public Field(string label, Control input, string description = "", Func<Control,object> helper = null, bool required = false)
+        public Field(string label, Control input, string description = "", Func<Control, object> helper = null, bool required = false)
         {
             this.Style = "width:-webkit-fill-available;";
 
@@ -23,7 +21,7 @@ namespace Tessin.Bladerunner.Controls
             var dcHelper = new DumpContainer();
 
             Span _description = null;
-            if(!string.IsNullOrEmpty(description))
+            if (!string.IsNullOrEmpty(description))
             {
                 _description = new Span("");
                 _description.HtmlElement.SetAttribute("title", description);
@@ -33,7 +31,7 @@ namespace Tessin.Bladerunner.Controls
             Span _label = new Span(label + (required ? "*" : ""));
             _label.SetClass("field--header-label");
 
-            var divHeader = new Div((new Control[] {_label, _description, dcHelper }).Where(e => e != null).ToArray());
+            var divHeader = new Div((new Control[] { _label, _description, dcHelper }).Where(e => e != null).ToArray());
             divHeader.SetClass("field--header");
 
             if (helper != null)
@@ -56,7 +54,7 @@ namespace Tessin.Bladerunner.Controls
 
         public void SetError(string message)
         {
-            _divError.HtmlElement.InnerText = message; 
+            _divError.HtmlElement.InnerText = message;
         }
     }
 }

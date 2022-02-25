@@ -1,7 +1,6 @@
-﻿using System;
+﻿using LINQPad.Controls;
+using System;
 using System.Linq;
-using LINQPad;
-using LINQPad.Controls;
 using Tessin.Bladerunner;
 using Tessin.Bladerunner.Blades;
 using Tessin.Bladerunner.Controls;

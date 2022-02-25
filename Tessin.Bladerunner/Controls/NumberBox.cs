@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using LINQPad;
+﻿using LINQPad;
+using System;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -29,10 +23,10 @@ namespace Tessin.Bladerunner.Controls
                 return input;
             }
 
-            return TrimDecimalZeros(initialValue?.ToString("N"+decimals) ?? "");
+            return TrimDecimalZeros(initialValue?.ToString("N" + decimals) ?? "");
         }
 
-        public NumberBox(double? initialValue = null, int decimals = 0, string width = "-webkit-fill-available", Action<LINQPad.Controls.TextBox> onTextInput = null) 
+        public NumberBox(double? initialValue = null, int decimals = 0, string width = "-webkit-fill-available", Action<LINQPad.Controls.TextBox> onTextInput = null)
             : base(FormatNumber(initialValue, decimals), width, onTextInput)
         {
             this.HtmlElement.SetAttribute("onkeyup", $"NumberBoxOnChange(event,{decimals})");

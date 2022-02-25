@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LINQPad;
-using LINQPad.Controls;
-
-namespace Tessin.Bladerunner.Blades
+﻿namespace Tessin.Bladerunner.Blades
 {
     public class DisplayBlade : IBladeRenderer
     {

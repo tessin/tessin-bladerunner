@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LINQPad;
+﻿using LINQPad;
 using LINQPad.Controls;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Tessin.Bladerunner.Blades;
-using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner
 {
@@ -50,7 +47,7 @@ namespace Tessin.Bladerunner
         public static T RemoveClass<T>(this T control, string @class) where T : Control
         {
             var current = GetClass(control);
-            if(current != null)
+            if (current != null)
             {
                 control.SetClass(string.Join(" ", current.Split(' ').Where(e => e != @class).ToArray()));
             }

@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using LINQPad;
-using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Grid
 {
@@ -50,9 +46,9 @@ namespace Tessin.Bladerunner.Grid
 
         public string Width { get; set; } = "0%";
 
-        public CellAlignment CellAlignment { get; set;  }
+        public CellAlignment CellAlignment { get; set; }
 
-        public Func<IEnumerable<T>,object> SummaryMethod { get; set; } 
+        public Func<IEnumerable<T>, object> SummaryMethod { get; set; }
 
         public object GetValue(T obj)
         {

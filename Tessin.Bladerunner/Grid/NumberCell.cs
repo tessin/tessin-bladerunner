@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LINQPad.Controls;
+﻿using LINQPad.Controls;
+using System;
 
 namespace Tessin.Bladerunner.Grid
 {
@@ -20,7 +18,7 @@ namespace Tessin.Bladerunner.Grid
 
             var _value = Convert.ToDouble(value);
 
-            if(_value == 0) return new Literal("-");
+            if (_value == 0) return new Literal("-");
 
             return new Literal(_value.ToString(_format));
         }

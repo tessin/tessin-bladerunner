@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Reflection;
-using LINQPad;
-using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors

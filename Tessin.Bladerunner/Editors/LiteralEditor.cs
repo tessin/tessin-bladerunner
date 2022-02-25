@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using LINQPad;
+﻿using LINQPad;
 using LINQPad.Controls;
+using System;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors
@@ -13,7 +10,7 @@ namespace Tessin.Bladerunner.Editors
         private Field _field;
 
         private DumpContainer _dumpContainer = new DumpContainer();
-        
+
         private IContentFormatter _contentFormatter = new DefaultContentFormatter();
 
         public void Update(object value)

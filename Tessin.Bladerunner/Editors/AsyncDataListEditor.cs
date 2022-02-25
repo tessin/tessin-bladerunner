@@ -1,10 +1,8 @@
-﻿using System;
+﻿using LINQPad;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
-using LINQPad;
-using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors
@@ -17,7 +15,7 @@ namespace Tessin.Bladerunner.Editors
         private Field _field;
 
         public AsyncDataListEditor(
-            Func<string, Task<IEnumerable<Option>>> queryOptions, 
+            Func<string, Task<IEnumerable<Option>>> queryOptions,
             Func<object, Task<Option>> findOption = null)
         {
             _queryOptions = queryOptions;
@@ -41,7 +39,7 @@ namespace Tessin.Bladerunner.Editors
             {
                 _selectBox.SetValueAsync(value).GetAwaiter().GetResult();
             }
-            
+
             _selectBox.Updated += (_) => preview();
 
             return _field = new Field(editorFieldInfo.Label, _selectBox, editorFieldInfo.Description, editorFieldInfo.Helper, editorFieldInfo.Required);

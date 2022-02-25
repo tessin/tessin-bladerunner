@@ -19,7 +19,7 @@
         }
 
 
-        public Option(string label) : this(label, label,null)
+        public Option(string label) : this(label, label, null)
         {
         }
 

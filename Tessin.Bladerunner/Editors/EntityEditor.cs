@@ -1,11 +1,10 @@
-﻿using System;
+﻿using LINQPad;
+using LINQPad.Controls;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using LINQPad;
-using LINQPad.Controls;
 using Tessin.Bladerunner.Alerts;
 using Tessin.Bladerunner.Controls;
 

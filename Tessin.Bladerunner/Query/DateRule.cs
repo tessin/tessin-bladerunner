@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LINQPad.Controls;
+using System;
 using System.Linq.Expressions;
-using System.Text;
-using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Query
 {
@@ -62,7 +60,7 @@ namespace Tessin.Bladerunner.Query
                 Width = "10em",
                 SelectedOption = _operator
             };
-            txtOperator.SelectionChanged += (_, __) => { _operator = (string) txtOperator.SelectedOption; };
+            txtOperator.SelectionChanged += (_, __) => { _operator = (string)txtOperator.SelectedOption; };
 
             var txtValue = new TextBox()
             {

@@ -3,8 +3,6 @@ using LINQPad.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -21,7 +19,7 @@ namespace Tessin.Bladerunner.Controls
 
         public RadioButtons(object selectedValue, Func<IEnumerable<Control>, object> layout, params Option[] options)
         {
-            if(selectedValue == null)
+            if (selectedValue == null)
             {
                 selectedValue = options[0].Value;
             }

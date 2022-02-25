@@ -1,9 +1,6 @@
-﻿using System;
+﻿using LINQPad.Controls;
+using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
-using System.Xml.Schema;
-using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
 using Hyperlink = LINQPad.Controls.Hyperlink;
 
@@ -33,7 +30,7 @@ namespace Tessin.Bladerunner
 
         public TypographyBuilder MaxWidth(int value)
         {
-            return MaxWidth(value+"px");
+            return MaxWidth(value + "px");
         }
 
         public TypographyBuilder MaxWidth(string value)

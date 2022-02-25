@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LINQPad.Controls;
+using System;
 using System.Linq.Expressions;
-using System.Text;
-using System.Xml;
-using LINQPad;
-using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Query
 {
-	public class NumberRule<T,TNumeric> : IQueryRule<T>
+    public class NumberRule<T, TNumeric> : IQueryRule<T>
     {
         private readonly string[] _operators = new[]
         {
@@ -70,7 +66,8 @@ namespace Tessin.Bladerunner.Query
                 Width = "10em",
                 SelectedOption = _operator
             };
-            txtOperator.SelectionChanged += (_, __) => {
+            txtOperator.SelectionChanged += (_, __) =>
+            {
                 _operator = (string)txtOperator.SelectedOption;
             };
 
@@ -79,10 +76,11 @@ namespace Tessin.Bladerunner.Query
                 Width = "10em",
                 Text = _value.ToString()
             };
-            txtValue.TextInput += (_, __) => {
+            txtValue.TextInput += (_, __) =>
+            {
                 try
                 {
-                    _value = (TNumeric) Convert.ChangeType(txtValue.Text, typeof(TNumeric));
+                    _value = (TNumeric)Convert.ChangeType(txtValue.Text, typeof(TNumeric));
                 }
                 catch (Exception)
                 {

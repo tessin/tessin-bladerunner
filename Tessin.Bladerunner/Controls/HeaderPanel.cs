@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LINQPad;
+﻿using LINQPad;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Blades;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class HeaderPanel : Div, INoContainerPadding 
+    public class HeaderPanel : Div, INoContainerPadding
     {
         public HeaderPanel(object header, object body, string width = null)
         {
@@ -18,7 +15,7 @@ namespace Tessin.Bladerunner.Controls
                 this.Styles["width"] = width;
             }
 
-            var dcHeader = new DumpContainer {Content = header};
+            var dcHeader = new DumpContainer { Content = header };
             var divHeader = new Div(dcHeader);
             divHeader.SetClass("header-panel--header");
 

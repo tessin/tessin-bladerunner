@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LINQPad;
+using System;
 using System.Linq;
-using System.Text;
-using LINQPad;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Blades
@@ -24,9 +22,11 @@ namespace Tessin.Bladerunner.Blades
         {
             var searchBox = new SearchBox();
 
-            var refreshContainer = new RefreshPanel(new[] { searchBox }, () => {
+            var refreshContainer = new RefreshPanel(new[] { searchBox }, () =>
+            {
                 return new Menu(
-                    _options.Where(e => e.Label.StartsWith(searchBox.Text)).Select(e => new MenuButton(e.Label, (_) => {
+                    _options.Where(e => e.Label.StartsWith(searchBox.Text)).Select(e => new MenuButton(e.Label, (_) =>
+                    {
                         _onSelect(e);
                     })).ToArray()
                 );

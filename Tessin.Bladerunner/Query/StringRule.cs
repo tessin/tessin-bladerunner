@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LINQPad.Controls;
+using System;
 using System.Linq.Expressions;
-using System.Text;
-using LINQPad;
-using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Query
 {
-	public class StringRule<T> : IQueryRule<T>
+    public class StringRule<T> : IQueryRule<T>
     {
         private string[] operators = new[]
         {
@@ -65,7 +62,8 @@ namespace Tessin.Bladerunner.Query
                 Width = "10em",
                 SelectedOption = _operator
             };
-            txtOperator.SelectionChanged += (_, __) => {
+            txtOperator.SelectionChanged += (_, __) =>
+            {
                 _operator = (string)txtOperator.SelectedOption;
             };
 
@@ -74,7 +72,8 @@ namespace Tessin.Bladerunner.Query
                 Width = "10em",
                 Text = _value
             };
-            txtValue.TextInput += (_, __) => {
+            txtValue.TextInput += (_, __) =>
+            {
                 _value = txtValue.Text;
             };
 

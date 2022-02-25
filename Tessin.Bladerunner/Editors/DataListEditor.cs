@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using LINQPad;
-using LINQPad.Controls;
+﻿using LINQPad.Controls;
+using System;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors
@@ -40,7 +36,7 @@ namespace Tessin.Bladerunner.Editors
 
             _dataListBox.TextInput += (sender, args) => preview();
 
-            _dataListBox.Enabled =  editorField.Enabled;
+            _dataListBox.Enabled = editorField.Enabled;
 
             return _field = new Field(editorField.Label, _dataListBox, editorField.Description, editorField.Helper, editorField.Required);
         }

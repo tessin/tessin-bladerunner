@@ -1,14 +1,13 @@
 ﻿using LINQPad;
 using LINQPad.Controls;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Tessin.Bladerunner.Blades
 {
     public class Popover : Div
     {
-        static Popover() {
+        static Popover()
+        {
             Util.HtmlHead.AddScript(Javascript.Popover);
         }
 

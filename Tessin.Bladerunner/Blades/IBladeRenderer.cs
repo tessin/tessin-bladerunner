@@ -2,6 +2,6 @@
 {
     public interface IBladeRenderer
     {
-        object Render(Blade blade);	
+        object Render(Blade blade);
     }
 }

@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -19,7 +14,7 @@ namespace Tessin.Bladerunner.Controls
         }
     }
 
-    public class _PropertyListBuilder<T> 
+    public class _PropertyListBuilder<T>
     {
         private object _obj;
 

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using LINQPad.Controls;
 using Tessin.Bladerunner.Blades;
 using Tessin.Bladerunner.Controls;
 using Tessin.Bladerunner.Editors;
@@ -100,7 +98,7 @@ namespace Tessin.Bladerunner.Alerts
 
             ShowEditor(editor, (action) =>
             {
-                onClose?.Invoke(action, entity.Value);       
+                onClose?.Invoke(action, entity.Value);
             });
         }
 
@@ -136,7 +134,7 @@ namespace Tessin.Bladerunner.Alerts
                         onClose?.Invoke(aa);
                         break;
                     case bool b:
-                        onClose?.Invoke(b ? AlertAction.Ok :  AlertAction.Cancel);
+                        onClose?.Invoke(b ? AlertAction.Ok : AlertAction.Cancel);
                         break;
                 }
             }, _title);
@@ -163,11 +161,11 @@ namespace Tessin.Bladerunner.Alerts
                 return this.AlertResult == AlertResult.Ok;
             }
 
-            public AlertResult AlertResult { get; set;  }
+            public AlertResult AlertResult { get; set; }
 
             public string Label { get; set; }
 
-            public bool IsPrimary { get; set;  }
+            public bool IsPrimary { get; set; }
         }
 
         public class AlertBlade : IBladeRenderer

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LINQPad.Controls;
-using LINQPad.Controls.Core;
+﻿using LINQPad.Controls;
+using System;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -16,7 +13,7 @@ namespace Tessin.Bladerunner.Controls
 
         //private Hyperlink _externalOpen;
 
-        public SearchBox(string initialText = "", string placeholder= "Search", ContextMenu contextMenu = null)
+        public SearchBox(string initialText = "", string placeholder = "Search", ContextMenu contextMenu = null)
         {
             _textBox = new TextBox(initialText);
             if (!string.IsNullOrEmpty(placeholder))
@@ -73,7 +70,7 @@ namespace Tessin.Bladerunner.Controls
             get => _textBox.Text;
             set => _textBox.Text = value;
         }
-        
+
         public event EventHandler TextInput;
     }
 }

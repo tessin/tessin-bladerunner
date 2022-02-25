@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tessin.Bladerunner.Grid;
 
 namespace Tessin.Bladerunner.Controls
@@ -33,7 +31,7 @@ namespace Tessin.Bladerunner.Controls
                     linq = linq.Where(predicate(searchText));
                 }
 
-                if(linq.Any())
+                if (linq.Any())
                 {
                     return new EntityGrid<T>(linq).Render();
                 }

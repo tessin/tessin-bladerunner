@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
-using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Query
 {
-	public class BoolRule<T> : IQueryRule<T>
+    public class BoolRule<T> : IQueryRule<T>
     {
         public int RuleIndex { get; set; }
 

@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LINQPad.Controls;
+using System;
 using System.Linq.Expressions;
-using System.Text;
-using LINQPad;
-using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Query
 {
-	public class SelectRule<T> : IQueryRule<T>
+    public class SelectRule<T> : IQueryRule<T>
     {
 
         public int RuleIndex { get; set; }
@@ -36,7 +33,8 @@ namespace Tessin.Bladerunner.Query
         public object Render(QueryBuilder<T> builder)
         {
             var lstOptions = new SelectBox(SelectBoxKind.DropDown, _options, 0,
-                (lst) => { _value = (string) lst.SelectedOption; }) {Width = "20em", SelectedOption = _value};
+                (lst) => { _value = (string)lst.SelectedOption; })
+            { Width = "20em", SelectedOption = _value };
             return Layout.Horizontal(lstOptions);
         }
     }

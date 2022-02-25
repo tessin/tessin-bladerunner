@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Mapping;
-using System.Text;
-using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -17,13 +13,13 @@ namespace Tessin.Bladerunner.Controls
 
             this.Enabled = enabled;
 
-            this.AddClass("theme-"+Utils.SplitCamelCase(theme.ToString()).Replace(" ", "-").ToLower());
+            this.AddClass("theme-" + Utils.SplitCamelCase(theme.ToString()).Replace(" ", "-").ToLower());
 
             if (onClick != null)
             {
                 Click += delegate
                 {
-                    if(Validate==null || Validate())
+                    if (Validate == null || Validate())
                     {
                         onClick(obj);
                     }

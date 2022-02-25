@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LINQPad;
+using System;
 using System.Diagnostics;
-using System.Text;
-using LINQPad;
 
 namespace Tessin.Bladerunner
 {
-	public class Measure : IDisposable
+    public class Measure : IDisposable
     {
         private readonly string _label;
         private readonly Stopwatch _stopWatch;

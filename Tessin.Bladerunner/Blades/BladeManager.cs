@@ -1,12 +1,12 @@
-﻿using System;
+﻿using LINQPad;
+using LINQPad.Controls;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using LINQPad;
-using LINQPad.Controls;
 using Tessin.Bladerunner.Alerts;
 using Tessin.Bladerunner.Controls;
 
@@ -30,7 +30,7 @@ namespace Tessin.Bladerunner.Blades
         private readonly int _maxDepth;
 
         private readonly string _cssPath;
-        
+
         private readonly bool _cssHotReloading;
 
         public bool ShowDebugButton { get; }
@@ -151,7 +151,7 @@ namespace Tessin.Bladerunner.Blades
 
         public Toaster ShowToaster(string content, string icon = null, int timeout = 3000, ToasterType type = ToasterType.Normal)
         {
-            if(icon == null)
+            if (icon == null)
             {
                 _toaster.Show(new LINQPad.Controls.Literal(content), timeout, type);
             }
@@ -159,7 +159,7 @@ namespace Tessin.Bladerunner.Blades
             {
                 _toaster.Show(Layout.Middle().Horizontal(new Icon(icon), new LINQPad.Controls.Literal(content)), timeout, type);
             }
-            
+
             return _toaster;
         }
 
@@ -171,9 +171,9 @@ namespace Tessin.Bladerunner.Blades
 
         public void PopTo(int index, bool refresh)
         {
-            while(_stack.Count()-1 > index)
+            while (_stack.Count() - 1 > index)
             {
-                var blade =_stack.Pop();
+                var blade = _stack.Pop();
                 blade.Clear();
             }
             if (refresh)
@@ -205,7 +205,7 @@ namespace Tessin.Bladerunner.Blades
         {
             var div = new Div(blades).SetClass("blade-wrapper");
             _divSideBlade = SideBlade(_sideBladeContainer);
-            
+
             _divBladeManager = new Div(_styleManager.Init(_cssPath, _cssHotReloading), div, _overlay, _divSideBlade, _progressDisplay, _popover, _toaster);
 
             return _divBladeManager;
@@ -235,7 +235,7 @@ namespace Tessin.Bladerunner.Blades
         {
             var tempPath = Path.GetTempFileName() + ".html";
             File.WriteAllText(tempPath, _divBladeManager.HtmlElement.InnerHtml);
-            var psi = new System.Diagnostics.ProcessStartInfo {UseShellExecute = true, FileName = tempPath};
+            var psi = new System.Diagnostics.ProcessStartInfo { UseShellExecute = true, FileName = tempPath };
             Process.Start(psi);
         }
     }

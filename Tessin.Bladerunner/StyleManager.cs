@@ -20,9 +20,9 @@ namespace Tessin.Bladerunner
             Control style;
 
             bool debug = false;
-            #if DEBUG
+#if DEBUG
             debug = true;
-            #endif
+#endif
 
             if (debug && !string.IsNullOrEmpty(cssPath) && Directory.Exists(Path.GetDirectoryName(cssPath)))
             {
@@ -56,7 +56,7 @@ namespace Tessin.Bladerunner
                         }
                         catch (Exception)
                         {
-                           // ignore
+                            // ignore
                         }
                     };
                     _watcher.EnableRaisingEvents = true;

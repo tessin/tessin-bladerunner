@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LINQPad.Controls;
+using System;
 using System.Linq.Expressions;
-using System.Text;
-using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Query
 {
-	public class GuidRule<T> : IQueryRule<T>
+    public class GuidRule<T> : IQueryRule<T>
     {
         public int RuleIndex { get; set; }
 
@@ -37,7 +35,7 @@ namespace Tessin.Bladerunner.Query
             };
             txtValue.TextInput += (_, __) =>
             {
-                if(Guid.TryParse(txtValue.Text, out Guid guid))
+                if (Guid.TryParse(txtValue.Text, out Guid guid))
                 {
                     _value = guid;
                 }

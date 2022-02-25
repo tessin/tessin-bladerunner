@@ -1,25 +1,24 @@
-﻿using System;
+﻿using LINQPad.Controls;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Text.RegularExpressions;
-using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Editors
 {
     public class EditorField<T>
     {
         public EditorField(
-            string name, 
-            string label, 
-            int order, 
-            IFieldEditor<T> editor, 
-            FieldInfo fieldInfo = null, 
+            string name,
+            string label,
+            int order,
+            IFieldEditor<T> editor,
+            FieldInfo fieldInfo = null,
             PropertyInfo propertyInfo = null)
         {
             Name = name;
             Label = Utils.SplitCamelCase(label);
 
-            if(!name.EndsWith("GovId") && name!="Id" && name.EndsWith("Id"))
+            if (!name.EndsWith("GovId") && name != "Id" && name.EndsWith("Id"))
             {
                 Label = Label.Substring(0, Label.Length - 3);
             }
@@ -42,7 +41,7 @@ namespace Tessin.Bladerunner.Editors
 
         public FieldInfo FieldInfo { get; set; }
 
-        public PropertyInfo PropertyInfo { get; set;  }
+        public PropertyInfo PropertyInfo { get; set; }
 
         public Type Type => FieldInfo?.FieldType ?? PropertyInfo?.PropertyType;
 

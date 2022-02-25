@@ -1,7 +1,5 @@
-﻿using System;
+﻿using LINQPad.Controls;
 using System.Collections.Generic;
-using System.Text;
-using LINQPad.Controls;
 using Tessin.Bladerunner.Blades;
 
 namespace Tessin.Bladerunner.Controls
@@ -9,7 +7,7 @@ namespace Tessin.Bladerunner.Controls
     public class Menu : Div, INoContainerPadding
     {
         internal Menu(IEnumerable<Control> children) : base(children)
-        { 
+        {
             this.SetClass("menu");
         }
 

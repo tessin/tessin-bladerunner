@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using LINQPad;
+﻿using LINQPad;
 using LINQPad.Controls;
+using System;
+using System.Threading;
 
 namespace Tessin.Bladerunner.Blades
 {
@@ -125,7 +123,7 @@ namespace Tessin.Bladerunner.Blades
 
         internal void SetTitle(string title)
         {
-            _divTitle.HtmlElement.InnerText = title??"";
+            _divTitle.HtmlElement.InnerText = title ?? "";
         }
 
         internal void Close()

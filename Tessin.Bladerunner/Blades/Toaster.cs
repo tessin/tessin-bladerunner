@@ -1,8 +1,6 @@
 ﻿using LINQPad;
 using LINQPad.Controls;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Blades
@@ -16,7 +14,8 @@ namespace Tessin.Bladerunner.Blades
 
     public class Toaster : Div
     {
-        static Toaster() {
+        static Toaster()
+        {
             Util.HtmlHead.AddScript(Javascript.Toaster);
         }
 

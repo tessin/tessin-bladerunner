@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LINQPad.Controls;
-using Tessin.Bladerunner.Editors;
+﻿using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Grid
 {
-    public interface ICellRenderer<T> 
+    public interface ICellRenderer<T>
     {
         Control Render(object value, GridColumn<T> column, T row);
     }
