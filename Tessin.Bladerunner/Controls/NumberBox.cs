@@ -38,5 +38,17 @@ namespace Tessin.Bladerunner.Controls
             }
             */
         }
+
+        public double? Value {
+            get
+            {
+                if (string.IsNullOrEmpty(this.Text)) return null;
+                if (double.TryParse(this.Text, out var result))
+                {
+                    return result;
+                }
+                return null;
+            }
+        }
     }
 }

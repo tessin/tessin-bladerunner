@@ -15,7 +15,7 @@ void Main()
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
 	
-	manager.PushBlade(Blade1(), "RadioButtons");
+	manager.Push(Blade1(), "RadioButtons");
 	
 }
 
@@ -34,7 +34,7 @@ static IBladeRenderer Blade1()
 		
 		var chk = new CheckBox("Test");
 		
-		RefreshPanel rc = new RefreshPanel(new [] {rbs}, () => {
+		RefreshPanel rc = new RefreshPanel(new object[] {rbs,chk}, () => {
 			return rbs.SelectedOption;
 		});
 		
