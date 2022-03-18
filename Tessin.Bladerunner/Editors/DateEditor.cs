@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Reflection.Metadata;
+using System.Runtime.Serialization;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors
@@ -55,7 +57,7 @@ namespace Tessin.Bladerunner.Editors
         public void Save(T obj, EditorField<T> editorField)
         {
             var type = editorField.Type;
-            if ((Nullable.GetUnderlyingType(editorField.Type) is Type ut))
+            if ((Nullable.GetUnderlyingType(editorField.Type) is { } ut))
             {
                 if (string.IsNullOrEmpty(_dateBox.Text))
                 {
@@ -65,13 +67,16 @@ namespace Tessin.Bladerunner.Editors
                 type = ut;
             }
 
-            if (type == typeof(DateTimeOffset))
+            try
             {
-                editorField.SetValue(obj, DateTimeOffset.Parse(_dateBox.Text));
+                editorField.SetValue(obj,
+                    type == typeof(DateTimeOffset)
+                        ? DateTimeOffset.Parse(_dateBox.Text)
+                        : DateTime.Parse(_dateBox.Text));
             }
-            else
+            catch (Exception)
             {
-                editorField.SetValue(obj, DateTime.Parse(_dateBox.Text));
+                //ignore
             }
         }
 

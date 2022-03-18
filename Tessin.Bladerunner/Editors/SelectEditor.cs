@@ -28,7 +28,7 @@ namespace Tessin.Bladerunner.Editors
 
             var options = GetOptions(editorFieldInfo);
 
-            var selectedOption = options.Where(e => e.Value == value).Select(e => e.Label).FirstOrDefault();
+            var selectedOption = options.Where(e => Equals(e.Value,value)).Select(e => e.Label).FirstOrDefault();
 
             _selectBox = new Controls.SelectBox(options.Select(e => e.Label).ToArray())
             {

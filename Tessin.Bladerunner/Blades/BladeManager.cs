@@ -149,15 +149,15 @@ namespace Tessin.Bladerunner.Blades
             return _toaster;
         }
 
-        public Toaster ShowToaster(string content, string icon = null, int timeout = 3000, ToasterType type = ToasterType.Normal)
+        public Toaster ShowToaster(object content, string icon = null, int timeout = 3000, ToasterType type = ToasterType.Normal)
         {
             if (icon == null)
             {
-                _toaster.Show(new LINQPad.Controls.Literal(content), timeout, type);
+                _toaster.Show(Layout.Horizontal(content), timeout, type);
             }
             else
             {
-                _toaster.Show(Layout.Middle().Horizontal(new Icon(icon), new LINQPad.Controls.Literal(content)), timeout, type);
+                _toaster.Show(Layout.Middle().Horizontal(new Icon(icon), content, timeout, type));
             }
 
             return _toaster;

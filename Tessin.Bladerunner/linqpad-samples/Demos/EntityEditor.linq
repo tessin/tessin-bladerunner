@@ -77,9 +77,26 @@ void Main()
 				.Render();
 
 			manager.OpenSideBlade(new DisplayBlade(editor), title: "Number");
+		}),
+		new ActionNode("Date", () =>
+		{
+			var record = new DateRecord();
+
+			var editor = new EntityEditor<DateRecord>(record, (_) => { })
+				.Required(e => e.Date)
+				.Render();
+
+			manager.OpenSideBlade(new DisplayBlade(editor), title: "Date");
 		})
 	))
 	, "Editors");
+}
+
+
+public class DateRecord
+{
+	public DateTime? Date { get; set; }
+	public DateTime DateRequired { get; set; } = DateTime.UtcNow;
 }
 
 public class TextRecord
@@ -98,8 +115,8 @@ public class FileRecord
 
 public class SelectRecord
 {
-	public int? Select { get; set; }
-	public int SelectRequired { get; set; }
+	public int? Select { get; set; } = 2;
+	public int SelectRequired { get; set; } = 2;
 }
 
 public class NumberRecord
