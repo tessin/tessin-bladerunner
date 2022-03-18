@@ -57,7 +57,7 @@ namespace Tessin.Bladerunner.Controls
             }
 
             var menu = new Div(new Control("ul",
-                _items.Select(RenderItem).ToArray())).SetClass("context-menu");
+                _items.Where(e => e != null).Select(RenderItem).ToArray())).SetClass("context-menu");
 
             portal = _bladeManager.ShowPopover(menu, _target.HtmlElement.ID);
         }
