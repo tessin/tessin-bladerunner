@@ -1,6 +1,4 @@
-﻿#nullable enable
-using LINQPad;
-using System;
+﻿using System;
 using System.Collections;
 using System.Linq;
 using Tessin.Bladerunner.Controls;
@@ -51,7 +49,7 @@ namespace Tessin.Bladerunner.Editors
         {
             var col = _selectBox.SelectedOptions.Select(e => ((Option)e).Value).ToList();
             var mi = typeof(Utils).GetMethod(nameof(Utils.ConvertFactory));
-            editorFieldInfo.SetValue(obj, mi.MakeGenericMethod(_elementType).Invoke(null, new object?[] { col }));
+            editorFieldInfo.SetValue(obj, mi.MakeGenericMethod(_elementType).Invoke(null, new object[] { col }));
         }
 
         public bool Validate(T obj, EditorField<T> editorFieldInfo)
