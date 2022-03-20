@@ -82,7 +82,11 @@ void Main()
 		{
 			var record = new DateRecord();
 
-			var editor = new EntityEditor<DateRecord>(record, (_) => { })
+			var editor = new EntityEditor<DateRecord>(record, (_) => {
+				
+					manager.ShowToaster(record);
+			
+				})
 				.Required(e => e.Date)
 				.Render();
 
