@@ -54,5 +54,10 @@ namespace Tessin.Bladerunner
         {
             this._task = task;
         }
+
+        public void OnResult(Action<object> cb)
+        {
+            this._task.ContinueWith(task => { cb(this.Result); });
+        }
     }
 }
