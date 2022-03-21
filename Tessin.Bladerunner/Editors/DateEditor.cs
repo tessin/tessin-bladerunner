@@ -32,7 +32,6 @@ namespace Tessin.Bladerunner.Editors
             }
             else if (_value is DateTimeOffset dto)
             {
-                //todo: is this safe?
                 value = dto.DateTime;
             }
             else if (_value is DateTime dt)
@@ -65,14 +64,21 @@ namespace Tessin.Bladerunner.Editors
                     return;
                 }
                 type = ut;
-            }
 
+                DateTime? selectedDate = _dateBox.SelectedDate;
+                if (selectedDate == null)
+                {
+                    editorField.SetValue(obj, null);
+                    return;
+                }
+
+                editorField.SetValue(obj, type == typeof(DateTimeOffset) ? new DateTimeOffset(selectedDate!.Value) : selectedDate!);
+                return;
+            }
             try
             {
-                editorField.SetValue(obj,
-                    type == typeof(DateTimeOffset)
-                        ? DateTimeOffset.Parse(_dateBox.Text)
-                        : DateTime.Parse(_dateBox.Text));
+                DateTime? selectedDate = _dateBox.SelectedDate;
+                editorField.SetValue(obj, type == typeof(DateTimeOffset) ? new DateTimeOffset(_dateBox.SelectedDate!.Value) : selectedDate!.Value);
             }
             catch (Exception)
             {
