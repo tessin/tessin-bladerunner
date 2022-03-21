@@ -20,7 +20,7 @@ namespace Tessin.Bladerunner.Controls
                 if (string.IsNullOrEmpty(this.Text)) return null;
                 if (DateTime.TryParse(this.Text, out var result))
                 {
-                    return result;
+                    return DateTime.SpecifyKind(result, DateTimeKind.Utc);
                 }
                 return null;
             }
