@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Tessin.Bladerunner.Alerts;
 using Tessin.Bladerunner.Controls;
 
@@ -62,6 +63,8 @@ namespace Tessin.Bladerunner.Blades
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((_, e) => ShowUnhandledException((Exception)e.ExceptionObject));
             LINQPad.Controls.Control.UnhandledException += new ThreadExceptionEventHandler((_, e) => ShowUnhandledException(e.Exception));
+            TaskScheduler.UnobservedTaskException +=
+                new EventHandler<UnobservedTaskExceptionEventArgs>((_, e) => ShowUnhandledException(e.Exception));
 
             _maxDepth = maxDepth;
             _cssPath = cssPath;
@@ -76,7 +79,7 @@ namespace Tessin.Bladerunner.Blades
             _toaster = new Toaster();
             _progressDisplay = new ProgressDisplay(_overlay);
             _containers = _panels.Select(Blade).ToArray();
-
+            
             Util.KeepRunning();
         }
 
