@@ -2,7 +2,6 @@
 using LINQPad.Controls;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Tessin.Bladerunner.Controls
 {
@@ -96,9 +95,7 @@ namespace Tessin.Bladerunner.Controls
 
                 if (pillTask != null)
                 {
-                    //_pillContainer.Content = Format(pillTask.Result);
-
-                    Task.Run(() => pillTask.Result).ContinueWith(e => { _pillContainer.Content = Format(e.Result); });
+                    pillTask.OnResult(result => { _pillContainer.Content = Format(result); });
                 }
                 else
                 {
