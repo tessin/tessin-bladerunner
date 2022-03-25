@@ -72,13 +72,28 @@ namespace Tessin.Bladerunner.Editors
                     return;
                 }
 
-                editorField.SetValue(obj, type == typeof(DateTimeOffset) ? new DateTimeOffset(selectedDate!.Value) : selectedDate!);
+                if (type == typeof(DateTimeOffset))
+                {
+                    editorField.SetValue(obj, new DateTimeOffset(selectedDate!.Value));
+                }
+                else
+                {
+                    editorField.SetValue(obj, selectedDate!.Value);
+                }
                 return;
             }
             try
             {
                 DateTime? selectedDate = _dateBox.SelectedDate;
-                editorField.SetValue(obj, type == typeof(DateTimeOffset) ? new DateTimeOffset(_dateBox.SelectedDate!.Value) : selectedDate!.Value);
+
+                if (type == typeof(DateTimeOffset))
+                {
+                    editorField.SetValue(obj, new DateTimeOffset(selectedDate!.Value));
+                }
+                else
+                {
+                    editorField.SetValue(obj, selectedDate!.Value);
+                }
             }
             catch (Exception)
             {

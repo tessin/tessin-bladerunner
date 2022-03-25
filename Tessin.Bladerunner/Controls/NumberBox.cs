@@ -29,7 +29,7 @@ namespace Tessin.Bladerunner.Controls
         public NumberBox(double? initialValue = null, int decimals = 0, string width = "-webkit-fill-available", Action<LINQPad.Controls.TextBox> onTextInput = null)
             : base(FormatNumber(initialValue, decimals), width, onTextInput)
         {
-            this.HtmlElement.SetAttribute("onkeyup", $"NumberBoxOnChange(event,{decimals})");
+            this.HtmlElement.SetAttribute("onfocusout", $"NumberBoxOnFocusOut(event,{decimals})");
             /*
             this.HtmlElement.SetAttribute("type", "number");
             if (decimals > 0)

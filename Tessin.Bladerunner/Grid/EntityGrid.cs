@@ -37,6 +37,7 @@ namespace Tessin.Bladerunner.Grid
         private Control _empty;
 
         private bool _removeEmptyColumns = false;
+        private Func<T, bool> _highlightRowPredicate;
 
         public EntityGrid(IEnumerable<T> rows, string width = null)
         {
@@ -164,9 +165,14 @@ namespace Tessin.Bladerunner.Grid
 
             TableRow RenderRow(T e)
             {
+                bool highlight = _highlightRowPredicate?.Invoke(e) ?? false;
+
                 var row = new TableRow(
                     columns.Select((f, i) => RenderCell(i, f, f.CellRenderer.Render(f.GetValue(e), f, e)))
                 );
+
+                if(highlight) row.AddClass("highlight");
+
                 _rowAction?.Invoke(e, row);
                 return row;
             }
@@ -339,6 +345,12 @@ namespace Tessin.Bladerunner.Grid
         public EntityGrid<T> RemoveEmptyColumns()
         {
             _removeEmptyColumns = true;
+            return this;
+        }
+
+        public EntityGrid<T> HighlightRow(Func<T, bool> predicate)
+        {
+            _highlightRowPredicate = predicate;
             return this;
         }
 

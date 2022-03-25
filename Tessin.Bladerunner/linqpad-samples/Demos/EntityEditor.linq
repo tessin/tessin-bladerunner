@@ -126,7 +126,30 @@ public class SelectRecord
 public class NumberRecord
 {
 	public int Int { get; set; }
-	public int? IntNullable { get; set; }
-	public double Double { get; set; } 
-	public double? DoubleNullable { get; set; }
+	public int? IntNullable { get; set; } = null;
+	public double Double { get; set; }
+	public double? DoubleNullable { get; set; } = null;
+	public decimal Decimal { get; set; }
+	public decimal? DecimalNullable { get; set; } = null;
+	public decimal Long { get; set; }
+	public decimal? LongNullable { get; set; } = null;
+	public decimal Test1 { get; set; } = 1_234_567.89m;
+	public decimal Test2 { get; set; } = 0.07m;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

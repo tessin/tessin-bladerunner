@@ -25,7 +25,10 @@ namespace Tessin.Bladerunner.Editors
 
         public object Render(T obj, EditorField<T> editorFieldInfo, Action preview)
         {
-            _numberBox = new NumberBox(Convert.ToDouble(editorFieldInfo.GetValue(obj)), _decimals) { };
+            object value = editorFieldInfo.GetValue(obj);
+            double? initialValue = value == null ? (double?)null : Convert.ToDouble(value);
+
+            _numberBox = new NumberBox(initialValue, _decimals) { };
 
             _numberBox.TextInput += (sender, args) => preview();
 

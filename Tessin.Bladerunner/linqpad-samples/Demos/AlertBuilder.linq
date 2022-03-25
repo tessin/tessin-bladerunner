@@ -13,7 +13,7 @@ static string body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. A
 
 void Main()
 {
-	//Debugger.Launch();
+	Debugger.Launch();
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
 	manager.PushBlade(Blade1());
@@ -80,7 +80,7 @@ static IBladeRenderer Blade1()
 						dc.Content = v;
 					}
 				});
-			})
+			}),
 			dc
 		);
 	});
