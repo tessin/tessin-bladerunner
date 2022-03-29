@@ -1,4 +1,8 @@
-﻿namespace Tessin.Bladerunner
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
+
+namespace Tessin.Bladerunner
 {
     public class Option
     {
@@ -32,6 +36,14 @@
         public override string ToString()
         {
             return Label;
+        }
+    }
+
+    public static class OptionExtensions
+    {
+        public static Option[] ToOptions(this IEnumerable<string> options)
+        {
+            return options.Select(e => new Option(e)).ToArray();
         }
     }
 }

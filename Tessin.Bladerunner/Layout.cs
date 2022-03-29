@@ -221,11 +221,10 @@ namespace Tessin.Bladerunner
                     control.Styles["width"] = "-webkit-fill-available";
                 }
 
-                var formatted = builder._formatter.Format(element._content);
+                var formatted = builder._formatter.Format(element._content); //todo: this will result in a lot of wrapped 
 
                 return formatted;
             }
-
 
             var children = builder._elements.Where(e => e._content != null).ToArray();
             var cn = children.Count();
@@ -262,6 +261,7 @@ namespace Tessin.Bladerunner
             this.Styles["box-sizing"] = "border-box";
 
             if (cn == 0) return;
+
             if (cn > 1)
             {
                 this.Styles["display"] = "grid";

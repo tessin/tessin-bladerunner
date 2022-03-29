@@ -17,10 +17,12 @@ void Main()
 
 	manager.Dump();
 
-	manager.Push(Blade4());
+	//manager.Push(Blade4());
 	//manager.Push(Blade1());
 	//manager.Push(Blade2());
 	//manager.Push(Blade3());
+	
+	manager.Push(Blade5());
 }
 
 static IBladeRenderer Blade1()
@@ -89,4 +91,14 @@ static IBladeRenderer Blade4()
 			.Vertical(new Button("Bar"), new Button("HelloWorld"), "Hello", card, new Button("Bar"), fieldComment);
 	});
 }
+
+static IBladeRenderer Blade5()
+{
+	return BladeFactory.Make((blade) =>
+	{
+		return Layout.Vertical(new Field("Foo", new TextBox()));
+	});
+}
+	
+
 

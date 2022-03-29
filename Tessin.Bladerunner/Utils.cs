@@ -374,5 +374,23 @@ namespace Tessin.Bladerunner
             return Uri.TryCreate(url, UriKind.Absolute, out _foo);
         }
 
+        public static string ToPercentageString(this decimal value)
+        {
+            if (value != 0m)
+            {
+                return $"{value:P2}";
+            }
+            return "n/a";
+        }
+
+        public static string ToPercentageString(this decimal? value)
+        {
+            if (!value.HasValue)
+            {
+                return "n/a";
+            }
+            return value.Value.ToPercentageString();
+        }
+
     }
 }

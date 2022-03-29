@@ -23,9 +23,9 @@ public class Product {
 	
 	public int ProductId { get; set; }
 	
-	public double VAT { get; set; }
+	public double Vat { get; set; }
 	
-	public double TotalInclVAT { get; set; }
+	public double Price { get; set; }
 	
 }
 
@@ -35,24 +35,22 @@ static IBladeRenderer Blade1()
 	return BladeFactory.Make(async (blade) =>
 	{		
 		var record = new Product {
-			ProductId = 1,
-			VAT = 0.25
+			ProductId = 1
 		};
 
 		double foo = 1000;
 
 		var products = new[] { 
-			new Option("Food", 1, 0.25),
-			new Option("Books", 2, 0.5),
-			new Option("Life", 3, 0.68)
+			new Option("Food", 1),
+			new Option("Books", 2),
+			new Option("Life", 3)
 		};
 
 		return new EntityEditor<Product>(record, (_) => {
 					
 		})
 		.Editor(e => e.ProductId, e => e.Select(products))
-		.Derived(e => e.VAT, e => e.ProductId, record => ((double?)products.FirstOrDefault(e => e.Value.Equals(record.ProductId)).Tag) ?? 0)
-		.Derived(e => e.TotalInclVAT, e => e.ProductId, record => record.ProductId==3 && record.TotalInclVAT == 0 ? foo : record.TotalInclVAT)
+		.ShowIf(e => e.Vat, e => e.ProductId == 3)
 		.Render();
 	});
 }

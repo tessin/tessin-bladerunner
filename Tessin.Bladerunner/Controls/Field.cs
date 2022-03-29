@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class Field : DumpContainer
+    public class Field : DumpContainer //todo: why is this a DumpContainer? this.Content is never updated
     {
         private Div _divError;
 

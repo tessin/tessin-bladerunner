@@ -59,6 +59,7 @@ namespace Tessin.Bladerunner.Controls
                 DateTimeOffset dateTimeOffset => Wrapper(new Span(dateTimeOffset.ToString(DateFormat))),
                 Guid guid => guid == Guid.Empty ? EmptyFormatter() : Wrapper(new Span(guid.ToString())),
                 Control control => Wrapper(control),
+                DumpContainer dumpContainer => Wrapper(dumpContainer),
                 _ => Wrapper(new DumpContainer() { Content = content })
             };
         }
