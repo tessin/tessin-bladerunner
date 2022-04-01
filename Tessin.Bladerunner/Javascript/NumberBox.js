@@ -1,13 +1,17 @@
-﻿NumberBoxOnFocusOut = function (event, decimals) {
+﻿NumberBoxOnFocusOut = function (event, decimals, min, max) {
+    //debugger;
+    
     const str1 = event.srcElement.value;
 
     if (!str1) return;
 
     const str = event.srcElement.value.replace(/,/g, "");
 
-    const value = +str; //converts to number
+    let value = +str; //converts to number
 
     if (isNaN(value)) return; //leave it to NumberBox to complain
 
-    event.srcElement.value = value.toLocaleString('en-US', { maximumFractionDigits: decimals });
+    let adjusted = Math.max(Math.min(max, value), min);
+    
+    event.srcElement.value = adjusted.toLocaleString('en-US', { maximumFractionDigits: decimals });
 }

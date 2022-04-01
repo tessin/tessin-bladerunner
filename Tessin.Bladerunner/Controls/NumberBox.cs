@@ -5,6 +5,9 @@ namespace Tessin.Bladerunner.Controls
 {
     public class NumberBox : LINQPad.Controls.TextBox
     {
+        private readonly double _min;
+        private readonly double _max;
+
         static NumberBox()
         {
             Util.HtmlHead.AddScript(Javascript.NumberBox);
@@ -26,10 +29,13 @@ namespace Tessin.Bladerunner.Controls
             return TrimDecimalZeros(initialValue?.ToString("N" + decimals) ?? "");
         }
 
-        public NumberBox(double? initialValue = null, int decimals = 0, string width = "-webkit-fill-available", Action<LINQPad.Controls.TextBox> onTextInput = null)
+        public NumberBox(double? initialValue = null, 
+            int decimals = 0, string width = "-webkit-fill-available", Action<LINQPad.Controls.TextBox> onTextInput = null, double min = 0, double max = double.MaxValue)
             : base(FormatNumber(initialValue, decimals), width, onTextInput)
         {
-            this.HtmlElement.SetAttribute("onfocusout", $"NumberBoxOnFocusOut(event,{decimals})");
+            _min = min;
+            _max = max;
+            this.HtmlElement.SetAttribute("onfocusout", $"NumberBoxOnFocusOut(event,{decimals},{min},{max})");
             /*
             this.HtmlElement.SetAttribute("type", "number");
             if (decimals > 0)
@@ -45,7 +51,7 @@ namespace Tessin.Bladerunner.Controls
                 if (string.IsNullOrEmpty(this.Text)) return null;
                 if (double.TryParse(this.Text, out var result))
                 {
-                    return result;
+                    return Math.Max(Math.Min(_max, result), _min);
                 }
                 return null;
             }
