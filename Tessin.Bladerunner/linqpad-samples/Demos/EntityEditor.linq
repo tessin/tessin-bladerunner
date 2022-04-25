@@ -91,6 +91,19 @@ void Main()
 				.Render();
 
 			manager.OpenSideBlade(new DisplayBlade(editor), title: "Date");
+		}),
+		new ActionNode("Code", () =>
+		{
+			var record = new CodeRecord();
+
+			var editor = new EntityEditor<CodeRecord>(record, (_) =>
+			{
+				manager.ShowToaster(record);
+			})
+			.Editor(e => e.LotsOfCode, e => e.Code("xml"))
+			.Render();
+
+			manager.OpenSideBlade(new DisplayBlade(editor), title: "Date");
 		})
 	))
 	, "Editors");
@@ -101,6 +114,13 @@ public class DateRecord
 {
 	public DateTime? Date { get; set; }
 	public DateTime DateRequired { get; set; } = DateTime.UtcNow;
+}
+
+public class CodeRecord
+{
+	public string NoCode { get; set; }
+	
+	public string LotsOfCode { get; set; }
 }
 
 public class TextRecord

@@ -165,6 +165,7 @@ input[type="datetime-local"] ~ .field--header
 }
 
 
+.file-box ~ .field--header,
 .search-box > input[type="text"]:focus ~ .field--header,
 input[type="text"]:focus ~ .field--header,
 input[type="email"]:focus ~ .field--header,
@@ -265,3 +266,11 @@ SPAN.field--header-description:after {
   right: 0px;
   top: 0px;
 }
+
+.image-proxy-box img {
+  margin-top: 5px;
+}
+
+.field--header + .code-editor {
+  padding-top:20px;
+} 

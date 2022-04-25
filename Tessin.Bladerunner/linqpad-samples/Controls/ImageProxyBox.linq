@@ -10,6 +10,8 @@
   <RuntimeVersion>5.0</RuntimeVersion>
 </Query>
 
+public static ImageProxySettings settings = new ImageProxySettings(new Uri("https://tessin-image-proxy.azurewebsites.net"), Util.GetPassword("FunctionKey"));
+
 void Main()
 {	
 	//Debugger.Launch();
@@ -17,41 +19,24 @@ void Main()
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
 	
-	manager.Push(Blade2(), "FileBox");
+	manager.Push(Blade1(), "ImageProxyBox");
 }
 
 class Foo {
 	
-	public string FileName { get; set; }
+	public string Image { get; set; }
 	
-	public string Extension { get; set; }
+	public string Hello { get; set; }
+	
 }
 
 static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		var fileBox = new FileBox();
-		var fileField = new Field("Header Image", fileBox);
-
-		RefreshPanel rc = new RefreshPanel(new[] { fileBox }, () =>
-		{
-			return Layout.Vertical(fileBox.Text);
-		}, addPadding: false);
-
-		return Layout.Vertical(fileField, rc);
-	});
-}
-
-static IBladeRenderer Blade2()
-{
-	return BladeFactory.Make((blade) =>
-	{
 		var record = new Foo();
 		return new EntityEditor<Foo>(record)
-		.Editor(e => e.FileName, e => e.File())
-		.Editor(e => e.Extension, e => e.Literal())
-		.Derived(e => e.Extension, e => e.FileName, (r) => !string.IsNullOrEmpty(r.FileName) ? new FileInfo(r.FileName)?.Extension?.TrimStart('.') : "")
-		.Render();
+			.Editor(e => e.Image, e => e.ImageProxy(settings))
+			.Render();
 	});
 }

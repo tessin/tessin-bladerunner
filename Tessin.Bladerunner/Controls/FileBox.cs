@@ -11,6 +11,7 @@ namespace Tessin.Bladerunner.Controls
             Action<LINQPad.Controls.TextBox> onTextInput = null)
         {
             this.SetClass("file-box");
+            initialCatalog = initialCatalog ?? System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             _textBox = new LINQPad.Controls.TextBox(initialValue, width, onTextInput);
 

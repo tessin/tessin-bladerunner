@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors
 {
@@ -72,6 +73,11 @@ namespace Tessin.Bladerunner.Editors
         public IFieldEditor<T> File(string initialCatalog = null)
         {
             return new FileEditor<T>(initialCatalog);
+        }
+
+        public IFieldEditor<T> ImageProxy(ImageProxySettings settings, string initialCatalog = null)
+        {
+            return new ImageProxyEditor<T>(settings, initialCatalog);
         }
 
         public IFieldEditor<T> AsyncDataList(Func<string, Task<IEnumerable<Option>>> queryOptions, Func<object, Task<Option>> findOption = null)
