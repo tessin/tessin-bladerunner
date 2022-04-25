@@ -71,8 +71,6 @@ namespace Tessin.Bladerunner.Controls
 
         public async Task<string> UploadFile(string path)
         {
-            await Task.Delay(10000);
-
             var service = new ImageProxyService(_settings);
             var result = await service.UploadImageFromFile(path);
             return result.data.href;
