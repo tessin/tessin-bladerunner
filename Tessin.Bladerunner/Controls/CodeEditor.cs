@@ -9,6 +9,9 @@ namespace Tessin.Bladerunner.Controls
 
         public CodeEditor(string value, string language)
         {
+            value = value.Replace('\u00A0', ' '); //cleaning up all non-breaking spaces.
+            value = value.Replace("\r\n", "\n").Replace("\r","\n");
+            
             var container = new Div();
             container.SetClass("code-editor");
             this.VisualTree.Add(container);
@@ -31,10 +34,17 @@ namespace Tessin.Bladerunner.Controls
                 setTimeout(function() {{
                     require(['vs/editor/editor.main'], function () {{
                         window.editor = monaco.editor.create(document.getElementById('{container.HtmlElement.ID}'), {{
-                            value: `{value}`,
+                            value: '{value.Replace("\n",@"\n").Replace("'", @"\'")}',
                             language: '{language}',
                             lineNumbers: false,
-                            lineDecorationsWidth: 0,
+                            lineDecorationsWidth: 7,
+                            automaticLayout: true,
+                            wordWrap: true,  
+                            padding : {{
+                                top: 30,
+                            }},
+                            renderLineHighlight : false,
+                            folding: false,
                             minimap: {{
                                 enabled: false        
                             }},

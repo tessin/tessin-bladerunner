@@ -64,6 +64,7 @@ namespace Tessin.Bladerunner.Controls
             string tooltip = null,
             object pill = null,
             AnyTask pillTask = null,
+            Theme? pillTheme = Theme.Empty,
             IconButton[] actions = null)
         {
             this.SetClass("menu-button");
@@ -88,7 +89,11 @@ namespace Tessin.Bladerunner.Controls
                     {
                         if (e) return c;
                         var span = new Span(c);
-                        span.SetClass("menu-button--pill");
+                        span.AddClass("menu-button--pill");
+                        if(pillTheme != null)
+                        {
+                            span.AddClass($"theme-{Utils.SplitCamelCase(pillTheme.ToString()).Replace(" ", "-").ToLower()}");
+                        }
                         return span;
                     });
                 }
