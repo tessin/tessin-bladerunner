@@ -12,6 +12,8 @@ namespace Tessin.Bladerunner.Controls
         private BladeManager _bladeManager;
         private Button _target;
 
+        public event EventHandler<Item> ItemSelected;
+
         public ContextMenu(BladeManager bladeManager, Button target, params Item[] items)
         {
             _items = items;
@@ -50,7 +52,14 @@ namespace Tessin.Bladerunner.Controls
                     control.Click += (_, __) =>
                     {
                         portal?.Clear();
-                        item.OnClick?.Invoke(item);
+                        if (item.OnClick != null)
+                        {
+                            item.OnClick?.Invoke(item);
+                        }
+                        else
+                        {
+                            ItemSelected?.Invoke(this, item);
+                        }
                     };
                 }
                 return control;

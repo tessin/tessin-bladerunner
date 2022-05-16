@@ -1865,6 +1865,12 @@ SPAN.field--header-description:after {
   padding-bottom: 10px;
 }
 
+.search-box .icon-button {
+  position: absolute;
+  right: 5px;
+  top: 0px;
+}
+
 .file-box {
   position: relative;
 }
