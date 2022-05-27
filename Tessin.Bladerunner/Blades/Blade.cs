@@ -17,10 +17,12 @@ namespace Tessin.Bladerunner.Blades
 
         public DumpContainer Panel { get; set; }
 
-        public string Title { get; set; }
+        public string Title { get; private set; }
 
         public Div Container { get; set; }
 
+        private Control _titleH1;
+        
         public Blade(BladeManager manager, IBladeRenderer renderer, int index, DumpContainer panel, string title, Div container)
         {
             Manager = manager;
@@ -70,10 +72,12 @@ namespace Tessin.Bladerunner.Blades
                         }
                     }, theme: Theme.PrimaryAlternate));
                 }
+                
+                _titleH1 = Element("h1", null, string.IsNullOrEmpty(Title) ? " " : Title);
 
                 var div = Div("blade-panel",
                     Div("blade-header",
-                        Element("h1", null, string.IsNullOrEmpty(Title) ? " " : Title),
+                        _titleH1,
                         Element("aside", null, buttons.ToArray())
                     ),
                     Div("blade-content", dc)
@@ -133,6 +137,12 @@ namespace Tessin.Bladerunner.Blades
                     Util.InvokeScript(false, "ScrollTo", Container.HtmlElement.ID);
                 }
             });
+        }
+
+        public void SetTitle(string title)
+        {
+            _titleH1.HtmlElement.InnerText = title;
+            Title = title;
         }
 
         public void Clear()

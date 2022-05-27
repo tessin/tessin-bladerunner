@@ -124,6 +124,11 @@ namespace Tessin.Bladerunner
 
             return control;
         }
+
+        public Control Blockquote(string content)
+        {
+            return Render("blockquote", content, "default");
+        }
     }
 
     public static class Typography
@@ -201,6 +206,11 @@ namespace Tessin.Bladerunner
         public static Control Title(string content)
         {
             return (new TypographyBuilder()).Title(content);
+        }
+        
+        public static Control Blockquote(string content)
+        {
+            return (new TypographyBuilder()).Blockquote(content);
         }
 
         public static Control Property(string content)

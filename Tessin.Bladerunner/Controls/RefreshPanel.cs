@@ -171,17 +171,24 @@ namespace Tessin.Bladerunner.Controls
                 {
                     _debounceDispatcher.Debounce(() =>
                     {
-                        Task.Run(() => _taskFactory.Run().Result).ContinueWith(async e =>
+                        try
                         {
-                            if (_addPadding)
+                            Task.Run(() => _taskFactory.Run().Result).ContinueWith(async e =>
                             {
-                                await ControlExtensions.AddPadding(this, e.Result);
-                            }
-                            else
-                            {
-                                this.Content = e.Result;
-                            }
-                        });
+                                if (_addPadding)
+                                {
+                                    await ControlExtensions.AddPadding(this, e.Result);
+                                }
+                                else
+                                {
+                                    this.Content = e.Result;
+                                }
+                            });
+                        }
+                        catch (Exception)
+                        {
+                           //ignore
+                        }
                     });
                 }
             }

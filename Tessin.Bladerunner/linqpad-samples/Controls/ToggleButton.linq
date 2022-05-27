@@ -15,7 +15,7 @@ void Main()
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
 	
-	manager.PushBlade(Blade1(), "ToggleButton");
+	manager.Push(Blade1(), "ToggleButton");
 }
 
 static IBladeRenderer Blade1()

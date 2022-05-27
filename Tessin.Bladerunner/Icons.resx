@@ -157,6 +157,9 @@
   <data name="ArrowUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/arrow-up.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="At" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\at.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="Atom" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/atom.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -250,6 +253,9 @@
   <data name="EggEaster" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/egg-easter.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="EmailOutline" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\email-outline.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="Eye" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/eye.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -279,6 +285,9 @@
   </data>
   <data name="HammerScrewdriver" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/hammer-screwdriver.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="HelpCircleOutline" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>icons\help-circle-outline.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="LightningBolt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Icons/lightning-bolt.svg;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
