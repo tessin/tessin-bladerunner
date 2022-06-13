@@ -13,10 +13,10 @@ static string body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. A
 
 void Main()
 {
-	Debugger.Launch();
+	//Debugger.Launch();
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
-	manager.PushBlade(Blade1());
+	manager.Push(Blade1());
 }
 
 static IBladeRenderer Blade1()
@@ -38,6 +38,16 @@ static IBladeRenderer Blade1()
 			{
 				new AlertBuilder(blade.Manager, body, "ShowInput:String").ShowInput<string>("String", (a, v) => {
 					if(a.AlertResult == AlertResult.Ok)
+					{
+						dc.Content = v;
+					}
+				});
+			}),
+			new Button("ShowTextInput", (_) =>
+			{
+				new AlertBuilder(blade.Manager, body, "ShowInput:String").ShowTextInput("", "String", (a, v) =>
+				{
+					if (a.AlertResult == AlertResult.Ok)
 					{
 						dc.Content = v;
 					}
