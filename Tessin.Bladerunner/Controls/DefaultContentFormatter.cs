@@ -15,7 +15,7 @@ namespace Tessin.Bladerunner.Controls
     {
         public string IntegerFormat { get; set; } = "N0";
 
-        public string DecimalFormat { get; set; } = "N2";
+        public string DecimalFormat { get; set; } = "#,#.#####";
 
         public string DateFormat { get; set; } = "yyyy-MM-dd";
 

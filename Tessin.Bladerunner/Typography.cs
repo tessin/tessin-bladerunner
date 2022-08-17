@@ -52,6 +52,11 @@ namespace Tessin.Bladerunner
             return Render("p", content, "default");
         }
 
+        public Control Html(string content)
+        {
+            return Render("p", content, "default", true);
+        }
+
         public Control Span(string content)
         {
             return Render("span", content, "default");
@@ -106,12 +111,15 @@ namespace Tessin.Bladerunner
             return Render("span", content, "default");
         }
 
-        private Control Render(string htmlElementName, string content, string @class)
+        private Control Render(string htmlElementName, string content, string @class, bool isHtml = false)
         {
             if (string.IsNullOrEmpty(content)) return new EmptySpan("");
 
-            var control = new Control(htmlElementName, content);
+            Control control = isHtml ? new HtmlLiteral(htmlElementName, content) 
+                : new Control(htmlElementName, content);
+            
             control.SetClass(@class);
+            
             foreach (var key in _styles.Keys)
             {
                 control.Styles[key] = _styles[key];
@@ -128,6 +136,24 @@ namespace Tessin.Bladerunner
         public Control Blockquote(string content)
         {
             return Render("blockquote", content, "default");
+        }
+
+        private class HtmlLiteral : Control
+        {
+            public HtmlLiteral(string htmlElementName, string html)
+            {
+                var inner = new Control
+                {
+                    HtmlElement =
+                    {
+                        InnerHtml = html
+                    }
+                };
+
+                var container = new Control(htmlElementName, inner);
+                
+                this.VisualTree.Add(container);
+            }
         }
     }
 
@@ -216,6 +242,11 @@ namespace Tessin.Bladerunner
         public static Control Property(string content)
         {
             return (new TypographyBuilder()).Property(content);
+        }
+        
+        public static Control Html(string content)
+        {
+            return (new TypographyBuilder()).Html(content);
         }
     }
 }

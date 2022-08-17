@@ -13,7 +13,7 @@ void Main()
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
 	
-	manager.PushBlade(Blade1(), "Buttons");
+	manager.Push(Blade1(), "Buttons");
 }
 
 static IBladeRenderer Blade1()
