@@ -88,6 +88,6 @@ namespace Tessin.Bladerunner.Editors
 
         public bool Required { get; set; }
 
-        public List<Func<object, (bool, string)>> Validators { get; set; } = new List<Func<object, (bool, string)>>();
+        public List<Func<object, (bool, string)>> Validators { get; set; } = new();
     }
 }
