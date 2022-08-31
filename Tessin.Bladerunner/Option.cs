@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
@@ -21,8 +22,7 @@ namespace Tessin.Bladerunner
         public Option(string label, object value) : this(label, value, null)
         {
         }
-
-
+        
         public Option(string label) : this(label, label, null)
         {
         }
@@ -36,6 +36,13 @@ namespace Tessin.Bladerunner
         public override string ToString()
         {
             return Label;
+        }
+            
+        //---------------------------------------------------------
+
+        public static Option[] ForEnum<T>(Type type)
+        {
+            return Enums.GetValues<T>(type).Select(e => new Option(e.Item1, e.Item2)).ToArray();
         }
     }
 

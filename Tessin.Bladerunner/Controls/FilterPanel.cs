@@ -8,15 +8,15 @@ namespace Tessin.Bladerunner.Controls
 {
     public static class FilterPanelHelper
     {
-        public static FilterPanel<T> Create<T>(IEnumerable<T> rows, Func<string, Func<T, bool>> predicate)
+        public static FilterPanel<T> Create<T>(IEnumerable<T> rows, Func<string, Func<T, bool>> predicate, Action<EntityGrid<T>> gridModifier = null)
         {
-            return new FilterPanel<T>(rows, predicate);
+            return new FilterPanel<T>(rows, predicate, gridModifier);
         }
     }
 
     public class FilterPanel<T> : Control
     {
-        public FilterPanel(IEnumerable<T> records, Func<string, Func<T, bool>> predicate)
+        public FilterPanel(IEnumerable<T> records, Func<string, Func<T, bool>> predicate, Action<EntityGrid<T>> gridModifier = null)
         {
             var txtSearch = new SearchBox();
 
@@ -33,12 +33,17 @@ namespace Tessin.Bladerunner.Controls
 
                 if (linq.Any())
                 {
-                    return new EntityGrid<T>(linq).Render();
+                    var grid = new EntityGrid<T>(linq);
+
+                    if (gridModifier != null)
+                    {
+                        gridModifier(grid);
+                    }
+                    
+                    return grid.Render();
                 }
-                else
-                {
-                    return "No matching records.";
-                }
+
+                return "No matching records.";
             });
 
             VisualTree.Add(Layout.Vertical(txtSearch, refreshPanel));
