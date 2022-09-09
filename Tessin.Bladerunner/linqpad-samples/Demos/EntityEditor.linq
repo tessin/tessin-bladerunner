@@ -17,6 +17,7 @@ void Main()
 	//	             Nullable  Required  Styling  Buggy
 	//File           ✔        ✔        !
 	//Text           ✔        ✔
+	//Bool           ✔        n/a
 	//Select         ✔        ✔
 	//Email          ✔        ✔
 	//Url            ✔        ✔
@@ -42,6 +43,15 @@ void Main()
 				.Render();
 			
 			manager.OpenSideBlade(new DisplayBlade(editor), title:"Text");
+		}),
+		new ActionNode("Bool", () =>
+		{
+			var record = new BoolRecord();
+
+			var editor = new EntityEditor<BoolRecord>(record, (_) => { })
+				.Render();
+
+			manager.OpenSideBlade(new DisplayBlade(editor), title: "Bool");
 		}),
 		new ActionNode("File", () =>
 		{
@@ -121,6 +131,12 @@ public class CodeRecord
 	public string NoCode { get; set; }
 	
 	public string LotsOfCode { get; set; }
+}
+
+public class BoolRecord
+{
+	public bool Normal { get; set; }
+	public bool? Nullable { get; set; }
 }
 
 public class TextRecord

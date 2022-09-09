@@ -33,6 +33,12 @@ namespace Tessin.Bladerunner
                 return control.HtmlElement.GetAttribute("class");
             }
         }
+        
+        public static bool HasClass<T>(this T control, string @class) where T : Control
+        {
+            var current = GetClass(control);
+            return !string.IsNullOrEmpty(current) && current.Split(' ').Any(e => e == @class);
+        }
 
         public static T AddClass<T>(this T control, string @class) where T : Control
         {
