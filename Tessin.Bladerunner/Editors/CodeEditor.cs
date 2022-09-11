@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors
@@ -43,6 +45,38 @@ namespace Tessin.Bladerunner.Editors
 
         public bool Validate(T obj, EditorField<T> editorFieldInfo)
         {
+            void SetError(string message)
+            {
+                _codeBox.Styles["border-color"] = "#aa0000";
+                _field.SetError(message);
+            }
+
+            void ClearError()
+            {
+                _codeBox.Styles["border-color"] = null;
+                _field.SetError("");
+            }
+
+            object value = (string)_codeBox.GetType().GetProperty("Text").GetValue(_codeBox);
+
+            var validators = new List<Func<object, (bool, string)>>(editorFieldInfo.Validators);
+            
+            (bool, string)? error = validators
+                .Select(e => e(value))
+                .Where(e => !e.Item1)
+                .Select(e => ((bool, string)?)e)
+                .FirstOrDefault();
+
+            if (error is { Item1: false })
+            {
+                SetError(error.Value.Item2);
+                return false;
+            }
+            else
+            {
+                ClearError();
+            }
+
             return true;
         }
 

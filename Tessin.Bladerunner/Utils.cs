@@ -53,7 +53,7 @@ namespace Tessin.Bladerunner
                 case TypeCode.Decimal:
                 case TypeCode.Double:
                 case TypeCode.Single:
-                    return 2;
+                    return 4;
                 default:
                     return 0;
             }

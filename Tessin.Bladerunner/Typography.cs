@@ -54,7 +54,7 @@ namespace Tessin.Bladerunner
 
         public Control Html(string content)
         {
-            return Render("p", content, "default", true);
+            return Render("div", content, "default", true);
         }
 
         public Control Span(string content)
@@ -115,7 +115,7 @@ namespace Tessin.Bladerunner
         {
             if (string.IsNullOrEmpty(content)) return new EmptySpan("");
 
-            Control control = isHtml ? new HtmlLiteral(htmlElementName, content) 
+            Control control = isHtml ? new HtmlLiteral(htmlElementName, content)
                 : new Control(htmlElementName, content);
             
             control.SetClass(@class);
