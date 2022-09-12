@@ -41,7 +41,7 @@ namespace Tessin.Bladerunner.Svg
 
         public static SvgBuilder New()
         {
-            return new SvgBuilder(new SvgDocument());
+            return new SvgBuilder(new SvgDocument() { Width = SvgUnit.None, Height = SvgUnit.None});
         }
 
         public static SvgElement Make(Func<SvgBuilder, SvgBuilder> builder)

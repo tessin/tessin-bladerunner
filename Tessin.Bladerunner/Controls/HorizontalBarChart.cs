@@ -6,7 +6,7 @@ namespace Tessin.Bladerunner.Controls
 {
     public class HorizontalBarChart : Control
     {
-        public HorizontalBarChart(Point[] points, float width = 200, float barHeight = 20) : base("div")
+        public HorizontalBarChart(Point[] points, float width = 100, float barHeight = 12) : base("div")
         {
             var max = points.Select(e => e.Value).Max();
             
@@ -23,6 +23,9 @@ namespace Tessin.Bladerunner.Controls
                 builder.Rect(0, y, (float)(point.Value / max * width), barHeight, x => x.Fill(point.Color));
                 y += barHeight;
             }
+
+            builder.RootElement.OwnerDocument.Width = width;
+            builder.RootElement.OwnerDocument.Height = barHeight * points.Length;
             
             this.HtmlElement.InnerHtml = builder.ToString();
         }
