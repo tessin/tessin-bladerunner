@@ -1,5 +1,7 @@
 ﻿using System;
+using LINQPad.Controls;
 using Tessin.Bladerunner.Controls;
+using Literal = Tessin.Bladerunner.Controls.Literal;
 
 namespace Tessin.Bladerunner.Grid
 {
@@ -41,6 +43,21 @@ namespace Tessin.Bladerunner.Grid
         {
             return new LinkCell<T>(onClick);
         }
+        
+        public ICellRenderer<T> Custom(Func<object, GridColumn<T>, T, Control> renderer)
+        {
+            return CellRendererHelper.Create(renderer);
+        }
+        
+        public ICellRenderer<T> Custom(Func<object, Control> renderer)
+        {
+            return CellRendererHelper.Create<T>((v,_,_) => renderer(v));
+        }
 
+        public ICellRenderer<T> Custom(Func<object, string> renderer)
+        {
+            return CellRendererHelper.Create<T>((v,_,_) => new Literal(renderer(v)));
+        }
+        
     }
 }
