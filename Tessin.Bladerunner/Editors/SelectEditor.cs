@@ -9,12 +9,14 @@ namespace Tessin.Bladerunner.Editors
     {
         private Controls.SelectBox _selectBox;
         private Field _field;
+        private readonly bool _nullable;
 
         private readonly Option[] _options;
 
-        public SelectEditor(Option[] options)
+        public SelectEditor(Option[] options, bool nullable = false)
         {
             _options = options;
+            _nullable = nullable;
         }
 
         public void Update(object value)
@@ -51,7 +53,7 @@ namespace Tessin.Bladerunner.Editors
         private Option[] GetOptions(EditorField<T> editorFieldInfo)
         {
             var isNullable = editorFieldInfo.Type.IsNullable();
-            if (isNullable)
+            if (_nullable || isNullable)
             {
                 return (new[] { new Option("", null) }).Concat(_options).ToArray();
             }

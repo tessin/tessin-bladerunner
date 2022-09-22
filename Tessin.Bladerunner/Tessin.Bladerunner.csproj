@@ -4,26 +4,32 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>9</LangVersion>
     <!-- Use same major version as LINQPad.Runtime, when LINQPad 7 is released we can maintain backwards compatability -->
-    <Version>6.0.52</Version>
-    <UseWindowsForms>false</UseWindowsForms>
+    <Version>6.0.49</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Query\**" />
     <EmbeddedResource Remove="Query\**" />
     <None Remove="Query\**" />
+    <EmbeddedResource Update="Svg\SvgScripts.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SvgScripts.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Update="Svg\SvgScripts.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SvgScripts.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="LINQPad.Runtime" Version="6.14.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Fizzler" Version="1.3.0" />
-    <PackageReference Include="ResxToCs.MSBuild" Version="1.0.0-alpha6" />
     <PackageReference Include="Svg" Version="3.4.2" />
   </ItemGroup>
 
   <ItemGroup>
-    
     <Compile Update="Icons.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -39,18 +45,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Themes.resx</DependentUpon>
     </Compile>
-    <Compile Update="Svg\SvgScripts.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SvgScripts.resx</DependentUpon>
-    </Compile>
-    
-    <EmbeddedResource Update="Svg\SvgScripts.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>SvgScripts.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Update="Icons.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Icons.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Javascript.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -60,9 +60,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Themes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    
   </ItemGroup>
-  
+
   <ItemGroup>
     <Folder Include="linqpad-samples\" />
   </ItemGroup>

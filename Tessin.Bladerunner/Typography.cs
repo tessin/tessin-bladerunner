@@ -46,6 +46,12 @@ namespace Tessin.Bladerunner
             _styles["white-space"] = "nowrap";
             return this;
         }
+        
+        public TypographyBuilder Overflow(string overflow)
+        {
+            _styles["overflow"] = overflow;
+            return this;
+        }
 
         public Control P(string content)
         {
@@ -187,6 +193,11 @@ namespace Tessin.Bladerunner
         public static TypographyBuilder NoWrap()
         {
             return (new TypographyBuilder()).NoWrap();
+        }
+        
+        public static TypographyBuilder Overflow(string overflow)
+        {
+            return (new TypographyBuilder()).Overflow(overflow);
         }
 
         public static Control P(string content)

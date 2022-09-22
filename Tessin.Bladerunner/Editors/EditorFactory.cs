@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Tessin.Bladerunner.Controls;
 
@@ -95,22 +96,43 @@ namespace Tessin.Bladerunner.Editors
             return new MultiSelectEditor<T>(options.ToArray());
         }
 
-        public IFieldEditor<T> Select(IEnumerable<Option> options)
+        public IFieldEditor<T> Select(IEnumerable<Option> options, bool nullable = false)
         {
-            return new SelectEditor<T>(options.ToArray());
+            return new SelectEditor<T>(options.ToArray(), nullable);
         }
 
-        public IFieldEditor<T> Select(Type enumType)
+        public IFieldEditor<T> Select(Type enumType, Type idType = null)
         {
             if (!enumType.IsEnum) throw new ArgumentException("Not an enum.");
+            
+            idType ??= typeof(string);
 
-            var options = enumType.GetEnumNames().Zip(
+            Func<int, string, string, Option> optionBuilder = null;
+            
+            if (idType == typeof(int))
+            {
+                optionBuilder = (id, name, desc) => new Option(desc ?? name, id);
+            }
+            else if(idType == typeof(string))
+            {
+                optionBuilder = (_, name, desc) => new Option(desc ?? name, name);
+            }
+            else
+            {
+                throw new Exception();
+            }
+
+            var enumValues = enumType.GetEnumValues().Cast<object>()
+                .Select(e => Convert.ChangeType(e, enumType)).Select(e => ((int)e, e.ToString()));
+
+            var options = enumValues.Zip(
                 enumType.GetFields().Where(e => e.IsStatic).Select(field =>
                     Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is DescriptionAttribute attribute
                         ? attribute.Description
                         : null
                 ),
-                (name, descr) => new Option(descr ?? name, name));
+                (x, desc) => optionBuilder(x.Item1, x.Item2, desc)
+            );
 
             return new SelectEditor<T>(options.ToArray());
         }
