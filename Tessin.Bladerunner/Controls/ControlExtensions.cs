@@ -121,7 +121,8 @@ namespace Tessin.Bladerunner
             {
                 var inner = new DumpContainer
                 {
-                    Content = c
+                    Content = c,
+                    Style = "width:100%"
                 };
                 if (c is not INoContainerPadding noPadding)
                 {
