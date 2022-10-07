@@ -221,7 +221,7 @@ namespace Tessin.Bladerunner
                     control.Styles["width"] = "-webkit-fill-available";
                 }
 
-                var formatted = builder._formatter.Format(element._content); //todo: this will result in a lot of wrapped 
+                var formatted = builder._formatter.Format(element._content.Render()); //todo: this will result in a lot of wrapped 
 
                 return formatted;
             }

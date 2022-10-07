@@ -177,11 +177,11 @@ namespace Tessin.Bladerunner.Controls
                             {
                                 if (_addPadding)
                                 {
-                                    await ControlExtensions.AddPadding(this, e.Result);
+                                    await ControlExtensions.AddPadding(this, e.Result.Render());
                                 }
                                 else
                                 {
-                                    this.Content = e.Result;
+                                    this.Content = e.Result.Render();
                                 }
                             });
                         }

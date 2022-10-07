@@ -25,7 +25,10 @@ namespace Tessin.Bladerunner.Controls
                 controls.Add(titleDiv);
             }
 
-            var dc = new DumpContainer { Content = content };
+            var dc = new DumpContainer
+            {
+                Content = content.Render()
+            };
             controls.Add(dc);
 
             this.VisualTree.Add(new Div(controls));

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LINQPad.Controls;
+using Tessin.Bladerunner.Blades;
 using Tessin.Bladerunner.Controls;
 using Tessin.Bladerunner.Editors;
 using Tessin.Bladerunner.Grid;
@@ -23,5 +24,17 @@ namespace Tessin.Bladerunner
         {
             return new _PropertyListBuilder<T>(obj);
         }
+        
+        //--------------------------------------------------------------------------------------------------------------
+
+        internal static object Render(this object renderable)
+        {
+            if (renderable is IRenderable _renderable)
+            {
+                return _renderable.Render();
+            }
+            return renderable;
+        }
+        
     }
 }

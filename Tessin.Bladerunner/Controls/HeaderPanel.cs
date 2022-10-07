@@ -15,7 +15,7 @@ namespace Tessin.Bladerunner.Controls
                 this.Styles["width"] = width;
             }
 
-            var dcHeader = new DumpContainer { Content = header };
+            var dcHeader = new DumpContainer { Content = header.Render() };
             var divHeader = new Div(dcHeader);
             divHeader.SetClass("header-panel--header");
 
@@ -29,7 +29,7 @@ namespace Tessin.Bladerunner.Controls
                 }
                 else
                 {
-                    ControlExtensions.AddPadding(dcBody, body).GetAwaiter().GetResult();
+                    ControlExtensions.AddPadding(dcBody, body.Render()).GetAwaiter().GetResult();
                 }
             }
 

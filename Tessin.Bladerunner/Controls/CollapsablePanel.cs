@@ -11,7 +11,7 @@ namespace Tessin.Bladerunner.Controls
         {
             this.SetClass("collapsable-panel");
 
-            var dcBody = new DumpContainer { Content = body };
+            var dcBody = new DumpContainer { Content = body.Render() };
             var divBody = new Div(dcBody);
             divBody.SetClass("collapsable-panel--body");
 

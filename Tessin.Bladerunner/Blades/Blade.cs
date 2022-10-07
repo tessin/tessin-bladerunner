@@ -83,14 +83,7 @@ namespace Tessin.Bladerunner.Blades
                     Div("blade-content", dc)
                 );
 
-                var rendered = Renderer.Render(this);
-
-                if (rendered is IRenderable renderable)
-                {
-                    rendered = renderable.Render();
-                }
-                
-                await ControlExtensions.AddPadding(dc, rendered);
+                await ControlExtensions.AddPadding(dc, Renderer.Render(this).Render());
 
                 return div;
             }
