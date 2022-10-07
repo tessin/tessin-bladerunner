@@ -131,7 +131,7 @@ namespace Tessin.Bladerunner.Blades
             }
             Task.Run(async () =>
             {
-                Panel.Content = await this.Render();
+                Panel.Content = (await this.Render()).Render();
                 if (Container?.HtmlElement?.ID != null)
                 {
                     Util.InvokeScript(false, "ScrollTo", Container.HtmlElement.ID);
