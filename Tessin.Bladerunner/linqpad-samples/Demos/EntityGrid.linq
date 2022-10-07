@@ -18,7 +18,7 @@ void Main()
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
 	
-	manager.PushBlade(Blade1(), "Blade1");
+	manager.Push(Blade1(), "Blade1");
 }
 
 public class Product {
@@ -34,8 +34,8 @@ static IBladeRenderer Blade1()
 	{
 		var records = new Product[] {};
 
-		return new EntityGrid<Product>(records)
-		.Empty("There are no records in the database. Create your first!")
-		.Render();
+		return Scaffold.Grid(records)	
+			.Empty("There are no records in the database. Create your first!")
+			.Render();
 	});
 }

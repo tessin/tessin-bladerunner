@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Tessin.Bladerunner.Blades;
 using Tessin.Bladerunner.Controls;
 using Literal = LINQPad.Controls.Literal;
 using Table = Tessin.Bladerunner.Controls.Table;
@@ -12,6 +13,8 @@ using TableRow = Tessin.Bladerunner.Controls.TableRow;
 
 namespace Tessin.Bladerunner.Grid
 {
+    
+    [Obsolete("Use Scaffold.Grid instead.")]
     public static class EntityGridHelper
     {
         public static EntityGrid<T> Create<T>(IEnumerable<T> rows)
@@ -20,7 +23,7 @@ namespace Tessin.Bladerunner.Grid
         }
     }
 
-    public class EntityGrid<T>
+    public class EntityGrid<T> : IRenderable
     {
         private readonly IEnumerable<T> _rows;
 
@@ -105,7 +108,7 @@ namespace Tessin.Bladerunner.Grid
             }
         }
 
-        public Control Render()
+        public object Render()
         {
             if (!_rows.Any()) return _empty;
 

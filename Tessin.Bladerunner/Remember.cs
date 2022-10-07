@@ -5,6 +5,7 @@ namespace Tessin.Bladerunner
 {
     public static partial class Extensions
     {
+        [Obsolete]
         public static void Remember(this Control control, string id)
         {
             var key = (LINQPad.Util.CurrentQueryPath + ":" + id).GetHashCode().ToString();

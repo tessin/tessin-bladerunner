@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Tessin.Bladerunner.Blades;
 
 namespace Tessin.Bladerunner.Controls
 {
     public static class PropertyListBuilder
     {
+        [Obsolete("Use Scaffold.Editor instead.")]
         public static _PropertyListBuilder<T> Create<T>(T obj)
         {
             return new _PropertyListBuilder<T>(obj);
         }
     }
 
-    public class _PropertyListBuilder<T>
+    public class _PropertyListBuilder<T> : IRenderable
     {
         private object _obj;
 
@@ -68,7 +70,7 @@ namespace Tessin.Bladerunner.Controls
             return this;
         }
 
-        public PropertyList Render()
+        public object Render()
         {
             var props = _properties.Values.ToArray();
 

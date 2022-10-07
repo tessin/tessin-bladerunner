@@ -1,11 +1,11 @@
-﻿using LINQPad;
-using LINQPad.Controls;
+﻿using LINQPad.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Tessin.Bladerunner.Alerts;
+using Tessin.Bladerunner.Blades;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Editors
@@ -13,13 +13,14 @@ namespace Tessin.Bladerunner.Editors
 
     public static class EntityEditorHelper
     {
+        [Obsolete("Use Scaffold.Editor instead.")]
         public static EntityEditor<T> Create<T>(T obj, Action<T> save = null, Action<T> preview = null, string actionVerb = "Save", Control toolbar = null) where T : new()
         {
             return new EntityEditor<T>(obj, save, preview, actionVerb, toolbar);
         }
     }
 
-    public class EntityEditor<T> : IAlertBuilderEditor where T : new()
+    public class EntityEditor<T> : IAlertBuilderEditor, IRenderable where T : new()
     {
         private Dictionary<string, EditorField<T>> _fields;
 
@@ -37,6 +38,7 @@ namespace Tessin.Bladerunner.Editors
 
         private List<string> _groups = new();
 
+        [Obsolete("Use Scaffold.Editor instead.")]
         public EntityEditor(T obj, Action<T> save = null, Action<T> preview = null, string actionVerb = "Save", Control toolbar = null)
         {
             _save = save;
@@ -105,7 +107,12 @@ namespace Tessin.Bladerunner.Editors
             return null;
         }
 
-        public object Render(Controls.Button saveButton = null)
+        public object Render()
+        {
+            return Render(null);
+        }
+        
+        public object Render(Controls.Button saveButton)
         {
             var fields = _fields.Values.Where(e => !e.Removed && e.Editor != null).ToList();
 

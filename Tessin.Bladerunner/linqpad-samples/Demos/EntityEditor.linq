@@ -36,7 +36,7 @@ void Main()
 		new ActionNode("Text", () => {
 			var record = new TextRecord();
 
-			var editor = new EntityEditor<TextRecord>(record, (_) => {})
+			var editor = Scaffold.Editor(record, (_) => {})
 				.Required(e => e.TextRequired)
 				.Editor(e => e.Url, e => e.Url())
 				.Editor(e => e.Email, e => e.Email())
@@ -48,7 +48,7 @@ void Main()
 		{
 			var record = new BoolRecord();
 
-			var editor = new EntityEditor<BoolRecord>(record, (_) => { })
+			var editor = Scaffold.Editor(record, (_) => { })
 				.Render();
 
 			manager.OpenSideBlade(new DisplayBlade(editor), title: "Bool");
@@ -57,7 +57,7 @@ void Main()
 		{
 			var record = new FileRecord();
 
-			var editor = new EntityEditor<FileRecord>(record, (_) => { })
+			var editor = Scaffold.Editor(record, (_) => { })
 				.Required(e => e.FileRequired)
 				.Editor(e => e.File, e => e.File(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
 				.Editor(e => e.FileRequired, e => e.File(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)))
@@ -71,7 +71,7 @@ void Main()
 
 			var options = new [] { new Option("Foo",1),new Option("Bar",2) };
 
-			var editor = new EntityEditor<SelectRecord>(record, (_) => { })
+			var editor = Scaffold.Editor(record, (_) => { })
 				.Required(e => e.SelectRequired)
 				.Editor(e => e.Select, e => e.Select(options))
 				.Editor(e => e.SelectRequired, e => e.Select(options))
@@ -83,7 +83,7 @@ void Main()
 		{
 			var record = new NumberRecord();
 
-			var editor = new EntityEditor<NumberRecord>(record, (_) => { })
+			var editor = Scaffold.Editor(record, (_) => { })
 				.Render();
 
 			manager.OpenSideBlade(new DisplayBlade(editor), title: "Number");
@@ -92,7 +92,7 @@ void Main()
 		{
 			var record = new DateRecord();
 
-			var editor = new EntityEditor<DateRecord>(record, (_) => {
+			var editor = Scaffold.Editor(record, (_) => {
 				
 					manager.ShowToaster(record);
 			
@@ -106,7 +106,7 @@ void Main()
 		{
 			var record = new CodeRecord();
 
-			var editor = new EntityEditor<CodeRecord>(record, (_) =>
+			var editor = Scaffold.Editor(record, (_) =>
 			{
 				manager.ShowToaster(record);
 			})
