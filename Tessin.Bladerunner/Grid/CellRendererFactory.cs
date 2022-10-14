@@ -58,6 +58,5 @@ namespace Tessin.Bladerunner.Grid
         {
             return CellRendererHelper.Create<T>((v,_,_) => new Literal(renderer(v)));
         }
-        
     }
 }

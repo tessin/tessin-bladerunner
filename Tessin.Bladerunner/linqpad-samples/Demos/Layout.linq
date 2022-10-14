@@ -19,10 +19,10 @@ void Main()
 
 	//manager.Push(Blade4());
 	//manager.Push(Blade1());
-	//manager.Push(Blade2());
+	manager.Push(Blade2());
 	//manager.Push(Blade3());
 	
-	manager.Push(Blade5());
+	//manager.Push(Blade5());
 }
 
 static IBladeRenderer Blade1()
