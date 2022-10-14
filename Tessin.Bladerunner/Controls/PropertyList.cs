@@ -24,6 +24,8 @@ namespace Tessin.Bladerunner.Controls
 
         public bool IsMultiLine { get; set; }
 
+        public bool IsRemoved { get; set; }
+
         public override string ToString()
         {
             return Label;

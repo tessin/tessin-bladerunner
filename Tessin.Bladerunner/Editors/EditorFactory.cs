@@ -136,6 +136,5 @@ namespace Tessin.Bladerunner.Editors
 
             return new SelectEditor<T>(options.ToArray());
         }
-
     }
 }

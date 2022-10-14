@@ -254,6 +254,13 @@ namespace Tessin.Bladerunner.Editors
             return this;
         }
 
+        public EntityEditor<T> Editor(Expression<Func<T, object>> field, IFieldEditor<T> editor)
+        {
+            var hint = GetField(field);
+            hint.Editor = editor;
+            return this;
+        }
+        
         public EntityEditor<T> Editor<TU>(Func<EditorFactory<T>, IFieldEditor<T>> editor)
         {
             foreach (var hint in _fields.Values.Where(e => e.Type is TU))

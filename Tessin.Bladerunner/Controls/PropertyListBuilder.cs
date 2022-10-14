@@ -69,10 +69,20 @@ namespace Tessin.Bladerunner.Controls
             }
             return this;
         }
+        
+        public _PropertyListBuilder<T> Remove(params Expression<Func<T, object>>[] fields)
+        {
+            foreach (var expr in fields)
+            {
+                var prop = GetField(expr);
+                prop.IsRemoved = true;
+            }
+            return this;
+        }
 
         public object Render()
         {
-            var props = _properties.Values.ToArray();
+            var props = _properties.Values.Where(e => !e.IsRemoved).ToArray();
 
             if (_removeEmpty)
             {
