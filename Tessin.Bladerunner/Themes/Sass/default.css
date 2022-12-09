@@ -1992,27 +1992,14 @@ SPAN.field--header-description:after {
 }
 
 .pill {
-  background-color: #00f7d3;
-  color: #1c1c1c;
-  font-size: 0.8em;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  font-size: 1em;
+  padding-top: 5px;
+  padding-bottom: 4px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   padding-left: 8px;
   padding-right: 8px;
   border-radius: 1em;
-}
-
-@supports (font-variation-settings: normal) {
-  .pill {
-    font-family: "AeonikProVF", sans-serif;
-    font-variation-settings: "wght" 700;
-  }
-}
-
-@supports not (font-variation-settings: normal) {
-  .pill {
-    font-weight: 700;
-  }
 }
 
 .context-menu ul {
