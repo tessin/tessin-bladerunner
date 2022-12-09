@@ -26,9 +26,9 @@ namespace Tessin.Bladerunner.Editors
             return new LiteralEditor<T>();
         }
 
-        public IFieldEditor<T> Date()
+        public IFieldEditor<T> Date(bool showTime = false)
         {
-            return new DateEditor<T>();
+            return new DateEditor<T>(showTime);
         }
 
         public IFieldEditor<T> Bool()

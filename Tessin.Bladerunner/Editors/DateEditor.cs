@@ -11,9 +11,11 @@ namespace Tessin.Bladerunner.Editors
     {
         private DateBox _dateBox;
         private Field _field;
+        private bool _showTime;
 
-        public DateEditor()
+        public DateEditor(bool showTime = false)
         {
+            _showTime = showTime;
         }
 
         public void Update(object value)
@@ -43,7 +45,7 @@ namespace Tessin.Bladerunner.Editors
                 throw new ArgumentException("Not a DateTime or DateTimeOffset.");
             }
 
-            _dateBox = new DateBox(value) { };
+            _dateBox = new DateBox(value, showTime:_showTime) { };
             //_dateBox.HtmlElement.SetAttribute("placeholder", "YYYY-MM-DD");
 
             _dateBox.TextInput += (sender, args) => preview();

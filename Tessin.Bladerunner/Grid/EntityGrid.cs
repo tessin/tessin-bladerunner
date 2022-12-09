@@ -179,13 +179,14 @@ namespace Tessin.Bladerunner.Grid
                     columns.Select((f, i) => RenderCell(i, f, f.CellRenderer.Render(f.GetValue(e), f, e)))
                 );
 
-                if(highlight) row.AddClass("highlight");
+                if (highlight) row.AddClass("highlight");
 
                 _rowAction?.Invoke(e, row);
                 return row;
             }
 
-            var header = new TableRow(columns.Select((e, i) => RenderHeaderCell(i, e, new Literal(e.Label == "_" ? "" : e.Label))));
+            var header = new TableRow(columns.Select((e, i) =>
+                RenderHeaderCell(i, e, new Literal(e.Label == "_" ? "" : e.Label))));
 
             var rows = _rows.Select(RenderRow);
 
@@ -194,13 +195,17 @@ namespace Tessin.Bladerunner.Grid
             if (columns.Any(e => e.SummaryMethod != null))
             {
                 var summary = new TableRow(columns.Select((e, i) =>
-                    RenderSummaryCell(i, e, e.SummaryMethod != null ? e.CellRenderer.Render(e.SummaryMethod(_rows), e, default(T)) : new Literal(""))));
+                    RenderSummaryCell(i, e,
+                        e.SummaryMethod != null
+                            ? e.CellRenderer.Render(e.SummaryMethod(_rows), e, default(T))
+                            : new Literal(""))));
                 renderedRows = renderedRows.Append(summary).ToArray();
             }
 
             if (_removeEmptyColumns && isEmptyColumn.Any(e => e))
             {
-                var indexes = isEmptyColumn.Select((e, i) => (e, i)).Where(x => x.e).Select(x => x.i).Reverse().ToArray();
+                var indexes = isEmptyColumn.Select((e, i) => (e, i)).Where(x => x.e).Select(x => x.i).Reverse()
+                    .ToArray();
                 foreach (var row in renderedRows)
                 {
                     var _row = row;
@@ -210,7 +215,7 @@ namespace Tessin.Bladerunner.Grid
                     }
                 }
             }
-
+            
             return RenderTable(renderedRows);
         }
 
