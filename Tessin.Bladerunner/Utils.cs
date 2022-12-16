@@ -391,6 +391,11 @@ namespace Tessin.Bladerunner
             }
             return value.Value.ToPercentageString();
         }
+        
+        public static string ShortLocalUid()
+        {
+            return Guid.NewGuid().ToString().Substring(0, 8);
+        }
 
     }
 }

@@ -17,7 +17,9 @@ namespace Tessin.Bladerunner
 
         public static EntityEditor<T> Editor<T>(T obj, Action<T> save = null, Action<T> preview = null, string actionVerb = "Save", Control toolbar = null) where T : new()
         {
+#pragma warning disable CS0618
             return new EntityEditor<T>(obj, save, preview, actionVerb, toolbar);
+#pragma warning restore CS0618
         }
         
         public static _PropertyListBuilder<T> PropertyList<T>(T obj)

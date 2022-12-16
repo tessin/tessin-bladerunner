@@ -23,7 +23,11 @@ void Main()
 
 public class Product {
 	
-	public string Foo { get; set; }
+	public string Name { get; set; }
+	
+	public string Id { get; set; }
+	
+	public string Color { get; set; }
 	
 }
 
@@ -32,7 +36,16 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make(async (blade) =>
 	{
-		var records = new Product[] {};
+		var records = new Product[] {
+			new() { Name = "Wrench", Id = "WRE345", Color = "Red" },
+			new() { Name = "Hammer", Id = "HAM335", Color = "Blue" },
+			new() { Name = "Screwdriver", Id = "SCR987", Color = "Green" },
+			new() { Name = "Pliers", Id = "PLI456", Color = "Yellow" },
+			new() { Name = "Socket Set", Id = "SOC123", Color = "Black" },
+			new() { Name = "Ratchet", Id = "RAT567", Color = "Silver" },
+			new() { Name = "Drill", Id = "DRI789", Color = "Orange" },
+			new() { Name = "Saw", Id = "SAW321", Color = "Purple" }
+		};
 
 		return Scaffold.Grid(records)	
 			.Empty("There are no records in the database. Create your first!")

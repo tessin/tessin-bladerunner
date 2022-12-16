@@ -45,8 +45,10 @@ namespace Tessin.Bladerunner.Controls
 
                 children.Add(new Span(item.Label));
 
-                var control = new Control("li", children);
-                control.Enabled = item.Enabled;
+                var control = new Control("li", children)
+                {
+                    Enabled = item.Enabled
+                };
                 if (item.Enabled)
                 {
                     control.Click += (_, __) =>

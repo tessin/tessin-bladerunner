@@ -92,7 +92,7 @@ namespace Tessin.Bladerunner.Alerts
                 Value = defaultValue
             };
 
-            var editor = new EntityEditor<InputValue<T>>(entity)
+            var editor = Scaffold.Editor(entity)
                 .Label(e => e.Value, label)
                 .Required(e => e.Value);
 
@@ -109,7 +109,7 @@ namespace Tessin.Bladerunner.Alerts
                 Value = defaultValue
             };
 
-            var editor = new EntityEditor<InputValue<string>>(entity)
+            var editor = Scaffold.Editor(entity)
                 .Label(e => e.Value, label)
                 .Editor(e => e.Value, e => e.Text(multiLine: true));
 
