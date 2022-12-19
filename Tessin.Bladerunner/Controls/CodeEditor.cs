@@ -15,9 +15,7 @@ namespace Tessin.Bladerunner.Controls
             var container = new Div();
             container.SetClass("code-editor");
             this.VisualTree.Add(container);
-
-            Util.HtmlHead.AddScriptFromUri("https://unpkg.com/monaco-editor@latest/min/vs/loader.js");
-
+            
             Util.HtmlHead.AddScript(@$"
                 require.config({{
                     paths: {{ vs: 'https://unpkg.com/monaco-editor@latest/min/vs' }}
@@ -54,17 +52,20 @@ namespace Tessin.Bladerunner.Controls
                     }});
                 }}, 100);
                 CodeEditorGetValue = function() {{
-                    return window.editor.getValue();    
+                    if(!!window.editor) {{
+                        return window.editor.getValue();  
+                    }}
+                    else
+                    {{
+                        return 'ERROR';
+                    }}  
                 }}
             ");
         }
 
         public string Text
         {
-            get
-            {
-                return (string)Util.InvokeScript(true, "CodeEditorGetValue");
-            }
+            get => (string)Util.InvokeScript(true, "CodeEditorGetValue");
             set
             {
             }
