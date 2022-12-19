@@ -8,7 +8,7 @@ namespace Tessin.Bladerunner.Controls
         {
             if (initialValue != null)
             {
-                this.Text = initialValue.Value.ToString(showTime ? "yyyy-MM-dd hh:mm" : "yyyy-MM-dd");
+                this.Text = initialValue.Value.ToString(showTime ? "yyyy-MM-ddTHH:mm" : "yyyy-MM-dd");
             }
             this.HtmlElement.SetAttribute("type", showTime ? "datetime-local" : "date");
         }

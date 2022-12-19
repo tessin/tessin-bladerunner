@@ -46,7 +46,6 @@ namespace Tessin.Bladerunner.Editors
             }
 
             _dateBox = new DateBox(value, showTime:_showTime) { };
-            //_dateBox.HtmlElement.SetAttribute("placeholder", "YYYY-MM-DD");
 
             _dateBox.TextInput += (sender, args) => preview();
 
@@ -119,10 +118,12 @@ namespace Tessin.Bladerunner.Editors
 
             DateTime val = DateTime.MinValue;
 
+            string dateFormat = _showTime ? "yyyy-MM-ddTHH:mm" : "yyyy-MM-dd";
+
             if (!editorField.Type.IsNullable() && string.IsNullOrEmpty(_dateBox.Text) ||
-                !string.IsNullOrEmpty(_dateBox.Text) && !DateTime.TryParseExact(_dateBox.Text, new[] { "yyyy-MM-dd" }, null, DateTimeStyles.None, out val))
+                !string.IsNullOrEmpty(_dateBox.Text) && !DateTime.TryParseExact(_dateBox.Text, new[] { dateFormat }, null, DateTimeStyles.None, out val))
             {
-                SetError("Invalid date");
+                SetError("Invalid format " + _dateBox.Text);
                 return false;
             }
 
