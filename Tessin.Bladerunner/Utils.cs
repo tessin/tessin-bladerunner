@@ -59,6 +59,8 @@ namespace Tessin.Bladerunner
             }
 
         }
+        
+        public static bool IsMatch(this string value, string pattern) => Regex.IsMatch(value, pattern);
 
         public static bool IsNumeric(this Type type)
         {
@@ -395,6 +397,15 @@ namespace Tessin.Bladerunner
         public static string ShortLocalUid()
         {
             return Guid.NewGuid().ToString().Substring(0, 8);
+        }
+        
+        public static string ToJSVal(this object val)
+        {
+            if (val == null) return "null";
+            if (val is string) return $"'{val}'";
+            if (val is bool) return val.ToString()?.ToLower();
+            if (val is DateTime time) return $"'{time:yyyy-MM-ddTHH:mm:ss}'";
+            return val.ToString();
         }
 
     }

@@ -4,13 +4,6 @@ using System;
 
 namespace Tessin.Bladerunner.Controls
 {
-    public class EmptySpan : Span
-    {
-        public EmptySpan(string text) : base(text)
-        {
-        }
-    }
-
     public class DefaultContentFormatter : IContentFormatter
     {
         public string IntegerFormat { get; set; } = "N0";

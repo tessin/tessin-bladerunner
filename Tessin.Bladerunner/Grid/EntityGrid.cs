@@ -100,10 +100,11 @@ namespace Tessin.Bladerunner.Grid
                 //    cellRenderer = _rendererFactory.Date();
                 //}
 
-                var removed = field.Name.StartsWith("_") && field.Name.Length > 1;
+                //_, __ etc is ok, _XYZ is not
+                var removed = field.Name.IsMatch("^_+[^_]+$");
 
                 _columns[field.Name] =
-                    new GridColumn<T>(field.Name, field.Name, order++, cellRenderer, cellAlignment, field.FieldInfo, field.PropertyInfo, removed);
+                    new GridColumn<T>(field.Name, order++, cellRenderer, cellAlignment, field.FieldInfo, field.PropertyInfo, removed);
             }
         }
 

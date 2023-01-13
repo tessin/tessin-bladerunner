@@ -88,7 +88,7 @@ namespace Tessin.Bladerunner.Grid
             }
 
             var header = new TableRow(columns.Select((e, i) =>
-                RenderHeaderCell(i, e, new Literal(e.Label == "_" ? "" : e.Label))));
+                RenderHeaderCell(i, e, new Literal(e.Label.IsMatch("_+") ? "" : e.Label))));
 
             var rows = g._rows.Select(RenderRow);
 

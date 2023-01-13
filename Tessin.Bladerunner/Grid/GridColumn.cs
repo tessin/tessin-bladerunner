@@ -8,7 +8,6 @@ namespace Tessin.Bladerunner.Grid
     {
         public GridColumn(
             string name,
-            string label,
             int order,
             ICellRenderer<T> cellRenderer,
             CellAlignment cellAlignment = CellAlignment.Left,

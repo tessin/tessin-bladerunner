@@ -163,8 +163,6 @@ new agGrid.Grid(gridDiv, gridOptions);
             };
 
             this.VisualTree.Add(hiddenContainer);
-
-
         }
     }
 }
