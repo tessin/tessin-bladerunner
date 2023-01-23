@@ -3,29 +3,15 @@ using System.Linq;
 using LINQPad;
 using LINQPad.Controls;
 using Tessin.Bladerunner.Blades;
-
-/*
- * Todo:
- * - Styling
- * - Recalculate totals when filtering
- * - Remember the last table width to reduce jank
- * - Center alignment
- * - Date formatting
- */
+using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Grid
 {
 
-    // internal class AgGrid : Div, INoContainerPadding
-    // {
-    //     internal AgGrid() : base()
-    //     {
-    //
-    //     }
-    // }
-    
     public class AgGridRenderer<T> : IGridRenderer<T>
     {
+        private readonly IContentFormatter _formatter = new DefaultContentFormatter();
+        
         static AgGridRenderer()
         {
             Util.HtmlHead.AddScriptFromUri("https://cdnjs.cloudflare.com/ajax/libs/ag-grid/25.1.0/ag-grid-community.min.js");
@@ -66,6 +52,8 @@ namespace Tessin.Bladerunner.Grid
                 return controlId;
             }
             
+            bool IsFiltered(Type type) => type.IsNumeric() || type.IsDate() || type == typeof(string);
+
             bool IsEmpty(GridColumn<T> column)
             {
                 bool Inner(object val)
@@ -97,6 +85,7 @@ namespace Tessin.Bladerunner.Grid
             
             string RenderColumnDef(GridColumn<T> column, int index)
             {
+                bool isLast = index == columns.Count - 1;
                 string fieldId = $"field_{index}";
                 string filter = null;
                 string cellRenderer = "null";
@@ -119,11 +108,7 @@ namespace Tessin.Bladerunner.Grid
                     hide = IsEmpty(column);
                 }
                 
-                if (column.Type == typeof(Control) || column.Type.IsSubclassOf(typeof(Control)))
-                {
-                    cellRenderer = $"HiddenControlCellRenderer('{fieldId}')";
-                }
-                else if(column.Type == typeof(bool))
+                if(!IsFiltered(column.Type))
                 {
                     cellRenderer = $"HiddenControlCellRenderer('{fieldId}')";
                 }
@@ -135,13 +120,21 @@ namespace Tessin.Bladerunner.Grid
                 else if(column.Type.IsDate())
                 {
                     filter = "agDateColumnFilter";
+                    valueFormatter = "DefaultDateFormatter";
                 }
                 else if(column.Type == typeof(string))
                 {
                     filter = "agTextColumnFilter";
                 }
 
-                return $"{{field: '{fieldId}', hide: {hide.ToJSVal()}, headerName: '{headerName}', filter: {filter.ToJSVal()}, cellRenderer: {cellRenderer}, type: [{type}], valueFormatter: {valueFormatter}}}";
+                var columnSizing = "";
+                if (isLast)
+                {
+                    //todo: this is not working
+                    //columnSizing = ", flex:1, suppressSizeToFit: true, resizable: false";
+                }
+                
+                return $"{{field: '{fieldId}', hide: {hide.ToJSVal()}, headerName: '{headerName}', filter: {filter.ToJSVal()}, cellRenderer: {cellRenderer}, type: [{type}], valueFormatter: {valueFormatter}{columnSizing}}}";
             }
 
             string RenderCell(int index, GridColumn<T> column, T e)
@@ -149,13 +142,9 @@ namespace Tessin.Bladerunner.Grid
                 string fieldId = $"field_{index}";
                 object value = column.GetValue(e);
                 
-                if (value is Control control)
+                if(!IsFiltered(column.Type))
                 {
-                    value = AddHiddenControl(control);
-                }
-                else if (value is bool boolValue)
-                {
-                    value = AddHiddenControl(boolValue ? new Controls.Icon(Icons.CheckBold, theme: Theme.Success) : Controls.Icon.Empty());
+                    value = AddHiddenControl(_formatter.Format(value));
                 }
                 
                 return $"{fieldId}: {value?.ToJSVal() ?? "null"}";
@@ -216,7 +205,25 @@ setTimeout(function() {{
            return params.value.toLocaleString('en-US', {{ minimumFractionDigits: 0, maximumFractionDigits: 4 }}).replace(/[,]/, ' ');
         }}         
     }}
-    
+
+    function DefaultDateFormatter(params) {{
+       if(params.value === null || params.value === undefined) {{
+            return null;
+        }}
+
+        var d = new Date(params.value),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }}
+
     var maxInt = 2147483647;
     const gridOptions = {{
     domLayout:'normal',
@@ -231,7 +238,7 @@ setTimeout(function() {{
             allColumnIds.push(column.getId());
         }});
         var width = (columns.length-1) * 5;
-        event.columnApi.autoSizeColumns(allColumnIds, true);
+        event.columnApi.autoSizeColumns(allColumnIds, false);
         columns.forEach((column) => {{
             width += column.getActualWidth();   
         }});

@@ -25,7 +25,7 @@ public class Product {
 	
 	public string Name { get; set; }
 	
-	public string Id { get; set; }
+	public string IdThatIsLong { get; set; }
 	
 	public string Color { get; set; }
 	
@@ -35,28 +35,29 @@ public class Product {
 	
 	public double Price { get; set; }
 
+	public DateTime? Created { get; set; }
+
 	public object _ { get; set; }
-
+	
 }
-
 
 static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make(async (blade) =>
 	{
 		var records = new Product[] {
-			new() { Name = "Wrench", Id = "WRE345", Color = "Red", Price = 3_456.12,
+			new() { Name = "Wrench", IdThatIsLong = "WRE345", Color = "Red", Price = 3_456.12,
 				_ = new IconButton(Icons.ArrowRight, (_) => { blade.Manager.ShowToaster("HelloWorld!"); }) },
-			new() { Name = "Hammer", Id = "HAM335", Color = "Blue", Price = 56 },
-			new() { Name = "Screwdriver", Id = "SCR112", Color = "Green", Price = 23 },
-			new() { Name = "Pliers", Id = "PLI456", Color = "Yellow", Price = 78, Awesome = true },
-			new() { Name = "Drill", Id = "DRI123", Color = "Black", Price = 190 },
-			new() { Name = "Saw", Id = "SAW222", Color = "Orange", Price = 120 },
-			new() { Name = "Paintbrush", Id = "PAI334", Color = "Purple", Price = 8 },
-			new() { Name = "Tape measure", Id = "TAP122", Color = "Pink", Price = 15, Awesome = true },
-			new() { Name = "Level", Id = "LEV432", Color = "Gray", Price = 35 },
-			new() { Name = "Socket set", Id = "SOC123", Color = "Turquoise", Price = 75 },
-			new() { Name = "Utility knife", Id = "UTI789", Color = "Red", Price = 20 }
+			new() { Name = "Hammer", IdThatIsLong = "HAM335", Color = "Blue", Price = 56, Created = DateTime.Parse("1982-07-17") },
+			new() { Name = "Screwdriver", IdThatIsLong = "SCR112", Color = "Green", Price = 23 },
+			new() { Name = "Pliers", IdThatIsLong = "PLI456", Color = "Yellow", Price = 78, Awesome = true },
+			new() { Name = "Drill", IdThatIsLong = "DRI123", Color = "Black", Price = 190 },
+			new() { Name = "Saw", IdThatIsLong = "SAW222", Color = "Orange", Price = 120 },
+			new() { Name = "Paintbrush", IdThatIsLong = "PAI334", Color = "Purple", Price = 8 },
+			new() { Name = "Tape measure", IdThatIsLong = "TAP122", Color = "Pink", Price = 15, Awesome = true },
+			new() { Name = "Level", IdThatIsLong = "LEV432", Color = "Gray", Price = 35 },
+			new() { Name = "Socket set", IdThatIsLong = "SOC123", Color = "Turquoise", Price = 75 },
+			new() { Name = "Utility knife", IdThatIsLong = "UTI789", Color = "Red", Price = 20 }
 		};
 
 	var grid = Scaffold
@@ -67,8 +68,10 @@ static IBladeRenderer Blade1()
 		.Align(e => e.Color, CellAlignment.Center)
 		.Empty("There are no records in the database. Create your first!")
 		.UseJsGrid()
-		.Render()
+		//.Render()
 		;
+
+	return grid;
 
 	var textBox = new TextBox();
 

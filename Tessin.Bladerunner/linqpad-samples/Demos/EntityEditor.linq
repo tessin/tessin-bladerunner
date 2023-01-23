@@ -28,6 +28,7 @@ void Main()
 	//TextArea
 	//MultiSelect
 	//Date           ✔        ✔
+	//Record Class
 
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
@@ -69,7 +70,7 @@ void Main()
 		{
 			var record = new SelectRecord();
 
-			var options = new [] { new Option("Foo",1),new Option("Bar",2) };
+			var options = new [] { new Option("Foo", 1), new Option("Bar", 2) };
 
 			var editor = Scaffold.Editor(record, (_) => { })
 				.Required(e => e.SelectRequired)
@@ -119,7 +120,6 @@ void Main()
 	, "Editors");
 }
 
-
 public class DateRecord
 {
 	public DateTime? Date { get; set; }
@@ -129,7 +129,6 @@ public class DateRecord
 public class CodeRecord
 {
 	public string NoCode { get; set; }
-	
 	public string LotsOfCode { get; set; }
 }
 
