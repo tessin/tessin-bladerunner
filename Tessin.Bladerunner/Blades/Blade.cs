@@ -165,8 +165,13 @@ namespace Tessin.Bladerunner.Blades
 
         private static Control Element(string name, string @class, string content)
         {
-            var el = new Control(name);
-            el.HtmlElement.InnerText = content;
+            var el = new Control(name)
+            {
+                HtmlElement =
+                {
+                    InnerText = content
+                }
+            };
             if (@class != null)
             {
                 el.HtmlElement.SetAttribute("class", @class);

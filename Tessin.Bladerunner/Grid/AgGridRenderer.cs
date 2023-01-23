@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using LINQPad;
 using LINQPad.Controls;
+using Tessin.Bladerunner.Blades;
 
 /*
  * Todo:
@@ -14,12 +15,19 @@ using LINQPad.Controls;
 
 namespace Tessin.Bladerunner.Grid
 {
+
+    // internal class AgGrid : Div, INoContainerPadding
+    // {
+    //     internal AgGrid() : base()
+    //     {
+    //
+    //     }
+    // }
+    
     public class AgGridRenderer<T> : IGridRenderer<T>
     {
         static AgGridRenderer()
         {
-            Util.HtmlHead.AddCssLink("https://cdnjs.cloudflare.com/ajax/libs/ag-grid/25.1.0/styles/ag-grid.min.css");
-            Util.HtmlHead.AddCssLink("https://cdnjs.cloudflare.com/ajax/libs/ag-grid/25.1.0/styles/ag-theme-balham.min.css");
             Util.HtmlHead.AddScriptFromUri("https://cdnjs.cloudflare.com/ajax/libs/ag-grid/25.1.0/ag-grid-community.min.js");
         }
         
@@ -41,7 +49,7 @@ namespace Tessin.Bladerunner.Grid
             };
 
             var grid = new Div();
-            grid.SetClass("ag-theme-alpine");
+            grid.SetClass("ag-theme-alpine ag-theme-bladerunner");
             grid.HtmlElement.SetAttribute("style", "width:0x;");
             grid.HtmlElement.SetAttribute("name", gridId);
 
@@ -60,7 +68,7 @@ namespace Tessin.Bladerunner.Grid
             
             bool IsEmpty(GridColumn<T> column)
             {
-                bool _IsEmpty(object val)
+                bool Inner(object val)
                 {
                     return val switch
                     {
@@ -84,7 +92,7 @@ namespace Tessin.Bladerunner.Grid
                     };
                 }
                 
-                return g._rows.All(e => _IsEmpty(column.GetValue(e)));
+                return g._rows.All(e => Inner(column.GetValue(e)));
             }
             
             string RenderColumnDef(GridColumn<T> column, int index)
@@ -184,8 +192,8 @@ namespace Tessin.Bladerunner.Grid
                 }
                 return $"{fieldId}: {value.ToJSVal()}";
             }
-            
-               Util.HtmlHead.AddScript($@"
+
+           Util.HtmlHead.AddScript($@"
 setTimeout(function() {{
     function HiddenControlCellRenderer(fieldId) {{
         return function(params) {{
@@ -248,7 +256,7 @@ const gridDiv = document.querySelector('[name=""{gridId}""]');
 new agGrid.Grid(gridDiv, gridOptions); 
 }}, 500);
 ");
-            
+           
             return new Div(grid, hidden);
         }
     }

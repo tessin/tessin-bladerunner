@@ -1,5 +1,4 @@
-﻿using LINQPad;
-using LINQPad.Controls;
+﻿using LINQPad.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,8 +62,7 @@ namespace Tessin.Bladerunner
         internal VerticalAlignment? _vAlignment = null;
         internal readonly List<Element> _elements = new();
         internal bool _containerPadding = true;
-
-
+        
         public LayoutBuilder Padding(bool padding)
         {
             _padding = padding;

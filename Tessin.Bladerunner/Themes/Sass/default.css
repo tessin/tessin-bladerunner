@@ -1425,24 +1425,17 @@ PRE.code {
   background-color: #ffdf0d !important;
 }
 
-.ag-theme-alpine {
-  --ag-header-column-resize-handle-color: red;
+.ag-theme-bladerunner {
+  --ag-header-column-resize-handle-color: transparent;
   --ag-header-column-resize-handle-display: block;
-  --ag-foreground-color: #1c1c1c;
-  --ag-background-color: ;
-  --ag-header-foreground-color: #1c1c1c;
-  --ag-header-background-color: #f7f7f7;
-  --ag-footer-foreground-color: #1c1c1c;
-  --ag-footer-background-color: #f7f7f7;
-  --ag-odd-row-background-color: #e2e2e2;
-  --ag-header-column-resize-handle-color: #1c1c1c;
-  --ag-selected-row-background-color: #f7f7f7;
-  --ag-data-color: #1c1c1c;
-  --ag-grid-size: 1px;
-  font-family: "AeonikProVF";
-  font-size: 13px;
-  line-height: 1.5;
-  color: #1c1c1c;
+  --ag-grid-size: 5px;
+  font-family: "AeonikProVF" !important;
+  font-size: 12px !important;
+}
+
+div.ag-theme-alpine div.ag-row {
+  font-size: 12px !important;
+  font-family: "AeonikProVF" !important;
 }
 
 .progress {

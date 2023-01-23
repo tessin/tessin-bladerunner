@@ -1,6 +1,5 @@
 <Query Kind="Program">
   <Reference>C:\Repos\tessin-bladerunner\Tessin.Bladerunner\bin\Debug\netcoreapp3.1\Tessin.Bladerunner.dll</Reference>
-  <Namespace>LINQPad.Controls</Namespace>
   <Namespace>System.Drawing</Namespace>
   <Namespace>System.Threading.Tasks</Namespace>
   <Namespace>Tessin.Bladerunner</Namespace>
@@ -15,7 +14,8 @@ void Main()
 {	
 	//Debugger.Launch();
 
-	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
+	//BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
+	BladeManager manager = new BladeManager();
 	manager.Dump();
 	
 	manager.Push(Blade1(), "Blade1");
@@ -35,7 +35,7 @@ public class Product {
 	
 	public double Price { get; set; }
 
-	public Control _ { get; set; }
+	public object _ { get; set; }
 
 }
 
@@ -44,9 +44,9 @@ static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make(async (blade) =>
 	{
-	var records = new Product[] {
+		var records = new Product[] {
 			new() { Name = "Wrench", Id = "WRE345", Color = "Red", Price = 3_456.12,
-				_ = Layout.Vertical(new IconButton(Icons.ArrowRight, (_) => { blade.Manager.ShowToaster("HelloWorld!"); })) },
+				_ = new IconButton(Icons.ArrowRight, (_) => { blade.Manager.ShowToaster("HelloWorld!"); }) },
 			new() { Name = "Hammer", Id = "HAM335", Color = "Blue", Price = 56 },
 			new() { Name = "Screwdriver", Id = "SCR112", Color = "Green", Price = 23 },
 			new() { Name = "Pliers", Id = "PLI456", Color = "Yellow", Price = 78, Awesome = true },
@@ -59,13 +59,23 @@ static IBladeRenderer Blade1()
 			new() { Name = "Utility knife", Id = "UTI789", Color = "Red", Price = 20 }
 		};
 
-	return Scaffold
+	var grid = Scaffold
 		.Grid(records)
-		.Totals(e => e.Price)
+		//.Totals(e => e.Price)
 		.RemoveEmptyColumns()
-		.HighlightRow(e => e.Price > 100)
+		//.HighlightRow(e => e.Price > 100)
 		.Align(e => e.Color, CellAlignment.Center)
 		.Empty("There are no records in the database. Create your first!")
-		.Render();
+		.UseJsGrid()
+		.Render()
+		;
+
+	var textBox = new TextBox();
+
+	var refreshPanel = new RefreshPanel(new[] { textBox },() => {
+		return grid;
+	});
+	
+	return new HeaderPanel(textBox, refreshPanel);
 });
 }

@@ -39,15 +39,14 @@ namespace Tessin.Bladerunner.Controls
         public event RefreshEvent Updated;
     }
 
-    public class RefreshPanel : DumpContainer
+    public class RefreshPanel : Div
     {
         private readonly AnyTaskFactory _taskFactory;
 
-        //private bool _first = true;
-
-        private readonly bool _addPadding = false;
+        private readonly bool _addPadding;
 
         private readonly DebounceDispatcher _debounceDispatcher;
+        private readonly DumpContainer _dumpContainer;
 
         public RefreshPanel(object[] controls, Func<Task<object>> onRefreshAsync, int debounceInterval = 250, bool addPadding = true)
             : this(controls, AnyTask.Factory<object>(onRefreshAsync), debounceInterval, addPadding)
@@ -61,84 +60,62 @@ namespace Tessin.Bladerunner.Controls
 
         }
 
-        public RefreshPanel(object[] controls, AnyTaskFactory taskFactory, int debounceInterval = 250, bool addPadding = true)
+        private RefreshPanel(object[] controls, AnyTaskFactory taskFactory, int debounceInterval = 250, bool addPadding = true)
         {
             _addPadding = addPadding;
 
             _debounceDispatcher = new DebounceDispatcher(debounceInterval);
             _taskFactory = taskFactory;
 
-            this.Style = "width:100%;"; //todo: replace with class
+            this.HtmlElement.SetAttribute("class", "blade-content");
 
+            this._dumpContainer = new DumpContainer();
+            
+            VisualTree.Add(this._dumpContainer);
+
+            _Bind(controls);
+            _Refresh();
+        }
+
+        private void _Bind(object[] controls)
+        {
             if (controls != null)
             {
                 foreach (var control in controls)
                 {
                     if (control is IRefreshable refreshable)
                     {
-                        refreshable.Updated += (_) =>
-                        {
-                            _Refresh();
-                        };
+                        refreshable.Updated += (_) => { _Refresh(); };
                     }
                     else if (control is LINQPad.Controls.ITextControl textBox)
                     {
-                        textBox.TextInput += (_, __) =>
-                        {
-                            _Refresh();
-                        };
-                    }
-                    else if (control is SearchBox searchBox)
-                    {
-                        searchBox.TextInput += (_, __) =>
-                        {
-                            _Refresh();
-                        };
+                        textBox.TextInput += (_, __) => { _Refresh(); };
                     }
                     else if (control is LINQPad.Controls.CheckBox checkBox)
                     {
-                        checkBox.Click += (_, __) =>
-                        {
-                            _Refresh();
-                        };
-                    }
-                    else if (control is LINQPad.Controls.DataListBox dataListBox)
-                    {
-                        dataListBox.TextInput += (_, __) =>
-                        {
-                            _Refresh();
-                        };
-                    }
-                    else if (control is LINQPad.Controls.TextArea textArea)
-                    {
-                        textArea.TextInput += (_, __) =>
-                        {
-                            _Refresh();
-                        };
+                        checkBox.Click += (_, __) => { _Refresh(); };
                     }
                     else if (control is LINQPad.Controls.FilePicker filePicker)
                     {
-                        filePicker.TextInput += (_, __) =>
-                       {
-                           _Refresh();
-                       };
+                        filePicker.TextInput += (_, __) => { _Refresh(); };
                     }
                     else if (control is LINQPad.Controls.SelectBox selectBox)
                     {
-                        selectBox.SelectionChanged += (_, __) =>
-                        {
-                            _Refresh();
-                        };
+                        selectBox.SelectionChanged += (_, __) => { _Refresh(); };
                     }
                 }
             }
-            _Refresh();
         }
 
-        private static Control Element(string name, string @class, string content)
+        private static Control _Element(string name, string @class, string content)
         {
-            var el = new Control(name);
-            el.HtmlElement.InnerText = content;
+            var el = new Control(name)
+            {
+                HtmlElement =
+                {
+                    InnerText = content
+                }
+            };
             if (@class != null)
             {
                 el.HtmlElement.SetAttribute("class", @class);
@@ -148,50 +125,28 @@ namespace Tessin.Bladerunner.Controls
 
         private void _Refresh()
         {
-            //lock (this)
+            this._dumpContainer.Content = _Element("div", "loading", "Loading...");
+            _debounceDispatcher.Debounce(() =>
             {
-                this.Content = Element("div", "loading", "Loading...");
-
-                //if (_first)
-                //{
-                //    _first = false;
-                //    await Task.Run(() => _taskFactory.Run().Result).ContinueWith(async e =>
-                //    {
-                //        if (_addPadding)
-                //        {
-                //            await ControlExtensions.AddPadding(this, e.Result);
-                //        }
-                //        else
-                //        {
-                //            this.Content = e.Result;
-                //        }
-                //    });
-                //}
-                //else
+                try
                 {
-                    _debounceDispatcher.Debounce(() =>
+                    Task.Run(() => _taskFactory.Run().Result).ContinueWith(async e =>
                     {
-                        try
+                        if (_addPadding)
                         {
-                            Task.Run(() => _taskFactory.Run().Result).ContinueWith(async e =>
-                            {
-                                if (_addPadding)
-                                {
-                                    await ControlExtensions.AddPadding(this, e.Result.Render());
-                                }
-                                else
-                                {
-                                    this.Content = e.Result.Render();
-                                }
-                            });
+                            await ControlExtensions.AddPadding(this._dumpContainer, e.Result.Render());
                         }
-                        catch (Exception)
+                        else
                         {
-                           //ignore
+                            this._dumpContainer.Content = e.Result.Render();
                         }
                     });
                 }
-            }
+                catch (Exception)
+                {
+                    //ignore
+                }
+            });
         }
     }
 }

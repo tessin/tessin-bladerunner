@@ -22,8 +22,7 @@ namespace Tessin.Bladerunner.Grid
 
     public class EntityGrid<T> : IRenderable
     {
-        //private readonly IGridRenderer<T> _gridRenderer = new HtmlGridRenderer<T>();
-        private readonly IGridRenderer<T> _gridRenderer = new AgGridRenderer<T>();
+        private IGridRenderer<T> _gridRenderer = new AgGridRenderer<T>();
 
         internal IEnumerable<T> _rows;
 
@@ -253,6 +252,18 @@ namespace Tessin.Bladerunner.Grid
         public EntityGrid<T> Empty(object content)
         {
             _emptyContent = _formatter.Format(content);
+            return this;
+        }
+
+        public EntityGrid<T> UseJsGrid()
+        {
+            this._gridRenderer = new AgGridRenderer<T>();
+            return this;
+        }
+        
+        public EntityGrid<T> UseHtmlGrid()
+        {
+            this._gridRenderer = new HtmlGridRenderer<T>();
             return this;
         }
 
