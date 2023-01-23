@@ -14,16 +14,18 @@ void Main()
 	//Debugger.Launch();
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
-	manager.PushBlade(Blade1(), "CodeEditor");
+	manager.Push(Blade1(), "CodeEditor");
 }
 
 static IBladeRenderer Blade1()
 {
 	return BladeFactory.Make((blade) =>
 	{
-		return new Button("Open", (_) => {
-			blade.Manager.OpenSideBlade(CodeBlade());
-		});
+		return Layout.Vertical(
+			new Button("Open", (_) => {
+				blade.Manager.OpenSideBlade(CodeBlade());
+			}
+		));
 	});
 }
 
@@ -45,7 +47,7 @@ static IBladeRenderer CodeBlade()
 			Code = "<foo>1</foo>"
 		};
 		
-		return new EntityEditor<Foo>(foo, (_) => {
+		return Scaffold.Editor(foo, (_) => {
 			blade.PushBlade(new DisplayBlade(foo));
 		})
 		.Editor(e => e.Code, e => e.Code("xml"))

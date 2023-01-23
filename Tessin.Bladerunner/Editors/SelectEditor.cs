@@ -28,6 +28,12 @@ namespace Tessin.Bladerunner.Editors
         {
             object value = editorFieldInfo.GetValue(obj);
 
+            //todo: not sure this is the correct solution
+            if (value.GetType().IsEnum)
+            {
+                value = Convert.ToInt32(value);
+            }
+
             var options = GetOptions(editorFieldInfo);
 
             var selectedOption = options.Where(e => Equals(e.Value,value)).Select(e => e.Label).FirstOrDefault();

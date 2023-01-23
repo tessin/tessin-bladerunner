@@ -60,7 +60,7 @@ namespace Tessin.Bladerunner.Blades
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
             CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
             CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
-
+            
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler((_, e) => ShowUnhandledException((Exception)e.ExceptionObject));
             LINQPad.Controls.Control.UnhandledException += new ThreadExceptionEventHandler((_, e) => ShowUnhandledException(e.Exception));
             TaskScheduler.UnobservedTaskException +=
@@ -85,6 +85,7 @@ namespace Tessin.Bladerunner.Blades
 
         public void ShowUnhandledException(Exception ex)
         {
+            if (ex is AggregateException) return; 
             new AlertBuilder(this).ShowException(ex);
         }
 
@@ -201,6 +202,8 @@ namespace Tessin.Bladerunner.Blades
 
         object ToDump()
         {
+            //Util.HtmlHead.AddScriptFromUri("https://unpkg.com/monaco-editor@latest/min/vs/loader.js");
+            
             return BladeWrapper(_containers);
         }
 
