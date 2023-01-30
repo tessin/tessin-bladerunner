@@ -166,6 +166,20 @@ namespace Tessin.Bladerunner.Grid
             hint.CellAlignment = alignment;
             return this;
         }
+        
+        // public EntityGrid<T> Sort(Expression<Func<T, object>> field, SortDirection direction)
+        // {
+        //     var hint = GetField(field);
+        //     hint.SortDirection = direction;
+        //     return this;
+        // }
+        //
+        // public EntityGrid<T> Sortable(Expression<Func<T, object>> field, bool sortable)
+        // {
+        //     var hint = GetField(field);
+        //     hint.Sortable = sortable;
+        //     return this;
+        // }
 
         public EntityGrid<T> Width(Expression<Func<T, object>> field, string width)
         {
@@ -260,7 +274,7 @@ namespace Tessin.Bladerunner.Grid
             this._gridRenderer = new AgGridRenderer<T>();
             return this;
         }
-        
+
         public EntityGrid<T> UseHtmlGrid()
         {
             this._gridRenderer = new HtmlGridRenderer<T>();

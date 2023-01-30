@@ -14,9 +14,7 @@ void Main()
 {		
 	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
-	
-	manager.PushBlade(Blade1(), "Blade1");
-	
+	manager.Push(Blade1(), "Blade1");
 }
 
 public class Form {

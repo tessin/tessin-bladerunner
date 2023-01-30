@@ -14,8 +14,7 @@ void Main()
 {	
 	//Debugger.Launch();
 
-	//BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
-	BladeManager manager = new BladeManager();
+	BladeManager manager = new BladeManager(cssPath: @"C:\Repos\tessin-bladerunner\Tessin.Bladerunner\Themes\Sass\default.css", cssHotReloading: true);
 	manager.Dump();
 	
 	manager.Push(Blade1(), "Blade1");
@@ -67,11 +66,8 @@ static IBladeRenderer Blade1()
 		//.HighlightRow(e => e.Price > 100)
 		.Align(e => e.Color, CellAlignment.Center)
 		.Empty("There are no records in the database. Create your first!")
-		.UseJsGrid()
-		//.Render()
+		.Render()
 		;
-
-	return grid;
 
 	var textBox = new TextBox();
 

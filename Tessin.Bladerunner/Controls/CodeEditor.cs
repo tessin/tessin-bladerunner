@@ -6,16 +6,9 @@ namespace Tessin.Bladerunner.Controls
 {
     public class CodeEditor : Control, ITextControl
     {
-
-        public CodeEditor(string value, string language)
+        static CodeEditor()
         {
-            value = value.Replace('\u00A0', ' '); //cleaning up all non-breaking spaces.
-            value = value.Replace("\r\n", "\n").Replace("\r","\n");
-            
-            var container = new Div();
-            container.SetClass("code-editor");
-            this.VisualTree.Add(container);
-            
+            Util.HtmlHead.AddScriptFromUri("https://unpkg.com/monaco-editor@latest/min/vs/loader.js");
             Util.HtmlHead.AddScript(@$"
                 require.config({{
                     paths: {{ vs: 'https://unpkg.com/monaco-editor@latest/min/vs' }}
@@ -29,6 +22,19 @@ namespace Tessin.Bladerunner.Controls
                         importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');`)}}`;
                     }}
                 }};
+            ");
+        }
+
+        public CodeEditor(string value, string language)
+        {
+            value = value.Replace('\u00A0', ' '); //cleaning up all non-breaking spaces.
+            value = value.Replace("\r\n", "\n").Replace("\r","\n");
+            
+            var container = new Div();
+            container.SetClass("code-editor");
+            this.VisualTree.Add(container);
+            
+            Util.HtmlHead.AddScript(@$"
                 setTimeout(function() {{
                     require(['vs/editor/editor.main'], function () {{
                         window.editor = monaco.editor.create(document.getElementById('{container.HtmlElement.ID}'), {{

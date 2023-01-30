@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using LINQPad;
 using LINQPad.Controls;
-using Tessin.Bladerunner.Blades;
 using Tessin.Bladerunner.Controls;
 
 namespace Tessin.Bladerunner.Grid
@@ -130,8 +129,7 @@ namespace Tessin.Bladerunner.Grid
                 var columnSizing = "";
                 if (isLast)
                 {
-                    //todo: this is not working
-                    //columnSizing = ", flex:1, suppressSizeToFit: true, resizable: false";
+                    columnSizing = ", flex:1, suppressSizeToFit: true, resizable: false";
                 }
                 
                 return $"{{field: '{fieldId}', hide: {hide.ToJSVal()}, headerName: '{headerName}', filter: {filter.ToJSVal()}, cellRenderer: {cellRenderer}, type: [{type}], valueFormatter: {valueFormatter}{columnSizing}}}";
@@ -239,6 +237,8 @@ setTimeout(function() {{
         }});
         var width = (columns.length-1) * 5;
         event.columnApi.autoSizeColumns(allColumnIds, false);
+        const lastColumn = columns[columns.length-1];
+        lastColumn.flex = 1;
         columns.forEach((column) => {{
             width += column.getActualWidth();   
         }});
@@ -261,10 +261,9 @@ setTimeout(function() {{
 
 const gridDiv = document.querySelector('[name=""{gridId}""]');
 new agGrid.Grid(gridDiv, gridOptions); 
-}}, 500);
+}}, 200);
 ");
-           
-            return new Div(grid, hidden);
+           return new Div(grid, hidden);
         }
     }
 }

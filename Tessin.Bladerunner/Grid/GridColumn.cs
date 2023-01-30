@@ -49,6 +49,10 @@ namespace Tessin.Bladerunner.Grid
 
         public Func<IEnumerable<T>, object> SummaryMethod { get; set; }
 
+        public SortDirection SortDirection { get; set; } = SortDirection.None;
+        
+        public bool Sortable { get; set; } = true;
+
         public object GetValue(T obj)
         {
             if (FieldInfo != null)
@@ -76,6 +80,13 @@ namespace Tessin.Bladerunner.Grid
         Left,
         Center,
         Right
+    }
+    
+    public enum SortDirection
+    {
+        Ascending,
+        Descending,
+        None
     }
 
 }

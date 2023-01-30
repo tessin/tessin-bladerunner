@@ -202,7 +202,6 @@ namespace Tessin.Bladerunner.Blades
 
         object ToDump()
         {
-            //Util.HtmlHead.AddScriptFromUri("https://unpkg.com/monaco-editor@latest/min/vs/loader.js");
             return BladeWrapper(_containers);
         }
 

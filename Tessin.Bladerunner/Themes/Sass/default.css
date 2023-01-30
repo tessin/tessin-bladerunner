@@ -1421,6 +1421,10 @@ PRE.code {
   font-size: 11px;
 }
 
+:host {
+  --ag-grid-size: 3px !important;
+}
+
 .ag-highlighted {
   background-color: #ffdf0d !important;
 }
@@ -1428,7 +1432,6 @@ PRE.code {
 .ag-theme-bladerunner {
   --ag-header-column-resize-handle-color: transparent;
   --ag-header-column-resize-handle-display: block;
-  --ag-grid-size: 5px;
   font-family: "AeonikProVF" !important;
   font-size: 12px !important;
 }
@@ -1622,6 +1625,21 @@ BUTTON.icon-button {
   width: 24px;
   height: 38px;
   cursor: pointer;
+  display: -ms-grid;
+  display: grid;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.icon {
+  background: transparent;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  width: 24px;
+  height: 38px;
   display: -ms-grid;
   display: grid;
   -ms-flex-line-pack: center;

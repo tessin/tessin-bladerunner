@@ -1,3 +1,8 @@
+:host
+{
+    --ag-grid-size: 3px !important;
+}
+
 .ag-highlighted {
     background-color: $alert !important;
 }
@@ -5,7 +10,6 @@
 .ag-theme-bladerunner {
     --ag-header-column-resize-handle-color: transparent;
     --ag-header-column-resize-handle-display: block;
-    --ag-grid-size: 5px;
     font-family: "AeonikProVF" !important;
     font-size: 12px !important;
 }

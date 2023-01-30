@@ -1,18 +1,16 @@
-﻿- Varför kan inte IBladeRenderer hantera icke Renedered scaffolds?
+﻿- IBladeRenderer should be able to handle IRenderable
 
 - SelectEditors not working with string string
 
 - FileEditor should be able to handle multiple paths -> string[]
 
-- Show toaster looks weird. 
-
-- Code editor broken?
+- Code editor broken -> John fix?
 
 - AgGridRenderer:
-  - Control grid size
-  - Row should extend all the way -> make the last column extend all the way?
-  - Styling
+  - ag-grid-size
   - Recalculate totals when filtering
   - Remember the last table width to reduce jank
   - Center alignment
-  - Loading 
+  - Sorting on booleans
+  - Control sorting 
+  - Refresh panel and ag grid

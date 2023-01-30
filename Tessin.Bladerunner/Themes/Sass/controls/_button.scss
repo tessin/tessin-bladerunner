@@ -48,3 +48,16 @@ BUTTON.icon-button {
   align-content: center;
 }
 
+.icon
+{
+  background:transparent;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  width: 24px;
+  height: $control-height;
+  display: grid;
+  align-content: center;
+}
+
