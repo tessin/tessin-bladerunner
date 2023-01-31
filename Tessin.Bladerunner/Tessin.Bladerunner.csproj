@@ -4,13 +4,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>9</LangVersion>
     <!-- Use same major version as LINQPad.Runtime, when LINQPad 7 is released we can maintain backwards compatability -->
-    <Version>6.0.60</Version>
+    <Version>6.0.61</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Query\**" />
     <EmbeddedResource Remove="Query\**" />
     <None Remove="Query\**" />
+    <None Remove="Controls\CodeEditor.min.js" />
     <EmbeddedResource Update="Svg\SvgScripts.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SvgScripts.Designer.cs</LastGenOutput>
@@ -65,5 +66,28 @@
   <ItemGroup>
     <Folder Include="linqpad-samples\" />
   </ItemGroup>
+
+  <!--
+  https://learn.microsoft.com/en-us/visualstudio/msbuild/tutorial-custom-task-code-generation?source=recommendations&view=vs-2022
+  -->
+
+  <PropertyGroup>
+    <CdnjsBase>https://cdnjs.cloudflare.com/ajax/libs</CdnjsBase>
+    <CdnjsMonacoEditorName>monaco-editor</CdnjsMonacoEditorName>
+    <CdnjsMonacoEditorVersion>0.34.1</CdnjsMonacoEditorVersion>
+    <CdnjsMonacoEditorBase>$(CdnjsBase)/$(CdnjsMonacoEditorName)/$(CdnjsMonacoEditorVersion)/min</CdnjsMonacoEditorBase>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\CodeEditor.min.js" />
+  </ItemGroup>
+
+  <Target Name="GenerateCodeEditor" BeforeTargets="CoreCompile" Inputs="Controls\CodeEditor.js" Outputs="Controls\CodeEditor.min.js">
+    <Exec Command="node Controls\CodeEditor.js Controls\CodeEditor.min.js" EnvironmentVariables="CDNJS_BASE=$(CdnjsMonacoEditorBase);MSBUILD_CONFIG=$(Configuration)" />
+  </Target>
+
+  <Target Name="ForceGenerateCodeEditorOnRebuild" AfterTargets="CoreClean">
+    <Delete Files="Controls\CodeEditor.min.js" />
+  </Target>
 
 </Project>

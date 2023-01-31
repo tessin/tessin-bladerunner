@@ -25,7 +25,7 @@ namespace Tessin.Bladerunner.Editors
         {
             var value = Convert.ToString(editorFieldInfo.GetValue(obj));
 
-            _codeBox = new Controls.CodeEditor(value, _language);
+            _codeBox = new Controls.CodeEditor(new() { value = value, language = _language });
             _codeBox.TextInput += (sender, args) => updated();
 
             return _field = new Field(
