@@ -2399,9 +2399,9 @@ BUTTON.collapsable-panel--header:before {
 }
 
 .popover-wrapper {
-  position: absolute;
-  z-index: 10;
-  visibility: hidden;
+    position: fixed;
+    z-index: 10;
+    visibility: hidden;
 }
 
 .toaster-wrapper {
