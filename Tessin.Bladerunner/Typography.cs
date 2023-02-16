@@ -72,6 +72,11 @@ namespace Tessin.Bladerunner
         {
             return Render("pre", content, "code");
         }
+        
+        public Control InlineCode(string content)
+        {
+            return Render("span", content, "code");
+        }
 
         public Control Small(string content)
         {
@@ -213,6 +218,11 @@ namespace Tessin.Bladerunner
         public static Control Code(string content)
         {
             return (new TypographyBuilder()).Code(content);
+        }
+        
+        public static Control InlineCode(string content)
+        {
+            return (new TypographyBuilder()).InlineCode(content);
         }
 
         public static Control Small(string content)
