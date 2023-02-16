@@ -2,30 +2,30 @@ name: .NET Core
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.303
-    - name: Install dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
-    - name: Publish  
-      uses: brandedoutcast/publish-nuget@v2.5.2  
-      with:   
-       PROJECT_FILE_PATH: Tessin.Bladerunner/Tessin.Bladerunner.csproj
-       NUGET_KEY: ${{secrets.NUGET_API_KEY}} 
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.303
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
+      - name: Publish
+        if: github.event_name != 'pull_request'
+        uses: brandedoutcast/publish-nuget@v2.5.2
+        with:
+          PROJECT_FILE_PATH: Tessin.Bladerunner/Tessin.Bladerunner.csproj
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}

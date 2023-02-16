@@ -1,80 +1,76 @@
 ﻿using LINQPad;
 using LINQPad.Controls;
 using System;
+using System.IO;
+using System.Text.Json;
 
 namespace Tessin.Bladerunner.Controls
 {
+    public class CodeEditorConstructionOptions
+    {
+        // Add to this class from here as needed
+        // https://microsoft.github.io/monaco-editor/api/interfaces/monaco.editor.IStandaloneEditorConstructionOptions.html
+
+        // These override any defaults that have been set in the __monacoEditor_create function
+
+        /// <summary>
+        /// initial text value
+        /// </summary>
+        public string value { get; set; }
+
+        /// <summary>
+        /// language (i.e. syntax highlight; for example "markdown")
+        /// </summary>
+        public string language { get; set; }
+    }
+
     public class CodeEditor : Control, ITextControl
     {
+        private static readonly string MonacoEditorSnippet;
 
-        public CodeEditor(string value, string language)
+        static CodeEditor()
         {
-            value = value.Replace('\u00A0', ' '); //cleaning up all non-breaking spaces.
-            value = value.Replace("\r\n", "\n").Replace("\r","\n");
-            
-            var container = new Div();
-            container.SetClass("code-editor");
-            this.VisualTree.Add(container);
+            MonacoEditorSnippet = new StreamReader(typeof(CodeEditor).Assembly.GetManifestResourceStream("Tessin.Bladerunner.Controls.CodeEditor.min.js")).ReadToEnd();
+        }
 
-            Util.HtmlHead.AddScriptFromUri("https://unpkg.com/monaco-editor@latest/min/vs/loader.js");
+        public CodeEditor(CodeEditorConstructionOptions options = null)
+            : base("div")
+        {
+            //value = value.Replace('\u00A0', ' '); //cleaning up all non-breaking spaces.
+            //value = value.Replace("\r\n", "\n").Replace("\r", "\n");
 
-            Util.HtmlHead.AddScript(@$"
-                require.config({{
-                    paths: {{ vs: 'https://unpkg.com/monaco-editor@latest/min/vs' }}
-                }});
-                window.MonacoEnvironment = {{
-                    getWorkerUrl: function (workerId, label) {{
-                        return `data:text/javascript;charset=utf-8,${{encodeURIComponent(`
-                            self.MonacoEnvironment = {{
-                                baseUrl: 'https://unpkg.com/monaco-editor@latest/min/'
-                            }};
-                        importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');`)}}`;
-                    }}
-                }};
-                setTimeout(function() {{
-                    require(['vs/editor/editor.main'], function () {{
-                        window.editor = monaco.editor.create(document.getElementById('{container.HtmlElement.ID}'), {{
-                            value: '{value.Replace("\n",@"\n").Replace("'", @"\'")}',
-                            language: '{language}',
-                            lineNumbers: false,
-                            lineDecorationsWidth: 7,
-                            automaticLayout: true,
-                            wordWrap: true,  
-                            padding : {{
-                                top: 30,
-                            }},
-                            renderLineHighlight : false,
-                            folding: false,
-                            minimap: {{
-                                enabled: false        
-                            }},
-                            theme: 'vs-dry'
-                        }});
-                        window.s
-                    }});
-                }}, 100);
-                CodeEditorGetValue = function() {{
-                    return window.editor.getValue();    
-                }}
-            ");
+            Util.HtmlHead.AddScriptFromUri(Cdnjs.Require_jsUrl);
+            Util.HtmlHead.AddScript(MonacoEditorSnippet);
+
+            this.Rendering += (_, _) =>
+            {
+                HtmlElement.SetAttribute("class", "code-editor");
+                HtmlElement.InvokeScript(false, "__monacoEditor_create", HtmlElement.ID, JsonSerializer.Serialize(options));
+            };
         }
 
         public string Text
         {
             get
             {
-                return (string)Util.InvokeScript(true, "CodeEditorGetValue");
+                return (string)HtmlElement.InvokeScript(true, "__monacoEditor_getText", HtmlElement.ID);
             }
             set
             {
+                HtmlElement.InvokeScript(false, "__monacoEditor_setText", HtmlElement.ID, value);
             }
         }
 
+        /// <summary>
+        /// Not supported
+        /// </summary>
         public event EventHandler TextInput;
 
+        /// <summary>
+        /// Not supported
+        /// </summary>
         public void SelectAll()
         {
-
         }
     }
 }
